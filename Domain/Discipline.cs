@@ -1,5 +1,5 @@
 ﻿namespace Domain;
-public class Disciplines
+public class Discipline
 {
 	public Guid Id { get; set; }
 

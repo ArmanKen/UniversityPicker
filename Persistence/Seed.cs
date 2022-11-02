@@ -7,21 +7,21 @@ namespace Persistence
 		public static async Task SeedData(DataContext context)
 		{
 			if (context.Disciplines.Any()) return;
-			var disciplines = new List<Disciplines>
+			var disciplines = new List<Discipline>
 			{
-				new Disciplines
+				new Discipline
 				{
 					Name = "Інженерія програмного забезпечення"
 				},
-				new Disciplines
+				new Discipline
 				{
 					Name = "Філософія"
 				},
-				new Disciplines
+				new Discipline
 				{
 					Name = "Правознавство"
 				},
-				new Disciplines
+				new Discipline
 				{
 					Name = "Операційні системи"
 				}

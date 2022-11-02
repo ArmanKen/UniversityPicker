@@ -11,7 +11,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221031160700_InitialCreate")]
+    [Migration("20221102145044_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
 
-            modelBuilder.Entity("Domain.BranchesOfKnowledges", b =>
+            modelBuilder.Entity("Domain.BrancheOfKnowledge", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,7 +33,7 @@ namespace Persistence.Migrations
                     b.ToTable("BranchesOfKnowledges");
                 });
 
-            modelBuilder.Entity("Domain.Disciplines", b =>
+            modelBuilder.Entity("Domain.Discipline", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace Persistence.Migrations
                     b.ToTable("Disciplines");
                 });
 
-            modelBuilder.Entity("Domain.Specialties", b =>
+            modelBuilder.Entity("Domain.Specialtie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,9 +66,9 @@ namespace Persistence.Migrations
                     b.ToTable("Specialties");
                 });
 
-            modelBuilder.Entity("Domain.Specialties", b =>
+            modelBuilder.Entity("Domain.Specialtie", b =>
                 {
-                    b.HasOne("Domain.BranchesOfKnowledges", "BranchesOfKnowledges")
+                    b.HasOne("Domain.BrancheOfKnowledge", "BranchesOfKnowledges")
                         .WithMany("Specialties")
                         .HasForeignKey("BranchesOfKnowledgesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -77,7 +77,7 @@ namespace Persistence.Migrations
                     b.Navigation("BranchesOfKnowledges");
                 });
 
-            modelBuilder.Entity("Domain.BranchesOfKnowledges", b =>
+            modelBuilder.Entity("Domain.BrancheOfKnowledge", b =>
                 {
                     b.Navigation("Specialties");
                 });

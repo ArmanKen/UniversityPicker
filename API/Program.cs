@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -27,6 +28,7 @@ internal class Program
 			var logger = services.GetRequiredService<ILogger<Program>>();
 			logger.LogError(ex, "An error occured during migration");
 		}
+		app.UseMiddleware<ExceptionMiddleware>();
 		if (app.Environment.IsDevelopment())
 		{
 			app.UseSwagger();

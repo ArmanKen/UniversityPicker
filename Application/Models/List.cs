@@ -8,9 +8,9 @@ namespace Application.Activities
 {
 	public class List
 	{
-		public class Query : IRequest<Result<List<Model>>> { }
+		public class Query : IRequest<Result<List<Discipline>>> { }
 
-		public class Handler : IRequestHandler<Query, Result<List<Model>>>
+		public class Handler : IRequestHandler<Query, Result<List<Discipline>>>
 		{
 			private readonly DataContext _context;
 
@@ -19,10 +19,9 @@ namespace Application.Activities
 				_context = context;
 			}
 
-			public async Task<Result<List<Model>>> Handle(Query request, CancellationToken cancellationToken)
+			public async Task<Result<List<Discipline>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				return new Result<List<Model>>();
-				// return Result<List<Model>>.Success(await _context.Model.ToListAsync());
+				return Result<List<Discipline>>.Success(await _context.Disciplines.ToListAsync());
 			}
 		}
 	}

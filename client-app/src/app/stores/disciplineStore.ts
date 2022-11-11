@@ -3,7 +3,7 @@ import agent from "../api/agent";
 import { Discipline } from "../models/discipline";
 
 export default class DisciplineStore {
-	disciplineRegistry = new Map<string, Discipline>();
+	disciplines: Discipline[] = [];
 	selectedDisciplines: Discipline[] | undefined = undefined;
 	loading = false;
 	loadingInitial = false;
@@ -12,9 +12,9 @@ export default class DisciplineStore {
 		makeAutoObservable(this);
 	}
 
-	private setDiscipline = (discipline: Discipline) => {
-		this.disciplineRegistry.set(discipline.id, discipline);
-	}
+	// private setDiscipline = (discipline: Discipline) => {
+	// 	this.disciplineRegistry.set(discipline.id, discipline);
+	// }
 
 	setLoadingInitial = (state: boolean) => {
 		this.loadingInitial = state;
@@ -25,7 +25,7 @@ export default class DisciplineStore {
 		try {
 			const disciplines = await agent.Disciplines.list();
 			disciplines.forEach(discipline => {
-				this.setDiscipline(discipline)
+				this.disciplines.push(discipline)
 			})
 			this.setLoadingInitial(false);
 		} catch (error) {

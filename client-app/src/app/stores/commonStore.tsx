@@ -1,13 +1,13 @@
-import { makeAutoObservable, reaction } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { ServerError } from "../models/serverError";
 
 export default class CommonStore {
 	error: ServerError | null = null;
 	appLoaded = false;
 
-	// constructor() {
-	// 	makeAutoObservable(this);
-
+	constructor() {
+		makeAutoObservable(this);
+	}
 	// 	reaction(
 	// 		() => this.token,
 	// 		token => {

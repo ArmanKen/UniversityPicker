@@ -3,7 +3,7 @@ using API.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-internal class Program
+public class Program
 {
 	private static async Task Main(string[] args)
 	{
@@ -37,6 +37,6 @@ internal class Program
 		app.UseCors("CorsPolicy");
 		app.UseAuthorization();
 		app.MapControllers();
-		app.Run();
+		await app.RunAsync();
 	}
 }

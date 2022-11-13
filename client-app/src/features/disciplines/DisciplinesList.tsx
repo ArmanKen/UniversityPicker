@@ -1,17 +1,17 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import { Button, Grid } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useStore } from "../../app/stores/store";
-import ToggleButton from "../ui elements/ToggleButton";
+import DisciplineToggleButton from "./DisciplineToggleButton";
 
 export default observer(function DisciplineList() {
 	const { disciplineStore } = useStore()
-	const { disciplines, loadActivities } = disciplineStore;
+	const { disciplines, loadDisciplines, addToSelectedDisciplines, deleteFromSelectedDisciplines } = disciplineStore;
 
 	useEffect(() => {
-		if (disciplines.length <= 1) loadActivities();
-	}, [disciplines.length, loadActivities])
+		if (disciplines.length <= 1) loadDisciplines();
+	}, [disciplines.length, loadDisciplines])
 
 	if (disciplineStore.loadingInitial) return <LoadingComponent content='Loading disciplines...' />
 
@@ -19,25 +19,13 @@ export default observer(function DisciplineList() {
 		<>
 			<Grid container columns={4} stackable textAlign="center" style={{ marginTop: "11em" }}>
 				{disciplines.map(x => (
-					<Grid.Column>
-						<ToggleButton content={x.name} />
+					<Grid.Column key={x.id}>
+						<DisciplineToggleButton
+							discipline={x}
+							addToSelectedDisciplines={addToSelectedDisciplines}
+							deleteFromSelectedDisciplines={deleteFromSelectedDisciplines} />
 					</Grid.Column>
 				))}
-				<Grid.Column>
-					<Button toggle inverted content='lol' />
-				</Grid.Column>
-				<Grid.Column>
-					<Button toggle inverted content='lol' />
-				</Grid.Column>
-				<Grid.Column>
-					<Button toggle inverted content='lol' />
-				</Grid.Column>
-				<Grid.Column>
-					<Button toggle inverted content='lol' />
-				</Grid.Column>
-				<Grid.Column>
-					<Button toggle inverted content='lol' />
-				</Grid.Column>
 			</Grid>
 		</>
 	);

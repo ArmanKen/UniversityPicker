@@ -1,10 +1,10 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Discipline } from "../models/discipline";
 
 export default class DisciplineStore {
 	disciplines: Discipline[] = [];
-	selectedDisciplines: Discipline[] | undefined = undefined;
+	selectedDisciplines = new Map<string, Discipline>();
 	loading = false;
 	loadingInitial = false;
 
@@ -12,25 +12,29 @@ export default class DisciplineStore {
 		makeAutoObservable(this);
 	}
 
-	// private setDiscipline = (discipline: Discipline) => {
-	// 	this.disciplineRegistry.set(discipline.id, discipline);
-	// }
-
-	setLoadingInitial = (state: boolean) => {
-		this.loadingInitial = state;
-	}
-
-	loadActivities = async () => {
+	loadDisciplines = async () => {
 		this.loadingInitial = true;
 		try {
-			const disciplines = await agent.Disciplines.list();
-			disciplines.forEach(discipline => {
-				this.disciplines.push(discipline)
+			const activities = await agent.Disciplines.list();
+			runInAction(() => {
+				activities.forEach(discipline => {
+					this.disciplines.push(discipline);
+				})
 			})
-			this.setLoadingInitial(false);
+			this.loadingInitial = false;
 		} catch (error) {
-			console.log(error);
-			this.setLoadingInitial(false);
+			runInAction(() => {
+				console.log(error);
+			})
+			this.loadingInitial = false;
 		}
+	}
+
+	addToSelectedDisciplines = (discipline: Discipline) => {
+		this.selectedDisciplines.set(discipline.id, discipline);
+	}
+
+	deleteFromSelectedDisciplines = (discipline: Discipline) => {
+		this.selectedDisciplines.delete(discipline.id)
 	}
 }

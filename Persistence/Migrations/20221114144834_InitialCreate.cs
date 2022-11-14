@@ -10,16 +10,15 @@ namespace Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BranchesOfKnowledges",
+                name: "BranchesOfKnowledge",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BranchesOfKnowledges", x => x.Id);
+                    table.PrimaryKey("PK_BranchesOfKnowledge", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,36 +39,24 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    BranchesOfKnowledgesId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Specialties", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Specialties_BranchesOfKnowledges_BranchesOfKnowledgesId",
-                        column: x => x.BranchesOfKnowledgesId,
-                        principalTable: "BranchesOfKnowledges",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Specialties_BranchesOfKnowledgesId",
-                table: "Specialties",
-                column: "BranchesOfKnowledgesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BranchesOfKnowledge");
+
+            migrationBuilder.DropTable(
                 name: "Disciplines");
 
             migrationBuilder.DropTable(
                 name: "Specialties");
-
-            migrationBuilder.DropTable(
-                name: "BranchesOfKnowledges");
         }
     }
 }

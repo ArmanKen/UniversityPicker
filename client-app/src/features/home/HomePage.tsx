@@ -11,7 +11,7 @@ export default function HomePage() {
 					{/*some text*/}
 					UniversityPicker
 				</Header>
-				<Button as={Link} to='/disciplines' massive inverted>Start pick</Button>
+				<Button as={Link} to='/branchesOfKnowledge' massive inverted>Start pick</Button>
 			</Container>
 		</Segment>)
 }

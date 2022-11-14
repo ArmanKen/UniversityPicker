@@ -15,9 +15,9 @@ export default class DisciplineStore {
 	loadDisciplines = async () => {
 		this.loadingInitial = true;
 		try {
-			const activities = await agent.Disciplines.list();
+			const disciplines = await agent.Disciplines.list();
 			runInAction(() => {
-				activities.forEach(discipline => {
+				disciplines.forEach(discipline => {
 					this.disciplines.push(discipline);
 				})
 			})

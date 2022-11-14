@@ -26,3 +26,7 @@ body {
 	font-size: 1.7em;
 	font-weight: normal;
 }
+
+.ui.menu a.ui.active.button {
+	background-color: black !important;
+}

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import { Discipline } from '../../app/models/discipline';
 
-
 interface Props {
 	discipline: Discipline,
 	addToSelectedDisciplines: any,
@@ -30,7 +29,7 @@ export default class DisciplineToggleButton extends Component<Props> {
 		}
 
 		return (
-			<Button toggle color='black' active={this.state.active} onClick={handleClick} content={discipline.name} />
+			<Button color='black' toggle active={this.state.active} onClick={handleClick} content={discipline.name} />
 		)
 	}
 }

@@ -3,6 +3,7 @@ import { history } from "../..";
 import { toast } from "react-toastify";
 import { Discipline } from "../models/discipline";
 import { store } from "../stores/store";
+import { BranchOfKnowledge } from "../models/branchOfKnowledge";
 
 const sleep = (delay: number) => {
 	return new Promise((resolve) => {
@@ -62,8 +63,13 @@ const Disciplines = {
 	list: () => requests.get<Discipline[]>('/disciplines')
 }
 
+const BranchesOfKnowledge = {
+	list: () => requests.get<BranchOfKnowledge[]>('/branchesOfKnowledge')
+}
+
 const agent = {
-	Disciplines
+	Disciplines,
+	BranchesOfKnowledge
 }
 
 export default agent;

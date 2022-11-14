@@ -17,18 +17,18 @@ namespace Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
 
-            modelBuilder.Entity("Domain.BrancheOfKnowledge", b =>
+            modelBuilder.Entity("Domain.BranchOfKnowledge", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("BranchesOfKnowledges");
+                    b.ToTable("BranchesOfKnowledge");
                 });
 
             modelBuilder.Entity("Domain.Discipline", b =>
@@ -51,33 +51,12 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BranchesOfKnowledgesId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BranchesOfKnowledgesId");
-
                     b.ToTable("Specialties");
-                });
-
-            modelBuilder.Entity("Domain.Specialtie", b =>
-                {
-                    b.HasOne("Domain.BrancheOfKnowledge", "BranchesOfKnowledges")
-                        .WithMany("Specialties")
-                        .HasForeignKey("BranchesOfKnowledgesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BranchesOfKnowledges");
-                });
-
-            modelBuilder.Entity("Domain.BrancheOfKnowledge", b =>
-                {
-                    b.Navigation("Specialties");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,7 +13,7 @@ export default class BranchOfKnowledgeStore {
 	}
 
 	loadBranchesOfKnowledge = async () => {
-		this.loadingInitial = true;
+		this.setLoadingInitial(true);
 		try {
 			const branchesOfKnowledge = await agent.BranchesOfKnowledge.list();
 			runInAction(() => {
@@ -21,12 +21,16 @@ export default class BranchOfKnowledgeStore {
 					this.branchesOfKnowledge.push(branchOfKnowledge);
 				})
 			})
-			this.loadingInitial = false;
+			this.setLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			})
-			this.loadingInitial = false;
+			this.setLoadingInitial(false);
 		}
+	}
+
+	setLoadingInitial = (state: boolean) => {
+		this.loadingInitial = state;
 	}
 }

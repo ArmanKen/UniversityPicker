@@ -7,7 +7,7 @@ import DisciplineToggleButton from "./DisciplineToggleButton";
 
 export default observer(function DisciplineList() {
 	const { disciplineStore } = useStore()
-	const { disciplines, loadDisciplines, addToSelectedDisciplines, deleteFromSelectedDisciplines } = disciplineStore;
+	const { disciplines, loadDisciplines } = disciplineStore;
 
 	useEffect(() => {
 		if (disciplines.length <= 1) loadDisciplines();
@@ -20,10 +20,7 @@ export default observer(function DisciplineList() {
 			<Grid container columns={4} stackable textAlign="center" style={{ marginTop: "11em" }}>
 				{disciplines.map(x => (
 					<Grid.Column key={x.id}>
-						<DisciplineToggleButton
-							discipline={x}
-							addToSelectedDisciplines={addToSelectedDisciplines}
-							deleteFromSelectedDisciplines={deleteFromSelectedDisciplines} />
+						<DisciplineToggleButton discipline={x} />
 					</Grid.Column>
 				))}
 			</Grid>

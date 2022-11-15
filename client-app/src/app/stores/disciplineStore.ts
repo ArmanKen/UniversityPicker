@@ -13,7 +13,7 @@ export default class DisciplineStore {
 	}
 
 	loadDisciplines = async () => {
-		this.loadingInitial = true;
+		this.setLoadingInitial(true);
 		try {
 			const disciplines = await agent.Disciplines.list();
 			runInAction(() => {
@@ -21,13 +21,17 @@ export default class DisciplineStore {
 					this.disciplines.push(discipline);
 				})
 			})
-			this.loadingInitial = false;
+			this.setLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			})
-			this.loadingInitial = false;
+			this.setLoadingInitial(false);
 		}
+	}
+
+	setLoadingInitial = (state: boolean) => {
+		this.loadingInitial = state;
 	}
 
 	addToSelectedDisciplines = (discipline: Discipline) => {

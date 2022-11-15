@@ -1,35 +1,30 @@
-import React, { Component } from 'react'
+import { observer } from 'mobx-react-lite';
+import React, { useState } from 'react'
 import { Button } from 'semantic-ui-react'
 import { Discipline } from '../../app/models/discipline';
+import { useStore } from '../../app/stores/store';
 
 interface Props {
-	discipline: Discipline,
-	addToSelectedDisciplines: any,
-	deleteFromSelectedDisciplines: any,
+	discipline: Discipline
 }
 
-export default class DisciplineToggleButton extends Component<Props> {
-	state = {
-		active: false
-	}
+export default observer(function DisciplineToggleButton({ discipline }: Props) {
+	const { disciplineStore } = useStore()
+	const { addToSelectedDisciplines, deleteFromSelectedDisciplines } = disciplineStore;
+	const [active, setActive] = useState(false);
 
-	render() {
-		const discipline = this.props.discipline;
-		const addToSelectedDisciplines = this.props.addToSelectedDisciplines;
-		const deleteFromSelectedDisciplines = this.props.deleteFromSelectedDisciplines;
-
-		const handleClick = () => {
-			if (this.state.active === false) {
-				addToSelectedDisciplines(discipline)
-				this.setState({ active: true });
-			} else {
-				deleteFromSelectedDisciplines(discipline)
-				this.setState({ active: false });
-			}
+	const handleClick = () => {
+		if (active === false) {
+			addToSelectedDisciplines(discipline)
+			setActive(!active);
+		} else {
+			deleteFromSelectedDisciplines(discipline)
+			setActive(!active);
 		}
-
-		return (
-			<Button color='black' toggle active={this.state.active} onClick={handleClick} content={discipline.name} />
-		)
 	}
-}
+
+	return (
+		<Button color='black' toggle active={active} onClick={handleClick} content={discipline.name} />
+	)
+
+})

@@ -3,9 +3,8 @@ import agent from "../api/agent";
 import { Discipline } from "../models/discipline";
 
 export default class DisciplineStore {
-	disciplines: Discipline[] = [];
+	disciplines = new Map<string, Discipline>();
 	selectedDisciplines = new Map<string, Discipline>();
-	loading = false;
 	loadingInitial = false;
 
 	constructor() {
@@ -18,7 +17,7 @@ export default class DisciplineStore {
 			const disciplines = await agent.Disciplines.list();
 			runInAction(() => {
 				disciplines.forEach(discipline => {
-					this.disciplines.push(discipline);
+					this.disciplines.set(discipline.id, discipline);
 				})
 			})
 			this.setLoadingInitial(false);
@@ -34,11 +33,13 @@ export default class DisciplineStore {
 		this.loadingInitial = state;
 	}
 
-	addToSelectedDisciplines = (discipline: Discipline) => {
-		this.selectedDisciplines.set(discipline.id, discipline);
-	}
-
-	deleteFromSelectedDisciplines = (discipline: Discipline) => {
-		this.selectedDisciplines.delete(discipline.id)
+	updateSelectedDisciplines = (discipline: Discipline) => {
+		if (this.selectedDisciplines.has(discipline.id)) {
+			discipline.isSelected = false;
+			this.selectedDisciplines.delete(discipline.id);
+		} else {
+			discipline.isSelected = true;
+			this.selectedDisciplines.set(discipline.id, discipline)
+		}
 	}
 }

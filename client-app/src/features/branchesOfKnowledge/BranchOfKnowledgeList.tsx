@@ -6,7 +6,7 @@ import { useStore } from "../../app/stores/store";
 
 export default observer(function BranchOfKnowledgeList() {
 	const { branchOfKnowledgeStore } = useStore();
-	const { branchesOfKnowledge, loadBranchesOfKnowledge } = branchOfKnowledgeStore;
+	const { branchesOfKnowledge, loadBranchesOfKnowledge, updateSelectedBranchOfKnowledge } = branchOfKnowledgeStore;
 
 	useEffect(() => {
 		if (branchesOfKnowledge.length <= 1) loadBranchesOfKnowledge();
@@ -17,10 +17,15 @@ export default observer(function BranchOfKnowledgeList() {
 
 	return (
 		<>
-			<Grid container columns={3} stackable textAlign="center" style={{ marginTop: "11em" }}>
+			<Grid container columns={3} stackable textAlign="center">
 				{branchesOfKnowledge.map(x => (
 					<Grid.Column key={x.id}>
-						<Button color='black' content={x.name} />
+						<Button
+							fluid
+							color={x.isSelected ? 'black' : 'grey'}
+							onClick={() => updateSelectedBranchOfKnowledge(x)}
+							content={x.name}
+						/>
 					</Grid.Column>
 				))}
 			</Grid>

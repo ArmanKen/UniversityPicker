@@ -6,6 +6,7 @@ export default class DisciplineStore {
 	disciplines = new Map<string, Discipline>();
 	selectedDisciplines = new Map<string, Discipline>();
 	loadingInitial = false;
+	disciplineSelectionCompleted = false;
 
 	constructor() {
 		makeAutoObservable(this);
@@ -41,5 +42,9 @@ export default class DisciplineStore {
 			discipline.isSelected = true;
 			this.selectedDisciplines.set(discipline.id, discipline)
 		}
+	}
+
+	updateDisciplineSelectionCompleted = () => {
+		this.disciplineSelectionCompleted = !this.disciplineSelectionCompleted;
 	}
 }

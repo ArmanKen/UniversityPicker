@@ -6,7 +6,9 @@ export default class DisciplineStore {
 	disciplines = new Map<string, Discipline>();
 	selectedDisciplines = new Map<string, Discipline>();
 	loadingInitial = false;
-	disciplineSelectionCompleted = false;
+	disciplinesSelectionDeactivated = true;
+	disciplinesSelectionActive = false;
+	disciplinesSelectionCompleted = false;
 
 	constructor() {
 		makeAutoObservable(this);
@@ -44,7 +46,21 @@ export default class DisciplineStore {
 		}
 	}
 
-	updateDisciplineSelectionCompleted = () => {
-		this.disciplineSelectionCompleted = !this.disciplineSelectionCompleted;
+	activateBranchOfKnowledgeSelection = () => {
+		this.disciplinesSelectionDeactivated = false;
+		this.disciplinesSelectionActive = true;
+		this.disciplinesSelectionCompleted = false;
+	}
+
+	deactivateBranchOfKnowledgeSelection = () => {
+		this.disciplinesSelectionDeactivated = true;
+		this.disciplinesSelectionActive = false;
+		this.disciplinesSelectionCompleted = false;
+	}
+
+	completeBranchOfKnowledgeSelection = () => {
+		this.disciplinesSelectionDeactivated = false;
+		this.disciplinesSelectionActive = false;
+		this.disciplinesSelectionCompleted = true;
 	}
 }

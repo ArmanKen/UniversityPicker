@@ -5,8 +5,8 @@ import { BranchOfKnowledge } from "../models/branchOfKnowledge";
 export default class BranchOfKnowledgeStore {
 	branchesOfKnowledge: BranchOfKnowledge[] = [];
 	selectedBranchOfKnowledge: BranchOfKnowledge | undefined = undefined;
-	loading = false;
 	loadingInitial = false;
+	branchOfKnowledgeSelectionActive = true;
 	branchOfKnowledgeSelectionCompleted = false;
 
 	constructor() {
@@ -43,7 +43,14 @@ export default class BranchOfKnowledgeStore {
 		this.selectedBranchOfKnowledge.isSelected = true;
 	}
 
-	updateBranchOfKnowledgeSelectionCompleted = () => {
-		this.branchOfKnowledgeSelectionCompleted = !this.branchOfKnowledgeSelectionCompleted;
+	activateBranchOfKnowledgeSelection = () => {
+		this.branchOfKnowledgeSelectionActive = true;
+		this.branchOfKnowledgeSelectionCompleted = false;
+	}
+
+	completeBranchOfKnowledgeSelection = () => {
+		
+		this.branchOfKnowledgeSelectionActive = false;
+		this.branchOfKnowledgeSelectionCompleted = true;
 	}
 }

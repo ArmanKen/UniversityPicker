@@ -1,14 +1,15 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Grid } from "semantic-ui-react";
+import { Button, Container, Grid } from "semantic-ui-react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useStore } from "../../app/stores/store";
 
 export default observer(function BranchOfKnowledgeList() {
 	const { branchOfKnowledgeStore, disciplineStore } = useStore();
-	const { branchesOfKnowledge, loadBranchesOfKnowledge, updateSelectedBranchOfKnowledge, completeBranchOfKnowledgeSelection, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
-	const { activateBranchOfKnowledgeSelection } = disciplineStore;
+	const { branchesOfKnowledge, loadBranchesOfKnowledge,
+		updateSelectedBranchOfKnowledge, completeBranchOfKnowledgeSelection, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
+	const { activateDisciplinesSelection } = disciplineStore;
 
 	useEffect(() => {
 		if (branchesOfKnowledge.length <= 1) loadBranchesOfKnowledge();
@@ -30,20 +31,21 @@ export default observer(function BranchOfKnowledgeList() {
 					</Grid.Column>
 				))}
 			</Grid>
-			<Button
-				disabled={selectedBranchOfKnowledge === undefined ? true : false}
-				color='black'
-				size="big"
-				style={{ marginTop: '7em' }}
-				floated='right'
-				onClick={() => {
-					completeBranchOfKnowledgeSelection();
-					activateBranchOfKnowledgeSelection();
-				}}
-				as={Link}
-				to='/disciplines'
-				content="Наступний крок"
-			/>
+			<Container style={{ marginTop: '7em' }}>
+				<Button
+					disabled={selectedBranchOfKnowledge === undefined ? true : false}
+					color='black'
+					size="big"
+					floated='right'
+					onClick={() => {
+						completeBranchOfKnowledgeSelection();
+						activateDisciplinesSelection();
+					}}
+					as={Link}
+					to='/disciplines'
+					content="Наступний крок"
+				/>
+			</Container>
 		</>
 	);
 })

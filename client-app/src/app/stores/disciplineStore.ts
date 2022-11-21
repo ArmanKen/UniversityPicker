@@ -46,19 +46,19 @@ export default class DisciplineStore {
 		}
 	}
 
-	activateBranchOfKnowledgeSelection = () => {
+	activateDisciplinesSelection = () => {
 		this.disciplinesSelectionDeactivated = false;
 		this.disciplinesSelectionActive = true;
 		this.disciplinesSelectionCompleted = false;
 	}
 
-	deactivateBranchOfKnowledgeSelection = () => {
+	deactivateDisciplinesSelection = () => {
 		this.disciplinesSelectionDeactivated = true;
 		this.disciplinesSelectionActive = false;
 		this.disciplinesSelectionCompleted = false;
 	}
 
-	completeBranchOfKnowledgeSelection = () => {
+	completeDisciplinesSelection = () => {
 		this.disciplinesSelectionDeactivated = false;
 		this.disciplinesSelectionActive = false;
 		this.disciplinesSelectionCompleted = true;

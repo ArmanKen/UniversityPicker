@@ -12,20 +12,18 @@ export default observer(function FilteringOptionPickSteps() {
 			<Step completed={branchOfKnowledgeSelectionCompleted} active={branchOfKnowledgeSelectionActive}>
 				<Step.Content>
 					<Step.Title>Вибір області знань</Step.Title>
-					<Step.Description></Step.Description>
 				</Step.Content>
 			</Step>
 
 			<Step completed={disciplinesSelectionCompleted} active={disciplinesSelectionActive}>
 				<Step.Content>
 					<Step.Title>Вибір дисциплін</Step.Title>
-					<Step.Description></Step.Description>
 				</Step.Content>
 			</Step>
 
 			<Step>
 				<Step.Content>
-					<Step.Title></Step.Title>
+					<Step.Title>Вибір спеціалізації</Step.Title>
 				</Step.Content>
 			</Step>
 		</Step.Group>

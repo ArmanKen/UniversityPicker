@@ -2,7 +2,16 @@ namespace Domain
 {
 	public class Specialtie
 	{
-		public int Id { get; set; }
+		public Guid Id { get; set; }
+
+		public int Code { get; set; }
+
 		public string? Name { get; set; }
+
+		public UniversitySpecialties? University { get; set; }
+
+		public BranchOfKnowledgeSpecialties? BranchOfKnowledge { get; set; }
+
+		public ICollection<SpecialtieDisciplines>? Disciplines { get; set; }
 	}
 }

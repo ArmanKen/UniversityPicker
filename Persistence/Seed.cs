@@ -138,8 +138,41 @@ namespace Persistence
 					Name = "Транспорт"
 				}
 			};
+			if (context.Specialties.Any()) return;
+			var specialties = new List<Specialtie>
+			{
+				new Specialtie
+				{
+				Name = "Інженер програмного забезпечення",
+				Code = 121
+				},
+				new Specialtie
+				{
+				Name = "Кібербезпека",
+				Code = 122
+				}
+			};
+
+			if (context.Universities.Any()) return;
+			var universities = new University
+			{
+				Name = "ДТЕУ",
+				Specialties = new List<UniversitySpecialties>
+				{
+					new UniversitySpecialties
+					{
+						Specialtie = specialties[0]
+					},
+					new UniversitySpecialties
+					{
+						Specialtie = specialties[1]
+					}
+				}
+			};
 			await context.BranchesOfKnowledge.AddRangeAsync(branchesOfKnowledge);
 			await context.Disciplines.AddRangeAsync(disciplines);
+			await context.Universities.AddRangeAsync(universities);
+			await context.Specialties.AddRangeAsync(specialties);
 			await context.SaveChangesAsync();
 		}
 	}

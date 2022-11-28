@@ -12,6 +12,6 @@ namespace Domain
 
 		public BranchOfKnowledgeSpecialties? BranchOfKnowledge { get; set; }
 
-		public ICollection<SpecialtieDisciplines>? Disciplines { get; set; }
+		public ICollection<SpecialtieDisciplines> Disciplines { get; set; } = new List<SpecialtieDisciplines>();
 	}
 }

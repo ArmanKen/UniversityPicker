@@ -2,9 +2,9 @@ namespace Domain
 {
     public class SpecialtieDisciplines
     {
-        public Guid SpecialtieId { get; set; }
+        public Guid SpecialtyId { get; set; }
 
-		public Specialtie? Specialtie { get; set; }
+		public Specialty? Specialty { get; set; }
 
 		public Guid DisciplineId { get; set; }
 

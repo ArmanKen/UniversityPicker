@@ -6,6 +6,6 @@ namespace Domain
 
 		public string? Name { get; set; }
 
-		public ICollection<BranchOfKnowledgeSpecialties>? Specialties { get; set; }
+		public ICollection<BranchOfKnowledgeSpecialties> Specialties { get; set; } = new List<BranchOfKnowledgeSpecialties>();
 	}
 }

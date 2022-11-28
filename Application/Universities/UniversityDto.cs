@@ -1,7 +1,9 @@
-namespace Domain
+using Application.Specialties;
+
+namespace Application.Universities
 {
-	public class University
-	{
+    public class UniversityDto
+    {
 		public Guid Id { get; set; }
 
 		public string? Name { get; set; }
@@ -14,6 +16,6 @@ namespace Domain
 
 		public string? Website { get; set; }
 
-		public ICollection<UniversitySpecialties> Specialties { get; set; } = new List<UniversitySpecialties>();
+		public ICollection<SpecialtyDto>? Specialties { get; set;}
 	}
 }

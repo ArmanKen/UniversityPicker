@@ -139,16 +139,54 @@ namespace Persistence
 				}
 			};
 			if (context.Specialties.Any()) return;
-			var specialties = new List<Specialtie>
+			var specialties = new List<Specialty>
 			{
-				new Specialtie
+				new Specialty
 				{
-				Name = "Інженер програмного забезпечення",
-				Code = 121
+					Name = "Інженер програмного забезпечення",
+					BranchOfKnowledge=new BranchOfKnowledgeSpecialties
+					{
+						BranchOfKnowledge = branchesOfKnowledge[10]
+					},
+					Disciplines = new List<SpecialtieDisciplines>
+					{
+						new SpecialtieDisciplines
+						{
+							Discipline = disciplines[0]
+						},
+						new SpecialtieDisciplines
+						{
+							Discipline = disciplines[1]
+						},
+						new SpecialtieDisciplines
+						{
+							Discipline = disciplines[2]
+						}
+					},
+					Code = 121
 				},
-				new Specialtie
+				new Specialty
 				{
 				Name = "Кібербезпека",
+				BranchOfKnowledge=new BranchOfKnowledgeSpecialties
+				{
+					BranchOfKnowledge = branchesOfKnowledge[10]
+				},
+				Disciplines = new List<SpecialtieDisciplines>
+					{
+						new SpecialtieDisciplines
+						{
+							Discipline = disciplines[0]
+						},
+						new SpecialtieDisciplines
+						{
+							Discipline = disciplines[1]
+						},
+						new SpecialtieDisciplines
+						{
+							Discipline = disciplines[2]
+						}
+					},
 				Code = 122
 				}
 			};
@@ -161,11 +199,11 @@ namespace Persistence
 				{
 					new UniversitySpecialties
 					{
-						Specialtie = specialties[0]
+						Specialty = specialties[0]
 					},
 					new UniversitySpecialties
 					{
-						Specialtie = specialties[1]
+						Specialty = specialties[1]
 					}
 				}
 			};

@@ -67,11 +67,11 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     BranchOfKnowledgeId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    SpecialtieId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BranchOfKnowledgeSpecialties", x => new { x.BranchOfKnowledgeId, x.SpecialtieId });
+                    table.PrimaryKey("PK_BranchOfKnowledgeSpecialties", x => new { x.BranchOfKnowledgeId, x.SpecialtyId });
                     table.ForeignKey(
                         name: "FK_BranchOfKnowledgeSpecialties_BranchesOfKnowledge_BranchOfKnowledgeId",
                         column: x => x.BranchOfKnowledgeId,
@@ -79,8 +79,8 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BranchOfKnowledgeSpecialties_Specialties_SpecialtieId",
-                        column: x => x.SpecialtieId,
+                        name: "FK_BranchOfKnowledgeSpecialties_Specialties_SpecialtyId",
+                        column: x => x.SpecialtyId,
                         principalTable: "Specialties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -90,12 +90,12 @@ namespace Persistence.Migrations
                 name: "SpecialtieDisciplines",
                 columns: table => new
                 {
-                    SpecialtieId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
                     DisciplineId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SpecialtieDisciplines", x => new { x.SpecialtieId, x.DisciplineId });
+                    table.PrimaryKey("PK_SpecialtieDisciplines", x => new { x.SpecialtyId, x.DisciplineId });
                     table.ForeignKey(
                         name: "FK_SpecialtieDisciplines_Disciplines_DisciplineId",
                         column: x => x.DisciplineId,
@@ -103,8 +103,8 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SpecialtieDisciplines_Specialties_SpecialtieId",
-                        column: x => x.SpecialtieId,
+                        name: "FK_SpecialtieDisciplines_Specialties_SpecialtyId",
+                        column: x => x.SpecialtyId,
                         principalTable: "Specialties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -115,14 +115,14 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     UniversityId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    SpecialtieId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UniversitieSpecialties", x => new { x.UniversityId, x.SpecialtieId });
+                    table.PrimaryKey("PK_UniversitieSpecialties", x => new { x.UniversityId, x.SpecialtyId });
                     table.ForeignKey(
-                        name: "FK_UniversitieSpecialties_Specialties_SpecialtieId",
-                        column: x => x.SpecialtieId,
+                        name: "FK_UniversitieSpecialties_Specialties_SpecialtyId",
+                        column: x => x.SpecialtyId,
                         principalTable: "Specialties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -135,9 +135,9 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BranchOfKnowledgeSpecialties_SpecialtieId",
+                name: "IX_BranchOfKnowledgeSpecialties_SpecialtyId",
                 table: "BranchOfKnowledgeSpecialties",
-                column: "SpecialtieId",
+                column: "SpecialtyId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -146,9 +146,9 @@ namespace Persistence.Migrations
                 column: "DisciplineId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UniversitieSpecialties_SpecialtieId",
+                name: "IX_UniversitieSpecialties_SpecialtyId",
                 table: "UniversitieSpecialties",
-                column: "SpecialtieId",
+                column: "SpecialtyId",
                 unique: true);
         }
 

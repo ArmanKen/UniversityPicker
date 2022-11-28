@@ -8,9 +8,9 @@ namespace Application.Specialties
 {
 	public class List
 	{
-		public class Query : IRequest<Result<List<Specialtie>>> { }
+		public class Query : IRequest<Result<List<Specialty>>> { }
 
-		public class Handler : IRequestHandler<Query, Result<List<Specialtie>>>
+		public class Handler : IRequestHandler<Query, Result<List<Specialty>>>
 		{
 			private readonly DataContext _context;
 
@@ -19,9 +19,10 @@ namespace Application.Specialties
 				_context = context;
 			}
 
-			public async Task<Result<List<Specialtie>>> Handle(Query request, CancellationToken cancellationToken)
+			public async Task<Result<List<Specialty>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				return Result<List<Specialtie>>.Success(await _context.Specialties.ToListAsync());
+				var specialties = await _context.Specialties.ToListAsync();
+				return Result<List<Specialty>>.Success(specialties);
 			}
 		}
 	}

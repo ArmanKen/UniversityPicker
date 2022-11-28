@@ -1,6 +1,6 @@
 namespace Domain
 {
-	public class Specialtie
+	public class Specialty
 	{
 		public Guid Id { get; set; }
 

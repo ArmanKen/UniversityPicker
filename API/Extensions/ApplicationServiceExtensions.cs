@@ -1,3 +1,4 @@
+using Application.Core;
 using Application.Disciplines;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace API.Extensions
 				});
 			});
 			services.AddMediatR(typeof(List.Handler).Assembly);
+			services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 			return services;
 		}
 	}

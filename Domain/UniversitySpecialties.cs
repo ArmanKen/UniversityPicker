@@ -6,8 +6,8 @@ namespace Domain
 
 		public University? University { get; set; }
 
-		public Guid SpecialtieId { get; set; }
+		public Guid SpecialtyId { get; set; }
 
-		public Specialtie? Specialtie { get; set; }
+		public Specialty? Specialty { get; set; }
 	}
 }

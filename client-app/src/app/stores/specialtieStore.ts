@@ -1,25 +1,25 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Specialtie } from "../models/specialtie";
+import { Specialty } from "../models/specialty";
+import { Step } from "../models/step";
 
-export default class SpecialtieStore {
-	specialties = new Map<string, Specialtie>();
-	selectedSpecialtie: Specialtie | undefined = undefined;
+export default class SpecialtyStore {
+	specialties: Specialty[] = [];
+	selectedSpecialty: Specialty | undefined = undefined;
 	loadingInitial = false;
-	specialtieSelectionActive = true;
-	specialtieSelectionCompleted = false;
+
 
 	constructor() {
 		makeAutoObservable(this);
 	}
 
-	loadDisciplines = async () => {
+	loadSpecialties = async () => {
 		this.setLoadingInitial(true);
 		try {
 			const specialties = await agent.Specialties.list();
 			runInAction(() => {
-				specialties.forEach(specialtie => {
-					this.specialties.set(specialtie.id, specialtie);
+				specialties.forEach(specialty => {
+					this.specialties.push(specialty);
 				})
 			})
 			this.setLoadingInitial(false);
@@ -30,7 +30,7 @@ export default class SpecialtieStore {
 			this.setLoadingInitial(false);
 		}
 	}
-	
+
 	setLoadingInitial = (state: boolean) => {
 		this.loadingInitial = state;
 	}

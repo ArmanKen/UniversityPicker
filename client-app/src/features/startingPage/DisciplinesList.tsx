@@ -1,29 +1,29 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Grid, Label } from "semantic-ui-react";
+import { Button, Container, Grid } from "semantic-ui-react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useStore } from "../../app/stores/store";
 
 export default observer(function DisciplineList() {
-	const { disciplineStore, branchOfKnowledgeStore } = useStore()
-	const { disciplines, loadDisciplines, updateSelectedDisciplines,
-		deactivateDisciplinesSelection, completeDisciplinesSelection, selectedDisciplines } = disciplineStore;
-	const { activateBranchOfKnowledgeSelection } = branchOfKnowledgeStore;
+	const { disciplineStore, branchOfKnowledgeStore, specialtyStore } = useStore()
+	const { disciplines, loadDisciplines, updateSelectedDisciplines, selectedDisciplines } = disciplineStore;
+	const { loadSpecialties, specialties } = specialtyStore;
 
 	useEffect(() => {
-		if (disciplines.size <= 1) loadDisciplines();
-	}, [disciplines.size, loadDisciplines])
+		if (disciplines.length <= 1) loadDisciplines();
+	}, [disciplines.length, loadDisciplines])
 
 	if (disciplineStore.loadingInitial) return <LoadingComponent content='Loading disciplines...' />
 
+
 	return (
 		<>
-			<h1 style={{textAlign:'center'}}>
+			<h1 style={{ textAlign: 'center' }}>
 				Оберіть дисципліни, які хотіли би вивчати.
 			</h1>
 			<Grid container columns={4} stackable textAlign="center" style={{ marginTop: "5em" }}>
-				{Array.from(disciplines.values()).map(x => (
+				{disciplines.map(x => (
 					<Grid.Column key={x.id}>
 						<Button
 							content={x.name}
@@ -41,7 +41,6 @@ export default observer(function DisciplineList() {
 					size="big"
 					floated='right'
 					onClick={() => {
-						completeDisciplinesSelection();
 					}}
 					content="Наступний крок"
 				/>
@@ -50,8 +49,6 @@ export default observer(function DisciplineList() {
 					size="big"
 					floated='left'
 					onClick={() => {
-						activateBranchOfKnowledgeSelection();
-						deactivateDisciplinesSelection();
 					}}
 					as={Link}
 					to='/branchesOfKnowledge'

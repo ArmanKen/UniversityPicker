@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Discipline } from "../models/discipline";
 import { store } from "../stores/store";
 import { BranchOfKnowledge } from "../models/branchOfKnowledge";
-import { Specialtie } from "../models/specialtie";
+import { Specialty } from "../models/specialty";
 
 const sleep = (delay: number) => {
 	return new Promise((resolve) => {
@@ -69,7 +69,7 @@ const BranchesOfKnowledge = {
 }
 
 const Specialties = {
-	list: () => requests.get<Specialtie[]>('/specialties')
+	list: () => requests.get<Specialty[]>('/specialties')
 }
 
 const agent = {

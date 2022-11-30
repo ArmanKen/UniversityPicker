@@ -1,21 +1,21 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Step } from 'semantic-ui-react';
-import { useStore } from '../stores/store';
+import { useStore } from '../../app/stores/store';
 
-export default observer(function FilteringOptionPickSteps() {
+export default observer(function StartingPageSteps() {
 	const { branchOfKnowledgeStore, disciplineStore } = useStore();
-	const { branchOfKnowledgeSelectionActive, branchOfKnowledgeSelectionCompleted } = branchOfKnowledgeStore;
-	const { disciplinesSelectionActive,disciplinesSelectionCompleted} = disciplineStore;
+	const {  } = branchOfKnowledgeStore;
+	const {  } = disciplineStore;
 	return (
 		<Step.Group ordered attached='top' fluid>
-			<Step completed={branchOfKnowledgeSelectionCompleted} active={branchOfKnowledgeSelectionActive}>
+			<Step completed active>
 				<Step.Content>
 					<Step.Title>Вибір області знань</Step.Title>
 				</Step.Content>
 			</Step>
 
-			<Step completed={disciplinesSelectionCompleted} active={disciplinesSelectionActive}>
+			<Step completed active>
 				<Step.Content>
 					<Step.Title>Вибір дисциплін</Step.Title>
 				</Step.Content>

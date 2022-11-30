@@ -1,14 +1,12 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Discipline } from "../models/discipline";
+import { Step } from "../models/step";
 
 export default class DisciplineStore {
-	disciplines = new Map<string, Discipline>();
+	disciplines: Discipline[] = [];
 	selectedDisciplines = new Map<string, Discipline>();
 	loadingInitial = false;
-	disciplinesSelectionDeactivated = true;
-	disciplinesSelectionActive = false;
-	disciplinesSelectionCompleted = false;
 
 	constructor() {
 		makeAutoObservable(this);
@@ -20,7 +18,7 @@ export default class DisciplineStore {
 			const disciplines = await agent.Disciplines.list();
 			runInAction(() => {
 				disciplines.forEach(discipline => {
-					this.disciplines.set(discipline.id, discipline);
+					this.disciplines.push(discipline);
 				})
 			})
 			this.setLoadingInitial(false);
@@ -44,23 +42,5 @@ export default class DisciplineStore {
 			discipline.isSelected = true;
 			this.selectedDisciplines.set(discipline.id, discipline)
 		}
-	}
-
-	activateDisciplinesSelection = () => {
-		this.disciplinesSelectionDeactivated = false;
-		this.disciplinesSelectionActive = true;
-		this.disciplinesSelectionCompleted = false;
-	}
-
-	deactivateDisciplinesSelection = () => {
-		this.disciplinesSelectionDeactivated = true;
-		this.disciplinesSelectionActive = false;
-		this.disciplinesSelectionCompleted = false;
-	}
-
-	completeDisciplinesSelection = () => {
-		this.disciplinesSelectionDeactivated = false;
-		this.disciplinesSelectionActive = false;
-		this.disciplinesSelectionCompleted = true;
 	}
 }

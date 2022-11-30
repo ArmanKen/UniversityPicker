@@ -2,20 +2,12 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Grid } from "semantic-ui-react";
-import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useStore } from "../../app/stores/store";
 
 export default observer(function BranchOfKnowledgeList() {
-	const { branchOfKnowledgeStore, disciplineStore } = useStore();
-	const { branchesOfKnowledge, loadBranchesOfKnowledge,
-		updateSelectedBranchOfKnowledge, completeBranchOfKnowledgeSelection, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
-	const { activateDisciplinesSelection } = disciplineStore;
-
-	useEffect(() => {
-		if (branchesOfKnowledge.length <= 1) loadBranchesOfKnowledge();
-	}, [branchesOfKnowledge.length, loadBranchesOfKnowledge])
-
-	if (branchOfKnowledgeStore.loadingInitial) return <LoadingComponent content='Loading branches of knowledge...' />
+	const { branchOfKnowledgeStore, stepStore } = useStore();
+	const { setStepToActive, setStepToCompleted } = stepStore;
+	const { branchesOfKnowledge, updateSelectedBranchOfKnowledge, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
 
 	return (
 		<>
@@ -38,8 +30,8 @@ export default observer(function BranchOfKnowledgeList() {
 					size="big"
 					floated='right'
 					onClick={() => {
-						completeBranchOfKnowledgeSelection();
-						activateDisciplinesSelection();
+						setStepToActive(stepStore.disciplineStep);
+						setStepToCompleted(stepStore.branchOfKnowledgeStep);
 					}}
 					as={Link}
 					to='/disciplines'

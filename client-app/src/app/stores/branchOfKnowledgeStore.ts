@@ -6,8 +6,7 @@ export default class BranchOfKnowledgeStore {
 	branchesOfKnowledge: BranchOfKnowledge[] = [];
 	selectedBranchOfKnowledge: BranchOfKnowledge | undefined = undefined;
 	loadingInitial = false;
-	branchOfKnowledgeSelectionActive = true;
-	branchOfKnowledgeSelectionCompleted = false;
+	
 
 	constructor() {
 		makeAutoObservable(this);
@@ -41,16 +40,5 @@ export default class BranchOfKnowledgeStore {
 		}
 		this.selectedBranchOfKnowledge = branchOfKnowledge;
 		this.selectedBranchOfKnowledge.isSelected = true;
-	}
-
-	activateBranchOfKnowledgeSelection = () => {
-		this.branchOfKnowledgeSelectionActive = true;
-		this.branchOfKnowledgeSelectionCompleted = false;
-	}
-
-	completeBranchOfKnowledgeSelection = () => {
-		
-		this.branchOfKnowledgeSelectionActive = false;
-		this.branchOfKnowledgeSelectionCompleted = true;
 	}
 }

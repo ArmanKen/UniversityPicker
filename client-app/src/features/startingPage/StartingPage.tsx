@@ -4,30 +4,30 @@ import { Container } from 'semantic-ui-react';
 import LoadingComponent from '../../app/layout/LoadingComponent';
 import { useStore } from '../../app/stores/store';
 import BranchOfKnowledgeList from './BranchOfKnowledgeList';
-import DisciplinesList from './DisciplinesList';
-import SpecialtyPick from './SpecialtyPick';
 
 export default observer(function StartingPage() {
 	const { stepStore, branchOfKnowledgeStore, specialtyStore, disciplineStore } = useStore();
-	const { branchOfKnowledgeStep, specilatyStep, disciplineStep } = stepStore;
+	const { allStepsToDefault, setCurrentStep } = stepStore;
 	const { branchesOfKnowledge, loadBranchesOfKnowledge } = branchOfKnowledgeStore;
-
+	const { specialties, loadSpecialties } = specialtyStore;
+	const { disciplines, loadDisciplines } = disciplineStore;
 
 	useEffect(() => {
 		if (branchesOfKnowledge.length <= 1) loadBranchesOfKnowledge();
-	}, [branchesOfKnowledge.length, loadBranchesOfKnowledge])
+		if (specialties.length <= 1) loadSpecialties();
+		if (disciplines.length <= 1) loadDisciplines();
+		allStepsToDefault();
+		setCurrentStep(<BranchOfKnowledgeList />)
+	}, [branchesOfKnowledge.length, specialties.length, disciplines.length
+		, loadBranchesOfKnowledge, loadSpecialties, loadDisciplines, allStepsToDefault, setCurrentStep])
 
-	if (branchOfKnowledgeStore.loadingInitial) return <LoadingComponent content='Loading branches of knowledge...' />
+	if (branchOfKnowledgeStore.loadingInitial || specialtyStore.loadingInitial || disciplineStore.loadingInitial) {
+		return <LoadingComponent content='Завантаження фільтрів...' />
+	}
 
 	return (
 		<Container style={{ marginTop: "4em" }}>
-			{branchOfKnowledgeStep.active ? (
-				<BranchOfKnowledgeList />
-			) : specilatyStep.active ? (
-				<SpecialtyPick />
-			) : (
-				<DisciplinesList />
-			)}
+			{stepStore.currentStep}
 		</Container>
 	)
 })

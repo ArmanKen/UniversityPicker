@@ -1,17 +1,20 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { Button, Container, Grid } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
+import SpecialtyPick from "./SpecialtyPick";
 
 export default observer(function BranchOfKnowledgeList() {
 	const { branchOfKnowledgeStore, stepStore } = useStore();
-	const { setStepToActive, setStepToCompleted } = stepStore;
+	const { setStepToActive, setStepToCompleted, specilatyStep, branchOfKnowledgeStep, setCurrentStep } = stepStore;
 	const { branchesOfKnowledge, updateSelectedBranchOfKnowledge, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
 
 	return (
 		<>
-			<Grid container columns={3} stackable textAlign="center">
+			<h1 style={{ textAlign: 'center' }}>
+				Оберіть область знань, у якій ви зацікавлені.
+			</h1>
+			<Grid container columns={3} stackable textAlign="center" style={{ marginTop: "3em" }}>
 				{branchesOfKnowledge.map(x => (
 					<Grid.Column key={x.id}>
 						<Button
@@ -30,11 +33,10 @@ export default observer(function BranchOfKnowledgeList() {
 					size="big"
 					floated='right'
 					onClick={() => {
-						setStepToActive(stepStore.disciplineStep);
-						setStepToCompleted(stepStore.branchOfKnowledgeStep);
+						setStepToActive(specilatyStep);
+						setStepToCompleted(branchOfKnowledgeStep);
+						setCurrentStep(<SpecialtyPick />)
 					}}
-					as={Link}
-					to='/disciplines'
 					content="Наступний крок"
 				/>
 			</Container>

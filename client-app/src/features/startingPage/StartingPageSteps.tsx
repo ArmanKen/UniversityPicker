@@ -4,26 +4,33 @@ import { Step } from 'semantic-ui-react';
 import { useStore } from '../../app/stores/store';
 
 export default observer(function StartingPageSteps() {
-	const { branchOfKnowledgeStore, disciplineStore } = useStore();
-	const {  } = branchOfKnowledgeStore;
-	const {  } = disciplineStore;
+	const { stepStore } = useStore();
+	const { branchOfKnowledgeStep, specilatyStep, disciplineStep } = stepStore;
+
 	return (
 		<Step.Group ordered attached='top' fluid>
-			<Step completed active>
+			<Step
+				completed={branchOfKnowledgeStep.completed}
+				active={branchOfKnowledgeStep.active}
+				disabled={branchOfKnowledgeStep.disabled}>
 				<Step.Content>
 					<Step.Title>Вибір області знань</Step.Title>
 				</Step.Content>
 			</Step>
-
-			<Step completed active>
-				<Step.Content>
-					<Step.Title>Вибір дисциплін</Step.Title>
-				</Step.Content>
-			</Step>
-
-			<Step>
+			<Step
+				completed={specilatyStep.completed}
+				active={specilatyStep.active}
+				disabled={specilatyStep.disabled}>
 				<Step.Content>
 					<Step.Title>Вибір спеціалізації</Step.Title>
+				</Step.Content>
+			</Step>
+			<Step
+				completed={disciplineStep.completed}
+				active={disciplineStep.active}
+				disabled={disciplineStep.disabled}>
+				<Step.Content>
+					<Step.Title>Вибір дисциплін</Step.Title>
 				</Step.Content>
 			</Step>
 		</Step.Group>

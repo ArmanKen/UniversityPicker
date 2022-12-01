@@ -2,10 +2,8 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Header, Segment } from "semantic-ui-react";
-import { useStore } from "../../app/stores/store";
 
 export default observer(function HomePage() {
-	const { stepStore } = useStore()
 	return (
 		<Segment inverted textAlign='center' vertical className='masthead'>
 			<Container text>
@@ -15,9 +13,6 @@ export default observer(function HomePage() {
 					UniversityPicker
 				</Header>
 				<Button
-					onClick={() => {
-						stepStore.allToDefault();
-					}}
 					as={Link}
 					to='/start'
 					inverted>

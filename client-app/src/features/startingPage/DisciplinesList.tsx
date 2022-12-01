@@ -1,28 +1,21 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { Button, Container, Grid } from "semantic-ui-react";
-import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useStore } from "../../app/stores/store";
+import BranchOfKnowledgeList from "./BranchOfKnowledgeList";
+import SpecialtyPick from "./SpecialtyPick";
 
 export default observer(function DisciplineList() {
-	const { disciplineStore, branchOfKnowledgeStore, specialtyStore } = useStore()
-	const { disciplines, loadDisciplines, updateSelectedDisciplines, selectedDisciplines } = disciplineStore;
-	const { loadSpecialties, specialties } = specialtyStore;
-
-	useEffect(() => {
-		if (disciplines.length <= 1) loadDisciplines();
-	}, [disciplines.length, loadDisciplines])
-
-	if (disciplineStore.loadingInitial) return <LoadingComponent content='Loading disciplines...' />
-
+	const { disciplineStore, stepStore } = useStore()
+	const { setStepToActive, setStepToCompleted, disciplineStep, branchOfKnowledgeStep, setCurrentStep } = stepStore;
+	const { disciplines, updateSelectedDisciplines, selectedDisciplines } = disciplineStore;
 
 	return (
 		<>
 			<h1 style={{ textAlign: 'center' }}>
 				Оберіть дисципліни, які хотіли би вивчати.
 			</h1>
-			<Grid container columns={4} stackable textAlign="center" style={{ marginTop: "5em" }}>
+			<Grid container columns={4} stackable textAlign="center" style={{ marginTop: "3em" }}>
 				{disciplines.map(x => (
 					<Grid.Column key={x.id}>
 						<Button
@@ -41,6 +34,9 @@ export default observer(function DisciplineList() {
 					size="big"
 					floated='right'
 					onClick={() => {
+						setStepToActive(disciplineStep);
+						setStepToCompleted(branchOfKnowledgeStep);
+						setCurrentStep(<SpecialtyPick />)
 					}}
 					content="Наступний крок"
 				/>
@@ -49,9 +45,10 @@ export default observer(function DisciplineList() {
 					size="big"
 					floated='left'
 					onClick={() => {
+						setStepToActive(disciplineStep);
+						setStepToCompleted(branchOfKnowledgeStep);
+						setCurrentStep(<BranchOfKnowledgeList />)
 					}}
-					as={Link}
-					to='/branchesOfKnowledge'
 					content="Повернутися до минулого кроку"
 				/>
 			</Container>

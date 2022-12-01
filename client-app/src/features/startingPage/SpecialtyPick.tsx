@@ -4,11 +4,11 @@ import { useStore } from '../../app/stores/store';
 
 export default function SpecialtyPick() {
 	const { specialtyStore } = useStore();
-	const { loadSpecialties } = specialtyStore;
+	const { specialties} = specialtyStore;
 
 	return (
 		<>
-			<Dropdown />
+			<Dropdown options={specialties} clearable/>
 		</>
 	)
 }

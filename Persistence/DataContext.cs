@@ -12,23 +12,23 @@ public class DataContext : DbContext
 	public DbSet<BranchOfKnowledge> BranchesOfKnowledge { get; set; } = null!;
 	public DbSet<Specialty> Specialties { get; set; } = null!;
 	public DbSet<Discipline> Disciplines { get; set; } = null!;
-	public DbSet<UniversitySpecialties> UniversitieSpecialties { get; set; } = null!;
+	public DbSet<UniversityBranchesOfKnowledge> UniversityBranchesOfKnowledge { get; set; } = null!;
 	public DbSet<BranchOfKnowledgeSpecialties> BranchOfKnowledgeSpecialties { get; set; } = null!;
-	public DbSet<SpecialtieDisciplines> SpecialtieDisciplines { get; set; } = null!;
+	public DbSet<SpecialtyDisciplines> SpecialtyDisciplines { get; set; } = null!;
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
 		base.OnModelCreating(builder);
 
-		builder.Entity<UniversitySpecialties>(x => x.HasKey(us => new { us.UniversityId, us.SpecialtyId }));
-		builder.Entity<UniversitySpecialties>()
+		builder.Entity<UniversityBranchesOfKnowledge>(x => x.HasKey(ubok => new { ubok.UniversityId, ubok.BranchOfKnowledgeId }));
+		builder.Entity<UniversityBranchesOfKnowledge>()
 			.HasOne(u => u.University)
-			.WithMany(s => s.Specialties)
-			.HasForeignKey(us => us.UniversityId);
-		builder.Entity<UniversitySpecialties>()
-			.HasOne(s => s.Specialty)
+			.WithMany(bok => bok.BranchesOfKnowledge)
+			.HasForeignKey(ubok => ubok.UniversityId);
+		builder.Entity<UniversityBranchesOfKnowledge>()
+			.HasOne(bok => bok.BranchOfKnowledge)
 			.WithOne(u => u.University)
-			.HasForeignKey<UniversitySpecialties>(us => us.SpecialtyId);
+			.HasForeignKey<UniversityBranchesOfKnowledge>(ubok => ubok.BranchOfKnowledgeId);
 
 		builder.Entity<BranchOfKnowledgeSpecialties>(x => x.HasKey(bocs => new { bocs.BranchOfKnowledgeId, bocs.SpecialtyId }));
 		builder.Entity<BranchOfKnowledgeSpecialties>()
@@ -40,12 +40,12 @@ public class DataContext : DbContext
 			.WithOne(boc => boc.BranchOfKnowledge)
 			.HasForeignKey<BranchOfKnowledgeSpecialties>(bocs => bocs.SpecialtyId);
 
-		builder.Entity<SpecialtieDisciplines>(x => x.HasKey(sd => new { sd.SpecialtyId, sd.DisciplineId }));
-		builder.Entity<SpecialtieDisciplines>()
+		builder.Entity<SpecialtyDisciplines>(x => x.HasKey(sd => new { sd.SpecialtyId, sd.DisciplineId }));
+		builder.Entity<SpecialtyDisciplines>()
 			.HasOne(s => s.Specialty)
 			.WithMany(d => d.Disciplines)
 			.HasForeignKey(sd => sd.SpecialtyId);
-		builder.Entity<SpecialtieDisciplines>()
+		builder.Entity<SpecialtyDisciplines>()
 			.HasOne(d => d.Discipline)
 			.WithMany(s => s.Specialties)
 			.HasForeignKey(sd => sd.DisciplineId);

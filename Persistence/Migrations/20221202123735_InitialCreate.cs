@@ -87,7 +87,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SpecialtieDisciplines",
+                name: "SpecialtyDisciplines",
                 columns: table => new
                 {
                     SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -95,15 +95,15 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SpecialtieDisciplines", x => new { x.SpecialtyId, x.DisciplineId });
+                    table.PrimaryKey("PK_SpecialtyDisciplines", x => new { x.SpecialtyId, x.DisciplineId });
                     table.ForeignKey(
-                        name: "FK_SpecialtieDisciplines_Disciplines_DisciplineId",
+                        name: "FK_SpecialtyDisciplines_Disciplines_DisciplineId",
                         column: x => x.DisciplineId,
                         principalTable: "Disciplines",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SpecialtieDisciplines_Specialties_SpecialtyId",
+                        name: "FK_SpecialtyDisciplines_Specialties_SpecialtyId",
                         column: x => x.SpecialtyId,
                         principalTable: "Specialties",
                         principalColumn: "Id",
@@ -111,23 +111,23 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UniversitieSpecialties",
+                name: "UniversityBranchesOfKnowledge",
                 columns: table => new
                 {
                     UniversityId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    BranchOfKnowledgeId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UniversitieSpecialties", x => new { x.UniversityId, x.SpecialtyId });
+                    table.PrimaryKey("PK_UniversityBranchesOfKnowledge", x => new { x.UniversityId, x.BranchOfKnowledgeId });
                     table.ForeignKey(
-                        name: "FK_UniversitieSpecialties_Specialties_SpecialtyId",
-                        column: x => x.SpecialtyId,
-                        principalTable: "Specialties",
+                        name: "FK_UniversityBranchesOfKnowledge_BranchesOfKnowledge_BranchOfKnowledgeId",
+                        column: x => x.BranchOfKnowledgeId,
+                        principalTable: "BranchesOfKnowledge",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UniversitieSpecialties_Universities_UniversityId",
+                        name: "FK_UniversityBranchesOfKnowledge_Universities_UniversityId",
                         column: x => x.UniversityId,
                         principalTable: "Universities",
                         principalColumn: "Id",
@@ -141,14 +141,14 @@ namespace Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_SpecialtieDisciplines_DisciplineId",
-                table: "SpecialtieDisciplines",
+                name: "IX_SpecialtyDisciplines_DisciplineId",
+                table: "SpecialtyDisciplines",
                 column: "DisciplineId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UniversitieSpecialties_SpecialtyId",
-                table: "UniversitieSpecialties",
-                column: "SpecialtyId",
+                name: "IX_UniversityBranchesOfKnowledge_BranchOfKnowledgeId",
+                table: "UniversityBranchesOfKnowledge",
+                column: "BranchOfKnowledgeId",
                 unique: true);
         }
 
@@ -158,19 +158,19 @@ namespace Persistence.Migrations
                 name: "BranchOfKnowledgeSpecialties");
 
             migrationBuilder.DropTable(
-                name: "SpecialtieDisciplines");
+                name: "SpecialtyDisciplines");
 
             migrationBuilder.DropTable(
-                name: "UniversitieSpecialties");
-
-            migrationBuilder.DropTable(
-                name: "BranchesOfKnowledge");
+                name: "UniversityBranchesOfKnowledge");
 
             migrationBuilder.DropTable(
                 name: "Disciplines");
 
             migrationBuilder.DropTable(
                 name: "Specialties");
+
+            migrationBuilder.DropTable(
+                name: "BranchesOfKnowledge");
 
             migrationBuilder.DropTable(
                 name: "Universities");

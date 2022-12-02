@@ -11,8 +11,6 @@ namespace Application.Specialties
 
 		public string? Name { get; set; }
 
-		public string? BranchOfKnowledge { get; set; }
-
 		public ICollection<DisciplineDto>? Disciplines { get; set; }
 	}
 }

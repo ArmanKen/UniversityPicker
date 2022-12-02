@@ -27,8 +27,6 @@ namespace Application.Specialties
 				var specialties = await _context.Specialties
 				.Include(s => s.Disciplines)
 				.ThenInclude(d => d.Discipline)
-				.Include(s => s.BranchOfKnowledge)
-				.ThenInclude(bok => bok!.BranchOfKnowledge!)
 				.ToListAsync();
 				var specialtiesToReturn = _mapper.Map<List<SpecialtyDto>>(specialties);
 				return Result<List<SpecialtyDto>>.Success(specialtiesToReturn);

@@ -26,6 +26,52 @@ namespace Persistence
 					Name = "Операційні системи"
 				}
 			};
+
+			if (context.Specialties.Any()) return;
+			var specialties = new List<Specialty>
+			{
+				new Specialty
+				{
+					Name = "Інженер програмного забезпечення",
+					Disciplines = new List<SpecialtyDisciplines>
+					{
+						new SpecialtyDisciplines
+						{
+							Discipline = disciplines[0]
+						},
+						new SpecialtyDisciplines
+						{
+							Discipline = disciplines[1]
+						},
+						new SpecialtyDisciplines
+						{
+							Discipline = disciplines[2]
+						}
+					},
+					Code = 121
+				},
+				new Specialty
+				{
+				Name = "Кібербезпека",
+				Disciplines = new List<SpecialtyDisciplines>
+					{
+						new SpecialtyDisciplines
+						{
+							Discipline = disciplines[0]
+						},
+						new SpecialtyDisciplines
+						{
+							Discipline = disciplines[1]
+						},
+						new SpecialtyDisciplines
+						{
+							Discipline = disciplines[2]
+						}
+					},
+				Code = 122
+				}
+			};
+
 			if (context.BranchesOfKnowledge.Any()) return;
 			var branchesOfKnowledge = new List<BranchOfKnowledge>
 			{
@@ -71,7 +117,18 @@ namespace Persistence
 				},
 				new BranchOfKnowledge
 				{
-					Name = "Інформаційні технології"
+					Name = "Інформаційні технології",
+					Specialties = new List<BranchOfKnowledgeSpecialties>
+					{
+						new BranchOfKnowledgeSpecialties
+						{
+							Specialty = specialties[0]
+						},
+						new BranchOfKnowledgeSpecialties
+						{
+							Specialty = specialties[1]
+						}
+					}
 				},
 				new BranchOfKnowledge
 				{
@@ -138,74 +195,12 @@ namespace Persistence
 					Name = "Транспорт"
 				}
 			};
-			if (context.Specialties.Any()) return;
-			var specialties = new List<Specialty>
-			{
-				new Specialty
-				{
-					Name = "Інженер програмного забезпечення",
-					BranchOfKnowledge=new BranchOfKnowledgeSpecialties
-					{
-						BranchOfKnowledge = branchesOfKnowledge[10]
-					},
-					Disciplines = new List<SpecialtieDisciplines>
-					{
-						new SpecialtieDisciplines
-						{
-							Discipline = disciplines[0]
-						},
-						new SpecialtieDisciplines
-						{
-							Discipline = disciplines[1]
-						},
-						new SpecialtieDisciplines
-						{
-							Discipline = disciplines[2]
-						}
-					},
-					Code = 121
-				},
-				new Specialty
-				{
-				Name = "Кібербезпека",
-				BranchOfKnowledge=new BranchOfKnowledgeSpecialties
-				{
-					BranchOfKnowledge = branchesOfKnowledge[10]
-				},
-				Disciplines = new List<SpecialtieDisciplines>
-					{
-						new SpecialtieDisciplines
-						{
-							Discipline = disciplines[0]
-						},
-						new SpecialtieDisciplines
-						{
-							Discipline = disciplines[1]
-						},
-						new SpecialtieDisciplines
-						{
-							Discipline = disciplines[2]
-						}
-					},
-				Code = 122
-				}
-			};
-
 			if (context.Universities.Any()) return;
 			var universities = new University
 			{
 				Name = "ДТЕУ",
-				Specialties = new List<UniversitySpecialties>
-				{
-					new UniversitySpecialties
-					{
-						Specialty = specialties[0]
-					},
-					new UniversitySpecialties
-					{
-						Specialty = specialties[1]
-					}
-				}
+				BranchesOfKnowledge = new List<UniversityBranchesOfKnowledge>(
+					branchesOfKnowledge.Select(x => new UniversityBranchesOfKnowledge { BranchOfKnowledge = x }).ToList())
 			};
 			await context.BranchesOfKnowledge.AddRangeAsync(branchesOfKnowledge);
 			await context.Disciplines.AddRangeAsync(disciplines);

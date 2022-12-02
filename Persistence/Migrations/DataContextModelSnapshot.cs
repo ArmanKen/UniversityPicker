@@ -61,21 +61,6 @@ namespace Persistence.Migrations
                     b.ToTable("Disciplines");
                 });
 
-            modelBuilder.Entity("Domain.SpecialtieDisciplines", b =>
-                {
-                    b.Property<Guid>("SpecialtyId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("DisciplineId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SpecialtyId", "DisciplineId");
-
-                    b.HasIndex("DisciplineId");
-
-                    b.ToTable("SpecialtieDisciplines");
-                });
-
             modelBuilder.Entity("Domain.Specialty", b =>
                 {
                     b.Property<Guid>("Id")
@@ -91,6 +76,21 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specialties");
+                });
+
+            modelBuilder.Entity("Domain.SpecialtyDisciplines", b =>
+                {
+                    b.Property<Guid>("SpecialtyId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("DisciplineId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SpecialtyId", "DisciplineId");
+
+                    b.HasIndex("DisciplineId");
+
+                    b.ToTable("SpecialtyDisciplines");
                 });
 
             modelBuilder.Entity("Domain.University", b =>
@@ -119,20 +119,20 @@ namespace Persistence.Migrations
                     b.ToTable("Universities");
                 });
 
-            modelBuilder.Entity("Domain.UniversitySpecialties", b =>
+            modelBuilder.Entity("Domain.UniversityBranchesOfKnowledge", b =>
                 {
                     b.Property<Guid>("UniversityId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("SpecialtyId")
+                    b.Property<Guid>("BranchOfKnowledgeId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("UniversityId", "SpecialtyId");
+                    b.HasKey("UniversityId", "BranchOfKnowledgeId");
 
-                    b.HasIndex("SpecialtyId")
+                    b.HasIndex("BranchOfKnowledgeId")
                         .IsUnique();
 
-                    b.ToTable("UniversitieSpecialties");
+                    b.ToTable("UniversityBranchesOfKnowledge");
                 });
 
             modelBuilder.Entity("Domain.BranchOfKnowledgeSpecialties", b =>
@@ -154,7 +154,7 @@ namespace Persistence.Migrations
                     b.Navigation("Specialty");
                 });
 
-            modelBuilder.Entity("Domain.SpecialtieDisciplines", b =>
+            modelBuilder.Entity("Domain.SpecialtyDisciplines", b =>
                 {
                     b.HasOne("Domain.Discipline", "Discipline")
                         .WithMany("Specialties")
@@ -173,21 +173,21 @@ namespace Persistence.Migrations
                     b.Navigation("Specialty");
                 });
 
-            modelBuilder.Entity("Domain.UniversitySpecialties", b =>
+            modelBuilder.Entity("Domain.UniversityBranchesOfKnowledge", b =>
                 {
-                    b.HasOne("Domain.Specialty", "Specialty")
+                    b.HasOne("Domain.BranchOfKnowledge", "BranchOfKnowledge")
                         .WithOne("University")
-                        .HasForeignKey("Domain.UniversitySpecialties", "SpecialtyId")
+                        .HasForeignKey("Domain.UniversityBranchesOfKnowledge", "BranchOfKnowledgeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.University", "University")
-                        .WithMany("Specialties")
+                        .WithMany("BranchesOfKnowledge")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Specialty");
+                    b.Navigation("BranchOfKnowledge");
 
                     b.Navigation("University");
                 });
@@ -195,6 +195,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.BranchOfKnowledge", b =>
                 {
                     b.Navigation("Specialties");
+
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Domain.Discipline", b =>
@@ -207,13 +209,11 @@ namespace Persistence.Migrations
                     b.Navigation("BranchOfKnowledge");
 
                     b.Navigation("Disciplines");
-
-                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Domain.University", b =>
                 {
-                    b.Navigation("Specialties");
+                    b.Navigation("BranchesOfKnowledge");
                 });
 #pragma warning restore 612, 618
         }

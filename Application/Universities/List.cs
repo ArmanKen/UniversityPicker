@@ -24,13 +24,13 @@ namespace Application.Universities
 			public async Task<Result<List<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var universities = await _context.Universities
-				.Include(u => u.Specialties)
-				.ThenInclude(s => s.Specialty)
-				.Include(s => s.Specialties)
-				.ThenInclude(s => s!.Specialty!.BranchOfKnowledge!.BranchOfKnowledge!)
-				.Include(s => s.Specialties)
-				.ThenInclude(s => s!.Specialty!.Disciplines)
-				.ThenInclude(s=>s.Discipline)
+				.Include(x => x.BranchesOfKnowledge)
+				.ThenInclude(x => x.BranchOfKnowledge)
+				.Include(x => x.BranchesOfKnowledge)
+				.ThenInclude(x => x.BranchOfKnowledge!.Specialties)
+				.ThenInclude(x => x.Specialty)
+				.ThenInclude(x => x!.Disciplines)
+				.ThenInclude(x => x.Discipline)
 				.ToListAsync();
 				var universitiesToReturn = _mapper.Map<List<UniversityDto>>(universities);
 				return Result<List<UniversityDto>>.Success(universitiesToReturn);

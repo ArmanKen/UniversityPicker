@@ -1,9 +1,9 @@
-using Application.Specialties;
+using Application.BranchesOfKnowledge;
 
 namespace Application.Universities
 {
-    public class UniversityDto
-    {
+	public class UniversityDto
+	{
 		public Guid Id { get; set; }
 
 		public string? Name { get; set; }
@@ -16,6 +16,6 @@ namespace Application.Universities
 
 		public string? Website { get; set; }
 
-		public ICollection<SpecialtyDto>? Specialties { get; set;}
+		public ICollection<BranchOfKnowledgeDto>? BranchesOfKnowledge { get; set; }
 	}
 }

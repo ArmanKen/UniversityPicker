@@ -33,41 +33,15 @@ namespace Persistence
 				new Specialty
 				{
 					Name = "Інженер програмного забезпечення",
-					Disciplines = new List<SpecialtyDisciplines>
-					{
-						new SpecialtyDisciplines
-						{
-							Discipline = disciplines[0]
-						},
-						new SpecialtyDisciplines
-						{
-							Discipline = disciplines[1]
-						},
-						new SpecialtyDisciplines
-						{
-							Discipline = disciplines[2]
-						}
-					},
+					Disciplines = new List<SpecialtyDisciplines>(
+						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x}).ToList()),
 					Code = 121
 				},
 				new Specialty
 				{
 				Name = "Кібербезпека",
-				Disciplines = new List<SpecialtyDisciplines>
-					{
-						new SpecialtyDisciplines
-						{
-							Discipline = disciplines[0]
-						},
-						new SpecialtyDisciplines
-						{
-							Discipline = disciplines[1]
-						},
-						new SpecialtyDisciplines
-						{
-							Discipline = disciplines[2]
-						}
-					},
+				Disciplines = new List<SpecialtyDisciplines>(
+						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x}).ToList()),
 				Code = 122
 				}
 			};
@@ -118,17 +92,8 @@ namespace Persistence
 				new BranchOfKnowledge
 				{
 					Name = "Інформаційні технології",
-					Specialties = new List<BranchOfKnowledgeSpecialties>
-					{
-						new BranchOfKnowledgeSpecialties
-						{
-							Specialty = specialties[0]
-						},
-						new BranchOfKnowledgeSpecialties
-						{
-							Specialty = specialties[1]
-						}
-					}
+					Specialties = new List<BranchOfKnowledgeSpecialties>(
+						specialties.Select(x=>new BranchOfKnowledgeSpecialties{Specialty=x}).ToList())
 				},
 				new BranchOfKnowledge
 				{

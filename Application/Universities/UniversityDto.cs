@@ -1,4 +1,4 @@
-using Application.BranchesOfKnowledge;
+using Application.Specialties;
 
 namespace Application.Universities
 {
@@ -16,6 +16,6 @@ namespace Application.Universities
 
 		public string? Website { get; set; }
 
-		public ICollection<BranchOfKnowledgeDto>? BranchesOfKnowledge { get; set; }
+		public ICollection<SpecialtyDto>? Specialties { get; set; }
 	}
 }

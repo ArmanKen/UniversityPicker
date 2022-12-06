@@ -11,43 +11,13 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221202123735_InitialCreate")]
+    [Migration("20221206191727_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
-
-            modelBuilder.Entity("Domain.BranchOfKnowledge", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BranchesOfKnowledge");
-                });
-
-            modelBuilder.Entity("Domain.BranchOfKnowledgeSpecialties", b =>
-                {
-                    b.Property<Guid>("BranchOfKnowledgeId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("SpecialtyId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("BranchOfKnowledgeId", "SpecialtyId");
-
-                    b.HasIndex("SpecialtyId")
-                        .IsUnique();
-
-                    b.ToTable("BranchOfKnowledgeSpecialties");
-                });
 
             modelBuilder.Entity("Domain.Discipline", b =>
                 {
@@ -121,39 +91,20 @@ namespace Persistence.Migrations
                     b.ToTable("Universities");
                 });
 
-            modelBuilder.Entity("Domain.UniversityBranchesOfKnowledge", b =>
+            modelBuilder.Entity("Domain.UniversitySpecialties", b =>
                 {
                     b.Property<Guid>("UniversityId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("BranchOfKnowledgeId")
+                    b.Property<Guid>("SpecialtyId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("UniversityId", "BranchOfKnowledgeId");
+                    b.HasKey("UniversityId", "SpecialtyId");
 
-                    b.HasIndex("BranchOfKnowledgeId")
+                    b.HasIndex("SpecialtyId")
                         .IsUnique();
 
-                    b.ToTable("UniversityBranchesOfKnowledge");
-                });
-
-            modelBuilder.Entity("Domain.BranchOfKnowledgeSpecialties", b =>
-                {
-                    b.HasOne("Domain.BranchOfKnowledge", "BranchOfKnowledge")
-                        .WithMany("Specialties")
-                        .HasForeignKey("BranchOfKnowledgeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Specialty", "Specialty")
-                        .WithOne("BranchOfKnowledge")
-                        .HasForeignKey("Domain.BranchOfKnowledgeSpecialties", "SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BranchOfKnowledge");
-
-                    b.Navigation("Specialty");
+                    b.ToTable("UniversitySpecialties");
                 });
 
             modelBuilder.Entity("Domain.SpecialtyDisciplines", b =>
@@ -175,28 +126,21 @@ namespace Persistence.Migrations
                     b.Navigation("Specialty");
                 });
 
-            modelBuilder.Entity("Domain.UniversityBranchesOfKnowledge", b =>
+            modelBuilder.Entity("Domain.UniversitySpecialties", b =>
                 {
-                    b.HasOne("Domain.BranchOfKnowledge", "BranchOfKnowledge")
+                    b.HasOne("Domain.Specialty", "Specialty")
                         .WithOne("University")
-                        .HasForeignKey("Domain.UniversityBranchesOfKnowledge", "BranchOfKnowledgeId")
+                        .HasForeignKey("Domain.UniversitySpecialties", "SpecialtyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.University", "University")
-                        .WithMany("BranchesOfKnowledge")
+                        .WithMany("Specialties")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BranchOfKnowledge");
-
-                    b.Navigation("University");
-                });
-
-            modelBuilder.Entity("Domain.BranchOfKnowledge", b =>
-                {
-                    b.Navigation("Specialties");
+                    b.Navigation("Specialty");
 
                     b.Navigation("University");
                 });
@@ -208,14 +152,14 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Specialty", b =>
                 {
-                    b.Navigation("BranchOfKnowledge");
-
                     b.Navigation("Disciplines");
+
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Domain.University", b =>
                 {
-                    b.Navigation("BranchesOfKnowledge");
+                    b.Navigation("Specialties");
                 });
 #pragma warning restore 612, 618
         }

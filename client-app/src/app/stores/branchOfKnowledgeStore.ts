@@ -7,7 +7,7 @@ export default class BranchOfKnowledgeStore {
 	selectedBranchOfKnowledge: BranchOfKnowledge | undefined = undefined;
 	loadingInitial = false;
 	
-
+	
 	constructor() {
 		makeAutoObservable(this);
 	}

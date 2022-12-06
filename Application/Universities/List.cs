@@ -24,10 +24,7 @@ namespace Application.Universities
 			public async Task<Result<List<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var universities = await _context.Universities
-				.Include(x => x.BranchesOfKnowledge)
-				.ThenInclude(x => x.BranchOfKnowledge)
-				.Include(x => x.BranchesOfKnowledge)
-				.ThenInclude(x => x.BranchOfKnowledge!.Specialties)
+				.Include(x => x.Specialties)
 				.ThenInclude(x => x.Specialty)
 				.ThenInclude(x => x!.Disciplines)
 				.ThenInclude(x => x.Discipline)

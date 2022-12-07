@@ -1,25 +1,22 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Specialty } from "../models/specialty";
-import { Step } from "../models/step";
+import { University } from "../models/university";
 
-export default class SpecialtyStore {
-	specialties: Specialty[] = [];
-	selectedSpecialty: Specialty | undefined = undefined;
+export default class UniversityStore {
+	universities: University[] = [];
 	loadingInitial = false;
-
 
 	constructor() {
 		makeAutoObservable(this);
 	}
 
-	loadSpecialties = async () => {
+	loadDisciplines = async () => {
 		this.setLoadingInitial(true);
 		try {
-			const specialties = await agent.Specialties.list();
+			const universities = await agent.Universities.list();
 			runInAction(() => {
-				specialties.forEach(specialty => {
-					this.specialties.push(specialty);
+				universities.forEach(university => {
+					this.universities.push(university);
 				})
 			})
 			this.setLoadingInitial(false);

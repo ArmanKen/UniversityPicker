@@ -1,5 +1,5 @@
 export interface BranchOfKnowledge {
-	id: string;
+	code: string;
 	name: string;
-	isSelected: boolean;
+	isSelected?: boolean;
 }

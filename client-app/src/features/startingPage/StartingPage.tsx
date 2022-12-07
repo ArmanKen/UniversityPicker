@@ -8,18 +8,11 @@ import BranchOfKnowledgeList from './BranchOfKnowledgeList';
 export default observer(function StartingPage() {
 	const { stepStore, branchOfKnowledgeStore, specialtyStore, disciplineStore } = useStore();
 	const { allStepsToDefault, setCurrentStep } = stepStore;
-	const { branchesOfKnowledge, loadBranchesOfKnowledge } = branchOfKnowledgeStore;
-	const { specialties, loadSpecialties } = specialtyStore;
-	const { disciplines, loadDisciplines } = disciplineStore;
-
+	//TODO: university store 
 	useEffect(() => {
-		if (branchesOfKnowledge.length <= 1) loadBranchesOfKnowledge();
-		if (specialties.length <= 1) loadSpecialties();
-		if (disciplines.length <= 1) loadDisciplines();
 		allStepsToDefault();
 		setCurrentStep(<BranchOfKnowledgeList />)
-	}, [branchesOfKnowledge.length, specialties.length, disciplines.length
-		, loadBranchesOfKnowledge, loadSpecialties, loadDisciplines, allStepsToDefault, setCurrentStep])
+	}, [allStepsToDefault, setCurrentStep])
 
 	if (branchOfKnowledgeStore.loadingInitial || specialtyStore.loadingInitial || disciplineStore.loadingInitial) {
 		return <LoadingComponent content='Завантаження фільтрів...' />

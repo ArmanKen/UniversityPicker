@@ -6,15 +6,18 @@ import { useStore } from '../../app/stores/store';
 import BranchOfKnowledgeList from './BranchOfKnowledgeList';
 
 export default observer(function StartingPage() {
-	const { stepStore, branchOfKnowledgeStore, specialtyStore, disciplineStore } = useStore();
-	const { allStepsToDefault, setCurrentStep } = stepStore;
-	//TODO: university store 
-	useEffect(() => {
-		allStepsToDefault();
-		setCurrentStep(<BranchOfKnowledgeList />)
-	}, [allStepsToDefault, setCurrentStep])
+	const { stepStore, universityStore } = useStore();
+	const { setCurrentStep } = stepStore;
+	const { universities, loadUniversities } = universityStore;
 
-	if (branchOfKnowledgeStore.loadingInitial || specialtyStore.loadingInitial || disciplineStore.loadingInitial) {
+	useEffect(() => {
+		if (universities.length === 0) {
+			loadUniversities();
+			setCurrentStep(<BranchOfKnowledgeList key={1} />)
+		}
+	}, [universities.length, loadUniversities, setCurrentStep])
+
+	if (universityStore.loadingInitial) {
 		return <LoadingComponent content='Завантаження фільтрів...' />
 	}
 

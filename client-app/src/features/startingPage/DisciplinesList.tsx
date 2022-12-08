@@ -6,9 +6,8 @@ import BranchOfKnowledgeList from "./BranchOfKnowledgeList";
 import SpecialtyPick from "./SpecialtyPick";
 
 export default observer(function DisciplineList() {
-	const { disciplineStore, stepStore } = useStore()
-	const { setStepToActive, setStepToCompleted, disciplineStep, branchOfKnowledgeStep, setCurrentStep } = stepStore;
-	const { disciplines, updateSelectedDisciplines, selectedDisciplines } = disciplineStore;
+	const { stepStore } = useStore()
+	const { setCurrentStep } = stepStore;
 
 	return (
 		<>
@@ -16,7 +15,7 @@ export default observer(function DisciplineList() {
 				Оберіть дисципліни, які хотіли би вивчати.
 			</h1>
 			<Grid container columns={4} stackable textAlign="center" style={{ marginTop: "3em" }}>
-				{disciplines.map(x => (
+				{/* {disciplines.map(x => (
 					<Grid.Column key={x.id}>
 						<Button
 							content={x.name}
@@ -25,10 +24,10 @@ export default observer(function DisciplineList() {
 							fluid
 						/>
 					</Grid.Column>
-				))}
+				))} */}
 			</Grid>
 			<Container style={{ marginTop: '7em' }}>
-				<Button
+				{/* <Button
 					disabled={selectedDisciplines.size < 1 ? true : false}
 					color='black'
 					size="big"
@@ -39,15 +38,13 @@ export default observer(function DisciplineList() {
 						setCurrentStep(<SpecialtyPick />)
 					}}
 					content="Наступний крок"
-				/>
+				/> */}
 				<Button
 					color='black'
 					size="big"
 					floated='left'
 					onClick={() => {
-						setStepToActive(disciplineStep);
-						setStepToCompleted(branchOfKnowledgeStep);
-						setCurrentStep(<BranchOfKnowledgeList />)
+						setCurrentStep(<BranchOfKnowledgeList key={1}/>)
 					}}
 					content="Повернутися до минулого кроку"
 				/>

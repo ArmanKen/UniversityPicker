@@ -1,22 +1,21 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { Button, Container, Grid } from "semantic-ui-react";
+import { Button, Container, Grid, Header } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
 import SpecialtyPick from "./SpecialtyPick";
 
 export default observer(function BranchOfKnowledgeList() {
 	const { branchOfKnowledgeStore, stepStore } = useStore();
-	const { setStepToActive, setStepToCompleted, specilatyStep, branchOfKnowledgeStep, setCurrentStep } = stepStore;
 	const { branchesOfKnowledge, updateSelectedBranchOfKnowledge, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
-
+	//TODO:Rem?
 	return (
 		<>
-			<h1 style={{ textAlign: 'center' }}>
+			<Header style={{ textAlign: 'center' }}>
 				Оберіть область знань, у якій ви зацікавлені.
-			</h1>
+			</Header>
 			<Grid container columns={3} stackable textAlign="center" style={{ marginTop: "3em" }}>
 				{branchesOfKnowledge.map(x => (
-					<Grid.Column key={x.id}>
+					<Grid.Column key={x.code}>
 						<Button
 							fluid
 							color={x.isSelected ? 'black' : 'grey'}
@@ -33,11 +32,15 @@ export default observer(function BranchOfKnowledgeList() {
 					size="big"
 					floated='right'
 					onClick={() => {
-						setStepToActive(specilatyStep);
-						setStepToCompleted(branchOfKnowledgeStep);
-						setCurrentStep(<SpecialtyPick />)
+						stepStore.setCurrentStep(<SpecialtyPick key={2} />)
 					}}
 					content="Наступний крок"
+				/>
+				<Button
+					color='black'
+					size="big"
+					floated='left'
+					content="До головного меню"
 				/>
 			</Container>
 		</>

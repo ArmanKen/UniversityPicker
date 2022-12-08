@@ -10,7 +10,7 @@ export default class UniversityStore {
 		makeAutoObservable(this);
 	}
 
-	loadDisciplines = async () => {
+	loadUniversities = async () => {
 		this.setLoadingInitial(true);
 		try {
 			const universities = await agent.Universities.list();

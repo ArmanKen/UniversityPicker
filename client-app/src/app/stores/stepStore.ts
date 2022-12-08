@@ -1,8 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { Step } from "../models/step";
 
 export default class StepStore {
-	branchOfKnowledgeStep = { active: false, completed: false, disabled: true };
+	branchOfKnowledgeStep = { active: true, completed: false, disabled: false };
 	specilatyStep = { active: false, completed: false, disabled: true };
 	disciplineStep = { active: false, completed: false, disabled: true };
 	currentStep: JSX.Element | undefined = undefined;
@@ -11,37 +10,24 @@ export default class StepStore {
 		makeAutoObservable(this);
 	}
 
-	allStepsToDefault = () => {
-		this.branchOfKnowledgeStep.active = true;
-		this.branchOfKnowledgeStep.disabled = false;
-		this.branchOfKnowledgeStep.completed = false;
-		this.specilatyStep.active = false;
-		this.specilatyStep.disabled = false;
-		this.specilatyStep.completed = false;
-		this.disciplineStep.active = false;
-		this.disciplineStep.disabled = false;
-		this.disciplineStep.completed = false;
-	}
-
-	setStepToActive = (step: Step) => {
-		step.active = true;
-		step.completed = false;
-		step.disabled = false;
-	}
-
-	setStepToCompleted = (step: Step) => {
-		step.active = false;
-		step.completed = true;
-		step.disabled = false;
-	}
-
-	setStepToDisabled = (step: Step) => {
-		step.active = false;
-		step.completed = false;
-		step.disabled = true;
-	}
-
 	setCurrentStep = (step: JSX.Element) => {
+		switch (step.key?.toString()) {
+			case '1':
+				console.log('it works')
+				this.branchOfKnowledgeStep = { active: true, completed: false, disabled: false };
+				this.specilatyStep = { active: false, completed: false, disabled: true };
+				this.disciplineStep = { active: false, completed: false, disabled: true };
+				break;
+			case '2':
+				this.branchOfKnowledgeStep = { active: false, completed: true, disabled: false };
+				this.specilatyStep = { active: true, completed: false, disabled: false };
+				this.disciplineStep = { active: false, completed: false, disabled: true };
+				break;
+			case '3':
+				break;
+			case '4':
+				break;
+		}
 		this.currentStep = step;
 	}
 }

@@ -27,5 +27,5 @@ export const branchesOfKnowledge: BranchOfKnowledge[] = [
 	{ code: '24', name: 'Сфера обслуговування' },
 	{ code: '25', name: 'Воєнні науки, національна безпека, безпека державного кордону' },
 	{ code: '26', name: 'Цивільна безпека' },
-	{ code: '26', name: 'Транспорт' },
+	{ code: '27', name: 'Транспорт' },
 ]

@@ -11,11 +11,14 @@ export default observer(function StartingPage() {
 	const { universities, loadUniversities } = universityStore;
 
 	useEffect(() => {
+		setCurrentStep(<BranchOfKnowledgeList key={1} />);
+	}, [setCurrentStep])
+
+	useEffect(() => {
 		if (universities.length === 0) {
 			loadUniversities();
-			setCurrentStep(<BranchOfKnowledgeList key={1} />)
 		}
-	}, [universities.length, loadUniversities, setCurrentStep])
+	}, [universities.length, loadUniversities])
 
 	if (universityStore.loadingInitial) {
 		return <LoadingComponent content='Завантаження фільтрів...' />

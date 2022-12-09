@@ -39,24 +39,10 @@ namespace Persistence
 				},
 				new Specialty
 				{
-					Name = "Інженер програмного забезпечення",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 121
-				},
-				new Specialty
-				{
-					Name = "Інженер програмного забезпечення",
+					Name = "Кібербезпека",
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 122
-				},
-				new Specialty
-				{
-				Name = "Кібербезпека",
-				Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-				Code = 122
 				}
 			};
 

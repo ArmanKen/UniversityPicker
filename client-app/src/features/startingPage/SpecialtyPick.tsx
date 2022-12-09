@@ -4,17 +4,18 @@ import { useStore } from '../../app/stores/store';
 
 export default function SpecialtyPick() {
 	const { specilatyStore } = useStore();
-	const { specialties, loadSpecialties } = specilatyStore;
+	const { specialties, loadSpecialties, dropdownContent,loadDropdownContent } = specilatyStore;
 
 	useEffect(() => {
 		if (specialties.length === 0) {
 			loadSpecialties();
+			loadDropdownContent()
 		}
-	}, [specialties.length, loadSpecialties])
+	}, [specialties.length, loadSpecialties,loadDropdownContent])
 
 	return (
 		<>
-			{/* <Dropdown options={} clearable/> */}
+			<Dropdown options={dropdownContent} clearable selection fluid/>
 		</>
 	)
 }

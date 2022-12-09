@@ -7,7 +7,8 @@ import SpecialtyPick from "./SpecialtyPick";
 export default observer(function BranchOfKnowledgeList() {
 	const { branchOfKnowledgeStore, stepStore } = useStore();
 	const { branchesOfKnowledge, updateSelectedBranchOfKnowledge, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
-	//TODO:Rem?
+
+	//TODO styling:Rem?
 	return (
 		<>
 			<Header style={{ textAlign: 'center' }}>

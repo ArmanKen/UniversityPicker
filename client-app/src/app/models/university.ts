@@ -1,4 +1,4 @@
-import { BranchOfKnowledge } from "./branchOfKnowledge";
+import { Specialty } from "./specialty";
 
 export interface University {
 	id: string;
@@ -7,5 +7,5 @@ export interface University {
 	city: string;
 	address: string;
 	website: string;
-	branchesOfKnowledge: BranchOfKnowledge[];
+	specialties: Specialty[];
 }

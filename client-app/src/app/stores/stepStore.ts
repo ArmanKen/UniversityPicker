@@ -13,7 +13,6 @@ export default class StepStore {
 	setCurrentStep = (step: JSX.Element) => {
 		switch (step.key?.toString()) {
 			case '1':
-				console.log('it works')
 				this.branchOfKnowledgeStep = { active: true, completed: false, disabled: false };
 				this.specilatyStep = { active: false, completed: false, disabled: true };
 				this.disciplineStep = { active: false, completed: false, disabled: true };

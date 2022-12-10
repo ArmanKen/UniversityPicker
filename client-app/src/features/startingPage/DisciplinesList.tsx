@@ -44,7 +44,7 @@ export default observer(function DisciplineList() {
 					size="big"
 					floated='left'
 					onClick={() => {
-						setCurrentStep(<BranchOfKnowledgeList key={1}/>)
+						setCurrentStep(<SpecialtyPick key={2}/>)
 					}}
 					content="Повернутися до минулого кроку"
 				/>

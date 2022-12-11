@@ -4,22 +4,36 @@ import { store } from "./store";
 
 export default class DisciplineStore {
 	disciplines: Discipline[] = [];
-	selectedSpecialty: Discipline[] | undefined = undefined;
+	selectedDisciplines: Discipline[] | undefined = undefined;
 
 	constructor() {
 		makeAutoObservable(this);
 	}
 
-	loadSpecialties = () => {
-		// try {
-		// 	store.universityStore.universities.forEach(university => {
-		// 		university.specialties.filter(x => x.code == store.specilatyStore.selectedSpecialty?.code).forEach(specialty => {
-		// 			let specialtyCode = specialty.code;
-		// 			this.disciplines.
-		// 		})
-		// 	})
-		// } catch (error) {
-		// 	console.log(error);
-		// }
+	loadDisciplines = () => {
+		try {
+			let selectedSpecialty = store.specilatyStore.selectedSpecialty
+			if (selectedSpecialty !== undefined) {
+				store.universityStore.universities.forEach(university => {
+					this.disciplines.concat(university.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!)
+				})
+			}
+			else {
+				this.disciplines.concat(store.specilatyStore.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!)
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	updateSelectedDisciplines = (discipline: Discipline) => {
+		if (discipline.isSelected === false) {
+			discipline.isSelected = true;
+			this.selectedDisciplines?.push(discipline)
+		}
+		else {
+			discipline.isSelected = false;
+			this.selectedDisciplines = this.selectedDisciplines?.filter(disciplines => disciplines !== discipline)
+		}
 	}
 }

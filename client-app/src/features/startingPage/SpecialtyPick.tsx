@@ -6,7 +6,7 @@ import DisciplinesList from './DisciplinesList';
 
 export default function SpecialtyPick() {
 	const { specilatyStore, stepStore } = useStore();
-	const { specialties, loadSpecialties, dropdownContent, loadDropdownContent } = specilatyStore;
+	const { specialties, loadSpecialties, dropdownContent, loadDropdownContent, changeSelectedSpecialty } = specilatyStore;
 
 	useEffect(() => {
 		if (specialties.length === 0) {
@@ -20,7 +20,14 @@ export default function SpecialtyPick() {
 			<Header style={{ textAlign: 'center' }}>
 				Оберіть спеціалізацію, якщо ви ще не визначилися, просто перейдіть далі.
 			</Header>
-			<Dropdown options={dropdownContent} clearable selection fluid />
+			<Dropdown options={dropdownContent}
+				onChange={(e,{value}) => {
+					if (!isNaN(+value!))
+						changeSelectedSpecialty(+value!);
+				}}
+				clearable
+				selection
+				fluid />
 			<Container style={{ marginTop: '7em' }}>
 				<Button
 					color='black'

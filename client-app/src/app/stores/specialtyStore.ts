@@ -7,7 +7,6 @@ export default class SpecilatyStore {
 	specialties: Specialty[] = [];
 	selectedSpecialty: Specialty | undefined = undefined;
 	dropdownContent: DropdownItemProps[] = [];
-	loadingInitial = false;
 
 	constructor() {
 		makeAutoObservable(this);
@@ -32,11 +31,15 @@ export default class SpecilatyStore {
 	loadDropdownContent = () => {
 		try {
 			this.specialties.forEach(specialty =>
-				this.dropdownContent.push({ key: specialty.id, text: specialty.name, value: specialty.name })
+				this.dropdownContent.push({ key: specialty.id, text: specialty.name, value: specialty.code })
 			);
 		} catch (error) {
 			console.log(error);
 		}
 		return this.dropdownContent;
+	}
+
+	changeSelectedSpecialty = (value: number) => {
+		this.selectedSpecialty = this.specialties.find(specialty => specialty.code === value);
 	}
 }

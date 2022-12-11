@@ -1,8 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { Button, Container, Grid } from "semantic-ui-react";
+import { Button, Container, Grid, Header } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
-import BranchOfKnowledgeList from "./BranchOfKnowledgeList";
 import SpecialtyPick from "./SpecialtyPick";
 
 export default observer(function DisciplineList() {
@@ -11,9 +10,9 @@ export default observer(function DisciplineList() {
 
 	return (
 		<>
-			<h1 style={{ textAlign: 'center' }}>
+			<Header style={{ textAlign: 'center' }}>
 				Оберіть дисципліни, які хотіли би вивчати.
-			</h1>
+			</Header>
 			<Grid container columns={4} stackable textAlign="center" style={{ marginTop: "3em" }}>
 				{/* {disciplines.map(x => (
 					<Grid.Column key={x.id}>

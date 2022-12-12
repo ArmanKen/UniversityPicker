@@ -21,6 +21,12 @@ export default observer(function DisciplineList() {
 			<Header style={{ textAlign: 'center' }}>
 				Оберіть дисципліни, які хотіли би вивчати.
 			</Header>
+			<Button
+				color='black'
+				size="medium"
+				floated='left'>
+				Hello
+			</Button>
 			<Grid container columns={4} stackable textAlign="center" style={{ marginTop: "3em" }}>
 				{disciplines.map(x => (
 					<Grid.Column key={x.id}>

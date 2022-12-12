@@ -12,14 +12,20 @@ export default class DisciplineStore {
 
 	loadDisciplines = () => {
 		try {
-			let selectedSpecialty = store.specilatyStore.selectedSpecialty
+			let selectedSpecialty = store.specilatyStore.selectedSpecialty;
 			if (selectedSpecialty !== undefined) {
 				store.universityStore.universities.forEach(university => {
-					this.disciplines.concat(university.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!)
+					this.disciplines = this.disciplines.concat(university.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!);
 				})
 			}
 			else {
-				this.disciplines.concat(store.specilatyStore.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!)
+				store.specilatyStore.specialties.forEach(specialty => {
+					specialty.disciplines!.forEach(discipline => {
+						if (!this.disciplines.some(x => x.id === discipline.id)) {
+							this.disciplines.push(discipline);
+						}
+					})
+				})
 			}
 		} catch (error) {
 			console.log(error);
@@ -27,13 +33,13 @@ export default class DisciplineStore {
 	}
 
 	updateSelectedDisciplines = (discipline: Discipline) => {
-		if (discipline.isSelected === false) {
-			discipline.isSelected = true;
-			this.selectedDisciplines?.push(discipline)
+		if (discipline.isSelected === true) {
+			discipline.isSelected = false;
+			this.selectedDisciplines = this.selectedDisciplines?.filter(disciplines => disciplines !== discipline);
 		}
 		else {
-			discipline.isSelected = false;
-			this.selectedDisciplines = this.selectedDisciplines?.filter(disciplines => disciplines !== discipline)
+			discipline.isSelected = true;
+			this.selectedDisciplines?.push(discipline);
 		}
 	}
 }

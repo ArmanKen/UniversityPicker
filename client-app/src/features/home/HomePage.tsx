@@ -1,9 +1,8 @@
-import { observer } from "mobx-react-lite";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Header, Segment } from "semantic-ui-react";
 
-export default observer(function HomePage() {
+export default function HomePage() {
 	return (
 		<Segment inverted textAlign='center' vertical className='masthead'>
 			<Container text>
@@ -20,4 +19,4 @@ export default observer(function HomePage() {
 				</Button>
 			</Container>
 		</Segment>)
-})
+}

@@ -17,12 +17,12 @@ export default class SpecilatyStore {
 			store.universityStore.universities.forEach(university => {
 				university.specialties.forEach(specialty => {
 					let specialtyCode = specialty.code.toFixed().slice(0, -1);
-					let branchOfKnowledgeCode = store.branchOfKnowledgeStore.selectedBranchOfKnowledge?.code;
-					if (specialtyCode === branchOfKnowledgeCode &&
+					if (specialtyCode === store.branchOfKnowledgeStore.selectedBranchOfKnowledge?.code &&
 						!this.specialties.some(x => x.code === specialty.code))
 						this.specialties.push(specialty);
 				})
 			})
+			this.specialties = this.specialties.sort(specialty => specialty.code);
 		} catch (error) {
 			console.log(error);
 		}
@@ -42,4 +42,6 @@ export default class SpecilatyStore {
 	changeSelectedSpecialty = (value: number) => {
 		this.selectedSpecialty = this.specialties.find(specialty => specialty.code === value);
 	}
+
+	//TODO: clear list,add all in list
 }

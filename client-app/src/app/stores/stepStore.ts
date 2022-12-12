@@ -23,6 +23,9 @@ export default class StepStore {
 				this.disciplineStep = { active: false, completed: false, disabled: true };
 				break;
 			case '3':
+				this.branchOfKnowledgeStep = { active: false, completed: true, disabled: false };
+				this.specilatyStep = { active: false, completed: true, disabled: false };
+				this.disciplineStep = { active: true, completed: false, disabled: false };
 				break;
 			case '4':
 				break;

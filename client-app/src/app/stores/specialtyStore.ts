@@ -23,25 +23,25 @@ export default class SpecilatyStore {
 				})
 			})
 			this.specialties = this.specialties.sort(specialty => specialty.code);
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	loadDropdownContent = () => {
-		try {
 			this.specialties.forEach(specialty =>
 				this.dropdownContent.push({ key: specialty.id, text: specialty.name, value: specialty.code })
 			);
 		} catch (error) {
 			console.log(error);
 		}
-		return this.dropdownContent;
 	}
 
-	changeSelectedSpecialty = (value: number) => {
-		this.selectedSpecialty = this.specialties.find(specialty => specialty.code === value);
+	changeSelectedSpecialty = (value: number | undefined) => {
+		value === undefined ?
+			this.selectedSpecialty = undefined
+			: this.selectedSpecialty = this.specialties.find(specialty => specialty.code === value);
+		store.disciplineStore.undoDisciplineStore();
 	}
 
-	//TODO: clear list,add all in list
+	undoSpecialtyStore = () => {
+		store.disciplineStore.undoDisciplineStore();
+		this.specialties.length = 0;
+		this.selectedSpecialty = undefined;
+		this.dropdownContent = [];
+	}
 }

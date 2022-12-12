@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { branchesOfKnowledge } from "../common/branchesOfKnowledge";
 import { BranchOfKnowledge } from "../models/branchOfKnowledge";
+import { store } from "./store";
 
 export default class BranchOfKnowledgeStore {
 	branchesOfKnowledge: BranchOfKnowledge[] = [];
@@ -18,5 +19,6 @@ export default class BranchOfKnowledgeStore {
 		}
 		this.selectedBranchOfKnowledge = branchOfKnowledge;
 		this.selectedBranchOfKnowledge.isSelected = true;
+		store.specilatyStore.undoSpecialtyStore();
 	}
 }

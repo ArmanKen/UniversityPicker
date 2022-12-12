@@ -4,7 +4,6 @@ import { store } from "./store";
 
 export default class DisciplineStore {
 	disciplines: Discipline[] = [];
-	selectedDisciplines: Discipline[] | undefined = undefined;
 
 	constructor() {
 		makeAutoObservable(this);
@@ -33,13 +32,25 @@ export default class DisciplineStore {
 	}
 
 	updateSelectedDisciplines = (discipline: Discipline) => {
-		if (discipline.isSelected === true) {
+		discipline.isSelected === true ?
+			discipline.isSelected = false
+			: discipline.isSelected = true;
+	}
+
+	clearSelectedDisciplines = () => {
+		this.disciplines.forEach(discipline => {
 			discipline.isSelected = false;
-			this.selectedDisciplines = this.selectedDisciplines?.filter(disciplines => disciplines !== discipline);
-		}
-		else {
+		})
+	}
+
+	selectAllDisciplines = () => {
+		this.disciplines.forEach(discipline => {
 			discipline.isSelected = true;
-			this.selectedDisciplines?.push(discipline);
-		}
+		})
+	}
+
+	undoDisciplineStore = () => {
+		this.clearSelectedDisciplines();
+		this.disciplines.length = 0;
 	}
 }

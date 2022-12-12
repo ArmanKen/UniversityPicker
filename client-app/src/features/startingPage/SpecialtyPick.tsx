@@ -7,14 +7,13 @@ import DisciplinesList from './DisciplinesList';
 
 export default observer(function SpecialtyPick() {
 	const { specilatyStore, stepStore } = useStore();
-	const { specialties, loadSpecialties, dropdownContent, loadDropdownContent, changeSelectedSpecialty, selectedSpecialty } = specilatyStore;
+	const { specialties, loadSpecialties, dropdownContent, changeSelectedSpecialty, selectedSpecialty } = specilatyStore;
 
 	useEffect(() => {
 		if (specialties.length === 0) {
-			loadSpecialties();
-			loadDropdownContent()
+			loadSpecialties();			
 		}
-	}, [specialties.length, loadSpecialties, loadDropdownContent])
+	}, [specialties.length, loadSpecialties])
 
 	return (
 		<>
@@ -23,10 +22,7 @@ export default observer(function SpecialtyPick() {
 			</Header>
 			<Dropdown options={dropdownContent}
 				value={selectedSpecialty?.code}
-				onChange={(e, { value }) => {
-					if (!isNaN(+value!))
-						changeSelectedSpecialty(+value!);
-				}}
+				onChange={(e, { value }) => changeSelectedSpecialty(+value!)}
 				clearable
 				selection
 				fluid />

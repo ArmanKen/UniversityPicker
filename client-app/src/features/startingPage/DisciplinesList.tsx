@@ -6,7 +6,7 @@ import SpecialtyPick from "./SpecialtyPick";
 
 export default observer(function DisciplineList() {
 	const { stepStore, disciplineStore } = useStore()
-	const { loadDisciplines, disciplines, updateSelectedDisciplines } = disciplineStore;
+	const { loadDisciplines, updateSelectedDisciplines, selectAllDisciplines, disciplines, clearSelectedDisciplines } = disciplineStore;
 	const { setCurrentStep } = stepStore;
 
 	useEffect(() => {
@@ -14,7 +14,6 @@ export default observer(function DisciplineList() {
 			loadDisciplines();
 		}
 	}, [disciplines.length, loadDisciplines])
-
 
 	return (
 		<>
@@ -24,8 +23,16 @@ export default observer(function DisciplineList() {
 			<Button
 				color='black'
 				size="medium"
+				onClick={() => selectAllDisciplines()}
 				floated='left'>
-				Hello
+				Обрати все
+			</Button>
+			<Button
+				color='black'
+				size="medium"
+				onClick={() => clearSelectedDisciplines()}
+				floated='left'>
+				Cкасувати вибір
 			</Button>
 			<Grid container columns={4} stackable textAlign="center" style={{ marginTop: "3em" }}>
 				{disciplines.map(x => (

@@ -1,6 +1,6 @@
-import { BranchOfKnowledge } from "../models/branchOfKnowledge";
+import { BranchOfKnowledge } from "../../models/branchOfKnowledge";
 
-export const branchesOfKnowledge: BranchOfKnowledge[] = [
+export const allBranchesOfKnowledge: BranchOfKnowledge[] = [
 	{ code: '1', name: 'Освіта' },
 	{ code: '2', name: 'Культура і мистецтво' },
 	{ code: '3', name: 'Гуманітарні науки' },

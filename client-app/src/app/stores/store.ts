@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import BranchOfKnowledgeStore from "./branchOfKnowledgeStore";
 import CommonStore from "./commonStore";
 import DisciplineStore from "./disciplineStore";
+import ModalStore from "./modalStore";
 import SpecilatyStore from "./specialtyStore";
 import StepStore from "./stepStore";
 import UniversityStore from "./universityStore";
@@ -12,7 +13,8 @@ interface Store {
 	commonStore: CommonStore,
 	specilatyStore: SpecilatyStore,
 	stepStore: StepStore,
-	disciplineStore: DisciplineStore
+	disciplineStore: DisciplineStore,
+	modalStore: ModalStore
 }
 
 export const store: Store = {
@@ -21,7 +23,8 @@ export const store: Store = {
 	branchOfKnowledgeStore: new BranchOfKnowledgeStore(),
 	commonStore: new CommonStore(),
 	stepStore: new StepStore(),
-	disciplineStore: new DisciplineStore()
+	disciplineStore: new DisciplineStore(),
+	modalStore: new ModalStore()
 }
 
 export const StoreContext = createContext(store);

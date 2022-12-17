@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { branchesOfKnowledge } from "../common/branchesOfKnowledge";
+import { allBranchesOfKnowledge } from "../common/valuesForLists/allBranchesOfKnowledge";
 import { BranchOfKnowledge } from "../models/branchOfKnowledge";
 import { store } from "./store";
 
@@ -10,7 +10,7 @@ export default class BranchOfKnowledgeStore {
 
 	constructor() {
 		makeAutoObservable(this);
-		this.branchesOfKnowledge = branchesOfKnowledge;
+		this.branchesOfKnowledge = allBranchesOfKnowledge;
 	}
 
 	updateSelectedBranchOfKnowledge = (branchOfKnowledge: BranchOfKnowledge) => {

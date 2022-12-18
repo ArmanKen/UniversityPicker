@@ -1,14 +1,15 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button, Container, Grid, Header } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
 import SpecialtyPick from "./SpecialtyPick";
 
 export default observer(function DisciplineList() {
-	const { stepStore, disciplineStore } = useStore()
+	const { stepStore: { setCurrentStep }, disciplineStore } = useStore()
 	const { loadDisciplines, updateSelectedDisciplines, selectAllDisciplines, disciplines, clearSelectedDisciplines } = disciplineStore;
-	const { setCurrentStep } = stepStore;
 
+	//TODO: main menu,modal
 	useEffect(() => {
 		if (disciplines.length === 0) {
 			loadDisciplines();
@@ -47,18 +48,14 @@ export default observer(function DisciplineList() {
 				))}
 			</Grid>
 			<Container style={{ marginTop: '7em' }}>
-				{/* <Button
-					disabled={selectedDisciplines.size < 1 ? true : false}
+				<Button
 					color='black'
 					size="big"
 					floated='right'
-					onClick={() => {
-						setStepToActive(disciplineStep);
-						setStepToCompleted(branchOfKnowledgeStep);
-						setCurrentStep(<SpecialtyPick />)
-					}}
+					as={Link}
+					to='/universities'
 					content="Наступний крок"
-				/> */}
+				/>
 				<Button
 					color='black'
 					size="big"

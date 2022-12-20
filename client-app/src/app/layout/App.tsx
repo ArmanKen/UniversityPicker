@@ -11,6 +11,7 @@ import NotFound from '../../features/errors/NotFound';
 import TestErrors from '../../features/errors/TestError';
 import ServerError from '../../features/errors/ServerError';
 import UniversityDashboard from '../../features/dashboard/UniversityDashboard';
+import NavBar from './NavBar';
 
 function App() {
 	return (
@@ -26,14 +27,17 @@ function App() {
 					</>
 				} />
 				<Route path='/*' element={
-					<Container style={{ marginTop: "6em" }}>
-						<Routes>
-							<Route path='/universities' element={<UniversityDashboard />} />
-							<Route path='/errors' element={<TestErrors />} />
-							<Route path='/server-error' element={<ServerError />} />
-							<Route path='/*' element={<NotFound />} />
-						</Routes>
-					</Container>
+					<>
+						<NavBar />
+						<Container style={{ marginTop: "6em" }}>
+							<Routes>
+								<Route path='/universities' element={<UniversityDashboard />} />
+								<Route path='/errors' element={<TestErrors />} />
+								<Route path='/server-error' element={<ServerError />} />
+								<Route path='/*' element={<NotFound />} />
+							</Routes>
+						</Container>
+					</>
 				} />
 			</Routes>
 		</>

@@ -7,11 +7,11 @@ export default function NotFound() {
 		<Segment placeholder>
 			<Header icon>
 				<Icon name='search' />
-				Oops = we`ve looked everywhere and could not find this.
+				Нічого не змогли знайти за цим посиланням.
 			</Header>
 			<Segment.Inline>
-				<Button as={Link} to='/activities' primary>
-					Return to activity page.
+				<Button as={Link} to='/universities' primary>
+					Повернутися до головної сторінки.
 				</Button>
 			</Segment.Inline>
 		</Segment>

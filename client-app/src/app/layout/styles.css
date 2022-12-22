@@ -30,3 +30,15 @@ body {
 .ui.menu a.ui.active.button {
 	background-color: black !important;
 }
+
+.pushable:not(body) {
+	-webkit-transform: none !important;
+	-ms-transform: none !important;
+	transform: none !important;
+}
+
+.pushable:not(body)>.ui.sidebar,
+.pushable:not(body)>.fixed,
+.pushable:not(body)>.pusher:after {
+	position: fixed !important;
+}

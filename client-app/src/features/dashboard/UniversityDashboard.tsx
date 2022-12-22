@@ -22,7 +22,7 @@ export default observer(function UniversityDashboard() {
 
 	//TODO:Grid.Column>Grid.Row
 	return (
-		<Sidebar.Pushable style={{ transform: 'none'}}>
+		<Sidebar.Pushable>
 			<UniversitySidebar visible={visibility} />
 			<Sidebar.Pusher>
 				<Grid>
@@ -39,7 +39,7 @@ export default observer(function UniversityDashboard() {
 						/>
 					</Grid.Column>
 				</Grid>
-				<UniversityList />
+				<UniversityList sidebarOpen={visibility} />
 			</Sidebar.Pusher>
 		</Sidebar.Pushable>
 	)

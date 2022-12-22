@@ -7,20 +7,19 @@ interface Props {
 	university: University
 }
 
-
-//TODO:item
 export default function UniversityListCard({ university }: Props) {
-	const { specilatyStore: { selectedSpecialty }, universityStore: { getUniversitySelectedSpecialty } } = useStore()
+	const { specilatyStore: { selectedSpecialty }, universityStore: { getUniversitySelectedSpecialty }} = useStore()
 
 	return (
 		<Card>
-			<Image src='assets/1.png' size="medium" wrapped/>
+			<Image src='assets/1.png' size="medium" wrapped />
 			<Card.Content>
 				<Card.Header textAlign="center">{university.name}</Card.Header>
 				<Card.Description>{university.info}</Card.Description>
 			</Card.Content>
-			<Card.Content secondary textAlign="right">
-				{selectedSpecialty !== undefined ?
+			<Card.Content textAlign="right" extra>
+				{selectedSpecialty ?
+					'Ціна: ' +
 					getUniversitySelectedSpecialty(university)?.price + '₴' : ''}
 			</Card.Content>
 		</Card>

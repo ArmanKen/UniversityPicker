@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { University } from "../models/university";
+import { store } from "./store";
 
 export default class UniversityStore {
 	universities: University[] = [];
@@ -30,5 +31,13 @@ export default class UniversityStore {
 
 	setLoadingInitial = (state: boolean) => {
 		this.loadingInitial = state;
+	}
+
+	getUniversitySelectedSpecialty = (university: University) => {
+		return university.specialties.find(x => x.code === store.specilatyStore.selectedSpecialty?.code)
+	}
+	
+	getFilteredUniversities = () => {
+
 	}
 }

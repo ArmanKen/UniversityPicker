@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, Container, Grid, Header } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
 import SpecialtyPick from "./SpecialtyPick";
@@ -8,7 +9,6 @@ export default observer(function BranchOfKnowledgeList() {
 	const { branchOfKnowledgeStore, stepStore } = useStore();
 	const { branchesOfKnowledge, updateSelectedBranchOfKnowledge, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
 
-	//TODO styling:Rem?
 	return (
 		<>
 			<Header style={{ textAlign: 'center' }}>
@@ -42,6 +42,8 @@ export default observer(function BranchOfKnowledgeList() {
 					size="big"
 					floated='left'
 					content="До головного меню"
+					as={Link}
+					to='/universities'
 				/>
 			</Container>
 		</>

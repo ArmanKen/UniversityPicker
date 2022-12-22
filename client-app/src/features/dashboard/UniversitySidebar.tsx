@@ -14,6 +14,7 @@ export default observer(function UniversitySidebar({ visible }: Props) {
 			animation="push"
 			inverted
 			vertical
+			
 			width="wide"
 			direction="left"
 			visible={visible}

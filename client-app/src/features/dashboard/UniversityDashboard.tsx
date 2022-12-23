@@ -25,17 +25,25 @@ export default observer(function UniversityDashboard() {
 		<Sidebar.Pushable>
 			<UniversitySidebar visible={visibility} />
 			<Sidebar.Pusher>
-				<Grid>
-					<Grid.Column>
+				<Grid container>
+					<Grid.Column >
 						<Button
 							size="medium"
 							color="black"
 							inverted
 							active
-							attached='left'
 							floated="left"
 							content={visibility === false ? 'Відкрити фільтри пошуку' : 'Закрити фільтри пошуку'}
 							onClick={() => setVisibility(!visibility)}
+						/>
+						<Button
+							style={{marginLeft:10}}
+							size="medium"
+							color="black"
+							inverted
+							active
+							floated="left"
+							content={'Filter by'}
 						/>
 					</Grid.Column>
 				</Grid>

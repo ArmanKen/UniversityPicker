@@ -14,6 +14,10 @@ namespace Domain
 
 		public string? Website { get; set; }
 
+		// public string? Info { get; set; }
+
+		// public int Rating { get; set; }
+
 		public ICollection<UniversitySpecialties> Specialties { get; set; } = new List<UniversitySpecialties>();
 	}
 }

@@ -29,7 +29,7 @@ function App() {
 				<Route path='/*' element={
 					<>
 						<NavBar />
-						<Container style={{ marginTop: "7em" }}>
+						<Container style={{ marginTop: "7em", width: '100%'}}>
 							<Routes>
 								<Route path='/universities' element={<UniversityDashboard />} />
 								<Route path='/errors' element={<TestErrors />} />

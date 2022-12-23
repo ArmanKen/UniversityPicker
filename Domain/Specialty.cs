@@ -8,6 +8,10 @@ namespace Domain
 
 		public string? Name { get; set; }
 
+		// public string? Price { get; set; }
+		
+		// public string? Info { get; set; }
+
 		public UniversitySpecialties? University { get; set; }
 
 		public ICollection<SpecialtyDisciplines> Disciplines { get; set; } = new List<SpecialtyDisciplines>();

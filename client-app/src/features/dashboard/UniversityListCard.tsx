@@ -8,19 +8,20 @@ interface Props {
 }
 
 export default function UniversityListCard({ university }: Props) {
-	const { specilatyStore: { selectedSpecialty }, universityStore: { getUniversitySelectedSpecialty }} = useStore()
+	const { specilatyStore: { selectedSpecialty }, universityStore: { getUniversitySelectedSpecialty } } = useStore()
 
 	return (
-		<Card>
-			<Image src='assets/1.png' size="medium" wrapped />
+		<Card >
+			<Image src='assets/1.png' size="large"/>
 			<Card.Content>
-				<Card.Header textAlign="center">{university.name}</Card.Header>
+				<Card.Header textAlign="center" >
+					<span style={{fontSize:'0.3em !important'}}>{university.name}</span>
+				</Card.Header>
 				<Card.Description>{university.info}</Card.Description>
 			</Card.Content>
-			<Card.Content textAlign="right" extra>
+			<Card.Content textAlign="right" >
 				{selectedSpecialty ?
-					'Ціна: ' +
-					getUniversitySelectedSpecialty(university)?.price + '₴' : ''}
+					'Ціна: ' +	getUniversitySelectedSpecialty(university)?.price + '₴' : ''}
 			</Card.Content>
 		</Card>
 	)

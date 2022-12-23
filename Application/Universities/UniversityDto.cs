@@ -16,6 +16,10 @@ namespace Application.Universities
 
 		public string? Website { get; set; }
 
+		public string? Info { get; set; }
+
+		public int Rating { get; set; }
+
 		public ICollection<SpecialtyDto>? Specialties { get; set; }
 	}
 }

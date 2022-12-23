@@ -8,9 +8,9 @@ namespace Domain
 
 		public string? Name { get; set; }
 
-		// public string? Price { get; set; }
+		public string? Price { get; set; }
 		
-		// public string? Info { get; set; }
+		public string? Info { get; set; }
 
 		public UniversitySpecialties? University { get; set; }
 

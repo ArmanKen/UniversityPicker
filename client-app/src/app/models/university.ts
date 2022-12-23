@@ -1,4 +1,3 @@
-import { string } from "yup";
 import { Specialty } from "./specialty";
 
 export interface University {
@@ -10,5 +9,6 @@ export interface University {
 	city: string;
 	address: string;
 	website: string;
+	rating: number;
 	specialties: Specialty[];
 }

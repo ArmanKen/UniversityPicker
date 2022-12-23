@@ -5,7 +5,7 @@ public class Discipline
 
 	public string? Name { get; set; }
 
-	// public string? Info { get; set; }
+	public string? Info { get; set; }
 
 	public ICollection<SpecialtyDisciplines> Specialties { get; set; } = new List<SpecialtyDisciplines>();
 }

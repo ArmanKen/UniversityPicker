@@ -44,7 +44,7 @@ export default observer(function UniversityDashboard() {
 						/>
 					</Grid.Column>
 				</Grid>
-				<UniversityList filterSidebarOpen={visibility} />
+				<UniversityList filterSidebarVisibilityChange={setVisibility} />
 			</Sidebar.Pusher>
 			<UniversitySelectedSidebar filterSidebarOpen={visibility} />
 		</Sidebar.Pushable>

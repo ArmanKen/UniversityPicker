@@ -11,6 +11,10 @@ namespace Application.Specialties
 
 		public string? Name { get; set; }
 
+		public string? Price { get; set; }
+
+		public string? Info { get; set; }
+
 		public ICollection<DisciplineDto>? Disciplines { get; set; }
 	}
 }

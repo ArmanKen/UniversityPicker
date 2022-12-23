@@ -6,10 +6,10 @@ import { useStore } from "../../app/stores/store";
 
 interface Props {
 	university: University,
-	filterSidebarOpen: boolean
+	filterSidebarVisibilityChange: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default observer(function UniversityListCard({ university,filterSidebarOpen }: Props) {
+export default observer(function UniversityListCard({ university, filterSidebarVisibilityChange }: Props) {
 	const { specilatyStore: { selectedSpecialty },
 		universityStore: { getUniversitySelectedSpecialty, setSelectedUniversity } } = useStore()
 
@@ -17,7 +17,7 @@ export default observer(function UniversityListCard({ university,filterSidebarOp
 		<Card
 			onClick={() => {
 				setSelectedUniversity(university);
-				filterSidebarOpen = false;
+				filterSidebarVisibilityChange(false);
 			}}>
 			<Image src='assets/1.png' size="large" />
 			<Card.Content>

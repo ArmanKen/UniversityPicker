@@ -1,8 +1,9 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Sidebar } from "semantic-ui-react";
+import { Button, Container, Grid, Sidebar } from "semantic-ui-react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useStore } from "../../app/stores/store";
+import UniversitySelectedSidebar from "./UniversitySelectedSidebar";
 import UniversityList from "./UniversityList";
 import UniversitySidebar from "./UniversitySidebar";
 
@@ -20,7 +21,6 @@ export default observer(function UniversityDashboard() {
 		return <LoadingComponent content='Завантаження фільтрів...' />
 	}
 
-	//TODO:Grid.Column>Grid.Row
 	return (
 		<Sidebar.Pushable>
 			<UniversitySidebar visible={visibility} />
@@ -32,23 +32,21 @@ export default observer(function UniversityDashboard() {
 							color="black"
 							inverted
 							active
-							floated="left"
 							content={visibility === false ? 'Відкрити фільтри пошуку' : 'Закрити фільтри пошуку'}
 							onClick={() => setVisibility(!visibility)}
 						/>
 						<Button
-							style={{marginLeft:10}}
 							size="medium"
 							color="black"
 							inverted
 							active
-							floated="left"
 							content={'Filter by'}
 						/>
 					</Grid.Column>
 				</Grid>
-				<UniversityList sidebarOpen={visibility} />
+				<UniversityList filterSidebarOpen={visibility} />
 			</Sidebar.Pusher>
+			<UniversitySelectedSidebar filterSidebarOpen={visibility} />
 		</Sidebar.Pushable>
 	)
 })

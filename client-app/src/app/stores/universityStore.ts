@@ -5,6 +5,7 @@ import { store } from "./store";
 
 export default class UniversityStore {
 	universities: University[] = [];
+	selectedUniversity: University | undefined = undefined;
 	loadingInitial = false;
 
 	constructor() {
@@ -36,8 +37,12 @@ export default class UniversityStore {
 	getUniversitySelectedSpecialty = (university: University) => {
 		return university.specialties.find(x => x.code === store.specilatyStore.selectedSpecialty?.code)
 	}
-	
+
 	getFilteredUniversities = () => {
 
+	}
+
+	setSelectedUniversity = (university: University | undefined) => {
+		this.selectedUniversity = university;
 	}
 }

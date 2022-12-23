@@ -17,6 +17,7 @@ export default observer(function UniversitySidebar({ visible }: Props) {
 			width="wide"
 			direction="left"
 			visible={visible}
+			className='light-blue'
 		>
 			<Menu.Item>
 

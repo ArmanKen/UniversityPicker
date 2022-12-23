@@ -15,7 +15,11 @@ export default observer(function UniversityList({ filterSidebarVisibilityChange 
 			<Grid.Column largeScreen={12} widescreen={15}>
 				<Card.Group itemsPerRow={3}>
 					{universities.map(university => (
-						<UniversityListCard key={university.id} university={university} filterSidebarVisibilityChange={filterSidebarVisibilityChange} />
+						<UniversityListCard
+							key={university.id}
+							university={university}
+							filterSidebarVisibilityChange={filterSidebarVisibilityChange}
+						/>
 					))}
 				</Card.Group>
 			</Grid.Column>

@@ -24,11 +24,16 @@ export default observer(function UniversityListCard({ university, filterSidebarV
 				<Card.Header textAlign="center">
 					{university.name}
 				</Card.Header>
-				<Card.Description>{university.info}</Card.Description>
+				<Card.Description textAlign="center">
+					{university.info}
+				</Card.Description>
 			</Card.Content>
-			<Card.Content textAlign="right" >
-				{selectedSpecialty ?
-					'Ціна: ' + getUniversitySelectedSpecialty(university)?.price + '₴' : ''}
+			<Card.Content textAlign="center" >
+				{
+					// selectedSpecialty ?
+						'Ціна: ' + university.specialties[1].price + ' ₴'
+						// : ''
+				}
 			</Card.Content>
 		</Card>
 	)

@@ -1,14 +1,15 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { Card, Container, Grid, Label } from "semantic-ui-react";
+import { Card, Grid } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
 import UniversityListCard from "./UniversityListCard";
 
 interface Props {
-	filterSidebarVisibilityChange: React.Dispatch<React.SetStateAction<boolean>>
+	setFilterSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	setUniversitySidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default observer(function UniversityList({ filterSidebarVisibilityChange }: Props) {
+export default observer(function UniversityList({ setFilterSidebarOpen, setUniversitySidebarOpen }: Props) {
 	const { universityStore: { universities } } = useStore();
 	return (
 		<Grid container>
@@ -16,9 +17,10 @@ export default observer(function UniversityList({ filterSidebarVisibilityChange 
 				<Card.Group itemsPerRow={3}>
 					{universities.map(university => (
 						<UniversityListCard
+							setUniversitySidebarOpen={setUniversitySidebarOpen}
 							key={university.id}
 							university={university}
-							filterSidebarVisibilityChange={filterSidebarVisibilityChange}
+							setFilterSidebarOpen={setFilterSidebarOpen}
 						/>
 					))}
 				</Card.Group>

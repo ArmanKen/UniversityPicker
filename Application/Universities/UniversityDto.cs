@@ -20,6 +20,8 @@ namespace Application.Universities
 
 		public int Rating { get; set; }
 
+		public string? Telephone { get; set; }
+
 		public ICollection<SpecialtyDto>? Specialties { get; set; }
 	}
 }

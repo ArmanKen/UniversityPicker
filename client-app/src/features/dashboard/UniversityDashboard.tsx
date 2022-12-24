@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Grid, Sidebar } from "semantic-ui-react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useStore } from "../../app/stores/store";
-import UniversitySelectedSidebar from "./UniversitySelectedSidebar";
-import UniversityList from "./UniversityList";
 import UniversitySidebar from "./UniversitySidebar";
+import UniversityList from "./UniversityList";
+import FilterSidebar from "./FilterSidebar";
 
 export default observer(function UniversityDashboard() {
 	const { universityStore: { universities, loadUniversities, loadingInitial } } = useStore();
-	const [visibility, setVisibility] = useState(false);
+	const [filterSidebarOpen, setFilterSidebarOpen] = useState(false);
+	const [universitySidebarOpen, setUniversitySidebarOpen] = useState(false);
 
 	useEffect(() => {
 		if (universities.length === 0) {
@@ -23,7 +24,7 @@ export default observer(function UniversityDashboard() {
 
 	return (
 		<Sidebar.Pushable>
-			<UniversitySidebar visible={visibility} />
+			<FilterSidebar filterSidebarOpen={filterSidebarOpen} />
 			<Sidebar.Pusher>
 				<Grid container>
 					<Grid.Column >
@@ -32,8 +33,8 @@ export default observer(function UniversityDashboard() {
 							color="black"
 							inverted
 							active
-							content={visibility === false ? 'Відкрити фільтри пошуку' : 'Закрити фільтри пошуку'}
-							onClick={() => setVisibility(!visibility)}
+							content={filterSidebarOpen === false ? 'Відкрити фільтри пошуку' : 'Закрити фільтри пошуку'}
+							onClick={() => setFilterSidebarOpen(!filterSidebarOpen)}
 						/>
 						<Button
 							size="medium"
@@ -44,9 +45,16 @@ export default observer(function UniversityDashboard() {
 						/>
 					</Grid.Column>
 				</Grid>
-				<UniversityList filterSidebarVisibilityChange={setVisibility} />
+				<UniversityList
+					setFilterSidebarOpen={setFilterSidebarOpen}
+					setUniversitySidebarOpen={setUniversitySidebarOpen}
+				/>
 			</Sidebar.Pusher>
-			<UniversitySelectedSidebar filterSidebarOpen={visibility} />
+			<UniversitySidebar
+				filterSidebarOpen={filterSidebarOpen}
+				setUniversitySidebarOpen={setUniversitySidebarOpen}
+				universitySidebarOpen={universitySidebarOpen}
+			/>
 		</Sidebar.Pushable>
 	)
 })

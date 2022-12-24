@@ -2,7 +2,6 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { history } from "../..";
 import { toast } from "react-toastify";
 import { store } from "../stores/store";
-import { BranchOfKnowledge } from "../models/branchOfKnowledge";
 import { University } from "../models/university";
 
 const sleep = (delay: number) => {

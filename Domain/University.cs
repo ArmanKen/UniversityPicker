@@ -18,6 +18,8 @@ namespace Domain
 
 		public int Rating { get; set; }
 
+		public string? Telephone { get; set; }
+
 		public ICollection<UniversitySpecialties> Specialties { get; set; } = new List<UniversitySpecialties>();
 	}
 }

@@ -4,23 +4,17 @@ import { Card, Grid } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
 import UniversityListCard from "./UniversityListCard";
 
-interface Props {
-	setFilterSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	setUniversitySidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default observer(function UniversityList({ setFilterSidebarOpen, setUniversitySidebarOpen }: Props) {
+export default observer(function UniversityList() {
 	const { universityStore: { universities } } = useStore();
+
 	return (
 		<Grid container>
 			<Grid.Column largeScreen={12} widescreen={15}>
 				<Card.Group itemsPerRow={3}>
 					{universities.map(university => (
 						<UniversityListCard
-							setUniversitySidebarOpen={setUniversitySidebarOpen}
 							key={university.id}
 							university={university}
-							setFilterSidebarOpen={setFilterSidebarOpen}
 						/>
 					))}
 				</Card.Group>

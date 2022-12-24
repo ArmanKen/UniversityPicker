@@ -3,7 +3,8 @@ import { Specialty } from "./specialty";
 export interface University {
 	id: string;
 	name: string;
-	info: string;
+	shortInfo: string;
+	fullInfo: string;
 	region: string;
 	city: string;
 	address: string;

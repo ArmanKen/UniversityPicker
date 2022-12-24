@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Grid, Sidebar } from "semantic-ui-react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useStore } from "../../app/stores/store";
-import UniversitySidebar from "./UniversitySidebar";
+import UniversitySidebar from "./universitySidebar/UniversitySidebar";
 import UniversityList from "./UniversityList";
-import FilterSidebar from "./FilterSidebar";
+import FilterSidebar from "./filterSidebar/FilterSidebar";
+import FilterSidebarControllers from "./filterSidebar/FilterSidebarControllers";
 
 export default observer(function UniversityDashboard() {
-	const { universityStore: { universities, loadUniversities, loadingInitial } } = useStore();
-	const [filterSidebarOpen, setFilterSidebarOpen] = useState(false);
-	const [universitySidebarOpen, setUniversitySidebarOpen] = useState(false);
+	const { universityStore } = useStore();
+	const { universities, loadUniversities, loadingInitial } = universityStore;
 
 	useEffect(() => {
 		if (universities.length === 0) {
@@ -19,42 +19,17 @@ export default observer(function UniversityDashboard() {
 	}, [universities.length, loadUniversities])
 
 	if (loadingInitial) {
-		return <LoadingComponent content='Завантаження фільтрів...' />
+		return <LoadingComponent content='Завантаження університетів...' />
 	}
 
 	return (
 		<Sidebar.Pushable>
-			<FilterSidebar filterSidebarOpen={filterSidebarOpen} />
+			<FilterSidebar />
 			<Sidebar.Pusher>
-				<Grid container>
-					<Grid.Column >
-						<Button
-							size="medium"
-							color="black"
-							inverted
-							active
-							content={filterSidebarOpen === false ? 'Відкрити фільтри пошуку' : 'Закрити фільтри пошуку'}
-							onClick={() => setFilterSidebarOpen(!filterSidebarOpen)}
-						/>
-						<Button
-							size="medium"
-							color="black"
-							inverted
-							active
-							content={'Filter by'}
-						/>
-					</Grid.Column>
-				</Grid>
-				<UniversityList
-					setFilterSidebarOpen={setFilterSidebarOpen}
-					setUniversitySidebarOpen={setUniversitySidebarOpen}
-				/>
+				<FilterSidebarControllers />
+				<UniversityList />
 			</Sidebar.Pusher>
-			<UniversitySidebar
-				filterSidebarOpen={filterSidebarOpen}
-				setUniversitySidebarOpen={setUniversitySidebarOpen}
-				universitySidebarOpen={universitySidebarOpen}
-			/>
+			<UniversitySidebar />
 		</Sidebar.Pushable>
 	)
 })

@@ -3,6 +3,7 @@ import BranchOfKnowledgeStore from "./branchOfKnowledgeStore";
 import CommonStore from "./commonStore";
 import DisciplineStore from "./disciplineStore";
 import ModalStore from "./modalStore";
+import SidebarStore from "./sidebarStore";
 import SpecilatyStore from "./specialtyStore";
 import StepStore from "./stepStore";
 import UniversityStore from "./universityStore";
@@ -14,7 +15,8 @@ interface Store {
 	specilatyStore: SpecilatyStore,
 	stepStore: StepStore,
 	disciplineStore: DisciplineStore,
-	modalStore: ModalStore
+	modalStore: ModalStore,
+	sidebarStore: SidebarStore
 }
 
 export const store: Store = {
@@ -24,7 +26,8 @@ export const store: Store = {
 	commonStore: new CommonStore(),
 	stepStore: new StepStore(),
 	disciplineStore: new DisciplineStore(),
-	modalStore: new ModalStore()
+	modalStore: new ModalStore(),
+	sidebarStore: new SidebarStore()
 }
 
 export const StoreContext = createContext(store);

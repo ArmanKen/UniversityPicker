@@ -1,12 +1,10 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { Menu, Sidebar } from "semantic-ui-react";
+import { useStore } from "../../../app/stores/store";
 
-interface Props {
-	filterSidebarOpen: boolean
-}
-
-export default observer(function FilterSidebar({ filterSidebarOpen }: Props) {
+export default observer(function FilterSidebar() {
+	const { sidebarStore: { filterSidebarOpen } } = useStore();
 
 	return (
 		<Sidebar

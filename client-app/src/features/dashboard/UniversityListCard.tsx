@@ -32,11 +32,9 @@ export default observer(function UniversityListCard({ university }: Props) {
 			<Card.Content textAlign="center">
 				<Grid columns='equal'>
 					<Grid.Column floated="left" textAlign="center" color="black" >
-						{
-							// selectedSpecialty ?
-							'Ціна: ' + university.specialties[1].price + ' ₴'
-							// : ''
-						}
+						{selectedSpecialty ? (
+							'Ціна: ' + getUniversitySelectedSpecialty(university)?.price + ' ₴'
+						) : ''}
 					</Grid.Column>
 					<Grid.Column floated='right' textAlign="center" color="black">
 						<Icon name="star" color="yellow" fitted>

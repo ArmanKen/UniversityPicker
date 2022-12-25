@@ -11,5 +11,6 @@ export interface University {
 	website: string;
 	rating: number;
 	telephone: string;
+	budget: boolean;
 	specialties: Specialty[];
 }

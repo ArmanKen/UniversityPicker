@@ -38,7 +38,7 @@ export default observer(function UniversityListCard({ university }: Props) {
 					</Grid.Column>
 					<Grid.Column floated='right' textAlign="center" color="black">
 						<Icon name="star" color="yellow" fitted>
-							{' ' + university.rating}
+							{' Рейтинг: ' + university.rating}
 						</Icon>
 					</Grid.Column>
 				</Grid>

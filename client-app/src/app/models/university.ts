@@ -10,7 +10,8 @@ export interface University {
 	address: string;
 	website: string;
 	rating: number;
+	countryTopRating: number;
 	telephone: string;
-	budget: boolean;
+	budgetAllowed: boolean;
 	specialties: Specialty[];
 }

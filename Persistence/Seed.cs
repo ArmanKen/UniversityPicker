@@ -159,7 +159,8 @@ namespace Persistence
 			{
 				Name = "ДТЕУ",
 				Specialties = new List<UniversitySpecialties>(specialties.Select(x => new UniversitySpecialties { Specialty = x })),
-				Info = "Інформація про університет ДТЕУ",
+				ShortInfo = "Коротка інформація про університет ДТЕУ",
+				FullInfo = "Повна інформація про університет ДТЕУ",
 				Telephone = "+380 000 00 00",
 				Address = "вул. Миру 1",
 				City = "м.Київ",
@@ -171,7 +172,8 @@ namespace Persistence
 			{
 				Name = "КЕУ",
 				Specialties = new List<UniversitySpecialties>(specialties2.Select(x => new UniversitySpecialties { Specialty = x })),
-				Info = "Інформація про університет КЕУ",
+				ShortInfo = "Коротка інформація про університет КЕУ",
+				FullInfo = "Повна інформація про університет КЕУ",
 				Telephone = "+380 111 11 11",
 				Address = "вул. Миру 2",
 				City = "м.Київ",
@@ -183,7 +185,8 @@ namespace Persistence
 			{
 				Name = "КАУ",
 				Specialties = new List<UniversitySpecialties>(specialties3.Select(x => new UniversitySpecialties { Specialty = x })),
-				Info = "Інформація про університет КАУ",
+				ShortInfo = "Коротка інформація про університет КАУ",
+				FullInfo = "Повна інформація про університет КАУ",
 				Telephone = "+380 222 22 22",
 				Address = "вул. Миру 3",
 				City = "м.Київ",
@@ -195,7 +198,8 @@ namespace Persistence
 			{
 				Name = "КУХ",
 				Specialties = new List<UniversitySpecialties>(specialties4.Select(x => new UniversitySpecialties { Specialty = x })),
-				Info = "Інформація про університет КУХ",
+				ShortInfo = "Коротка інформація про університет КУХ",
+				FullInfo = "Повна інформація про університет КУХ",
 				Telephone = "+380 333 33 33",
 				Address = "вул. Миру 4",
 				City = "м.Київ",
@@ -203,7 +207,7 @@ namespace Persistence
 				Rating = 12,
 				Website = "knute.edu.ua/"
 			};
-			
+
 			await context.Disciplines.AddRangeAsync(disciplines);
 			await context.Universities.AddRangeAsync(universities);
 			await context.Universities.AddRangeAsync(universities2);

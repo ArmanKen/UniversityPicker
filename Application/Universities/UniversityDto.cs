@@ -16,7 +16,9 @@ namespace Application.Universities
 
 		public string? Website { get; set; }
 
-		public string? Info { get; set; }
+		public string? ShortInfo { get; set; }
+
+		public string? FullInfo { get; set; }
 
 		public int Rating { get; set; }
 

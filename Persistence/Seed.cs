@@ -17,12 +17,14 @@ namespace Persistence
 				new Discipline
 				{
 					Name = "Філософія",
-					Info = "Інформація про предмет Філософія"
+					Info = "Інформація про предмет Філософія",
+					Optional = true
 				},
 				new Discipline
 				{
 					Name = "Правознавство",
-					Info = "Інформація про предмет Правознавство"
+					Info = "Інформація про предмет Правознавство",
+					Optional = true
 				},
 				new Discipline
 				{
@@ -41,6 +43,7 @@ namespace Persistence
 						disciplines.Skip(1).SkipLast(1).Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 11,
 					Price = "70000",
+					BudgetAllowed = false,
 					Info = "Інформація про спеціальність Науки про освіту"
 				},
 				new Specialty
@@ -49,6 +52,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 121,
+					BudgetAllowed = true,
 					Price = "120000",
 					Info = "Інформація про спеціальність Інженер програмного забезпечення"
 				},
@@ -58,6 +62,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 122,
+					BudgetAllowed = true,
 					Price = "100000",
 					Info = "Інформація про спеціальність Кібербезпека"
 				}
@@ -70,6 +75,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Skip(1).SkipLast(1).Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 11,
+					BudgetAllowed = true,
 					Price = "50000",
 					Info = "Інформація про спеціальність Науки про освіту"
 				},
@@ -79,6 +85,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 121,
+					BudgetAllowed = false,
 					Price = "140000",
 					Info = "Інформація про спеціальність Інженер програмного забезпечення"
 				},
@@ -88,6 +95,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 122,
+					BudgetAllowed = false,
 					Price = "130000",
 					Info = "Інформація про спеціальність Кібербезпека"
 				}
@@ -100,6 +108,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Skip(1).SkipLast(1).Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 11,
+					BudgetAllowed = false,
 					Price = "90000",
 					Info = "Інформація про спеціальність Науки про освіту"
 				},
@@ -109,6 +118,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 121,
+					BudgetAllowed = true,
 					Price = "180000",
 					Info = "Інформація про спеціальність Інженер програмного забезпечення"
 				},
@@ -118,6 +128,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 122,
+					BudgetAllowed = false,
 					Price = "160000",
 					Info = "Інформація про спеціальність Кібербезпека"
 				}
@@ -131,6 +142,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Skip(1).SkipLast(1).Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 11,
+					BudgetAllowed = true,
 					Price = "60000",
 					Info = "Інформація про спеціальність Науки про освіту"
 				},
@@ -140,6 +152,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 121,
+					BudgetAllowed = false,
 					Price = "110000",
 					Info = "Інформація про спеціальність Інженер програмного забезпечення"
 				},
@@ -149,6 +162,7 @@ namespace Persistence
 					Disciplines = new List<SpecialtyDisciplines>(
 						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
 					Code = 122,
+					BudgetAllowed = true,
 					Price = "90000",
 					Info = "Інформація про спеціальність Кібербезпека"
 				}

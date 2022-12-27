@@ -7,5 +7,7 @@ namespace Application.Disciplines
 		public string? Name { get; set; }
 
 		public string? Info { get; set; }
+
+		public bool Optional { get; set; }
 	}
 }

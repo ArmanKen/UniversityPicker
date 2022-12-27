@@ -6,5 +6,6 @@ export interface Specialty {
 	code: number;
 	price: string;
 	info: string;
+	budgetAllowed: boolean;
 	disciplines: Discipline[];
 }

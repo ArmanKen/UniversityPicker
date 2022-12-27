@@ -12,6 +12,5 @@ export interface University {
 	rating: number;
 	countryTopRating: number;
 	telephone: string;
-	budgetAllowed: boolean;
 	specialties: Specialty[];
 }

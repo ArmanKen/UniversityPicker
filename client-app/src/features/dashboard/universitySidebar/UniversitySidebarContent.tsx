@@ -4,22 +4,22 @@ import { Divider, Grid, Header, Icon, Image } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 
 export default observer(function UnivesritySidebarContent() {
-	const { universityStore: { selectedUniversity: university } } = useStore();
+	const { universityStore: { selectedUniversity: university }, specilatyStore: { selectedSpecialty } } = useStore();
 	//budget to specialty and to api
 	return (
 		<Grid container columns={1}>
-				<Grid.Column >
-					<Header
-						textAlign='center'
-						size='medium'
-						content={university?.name}
-					/>
-					<Image
-						fluid
-						src='/assets/1.png'
-						bordered
-					/>
-				</Grid.Column>
+			<Grid.Column >
+				<Header
+					textAlign='center'
+					size='medium'
+					content={university?.name}
+				/>
+				<Image
+					fluid
+					src='/assets/1.png'
+					bordered
+				/>
+			</Grid.Column>
 			<Divider />
 			<Grid.Row columns={1}>
 				<Grid.Column floated='left' width={14} >
@@ -76,16 +76,30 @@ export default observer(function UnivesritySidebarContent() {
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
-			<Grid.Row columns={2}>
-				<Grid.Column width={1} >
-					<Icon name='graduation cap' size='large' fitted />
-				</Grid.Column>
-				<Grid.Column floated='left' width={14}>
-					<Header as={'h2'} size='small' floated='left'>
-						{university?.budgetAllowed ? ' Є бюджетні місця' : ' Немає бюджетних місць'}
-					</Header>
-				</Grid.Column>
-			</Grid.Row>
+			{selectedSpecialty && (
+				<>
+					<Grid.Row columns={2}>
+						<Grid.Column width={1} >
+							<Icon name='graduation cap' size='large' fitted />
+						</Grid.Column>
+						<Grid.Column floated='left' width={14}>
+							<Header as={'h2'} size='small' floated='left'>
+								{selectedSpecialty?.budgetAllowed ? ' Є бюджетні місця' : ' Немає бюджетних місць'}
+							</Header>
+						</Grid.Column>
+					</Grid.Row>
+					<Grid.Row columns={2}>
+						<Grid.Column width={1} >
+							<Icon name='money' size='large' fitted />
+						</Grid.Column>
+						<Grid.Column floated='left' width={14}>
+							<Header as={'h2'} size='small' floated='left'>
+								{selectedSpecialty?.price ? ' Є бюджетні місця' : ' Немає бюджетних місць'}
+							</Header>
+						</Grid.Column>
+					</Grid.Row>
+				</>)
+			}
 			<Divider style={{ marginBottom: 150 }} />
 		</Grid>
 	)

@@ -12,6 +12,8 @@ namespace Domain
 		
 		public string? Info { get; set; }
 
+		public bool BudgetAllowed { get; set; }
+		
 		public UniversitySpecialties? University { get; set; }
 
 		public ICollection<SpecialtyDisciplines> Disciplines { get; set; } = new List<SpecialtyDisciplines>();

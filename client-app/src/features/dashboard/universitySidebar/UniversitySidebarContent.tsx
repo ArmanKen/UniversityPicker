@@ -75,9 +75,9 @@ export default observer(function UnivesritySidebarContent() {
 					</Header>
 				</Grid.Column>
 			</Grid.Row>
-			<Divider />
 			{selectedSpecialty && (
 				<>
+					<Divider />
 					<Grid.Row columns={2}>
 						<Grid.Column width={1} >
 							<Icon name='graduation cap' size='large' fitted />
@@ -88,13 +88,14 @@ export default observer(function UnivesritySidebarContent() {
 							</Header>
 						</Grid.Column>
 					</Grid.Row>
+					<Divider />
 					<Grid.Row columns={2}>
 						<Grid.Column width={1} >
 							<Icon name='money' size='large' fitted />
 						</Grid.Column>
 						<Grid.Column floated='left' width={14}>
-							<Header as={'h2'} size='small' floated='left'>
-								{selectedSpecialty?.price ? ' Є бюджетні місця' : ' Немає бюджетних місць'}
+							<Header as={'h2'} size='small' floated='left' textAlign='center'>
+								{' Ціна за повний курс бакалавріату: ' + selectedSpecialty?.price + ' ₴'}
 							</Header>
 						</Grid.Column>
 					</Grid.Row>

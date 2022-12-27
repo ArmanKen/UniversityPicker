@@ -6,7 +6,6 @@ import { store } from "./store";
 export default class BranchOfKnowledgeStore {
 	branchesOfKnowledge: BranchOfKnowledge[] = [];
 	selectedBranchOfKnowledge: BranchOfKnowledge | undefined = undefined;
-	loadingInitial = false;
 
 	constructor() {
 		makeAutoObservable(this);

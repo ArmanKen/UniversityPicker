@@ -7,13 +7,20 @@ import DisciplinesList from './DisciplinesList';
 
 export default observer(function SpecialtyPick() {
 	const { specilatyStore, stepStore } = useStore();
-	const { specialties, loadSpecialties, dropdownContent, changeSelectedSpecialty, selectedSpecialty } = specilatyStore;
+	const { specialties, loadSpecialties, dropdownContent, changeSelectedSpecialty, selectedSpecialty,
+		updateSelectedSpecialties, selectedSpecialties } = specilatyStore;
 
 	useEffect(() => {
 		if (specialties.length === 0) {
-			loadSpecialties();			
+			loadSpecialties();
 		}
 	}, [specialties.length, loadSpecialties])
+
+	useEffect(() => {
+		if (selectedSpecialties.length === 0) {
+			updateSelectedSpecialties();
+		}
+	}, [selectedSpecialties.length, updateSelectedSpecialties])
 
 	return (
 		<>

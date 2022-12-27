@@ -5,6 +5,7 @@ import { store } from "./store";
 
 export default class SpecilatyStore {
 	specialties: Specialty[] = [];
+	selectedSpecialties: Specialty[] = [];
 	selectedSpecialty: Specialty | undefined = undefined;
 	dropdownContent: DropdownItemProps[] = [];
 
@@ -16,19 +17,25 @@ export default class SpecilatyStore {
 		try {
 			store.universityStore.universities.forEach(university => {
 				university.specialties.forEach(specialty => {
-					let specialtyCode = specialty.code.toFixed().slice(0, -1);
-					if (specialtyCode === store.branchOfKnowledgeStore.selectedBranchOfKnowledge?.code &&
-						!this.specialties.some(x => x.code === specialty.code))
+					if (!this.specialties.some(x => x.code === specialty.code))
 						this.specialties.push(specialty);
 				})
 			})
-			this.specialties = this.specialties.sort(specialty => specialty.code);
-			this.specialties.forEach(specialty =>
-				this.dropdownContent.push({ key: specialty.id, text: specialty.name, value: specialty.code })
-			);
+			this.specialties = this.specialties.sort((s1, s2) => s1.code - s2.code);
 		} catch (error) {
 			console.log(error);
 		}
+	}
+
+	updateSelectedSpecialties = () => {
+		this.specialties.forEach(specialty => {
+			let specialtyCode = specialty.code.toFixed().slice(0, -1);
+			if (specialtyCode === store.branchOfKnowledgeStore.selectedBranchOfKnowledge?.code) {
+				this.selectedSpecialties.push(specialty);
+				this.dropdownContent.push({ key: specialty.id, text: specialty.name, value: specialty.code });
+			}
+		}
+		)
 	}
 
 	changeSelectedSpecialty = (value: number | undefined) => {
@@ -40,8 +47,8 @@ export default class SpecilatyStore {
 
 	undoSpecialtyStore = () => {
 		store.disciplineStore.undoDisciplineStore();
-		this.specialties.length = 0;
 		this.selectedSpecialty = undefined;
+		this.selectedSpecialties = [];
 		this.dropdownContent = [];
 	}
 }

@@ -17,8 +17,6 @@ export default observer(function FilterSidebar() {
 			visible={filterSidebarOpen}
 			className='sidebar-color'
 		>
-			<Menu.Item>
-
-			</Menu.Item>
+			
 		</Sidebar>)
 })

@@ -14,11 +14,15 @@ export default class DisciplineStore {
 			let selectedSpecialty = store.specilatyStore.selectedSpecialty;
 			if (selectedSpecialty !== undefined) {
 				store.universityStore.universities.forEach(university => {
-					this.disciplines = this.disciplines.concat(university.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!);
+					let disciplines = university.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!;
+					disciplines.forEach(newDiscipline => {
+						if (!this.disciplines.some(discipline => discipline.id === newDiscipline.id))
+							this.disciplines.push(newDiscipline);
+					});
 				})
 			}
 			else {
-				store.specilatyStore.specialties.forEach(specialty => {
+				store.specilatyStore.selectedSpecialties.forEach(specialty => {
 					specialty.disciplines!.forEach(discipline => {
 						if (!this.disciplines.some(x => x.id === discipline.id)) {
 							this.disciplines.push(discipline);
@@ -51,6 +55,6 @@ export default class DisciplineStore {
 
 	undoDisciplineStore = () => {
 		this.clearSelectedDisciplines();
-		this.disciplines.length = 0;
+		this.disciplines = [];
 	}
 }

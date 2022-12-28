@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Divider, Grid, Header, Icon, Image } from 'semantic-ui-react';
+import { Button, Divider, Grid, Header, Icon, Image } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 
 export default observer(function UnivesritySidebarContent() {
@@ -101,6 +101,14 @@ export default observer(function UnivesritySidebarContent() {
 					</Grid.Row>
 				</>)
 			}
+			<Divider />
+			<Grid.Row columns={1}>
+				<Grid.Column textAlign='center' width={14} style={{ marginLeft: 25, width: '100%' }}>
+					<Button active inverted color='black'>
+						{'Повна інформація про університет'}
+					</Button>
+				</Grid.Column>
+			</Grid.Row>
 			<Divider style={{ marginBottom: 150 }} />
 		</Grid>
 	)

@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
-import { Button, Container, Grid, Sidebar } from "semantic-ui-react";
+import React, { useEffect } from "react";
+import { Sidebar } from "semantic-ui-react";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { useStore } from "../../app/stores/store";
 import UniversitySidebar from "./universitySidebar/UniversitySidebar";
@@ -9,14 +9,15 @@ import FilterSidebar from "./filterSidebar/FilterSidebar";
 import FilterSidebarControllers from "./filterSidebar/FilterSidebarControllers";
 
 export default observer(function UniversityDashboard() {
-	const { universityStore } = useStore();
-	const { universities, loadUniversities, loadingInitial } = universityStore;
+	const { universityStore, filterStore: { updateUniversityList } } = useStore();
+	const { universities, loadUniversities, loadingInitial, } = universityStore;
 
 	useEffect(() => {
 		if (universities.length === 0) {
 			loadUniversities();
 		}
-	}, [universities.length, loadUniversities])
+		updateUniversityList();
+	}, [universities.length, loadUniversities, updateUniversityList])
 
 	if (loadingInitial) {
 		return <LoadingComponent content='Завантаження університетів...' />

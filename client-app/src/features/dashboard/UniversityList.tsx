@@ -5,13 +5,13 @@ import { useStore } from "../../app/stores/store";
 import UniversityListCard from "./UniversityListCard";
 
 export default observer(function UniversityList() {
-	const { universityStore: { universities } } = useStore();
+	const { filterStore: { filteredUniversities } } = useStore();
 
 	return (
 		<Grid container>
 			<Grid.Column largeScreen={12} widescreen={15}>
 				<Card.Group itemsPerRow={3}>
-					{universities.map(university => (
+					{filteredUniversities.map(university => (
 						<UniversityListCard
 							key={university.id}
 							university={university}

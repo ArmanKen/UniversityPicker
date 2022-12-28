@@ -4,7 +4,7 @@ export interface Specialty {
 	id: string;
 	name: string;
 	code: number;
-	price: string;
+	price: number;
 	info: string;
 	budgetAllowed: boolean;
 	disciplines: Discipline[];

@@ -1,5 +1,6 @@
 body {
 	background-color: whitesmoke !important;
+	font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .masthead {
@@ -54,4 +55,21 @@ body {
 
 .label-color {
 	background-color: rgb(218, 183, 27) !important;
+}
+
+.custom-header {
+	width: 100% !important;
+	font-size: 1em !important;
+}
+
+.custom-grid {
+	padding: 0 !important;
+}
+
+.centered {
+	display: block !important;
+	margin-top: auto !important;
+	margin-bottom: auto !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
 }

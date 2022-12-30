@@ -25,19 +25,19 @@ export default observer(function UniversityListCard({ university }: Props) {
 				<Card.Header textAlign="center">
 					{university.name}
 				</Card.Header>
-				<Card.Description textAlign="center">
+				<Card.Description textAlign="center" style={{ fontSize: '1.2em', color: 'black' }}>
 					{university.shortInfo}
 				</Card.Description>
 			</Card.Content>
 			<Card.Content textAlign="center">
 				<Grid columns='equal'>
-					<Grid.Column floated="left" textAlign="center" color="black" >
+					<Grid.Column floated="left" textAlign="center" color="black" style={{ fontSize: '1.1em', whiteSpace: 'nowrap' }}>
 						{selectedSpecialty ? (
 							'Ціна: ' + getUniversitySelectedSpecialty(university)?.price + ' ₴'
 						) : ''}
 					</Grid.Column>
 					<Grid.Column floated='right' textAlign="center" color="black">
-						<Icon name="star" color="yellow" fitted>
+						<Icon name="star" color="yellow" fitted style={{ fontSize: '1.1em' }}>
 							{' Рейтинг: ' + university.rating}
 						</Icon>
 					</Grid.Column>

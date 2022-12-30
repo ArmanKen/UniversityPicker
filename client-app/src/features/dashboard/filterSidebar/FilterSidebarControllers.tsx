@@ -10,7 +10,7 @@ export default observer(function FilterSidebarControllers() {
 		<Grid container>
 			<Grid.Column >
 				<Button
-					size="medium"
+					size="big"
 					color="black"
 					inverted
 					active
@@ -18,7 +18,7 @@ export default observer(function FilterSidebarControllers() {
 					onClick={() => setFilterSidebarOpen(!filterSidebarOpen)}
 				/>
 				<Button
-					size="medium"
+					size="big"
 					color="black"
 					inverted
 					active

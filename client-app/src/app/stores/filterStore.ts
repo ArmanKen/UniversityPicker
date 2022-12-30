@@ -1,15 +1,9 @@
 import { makeAutoObservable } from "mobx";
-import { BranchOfKnowledge } from "../models/branchOfKnowledge";
-import { Discipline } from "../models/discipline";
-import { Specialty } from "../models/specialty";
 import { University } from "../models/university";
 import { store } from "./store";
 
 export default class FilterStore {
 	filteredUniversities: University[] = [];
-	selectedBranchOfKnowledge: BranchOfKnowledge | undefined = undefined;
-	selectedSpecialty: Specialty | undefined;
-	selectedDisciplines: Discipline[] = [];
 	enablePriceFilter: boolean = false;
 	minPrice: number = 0;
 	maxPrice: number = 0;
@@ -28,9 +22,9 @@ export default class FilterStore {
 				return null;
 			if (this.selectedRegion && !this.filterByRegion(university))
 				return null;
-			if (this.selectedBranchOfKnowledge && !this.filterByBranchOfKnowledge(university))
+			if (store.branchOfKnowledgeStore.selectedBranchOfKnowledge && !this.filterByBranchOfKnowledge(university))
 				return null;
-			if (this.selectedSpecialty && !this.filterBySpecialty(university))
+			if (store.specilatyStore.selectedSpecialty && !this.filterBySpecialty(university))
 				return null;
 			if (this.allowedBudget && !this.filterByBudget(university))
 				return null;
@@ -52,18 +46,18 @@ export default class FilterStore {
 	}
 
 	filterBySpecialty = (university: University) => {
-		return university.specialties.some(specialty => specialty.code === this.selectedSpecialty?.code) ?
+		return university.specialties.some(specialty => specialty.code === store.specilatyStore.selectedSpecialty?.code) ?
 			true : false;
 	}
 
 	filterByPrice = (university: University) => {
-		return this.minPrice < university.specialties.find(x => x === this.selectedSpecialty)?.price! &&
-			this.maxPrice > university.specialties.find(x => x === this.selectedSpecialty)?.price! ?
+		return this.minPrice < university.specialties.find(x => x === store.specilatyStore.selectedSpecialty)?.price! &&
+			this.maxPrice > university.specialties.find(x => x === store.specilatyStore.selectedSpecialty)?.price! ?
 			true : false;
 	}
 
 	filterByBudget = (university: University) => {
-		return university.specialties.find(specialty => specialty.code === this.selectedSpecialty?.code)?.budgetAllowed ?
+		return university.specialties.find(specialty => specialty.code === store.specilatyStore.selectedSpecialty?.code)?.budgetAllowed ?
 			true : false;
 	}
 }

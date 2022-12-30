@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Grid, Header } from "semantic-ui-react";
+import { Button, Container, Divider, Grid, Header } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
 import SpecialtyPick from "./SpecialtyPick";
 
@@ -10,7 +10,7 @@ export default observer(function BranchOfKnowledgeList() {
 	const { branchesOfKnowledge, updateSelectedBranchOfKnowledge, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
 
 	return (
-		<>
+		<Container style={{ marginBottom: 300,height:'100%' }} >
 			<Header style={{ textAlign: 'center' }}>
 				Оберіть область знань, у якій ви зацікавлені.
 			</Header>
@@ -26,7 +26,7 @@ export default observer(function BranchOfKnowledgeList() {
 					</Grid.Column>
 				))}
 			</Grid>
-			<Container style={{ marginTop: '7em' }}>
+			<Container style={{ marginTop: '3em' }}>
 				<Button
 					disabled={selectedBranchOfKnowledge === undefined ? true : false}
 					color='black'
@@ -46,6 +46,7 @@ export default observer(function BranchOfKnowledgeList() {
 					to='/universities'
 				/>
 			</Container>
-		</>
+			<Divider hidden style={{marginTop:200}}/>
+		</Container>
 	);
 })

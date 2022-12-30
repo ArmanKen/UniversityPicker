@@ -7,19 +7,17 @@ import DisciplinesList from './DisciplinesList';
 
 export default observer(function SpecialtyPick() {
 	const { specilatyStore, stepStore } = useStore();
-	const { specialties, loadSpecialties, dropdownContent, changeSelectedSpecialty, selectedSpecialty,
-		updateSelectedSpecialties, selectedSpecialties } = specilatyStore;
+	const { specialties, loadSpecialties, updateSelectedSpecialties, selectedSpecialties,
+		dropdownContent, changeSelectedSpecialty, selectedSpecialty } = specilatyStore;
 
 	useEffect(() => {
-		if (specialties.length === 0) {
+		if (specialties.length === 0)
 			loadSpecialties();
-		}
 	}, [specialties.length, loadSpecialties])
 
 	useEffect(() => {
-		if (selectedSpecialties.length === 0) {
+		if (selectedSpecialties.length === 0)
 			updateSelectedSpecialties();
-		}
 	}, [selectedSpecialties.length, updateSelectedSpecialties])
 
 	return (
@@ -33,7 +31,7 @@ export default observer(function SpecialtyPick() {
 				clearable
 				selection
 				fluid />
-			<Container style={{ marginTop: '7em' }}>
+			<Container style={{marginTop:80}}>
 				<Button
 					color='black'
 					size="big"

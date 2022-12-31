@@ -14,7 +14,8 @@ export default observer(function UniversityListCard({ university }: Props) {
 	const { setFilterSidebarOpen, setUniversitySidebarOpen } = sidebarStore;
 
 	return (
-		<Card
+		<Card style={{ minWidth: 250 }}
+			
 			onClick={() => {
 				setSelectedUniversity(university);
 				setFilterSidebarOpen(false);
@@ -25,7 +26,7 @@ export default observer(function UniversityListCard({ university }: Props) {
 				<Card.Header textAlign="center">
 					{university.name}
 				</Card.Header>
-				<Card.Description textAlign="center" style={{ fontSize: '1.2em', color: 'black' }}>
+				<Card.Description textAlign="center" style={{ fontSize: '1.1em', color: 'black' }}>
 					{university.shortInfo}
 				</Card.Description>
 			</Card.Content>

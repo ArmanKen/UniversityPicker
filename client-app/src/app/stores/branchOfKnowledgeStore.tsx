@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { DropdownItemProps } from "semantic-ui-react";
+import { AccordionPanelProps, DropdownItemProps, Label, Menu } from "semantic-ui-react";
 import { allBranchesOfKnowledge } from "../common/valuesForLists/allBranchesOfKnowledge";
 import { BranchOfKnowledge } from "../models/branchOfKnowledge";
 import { store } from "./store";

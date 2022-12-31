@@ -14,10 +14,11 @@ export default observer(function UnivesritySidebarContent() {
 					size='large'
 					content={university?.name}
 				/>
+			</Grid.Column>
+			<Grid.Column style={{padding:0}}>
 				<Image
 					fluid
 					src='/assets/1.png'
-					bordered
 				/>
 			</Grid.Column>
 			<Divider />

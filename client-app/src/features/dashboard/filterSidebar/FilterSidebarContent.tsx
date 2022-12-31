@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { Accordion, Checkbox, Divider, Dropdown, Grid, Header } from "semantic-ui-react";
+import { Accordion, Checkbox, Divider, Dropdown, Grid, Header, Menu } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 
 export default observer(function FilterSidebarContent() {
@@ -21,9 +21,6 @@ export default observer(function FilterSidebarContent() {
 			<Divider />
 			<Grid.Row columns={1} className="custom-grid">
 				<Grid.Column floated='left' width={14} >
-					<Accordion>
-						<Accordion.Content />
-					</Accordion>
 					<Header as={'h2'} size='small'>
 						{'Ступені вищої освіти: '}
 						<Dropdown>

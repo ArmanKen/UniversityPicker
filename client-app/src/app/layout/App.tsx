@@ -10,7 +10,7 @@ import { Container, Divider } from 'semantic-ui-react';
 import NotFound from '../../features/errors/NotFound';
 import TestErrors from '../../features/errors/TestError';
 import ServerError from '../../features/errors/ServerError';
-import UniversityDashboard from '../../features/dashboard/UniversityDashboard';
+import UniversityDashboard from '../../features/universities/dashboard/UniversityDashboard';
 import NavBar from './NavBar';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
 				<Route path='/*' element={
 					<>
 						<NavBar />
-						<Container style={{ marginTop: "7em", width: '100%'}}>
+						<Container style={{ marginTop: "7em", width: '100%' }}>
 							<Routes>
 								<Route path='/universities' element={<UniversityDashboard />} />
 								<Route path='/errors' element={<TestErrors />} />

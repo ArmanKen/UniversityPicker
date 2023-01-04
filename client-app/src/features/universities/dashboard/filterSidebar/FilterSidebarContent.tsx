@@ -1,21 +1,19 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
-import { Accordion, Checkbox, Divider, Dropdown, Grid, Header, Menu } from "semantic-ui-react";
-import { useStore } from "../../../app/stores/store";
+import { Checkbox, Divider, Dropdown, Grid, Header} from "semantic-ui-react";
+import CustomAccordion from "../../../../app/common/customElements/CustomAccordion";
+import { useStore } from "../../../../app/stores/store";
 
 export default observer(function FilterSidebarContent() {
-	const { branchOfKnowledgeStore, specilatyStore, filterStore } = useStore();
-	const { selectedBranchOfKnowledge } = branchOfKnowledgeStore;
-	const { selectedSpecialty, dropdownContent, selectedSpecialties } = specilatyStore;
+	const { branchOfKnowledgeStore, specilatyStore } = useStore();
+	const { selectedBranchOfKnowledge, branchesOfKnowledge, updateSelectedBranchOfKnowledge } = branchOfKnowledgeStore;
+	const { } = specilatyStore;
 
 	return (
 		<Grid>
 			<Divider />
 			<Grid.Row columns={1}>
 				<Grid.Column width={15} >
-					<Header as={'h2'} size='medium' className='centered'>
-						{'Фільтри пошуку'}
-					</Header>
+					<Header as={'h2'} size='medium' className='centered' content='Фільтри пошуку' />
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
@@ -23,20 +21,31 @@ export default observer(function FilterSidebarContent() {
 				<Grid.Column floated='left' width={14} >
 					<Header as={'h2'} size='small'>
 						{'Ступені вищої освіти: '}
-						<Dropdown>
-						</Dropdown>
 					</Header>
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
-			<Grid.Row columns={1} className="custom-grid">
-				<Grid.Column floated='left' width={14} >
-					<Header as={'h2'} size='small' floated='left' textAlign='center' className="custom-header">
-						{'Галузь знань: '}
-						<Dropdown clearable>
-
-						</Dropdown>
-					</Header>
+			<Grid.Row columns={1} className="custom-grid centered">
+				<Grid.Column floated='left' width={14}>
+					<CustomAccordion
+						title='Галузь знань: '
+						content={
+							<>
+								{branchesOfKnowledge.map(branchOfKnowledge => (
+									<Checkbox
+										className="custom-header "
+										radio
+										key={branchOfKnowledge.code}
+										name={'branchesOfKnowledge'}
+										label={branchOfKnowledge.name}
+										value={branchOfKnowledge.code}
+										checked={branchOfKnowledge.isSelected}
+										onChange={() => updateSelectedBranchOfKnowledge(branchOfKnowledge)}
+									/>
+								))}
+							</>
+						}
+					/>
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
@@ -95,6 +104,6 @@ export default observer(function FilterSidebarContent() {
 				</Grid.Column>
 			</Grid.Row>
 			<Divider style={{ marginBottom: 150 }} />
-		</Grid>
+		</Grid >
 	)
 })

@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { Card, Grid, Icon, Image } from "semantic-ui-react";
-import { University } from "../../app/models/university";
-import { useStore } from "../../app/stores/store";
+import { University } from "../../../app/models/university";
+import { useStore } from "../../../app/stores/store";
 
 interface Props {
 	university: University

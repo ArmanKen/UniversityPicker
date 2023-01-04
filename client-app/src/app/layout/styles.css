@@ -73,3 +73,10 @@ body {
 	margin-left: auto !important;
 	margin-right: auto !important;
 }
+
+.customAccordion{
+	width: 100% !important;
+	font-size: 1.1em !important;
+	color: black;
+	font-weight: 550;
+}

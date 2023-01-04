@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { Sidebar } from "semantic-ui-react";
-import LoadingComponent from "../../app/layout/LoadingComponent";
-import { useStore } from "../../app/stores/store";
-import UniversitySidebar from "./universitySidebar/UniversitySidebar";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
+import { useStore } from "../../../app/stores/store";
+import UniversitySidebar from "../../universities/dashboard/universitySidebar/UniversitySidebar";
 import UniversityList from "./UniversityList";
 import FilterSidebar from "./filterSidebar/FilterSidebar";
 import FilterSidebarControllers from "./filterSidebar/FilterSidebarControllers";

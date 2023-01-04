@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { Card, Grid } from "semantic-ui-react";
-import { useStore } from "../../app/stores/store";
+import { useStore } from "../../../app/stores/store";
 import UniversityListCard from "./UniversityListCard";
 
 export default observer(function UniversityList() {

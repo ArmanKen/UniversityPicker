@@ -1,21 +1,21 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Button, Divider, Grid, Header, Icon, Image } from 'semantic-ui-react';
-import { useStore } from '../../../app/stores/store';
+import { useStore } from '../../../../app/stores/store';
 
 export default observer(function UnivesritySidebarContent() {
 	const { universityStore: { selectedUniversity: university }, specilatyStore: { selectedSpecialty } } = useStore();
 
 	return (
 		<Grid container columns={1}>
-			<Grid.Column >
+			<Grid.Column className="custom-grid">
 				<Header
 					textAlign='center'
 					size='large'
 					content={university?.name}
 				/>
 			</Grid.Column>
-			<Grid.Column style={{padding:0}}>
+			<Grid.Column className="custom-grid">
 				<Image
 					fluid
 					src='/assets/1.png'

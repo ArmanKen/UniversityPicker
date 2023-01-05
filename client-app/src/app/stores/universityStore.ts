@@ -21,6 +21,7 @@ export default class UniversityStore {
 					this.universities.push(university);
 				})
 			})
+			store.specilatyStore.loadSpecialties();
 			this.setLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {

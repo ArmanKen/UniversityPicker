@@ -36,8 +36,7 @@ export default observer(function UnivesritySidebarContent() {
 				</Grid.Column>
 				<Grid.Column width={14}>
 					<Header as={'h2'} size='medium' floated='left'>
-						{' Адреса: ' + (university?.region === university?.city ? '' : university?.region + ', ')
-							+ university?.city + ', ' + university?.address}
+						{' Адреса: ' + university?.region + ', ' + university?.address}
 					</Header>
 				</Grid.Column>
 			</Grid.Row>

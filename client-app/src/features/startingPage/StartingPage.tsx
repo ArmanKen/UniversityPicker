@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Container } from 'semantic-ui-react';
 import LoadingComponent from '../../app/layout/LoadingComponent';
 import { useStore } from '../../app/stores/store';
-import BranchOfKnowledgeList from './BranchOfKnowledgeList';
+import StartingPageBranchOfKnowledgePick from './StartingPageBranchOfKnowledgePick';
 
 export default observer(function StartingPage() {
 	const { stepStore, universityStore } = useStore();
@@ -11,7 +11,7 @@ export default observer(function StartingPage() {
 	const { universities, loadUniversities } = universityStore;
 
 	useEffect(() => {
-		setCurrentStep(<BranchOfKnowledgeList key={1} />);
+		setCurrentStep(<StartingPageBranchOfKnowledgePick key={1} />);
 	}, [setCurrentStep])
 
 	useEffect(() => {

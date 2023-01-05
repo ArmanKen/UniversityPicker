@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Grid, Header } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
-import SpecialtyPick from "./SpecialtyPick";
+import StartingPageSpecialtyPick from "./StartingPageSpecialtyPick";
 
-export default observer(function DisciplineList() {
+export default observer(function StartingPageDisciplinesPick() {
 	const { stepStore: { setCurrentStep }, disciplineStore } = useStore()
 	const { loadDisciplines, updateSelectedDisciplines, selectAllDisciplines, disciplines, clearSelectedDisciplines } = disciplineStore;
 
@@ -61,7 +61,7 @@ export default observer(function DisciplineList() {
 					size="big"
 					floated='left'
 					onClick={() => {
-						setCurrentStep(<SpecialtyPick key={2} />)
+						setCurrentStep(<StartingPageSpecialtyPick key={2} />)
 					}}
 					content="Повернутися до минулого кроку"
 				/>

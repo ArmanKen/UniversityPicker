@@ -1,32 +1,44 @@
 import { observer } from "mobx-react-lite";
-import { Checkbox, Divider, Dropdown, Grid, Header} from "semantic-ui-react";
+import { Checkbox, Divider, Dropdown, Grid, Header } from "semantic-ui-react";
 import CustomAccordion from "../../../../app/common/customElements/CustomAccordion";
 import { useStore } from "../../../../app/stores/store";
 
 export default observer(function FilterSidebarContent() {
 	const { branchOfKnowledgeStore, specilatyStore } = useStore();
 	const { selectedBranchOfKnowledge, branchesOfKnowledge, updateSelectedBranchOfKnowledge } = branchOfKnowledgeStore;
-	const { } = specilatyStore;
+	const { selectedSpecialties, selectedSpecialty, changeSelectedSpecialty } = specilatyStore;
 
 	return (
 		<Grid>
 			<Divider />
 			<Grid.Row columns={1}>
 				<Grid.Column width={15} >
-					<Header as={'h2'} size='medium' className='centered' content='Фільтри пошуку' />
+					<Header as={'h1'} size='large' className='centered' content='Фільтри пошуку' />
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
-			<Grid.Row columns={1} className="custom-grid">
-				<Grid.Column floated='left' width={14} >
-					<Header as={'h2'} size='small'>
-						{'Ступені вищої освіти: '}
-					</Header>
+			<Grid.Row columns={1} className="custom-grid centered"> {/*{TODO: add grades } */}
+				<Grid.Column floated='left' width={15} >
+					<CustomAccordion
+						title='Ступені вищої освіти: '
+						content={
+							<>
+								{['Бакалавріат', 'Магістратура'].map(x => (
+									<Checkbox
+										className="custom-header"
+										radio
+										label={x}
+										key={x}
+									/>
+								))}
+							</>
+						}
+					/>
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
 			<Grid.Row columns={1} className="custom-grid centered">
-				<Grid.Column floated='left' width={14}>
+				<Grid.Column floated='left' width={15}>
 					<CustomAccordion
 						title='Галузь знань: '
 						content={
@@ -49,27 +61,34 @@ export default observer(function FilterSidebarContent() {
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
-			<Grid.Row columns={1} className="custom-grid">
-				<Grid.Column floated='left' width={14} >
-					<Header as={'h2'} size='small' floated='left' textAlign='center' className="custom-header" disabled={!selectedBranchOfKnowledge}>
-						{'Cпеціалізація: '}
-					</Header>
-				</Grid.Column>
-			</Grid.Row>
-			<Grid.Row columns={1} className="custom-grid">
-				<Grid.Column width={14} style={{ marginLeft: 20 }}>
-
+			<Grid.Row columns={1} className="custom-grid centered">
+				<Grid.Column floated='left' width={15}>
+					<CustomAccordion
+						className={selectedBranchOfKnowledge ? undefined : "disabled title"}
+						title='Спеціалізація: '
+						content={
+							<>
+								{selectedSpecialties.map(specialty => (
+									<Checkbox
+										className="custom-header centered"
+										radio
+										key={specialty.code}
+										name={'specialties'}
+										label={specialty.name}
+										value={specialty.code}
+										checked={specialty.code === selectedSpecialty?.code ? true : false}
+										onChange={() => changeSelectedSpecialty(specialty.code)}
+									/>
+								))}
+							</>
+						}
+					/>
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
-			<Grid.Row columns={1} className="custom-grid">
+			<Grid.Row columns={1} className="custom-grid centered">
 				<Grid.Column floated='left' width={14} >
-					<Header as={'h2'} size='small' floated='left' textAlign='center' className="custom-header">
-						{'Область: '}
-						<Dropdown>
-
-						</Dropdown>
-					</Header>
+					
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
@@ -103,7 +122,7 @@ export default observer(function FilterSidebarContent() {
 					<Checkbox fitted />
 				</Grid.Column>
 			</Grid.Row>
-			<Divider style={{ marginBottom: 150 }} />
+			<Divider style={{ marginBottom: 600 }} />
 		</Grid >
 	)
 })

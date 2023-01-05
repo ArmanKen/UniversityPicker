@@ -3,14 +3,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Grid, Header } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
-import SpecialtyPick from "./SpecialtyPick";
+import StartingPageSpecialtyPick from "./StartingPageSpecialtyPick";
 
-export default observer(function BranchOfKnowledgeList() {
+export default observer(function StartingPageBranchOfKnowledgePick() {
 	const { branchOfKnowledgeStore, stepStore } = useStore();
 	const { branchesOfKnowledge, updateSelectedBranchOfKnowledge, selectedBranchOfKnowledge } = branchOfKnowledgeStore;
 
 	return (
-		<Container style={{ marginBottom: 300,height:'100%' }} >
+		<Container style={{ marginBottom: 300, height: '100%' }} >
 			<Header style={{ textAlign: 'center' }}>
 				Оберіть область знань, у якій ви зацікавлені.
 			</Header>
@@ -28,12 +28,12 @@ export default observer(function BranchOfKnowledgeList() {
 			</Grid>
 			<Container style={{ marginTop: '3em' }}>
 				<Button
-					disabled={selectedBranchOfKnowledge === undefined ? true : false}
+					disabled={!selectedBranchOfKnowledge}
 					color='black'
 					size="big"
 					floated='right'
 					onClick={() => {
-						stepStore.setCurrentStep(<SpecialtyPick key={2} />)
+						stepStore.setCurrentStep(<StartingPageSpecialtyPick key={2} />)
 					}}
 					content="Наступний крок"
 				/>
@@ -46,7 +46,7 @@ export default observer(function BranchOfKnowledgeList() {
 					to='/universities'
 				/>
 			</Container>
-			<Divider hidden style={{marginTop:200}}/>
+			<Divider hidden style={{ marginTop: 200 }} />
 		</Container>
 	);
 })

@@ -6,7 +6,6 @@ export interface University {
 	shortInfo: string;
 	fullInfo: string;
 	region: string;
-	city: string;
 	address: string;
 	website: string;
 	rating: number;

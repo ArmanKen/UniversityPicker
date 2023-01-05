@@ -74,9 +74,19 @@ body {
 	margin-right: auto !important;
 }
 
-.customAccordion{
+.customAccordion {
 	width: 100% !important;
 	font-size: 1.1em !important;
-	color: black;
-	font-weight: 550;
+	color: black !important;
+	font-weight: 550 !important;
+}
+
+.disabled.title {
+	cursor: default !important;
+	background-color: #f0f5f4 !important;
+	color: rgba(0, 0, 0, 0.4) !important;
+	opacity: 0.3 !important;
+	background-image: none !important;
+	box-shadow: none !important;
+	pointer-events: none !important;
 }

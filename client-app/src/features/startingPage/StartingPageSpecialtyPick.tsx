@@ -2,10 +2,10 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Button, Container, Dropdown, Header } from 'semantic-ui-react';
 import { useStore } from '../../app/stores/store';
-import BranchOfKnowledgeList from './BranchOfKnowledgeList';
-import DisciplinesList from './DisciplinesList';
+import StartingPageBranchOfKnowledgePick from './StartingPageBranchOfKnowledgePick';
+import StartingPageDisciplinesPick from './StartingPageDisciplinesPick';
 
-export default observer(function SpecialtyPick() {
+export default observer(function StartingPageSpecialtyPick() {
 	const { specilatyStore, stepStore } = useStore();
 	const { specialties, loadSpecialties, updateSelectedSpecialties, selectedSpecialties,
 		dropdownContent, changeSelectedSpecialty, selectedSpecialty } = specilatyStore;
@@ -31,13 +31,13 @@ export default observer(function SpecialtyPick() {
 				clearable
 				selection
 				fluid />
-			<Container style={{marginTop:80}}>
+			<Container style={{ marginTop: 80 }}>
 				<Button
 					color='black'
 					size="big"
 					floated='right'
 					onClick={() => {
-						stepStore.setCurrentStep(<DisciplinesList key={3} />)
+						stepStore.setCurrentStep(<StartingPageDisciplinesPick key={3} />)
 					}}
 					content="Наступний крок"
 				/>
@@ -46,7 +46,7 @@ export default observer(function SpecialtyPick() {
 					size="big"
 					floated='left'
 					onClick={() => {
-						stepStore.setCurrentStep(<BranchOfKnowledgeList key={1} />)
+						stepStore.setCurrentStep(<StartingPageBranchOfKnowledgePick key={1} />)
 					}}
 					content="Повернутися до минулого кроку"
 				/>

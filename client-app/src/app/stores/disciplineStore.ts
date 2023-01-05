@@ -35,23 +35,12 @@ export default class DisciplineStore {
 		}
 	}
 
-	updateSelectedDisciplines = (discipline: Discipline) => {
-		discipline.isSelected === true ?
-			discipline.isSelected = false
-			: discipline.isSelected = true;
-	}
+	updateSelectedDisciplines = (discipline: Discipline) => discipline.isSelected ?
+		discipline.isSelected = false : discipline.isSelected = true;
 
-	clearSelectedDisciplines = () => {
-		this.disciplines.forEach(discipline => {
-			discipline.isSelected = false;
-		})
-	}
+	clearSelectedDisciplines = () => this.disciplines.forEach(discipline => discipline.isSelected = false)
 
-	selectAllDisciplines = () => {
-		this.disciplines.forEach(discipline => {
-			discipline.isSelected = true;
-		})
-	}
+	selectAllDisciplines = () => this.disciplines.forEach(discipline => discipline.isSelected = true)
 
 	undoDisciplineStore = () => {
 		this.clearSelectedDisciplines();

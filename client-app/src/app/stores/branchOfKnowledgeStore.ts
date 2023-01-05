@@ -12,12 +12,12 @@ export default class BranchOfKnowledgeStore {
 		this.branchesOfKnowledge = BranchesOfKnowledge;
 	}
 
-	updateSelectedBranchOfKnowledge = (branchOfKnowledge: BranchOfKnowledge) => {
-		if (this.selectedBranchOfKnowledge) {
+	updateSelectedBranchOfKnowledge = (branchOfKnowledge: BranchOfKnowledge | undefined) => {
+		if (this.selectedBranchOfKnowledge)
 			this.selectedBranchOfKnowledge.isSelected = false;
-		}
 		this.selectedBranchOfKnowledge = branchOfKnowledge;
-		this.selectedBranchOfKnowledge.isSelected = true;
+		if (this.selectedBranchOfKnowledge)
+			this.selectedBranchOfKnowledge.isSelected = true;
 		store.specilatyStore.undoSpecialtyStore();
 		store.specilatyStore.updateSelectedSpecialties();
 	}

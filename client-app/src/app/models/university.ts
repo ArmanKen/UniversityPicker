@@ -9,7 +9,7 @@ export interface University {
 	address: string;
 	website: string;
 	rating: number;
-	countryTopRating: number;
+	countryTopRating: number;//fill
 	telephone: string;
 	specialties: Specialty[];
 }

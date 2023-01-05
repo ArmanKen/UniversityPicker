@@ -31,9 +31,7 @@ export default class UniversityStore {
 		}
 	}
 
-	setLoadingInitial = (state: boolean) => {
-		this.loadingInitial = state;
-	}
+	setLoadingInitial = (state: boolean) => this.loadingInitial = state;
 
 	getUniversitySelectedSpecialty = (university: University) => {
 		return university.specialties.find(x => x.code === store.specilatyStore.selectedSpecialty?.code)
@@ -43,7 +41,5 @@ export default class UniversityStore {
 
 	}
 
-	setSelectedUniversity = (university: University | undefined) => {
-		this.selectedUniversity = university;
-	}
+	setSelectedUniversity = (university: University | undefined) => this.selectedUniversity = university;
 }

@@ -7,5 +7,7 @@ export interface Specialty {
 	price: number;
 	info: string;
 	budgetAllowed: boolean;
+	academicDegree: string; //!!!!!
+	courseLength: number; //!!!!!!
 	disciplines: Discipline[];
 }

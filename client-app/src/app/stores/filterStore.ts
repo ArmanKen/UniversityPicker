@@ -9,7 +9,6 @@ export default class FilterStore {
 	maxPrice: number = 0;
 	allowedBudget = false;
 	selectedRegion: string | undefined = undefined;
-	selectedCity: string | undefined = undefined;
 	countryTopMinPlace: boolean = false;
 
 	constructor() {
@@ -60,4 +59,6 @@ export default class FilterStore {
 		return university.specialties.find(specialty => specialty.code === store.specilatyStore.selectedSpecialty?.code)?.budgetAllowed ?
 			true : false;
 	}
+
+	changeSelectedRegion = (region: string | undefined) => this.selectedRegion = region;
 }

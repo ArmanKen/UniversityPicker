@@ -1,23 +1,20 @@
 import { observer } from "mobx-react-lite";
-import { Button, Checkbox, Divider, Dropdown, Grid, Header, Icon } from "semantic-ui-react";
+import { Button, Checkbox, Container, Divider, Dropdown, Grid, Header, Icon, Input } from "semantic-ui-react";
 import CustomAccordion from "../../../../app/common/customElements/CustomAccordion";
 import { RegionsOfUkraine } from "../../../../app/common/valuesForLists/RegionsOfUkraine";
 import { useStore } from "../../../../app/stores/store";
 
 export default observer(function FilterSidebarContent() {
-	const { branchOfKnowledgeStore, specilatyStore, filterStore } = useStore();
+	const { branchOfKnowledgeStore, specilatyStore, filterStore, sidebarStore: { setFilterSidebarOpen } } = useStore();
 	const { selectedBranchOfKnowledge, branchesOfKnowledge, updateSelectedBranchOfKnowledge } = branchOfKnowledgeStore;
 	const { selectedSpecialties, selectedSpecialty, changeSelectedSpecialty } = specilatyStore;
 	const { selectedRegion, changeSelectedRegion } = filterStore;
 
 	return (
-		<Grid>
-			<Divider />
-			<Grid.Row columns={1}>
-				<Grid.Column width={16} >
-					<Header as={'h1'} size='large' className='centered' content='Фільтри пошуку' />
-				</Grid.Column>
-			</Grid.Row>
+		<Grid container columns={1}>
+			<Grid.Column className="custom-grid">
+				<Header as={'h1'} size='large' className='centered' content='Фільтри пошуку' />
+			</Grid.Column>
 			<Divider />
 			<Grid.Row columns={2} className="custom-grid centered"> {/*{TODO: add grades + pick info } */}
 				<Grid.Column width={14} >
@@ -41,10 +38,9 @@ export default observer(function FilterSidebarContent() {
 					<Button
 						floated='right'
 						circular
-						className='sidebar-color'
+						className='sidebar-color undobutton'
 						size='medium'
 						icon='close'
-						style={{ marginTop: -9 }}
 					/>
 				</Grid.Column>
 			</Grid.Row>
@@ -76,10 +72,9 @@ export default observer(function FilterSidebarContent() {
 					<Button
 						floated='right'
 						circular
-						className='sidebar-color'
+						className='sidebar-color undobutton'
 						size='medium'
 						icon='close'
-						style={{ marginTop: -9 }}
 						onClick={() => updateSelectedBranchOfKnowledge(undefined)}
 					/>
 				</Grid.Column>
@@ -113,10 +108,9 @@ export default observer(function FilterSidebarContent() {
 					<Button
 						floated='right'
 						circular
-						className='sidebar-color'
+						className='sidebar-color undobutton'
 						size='medium'
 						icon='close'
-						style={{ marginTop: -9 }}
 						onClick={() => changeSelectedSpecialty(undefined)}
 					/>
 				</Grid.Column>
@@ -148,7 +142,7 @@ export default observer(function FilterSidebarContent() {
 					<Button
 						floated='right'
 						circular
-						className='sidebar-color'
+						className='sidebar-color undobutton'
 						size='medium'
 						icon='close'
 						style={{ marginTop: -9 }}
@@ -157,11 +151,53 @@ export default observer(function FilterSidebarContent() {
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
-			<Grid.Row columns={2} className="custom-grid">
-				<Grid.Column floated='left' width={14} >
-					<Header as={'h2'} size='small' floated='left' textAlign='center' className="custom-header">
-						{'Ціна за повний курс: '}
-					</Header>
+			<Grid.Row columns={2} className="custom-grid centered" >
+				<Grid.Column width={14}>
+					<CustomAccordion
+						title="Повна ціна за навчання"
+						content={
+							<Container>
+								<Input
+									size="mini"
+									onChange={(e, data: any) => {
+										let value = null;
+										if (e.target.value) {
+											value = parseInt(e.target.value);
+											if (isNaN(value)) {
+												console.log('error')
+											} else {
+												console.log('true')
+											}
+										}
+									}}
+									style={{ maxWidth: 95, fontSize: '1.05em' }}
+								/>
+								<hr
+									style={{
+										border: ' 2px solid grey',
+										borderRadius: '10px',
+										background: "grey",
+										marginTop: '18px',
+										marginLeft: 'auto',
+										marginRight: 'auto',
+									}}
+								/>
+								<Input size='mini'
+									style={{ maxWidth: 95, fontSize: '1.05em' }} />
+							</Container>
+						}
+					/>
+				</Grid.Column>
+				<Grid.Column width={1}>
+					<Button
+						floated='right'
+						circular
+						className='sidebar-color undobutton'
+						size='medium'
+						icon='close'
+						style={{ marginTop: -9 }}
+						onClick={() => changeSelectedRegion(undefined)}
+					/>
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />

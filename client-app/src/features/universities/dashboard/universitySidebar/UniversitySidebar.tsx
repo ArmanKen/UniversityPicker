@@ -7,7 +7,7 @@ import UniversitySidebarContent from './UniversitySidebarContent';
 export default observer(function UniversitySelectedSidebar() {
 	const { sidebarStore } = useStore();
 	const { universitySidebarOpen, filterSidebarOpen, setUniversitySidebarOpen } = sidebarStore;
-	//TODO:(discipline optional)
+	
 	return (
 		<Sidebar
 			as={Menu}

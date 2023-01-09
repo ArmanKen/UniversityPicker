@@ -74,7 +74,7 @@ body {
 	margin-right: auto !important;
 }
 
-.customAccordion {
+.custom-accordion {
 	width: 100% !important;
 	font-size: 1.1em !important;
 	color: black !important;
@@ -94,4 +94,10 @@ body {
 .undobutton {
 	margin-top: -9px !important;
 	margin-right: -2px !important;
+}
+
+.customInput {
+	color: black !important;
+	max-width: 95px !important;
+	font-size: '1.05em' !important;
 }

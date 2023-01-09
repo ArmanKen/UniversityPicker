@@ -1,14 +1,15 @@
 import { observer } from "mobx-react-lite";
-import { Button, Checkbox, Container, Divider, Dropdown, Grid, Header, Icon, Input } from "semantic-ui-react";
+import { Button, Checkbox, Container, Divider, Grid, Header, Input, Label } from "semantic-ui-react";
 import CustomAccordion from "../../../../app/common/customElements/CustomAccordion";
+import CustomInput from "../../../../app/common/customElements/CustomInput";
 import { RegionsOfUkraine } from "../../../../app/common/valuesForLists/RegionsOfUkraine";
 import { useStore } from "../../../../app/stores/store";
 
 export default observer(function FilterSidebarContent() {
-	const { branchOfKnowledgeStore, specilatyStore, filterStore, sidebarStore: { setFilterSidebarOpen } } = useStore();
+	const { branchOfKnowledgeStore, specilatyStore, filterStore } = useStore();
 	const { selectedBranchOfKnowledge, branchesOfKnowledge, updateSelectedBranchOfKnowledge } = branchOfKnowledgeStore;
 	const { selectedSpecialties, selectedSpecialty, changeSelectedSpecialty } = specilatyStore;
-	const { selectedRegion, changeSelectedRegion } = filterStore;
+	const { selectedRegion, changeSelectedRegion, minPrice, maxPrice, changeMaxPrice, changeMinPrice } = filterStore;
 
 	return (
 		<Grid container columns={1}>
@@ -156,38 +157,23 @@ export default observer(function FilterSidebarContent() {
 					<CustomAccordion
 						title="Повна ціна за навчання"
 						content={
-							<Container>
+							<Container fluid>
+								<CustomInput
+									inputValue={minPrice}
+									changeValue={changeMinPrice}
+									isNegative={true}
+								/>
+								<Label
+									content='—'
+									size="massive"
+									className="sidebar-color" />
 								<Input
-									size="mini"
-									onChange={(e, data: any) => {
-										let value = null;
-										if (e.target.value) {
-											value = parseInt(e.target.value);
-											if (isNaN(value)) {
-												console.log('error')
-											} else {
-												console.log('true')
-											}
-										}
-									}}
-									style={{ maxWidth: 95, fontSize: '1.05em' }}
-								/>
-								<hr
-									style={{
-										border: ' 2px solid grey',
-										borderRadius: '10px',
-										background: "grey",
-										marginTop: '18px',
-										marginLeft: 'auto',
-										marginRight: 'auto',
-									}}
-								/>
-								<Input size='mini'
+									size='mini'
 									style={{ maxWidth: 95, fontSize: '1.05em' }} />
 							</Container>
 						}
 					/>
-				</Grid.Column>
+				</Grid.Column>{/* max min price */}
 				<Grid.Column width={1}>
 					<Button
 						floated='right'

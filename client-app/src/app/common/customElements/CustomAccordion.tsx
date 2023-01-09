@@ -13,7 +13,7 @@ export default observer(function CustomAccordion({ title, content, size, classNa
 	const [active, setActive] = useState(false);
 
 	return (
-		<Accordion fluid className='customAccordion'>
+		<Accordion fluid className='custom-accordion'>
 			<Accordion.Title
 				as={Header}
 				size={size ? size : 'small'}

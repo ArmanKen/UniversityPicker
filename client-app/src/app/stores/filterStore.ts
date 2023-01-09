@@ -61,4 +61,11 @@ export default class FilterStore {
 	}
 
 	changeSelectedRegion = (region: string | undefined) => this.selectedRegion = region;
+
+	changeMinPrice = (price: number) => {
+		this.minPrice = price;
+		console.log(this.minPrice);
+	}
+
+	changeMaxPrice = (price: number) => this.maxPrice = price;
 }

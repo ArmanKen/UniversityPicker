@@ -13,7 +13,9 @@ namespace Domain
 		public string Info { get; set; }
 		public string Telephone { get; set; }
 		public int StudentsCount { get; set; }
-		public ICollection<Specialty> Specialties { get; set; } = new List<Specialty>(); //GRADE?
+		public ICollection<Specialty> JunBachalor { get; set; } = new List<Specialty>();
+		public ICollection<Specialty> Bachalor { get; set; } = new List<Specialty>();
+		public ICollection<Specialty> Magister { get; set; } = new List<Specialty>();
 		public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 	}
 }

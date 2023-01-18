@@ -10,6 +10,7 @@ namespace Domain
 		public SpecialtyBase Specialty { get; set; }
 		public Photo Photo { get; set; }
 		public string Grade { get; set; }
-		public ICollection<University> Favorites { get; set; } = new List<University>();
+		public ICollection<UniversityAdministrator> UniversityAdministration { get; set; } = new List<UniversityAdministrator>();
+		public ICollection<SelectedUniversity> SelectedUniversities { get; set; } = new List<SelectedUniversity>();
 	}
 }

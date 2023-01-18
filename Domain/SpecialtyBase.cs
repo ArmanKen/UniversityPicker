@@ -2,8 +2,9 @@ namespace Domain
 {
 	public class SpecialtyBase
 	{
-		public int Code { get; set; }
+		public string Id { get; set; }
 		public string Name { get; set; }
-		public ICollection<SpecialtyBaseDisciplines> AllDisciplines { get; set; } = new List<SpecialtyBaseDisciplines>();
+		public ICollection<ISCED> ISCED { get; set; } = new List<ISCED>();
+		public ICollection<Discipline> AllDisciplines { get; set; } = new List<Discipline>();
 	}
 }

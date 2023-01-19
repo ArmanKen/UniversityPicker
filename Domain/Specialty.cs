@@ -11,9 +11,8 @@ namespace Domain
 		public int StartYear { get; set; }
 		public int EndYear { get; set; }
 		public string Degree { get; set; } 
-		public University University { get; set; }
 		public JunBachelorSpecialty JunBachelor { get; set; }
-		public BachelorSpecilaty Bachelor { get; set; }
+		public BachelorSpecialty Bachelor { get; set; }
 		public MagisterSpecialty Magister { get; set; }
 		public ICollection<SpecialtyDiscipline> Disciplines { get; set; } = new List<SpecialtyDiscipline>();
 	}

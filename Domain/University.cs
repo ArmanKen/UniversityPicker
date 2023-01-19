@@ -5,7 +5,6 @@ namespace Domain
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public Region Region { get; set; }
-		public City City { get; set; }
 		public string Address { get; set; }
 		public int Rating { get; set; }
 		public int TimesRated { get; set; }
@@ -14,7 +13,7 @@ namespace Domain
 		public string Telephone { get; set; }
 		public int StudentsCount { get; set; }
 		public ICollection<JunBachelorSpecialty> JunBachelorSpecialties { get; set; } = new List<JunBachelorSpecialty>();
-		public ICollection<BachelorSpecilaty> BachelorSpecialties { get; set; } = new List<BachelorSpecilaty>();
+		public ICollection<BachelorSpecialty> BachelorSpecialties { get; set; } = new List<BachelorSpecialty>();
 		public ICollection<MagisterSpecialty> MagisterSpecialties { get; set; } = new List<MagisterSpecialty>();
 		public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 		public ICollection<UniversityAdministrator> UniversityAdministrators { get; set; } = new List<UniversityAdministrator>();

@@ -1,5 +1,7 @@
 using API.Extensions;
 using API.Middleware;
+using Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -10,6 +12,7 @@ public class Program
 		var builder = WebApplication.CreateBuilder(args);
 		builder.Services.AddControllers();
 		builder.Services.AddApplicationExtensions(builder.Configuration);
+		builder.Services.AddIdentityServices(builder.Configuration);
 		builder.Services.AddEndpointsApiExplorer();
 		builder.Services.AddSwaggerGen();
 
@@ -19,9 +22,9 @@ public class Program
 		try
 		{
 			var context = services.GetRequiredService<DataContext>();
-			// var userManager = services.GetRequiredService<UserManager<AppUser>>();
+			var userManager = services.GetRequiredService<UserManager<AppUser>>();
 			await context.Database.MigrateAsync();
-			await Seed.SeedData(context);
+			await Seed.SeedData(context,userManager);
 		}
 		catch (Exception ex)
 		{

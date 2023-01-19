@@ -13,7 +13,7 @@ public class DataContext : IdentityDbContext<AppUser>
 	public DbSet<UniversityAdministrator> UniversityAdministrators { get; set; }
 	public DbSet<SelectedUniversity> SelectedUniversities { get; set; }
 	public DbSet<JunBachelorSpecialty> JunBachelorSpecialties { get; set; }
-	public DbSet<BachelorSpecilaty> BachelorSpecilaties { get; set; }
+	public DbSet<BachelorSpecialty> BachelorSpecilaties { get; set; }
 	public DbSet<MagisterSpecialty> MagisterSpecialties { get; set; }
 	public DbSet<Specialty> Specialties { get; set; }
 	public DbSet<SpecialtyBase> SpecialtyBases { get; set; }
@@ -28,15 +28,15 @@ public class DataContext : IdentityDbContext<AppUser>
 	{
 		base.OnModelCreating(builder);
 		builder.Entity<JunBachelorSpecialty>(k => k.HasKey(x => new { x.SpecialtyId, x.UniversityId }));
-		builder.Entity<JunBachelorSpecialty>().HasOne(x => x.Specilaty).WithOne(x => x.JunBachelor);
+		builder.Entity<JunBachelorSpecialty>().HasOne(x => x.Specialty).WithOne(x => x.JunBachelor);
 		builder.Entity<JunBachelorSpecialty>().HasOne(x => x.University).WithMany(x => x.JunBachelorSpecialties).HasForeignKey(x => x.UniversityId);
 
-		builder.Entity<BachelorSpecilaty>(k => k.HasKey(x => new { x.SpecialtyId, x.UniversityId }));
-		builder.Entity<BachelorSpecilaty>().HasOne(x => x.Specilaty).WithOne(x => x.Bachelor);
-		builder.Entity<BachelorSpecilaty>().HasOne(x => x.University).WithMany(x => x.BachelorSpecialties).HasForeignKey(x => x.UniversityId);
+		builder.Entity<BachelorSpecialty>(k => k.HasKey(x => new { x.SpecialtyId, x.UniversityId }));
+		builder.Entity<BachelorSpecialty>().HasOne(x => x.Specialty).WithOne(x => x.Bachelor);
+		builder.Entity<BachelorSpecialty>().HasOne(x => x.University).WithMany(x => x.BachelorSpecialties).HasForeignKey(x => x.UniversityId);
 
 		builder.Entity<MagisterSpecialty>(k => k.HasKey(x => new { x.SpecialtyId, x.UniversityId }));
-		builder.Entity<MagisterSpecialty>().HasOne(x => x.Specilaty).WithOne(x => x.Magister);
+		builder.Entity<MagisterSpecialty>().HasOne(x => x.Specialty).WithOne(x => x.Magister);
 		builder.Entity<MagisterSpecialty>().HasOne(x => x.University).WithMany(x => x.MagisterSpecialties).HasForeignKey(x => x.UniversityId);
 
 		builder.Entity<UniversityAdministrator>(k => k.HasKey(x => new { x.AppUserId, x.UniversityId }));

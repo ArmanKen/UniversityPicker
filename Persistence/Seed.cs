@@ -1,236 +1,89 @@
 using Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace Persistence
 {
 	public class Seed
 	{
-		public static async Task SeedData(DataContext context)
+		public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
 		{
-			if (context.Disciplines.Any()) return;
-			var disciplines = new List<Discipline>
+			if (!userManager.Users.Any())
 			{
-				new Discipline
+				var users = new List<AppUser>
 				{
-					Name = "Інженерія програмного забезпечення",
-					Info = "Інформація про предмет Інженерія програмного забезпечення"
-				},
-				new Discipline
+					new AppUser
+					{
+						DisplayName = "Bob",
+						UserName = "bob",
+						Email = "bob@test.com",
+						Bio="1"
+					},
+					new AppUser
+					{
+						DisplayName = "Jane",
+						UserName = "jane",
+						Email = "jane@test.com",
+						Bio="2"
+					},
+					new AppUser
+					{
+						DisplayName = "Tom",
+						UserName = "tom",
+						Email = "tom@test.com",
+						Bio="3"
+					},
+				};
+				foreach (var user in users)
 				{
-					Name = "Філософія",
-					Info = "Інформація про предмет Філософія",
-					Optional = true
-				},
-				new Discipline
-				{
-					Name = "Правознавство",
-					Info = "Інформація про предмет Правознавство",
-					Optional = true
-				},
-				new Discipline
-				{
-					Name = "Операційні системи",
-					Info = "Інформація про предмет Операційні системи"
+					await userManager.CreateAsync(user, "Pa$$w0rd");
 				}
-			};
-
-			if (context.Specialties.Any()) return;
-			var specialties = new List<Specialty>
-			{
-				new Specialty
+				if (!context.City.Any())
 				{
-					Name = "Науки про освіту",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Skip(1).SkipLast(1).Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 11,
-					Price = "70000",
-					BudgetAllowed = false,
-					Info = "Інформація про спеціальність Науки про освіту"
-				},
-				new Specialty
-				{
-					Name = "Інженер програмного забезпечення",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 121,
-					BudgetAllowed = true,
-					Price = "120000",
-					Info = "Інформація про спеціальність Інженер програмного забезпечення"
-				},
-				new Specialty
-				{
-					Name = "Кібербезпека",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 122,
-					BudgetAllowed = true,
-					Price = "100000",
-					Info = "Інформація про спеціальність Кібербезпека"
+					var region = new Region { Name = "Київ", Cities = new City[] { new City { Name = "Київ" } } };
+					var isced = new ISCED { Name = "IT", Id = "022" };
+					var discipline = new Discipline { Name = "Філософія" };
+					var discipline1 = new Discipline { Name = "Політологія" };
+					var discipline2 = new SpecialtyDiscipline { Discipline = discipline1, IsOptional = true };
+					var specialtyBase = new SpecialtyBase
+					{
+						Id = "121",
+						Name = "Інженер програмного забезпечення",
+						ISCEDs = new ISCED[] { isced },
+						AllDisciplines = new Discipline[] { discipline }
+					};
+					var specialty = new Specialty
+					{
+						SpecialtyBase = specialtyBase,
+						PriceUAH = "10000",
+						Description = "Info",
+						BudgetAllowed = true,
+						EctsCredits = 540,
+						StartYear = 2023,
+						EndYear = 2024,
+						Degree = "Bachelor",
+						Disciplines = new SpecialtyDiscipline[] { discipline2 }
+					};
+					var university = new University
+					{
+						Name = "Дтеу",
+						Region = region,
+						Address = "lol",
+						Rating = 1,
+						TimesRated = 2,
+						Website = "www.knteu.edu.ua",
+						Info = "lol",
+						Telephone = "+3811111111",
+						StudentsCount = 40000,
+						BachelorSpecialties = new BachelorSpecialty[] { new BachelorSpecialty { Specialty = specialty } },
+						UniversityAdministrators = new UniversityAdministrator[] { new UniversityAdministrator { AppUser = users[0] } },
+						AppUserSelected = new SelectedUniversity[] { new SelectedUniversity { AppUser = users[0] } }
+					};
+					await context.Universities.AddRangeAsync(university);
 				}
-			};
-			var specialties2 = new List<Specialty>
-			{
-				new Specialty
-				{
-					Name = "Науки про освіту",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Skip(1).SkipLast(1).Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 11,
-					BudgetAllowed = true,
-					Price = "50000",
-					Info = "Інформація про спеціальність Науки про освіту"
-				},
-				new Specialty
-				{
-					Name = "Інженер програмного забезпечення",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 121,
-					BudgetAllowed = false,
-					Price = "140000",
-					Info = "Інформація про спеціальність Інженер програмного забезпечення"
-				},
-				new Specialty
-				{
-					Name = "Кібербезпека",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 122,
-					BudgetAllowed = false,
-					Price = "130000",
-					Info = "Інформація про спеціальність Кібербезпека"
-				}
-			};
-			var specialties3 = new List<Specialty>
-			{
-				new Specialty
-				{
-					Name = "Науки про освіту",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Skip(1).SkipLast(1).Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 11,
-					BudgetAllowed = false,
-					Price = "90000",
-					Info = "Інформація про спеціальність Науки про освіту"
-				},
-				new Specialty
-				{
-					Name = "Інженер програмного забезпечення",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 121,
-					BudgetAllowed = true,
-					Price = "180000",
-					Info = "Інформація про спеціальність Інженер програмного забезпечення"
-				},
-				new Specialty
-				{
-					Name = "Кібербезпека",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 122,
-					BudgetAllowed = false,
-					Price = "160000",
-					Info = "Інформація про спеціальність Кібербезпека"
-				}
-			};
-
-			var specialties4 = new List<Specialty>
-			{
-				new Specialty
-				{
-					Name = "Науки про освіту",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Skip(1).SkipLast(1).Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 11,
-					BudgetAllowed = true,
-					Price = "60000",
-					Info = "Інформація про спеціальність Науки про освіту"
-				},
-				new Specialty
-				{
-					Name = "Інженер програмного забезпечення",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 121,
-					BudgetAllowed = false,
-					Price = "110000",
-					Info = "Інформація про спеціальність Інженер програмного забезпечення"
-				},
-				new Specialty
-				{
-					Name = "Кібербезпека",
-					Disciplines = new List<SpecialtyDisciplines>(
-						disciplines.Select(x=>new SpecialtyDisciplines{Discipline=x})),
-					Code = 122,
-					BudgetAllowed = true,
-					Price = "90000",
-					Info = "Інформація про спеціальність Кібербезпека"
-				}
-			};
-
-			if (context.Universities.Any()) return;
-			var universities = new University
-			{
-				Name = "ДТЕУ",
-				Specialties = new List<UniversitySpecialties>(specialties.Select(x => new UniversitySpecialties { Specialty = x })),
-				ShortInfo = "Коротка інформація про університет ДТЕУ",
-				FullInfo = "Повна інформація про університет ДТЕУ",
-				Telephone = "+380 000 00 00",
-				Address = "вул. Миру 1",
-				City = "м.Київ",
-				Region = "м.Київ",
-				Rating = 99,
-				Website = "knute.edu.ua/"
-			};
-			var universities2 = new University
-			{
-				Name = "КЕУ",
-				Specialties = new List<UniversitySpecialties>(specialties2.Select(x => new UniversitySpecialties { Specialty = x })),
-				ShortInfo = "Коротка інформація про університет КЕУ",
-				FullInfo = "Повна інформація про університет КЕУ",
-				Telephone = "+380 111 11 11",
-				Address = "вул. Миру 2",
-				City = "м.Київ",
-				Region = "м.Київ",
-				Rating = 4,
-				Website = "knute.edu.ua/"
-			};
-			var universities3 = new University
-			{
-				Name = "КАУ",
-				Specialties = new List<UniversitySpecialties>(specialties3.Select(x => new UniversitySpecialties { Specialty = x })),
-				ShortInfo = "Коротка інформація про університет КАУ",
-				FullInfo = "Повна інформація про університет КАУ",
-				Telephone = "+380 222 22 22",
-				Address = "вул. Миру 3",
-				City = "м.Київ",
-				Region = "м.Київ",
-				Rating = 1,
-				Website = "knute.edu.ua/"
-			};
-			var universities4 = new University
-			{
-				Name = "КУХ",
-				Specialties = new List<UniversitySpecialties>(specialties4.Select(x => new UniversitySpecialties { Specialty = x })),
-				ShortInfo = "Коротка інформація про університет КУХ",
-				FullInfo = "Повна інформація про університет КУХ",
-				Telephone = "+380 333 33 33",
-				Address = "вул. Миру 4",
-				City = "м.Київ",
-				Region = "м.Київ",
-				Rating = 12,
-				Website = "knute.edu.ua/"
-			};
-
-			await context.Disciplines.AddRangeAsync(disciplines);
-			await context.Universities.AddRangeAsync(universities);
-			await context.Universities.AddRangeAsync(universities2);
-			await context.Universities.AddRangeAsync(universities3);
-			await context.Universities.AddRangeAsync(universities4);
-			await context.Specialties.AddRangeAsync(specialties);
-			await context.Specialties.AddRangeAsync(specialties2);
-			await context.Specialties.AddRangeAsync(specialties3);
-			await context.Specialties.AddRangeAsync(specialties4);
+			}
+			// await context.Disciplines.AddRangeAsync(disciplines);
+			// await context.Universities.AddRangeAsync(universities);
+			// await context.Specialties.AddRangeAsync(specialties);
 			await context.SaveChangesAsync();
 		}
 	}

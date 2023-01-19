@@ -37,6 +37,18 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ISCED",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ISCED", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Photo",
                 columns: table => new
                 {
@@ -54,7 +66,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<int>(type: "INTEGER", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -114,6 +126,31 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Universities",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    RegionId = table.Column<int>(type: "INTEGER", nullable: true),
+                    Address = table.Column<string>(type: "TEXT", nullable: true),
+                    Rating = table.Column<int>(type: "INTEGER", nullable: false),
+                    TimesRated = table.Column<int>(type: "INTEGER", nullable: false),
+                    Website = table.Column<string>(type: "TEXT", nullable: true),
+                    Info = table.Column<string>(type: "TEXT", nullable: true),
+                    Telephone = table.Column<string>(type: "TEXT", nullable: true),
+                    StudentsCount = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Universities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Universities_Region_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Region",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DisciplineSpecialtyBase",
                 columns: table => new
                 {
@@ -138,51 +175,50 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ISCED",
+                name: "ISCEDSpecialtyBase",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    SpecialtyBaseId = table.Column<string>(type: "TEXT", nullable: true)
+                    ISCEDsId = table.Column<string>(type: "TEXT", nullable: false),
+                    SpecialtyBasesId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ISCED", x => x.Id);
+                    table.PrimaryKey("PK_ISCEDSpecialtyBase", x => new { x.ISCEDsId, x.SpecialtyBasesId });
                     table.ForeignKey(
-                        name: "FK_ISCED_SpecialtyBases_SpecialtyBaseId",
-                        column: x => x.SpecialtyBaseId,
+                        name: "FK_ISCEDSpecialtyBase_ISCED_ISCEDsId",
+                        column: x => x.ISCEDsId,
+                        principalTable: "ISCED",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ISCEDSpecialtyBase_SpecialtyBases_SpecialtyBasesId",
+                        column: x => x.SpecialtyBasesId,
                         principalTable: "SpecialtyBases",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Universities",
+                name: "Specialties",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    RegionId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CityId = table.Column<int>(type: "INTEGER", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    Rating = table.Column<int>(type: "INTEGER", nullable: false),
-                    TimesRated = table.Column<int>(type: "INTEGER", nullable: false),
-                    Website = table.Column<string>(type: "TEXT", nullable: true),
-                    Info = table.Column<string>(type: "TEXT", nullable: true),
-                    Telephone = table.Column<string>(type: "TEXT", nullable: true),
-                    StudentsCount = table.Column<int>(type: "INTEGER", nullable: false)
+                    SpecialtyBaseId = table.Column<string>(type: "TEXT", nullable: true),
+                    PriceUAH = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    BudgetAllowed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    EctsCredits = table.Column<int>(type: "INTEGER", nullable: false),
+                    StartYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    EndYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    Degree = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Universities", x => x.Id);
+                    table.PrimaryKey("PK_Specialties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Universities_City_CityId",
-                        column: x => x.CityId,
-                        principalTable: "City",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Universities_Region_RegionId",
-                        column: x => x.RegionId,
-                        principalTable: "Region",
+                        name: "FK_Specialties_SpecialtyBases_SpecialtyBaseId",
+                        column: x => x.SpecialtyBaseId,
+                        principalTable: "SpecialtyBases",
                         principalColumn: "Id");
                 });
 
@@ -196,7 +232,7 @@ namespace Persistence.Migrations
                     UniversityId = table.Column<Guid>(type: "TEXT", nullable: true),
                     SpecialtyId = table.Column<string>(type: "TEXT", nullable: true),
                     PhotoId = table.Column<string>(type: "TEXT", nullable: true),
-                    Grade = table.Column<string>(type: "TEXT", nullable: true),
+                    Degree = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -233,33 +269,100 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Specialties",
+                name: "BachelorSpecilaties",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    SpecialtyBaseId = table.Column<string>(type: "TEXT", nullable: true),
-                    PriceUAH = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    BudgetAllowed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    EctsCredits = table.Column<int>(type: "INTEGER", nullable: false),
-                    StartYear = table.Column<int>(type: "INTEGER", nullable: false),
-                    EndYear = table.Column<int>(type: "INTEGER", nullable: false),
-                    Degree = table.Column<string>(type: "TEXT", nullable: true),
-                    UniversityId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UniversityId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Specialties", x => x.Id);
+                    table.PrimaryKey("PK_BachelorSpecilaties", x => new { x.SpecialtyId, x.UniversityId });
                     table.ForeignKey(
-                        name: "FK_Specialties_SpecialtyBases_SpecialtyBaseId",
-                        column: x => x.SpecialtyBaseId,
-                        principalTable: "SpecialtyBases",
-                        principalColumn: "Id");
+                        name: "FK_BachelorSpecilaties_Specialties_SpecialtyId",
+                        column: x => x.SpecialtyId,
+                        principalTable: "Specialties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Specialties_Universities_UniversityId",
+                        name: "FK_BachelorSpecilaties_Universities_UniversityId",
                         column: x => x.UniversityId,
                         principalTable: "Universities",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JunBachelorSpecialties",
+                columns: table => new
+                {
+                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UniversityId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JunBachelorSpecialties", x => new { x.SpecialtyId, x.UniversityId });
+                    table.ForeignKey(
+                        name: "FK_JunBachelorSpecialties_Specialties_SpecialtyId",
+                        column: x => x.SpecialtyId,
+                        principalTable: "Specialties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JunBachelorSpecialties_Universities_UniversityId",
+                        column: x => x.UniversityId,
+                        principalTable: "Universities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MagisterSpecialties",
+                columns: table => new
+                {
+                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UniversityId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MagisterSpecialties", x => new { x.SpecialtyId, x.UniversityId });
+                    table.ForeignKey(
+                        name: "FK_MagisterSpecialties_Specialties_SpecialtyId",
+                        column: x => x.SpecialtyId,
+                        principalTable: "Specialties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MagisterSpecialties_Universities_UniversityId",
+                        column: x => x.UniversityId,
+                        principalTable: "Universities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialtyDisciplines",
+                columns: table => new
+                {
+                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DisciplineId = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsOptional = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialtyDisciplines", x => new { x.SpecialtyId, x.DisciplineId });
+                    table.ForeignKey(
+                        name: "FK_SpecialtyDisciplines_Discipline_DisciplineId",
+                        column: x => x.DisciplineId,
+                        principalTable: "Discipline",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SpecialtyDisciplines_Specialties_SpecialtyId",
+                        column: x => x.SpecialtyId,
+                        principalTable: "Specialties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -423,103 +526,6 @@ namespace Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "BachelorSpecilaties",
-                columns: table => new
-                {
-                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UniversityId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BachelorSpecilaties", x => new { x.SpecialtyId, x.UniversityId });
-                    table.ForeignKey(
-                        name: "FK_BachelorSpecilaties_Specialties_SpecialtyId",
-                        column: x => x.SpecialtyId,
-                        principalTable: "Specialties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BachelorSpecilaties_Universities_UniversityId",
-                        column: x => x.UniversityId,
-                        principalTable: "Universities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "JunBachelorSpecialties",
-                columns: table => new
-                {
-                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UniversityId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JunBachelorSpecialties", x => new { x.SpecialtyId, x.UniversityId });
-                    table.ForeignKey(
-                        name: "FK_JunBachelorSpecialties_Specialties_SpecialtyId",
-                        column: x => x.SpecialtyId,
-                        principalTable: "Specialties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_JunBachelorSpecialties_Universities_UniversityId",
-                        column: x => x.UniversityId,
-                        principalTable: "Universities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MagisterSpecialties",
-                columns: table => new
-                {
-                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UniversityId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MagisterSpecialties", x => new { x.SpecialtyId, x.UniversityId });
-                    table.ForeignKey(
-                        name: "FK_MagisterSpecialties_Specialties_SpecialtyId",
-                        column: x => x.SpecialtyId,
-                        principalTable: "Specialties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MagisterSpecialties_Universities_UniversityId",
-                        column: x => x.UniversityId,
-                        principalTable: "Universities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SpecialtyDisciplines",
-                columns: table => new
-                {
-                    SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DisciplineId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsOptional = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SpecialtyDisciplines", x => new { x.SpecialtyId, x.DisciplineId });
-                    table.ForeignKey(
-                        name: "FK_SpecialtyDisciplines_Discipline_DisciplineId",
-                        column: x => x.DisciplineId,
-                        principalTable: "Discipline",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SpecialtyDisciplines_Specialties_SpecialtyId",
-                        column: x => x.SpecialtyId,
-                        principalTable: "Specialties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -604,9 +610,9 @@ namespace Persistence.Migrations
                 column: "BasedSpecialtiesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ISCED_SpecialtyBaseId",
-                table: "ISCED",
-                column: "SpecialtyBaseId");
+                name: "IX_ISCEDSpecialtyBase_SpecialtyBasesId",
+                table: "ISCEDSpecialtyBase",
+                column: "SpecialtyBasesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JunBachelorSpecialties_SpecialtyId",
@@ -641,19 +647,9 @@ namespace Persistence.Migrations
                 column: "SpecialtyBaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Specialties_UniversityId",
-                table: "Specialties",
-                column: "UniversityId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SpecialtyDisciplines_DisciplineId",
                 table: "SpecialtyDisciplines",
                 column: "DisciplineId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Universities_CityId",
-                table: "Universities",
-                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Universities_RegionId",
@@ -687,13 +683,16 @@ namespace Persistence.Migrations
                 name: "BachelorSpecilaties");
 
             migrationBuilder.DropTable(
+                name: "City");
+
+            migrationBuilder.DropTable(
                 name: "Comment");
 
             migrationBuilder.DropTable(
                 name: "DisciplineSpecialtyBase");
 
             migrationBuilder.DropTable(
-                name: "ISCED");
+                name: "ISCEDSpecialtyBase");
 
             migrationBuilder.DropTable(
                 name: "JunBachelorSpecialties");
@@ -714,6 +713,9 @@ namespace Persistence.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "ISCED");
+
+            migrationBuilder.DropTable(
                 name: "Discipline");
 
             migrationBuilder.DropTable(
@@ -730,9 +732,6 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Universities");
-
-            migrationBuilder.DropTable(
-                name: "City");
 
             migrationBuilder.DropTable(
                 name: "Region");

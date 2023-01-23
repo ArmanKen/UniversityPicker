@@ -21,7 +21,8 @@ namespace Application.Disciplines
 
 			public async Task<Result<List<Discipline>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				return Result<List<Discipline>>.Success(await _context.Disciplines.ToListAsync());
+				throw new Exception();
+				// return Result<List<Discipline>>.Success(await _context.Disciplines.ToListAsync());
 			}
 		}
 	}

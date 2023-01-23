@@ -1,5 +1,6 @@
 using Application.Core;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -8,9 +9,12 @@ namespace Application.Universities
 {
 	public class List
 	{
-		public class Query : IRequest<Result<List<UniversityDto>>> { }
+		public class Query : IRequest<Result<PagedList<UniversityDto>>>
+		{
+			public UniversityParams Params { get; set; }
+		}
 
-		public class Handler : IRequestHandler<Query, Result<List<UniversityDto>>>
+		public class Handler : IRequestHandler<Query, Result<PagedList<UniversityDto>>>
 		{
 			private readonly DataContext _context;
 			private readonly IMapper _mapper;
@@ -21,16 +25,15 @@ namespace Application.Universities
 				_context = context;
 			}
 
-			public async Task<Result<List<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
+			public async Task<Result<PagedList<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var universities = await _context.Universities
-				.Include(x => x.Specialties)
-				.ThenInclude(x => x.Specialty)
-				.ThenInclude(x => x!.Disciplines)
-				.ThenInclude(x => x.Discipline)
-				.ToListAsync();
-				var universitiesToReturn = _mapper.Map<List<UniversityDto>>(universities);
-				return Result<List<UniversityDto>>.Success(universitiesToReturn);
+				var query = _context.Universities
+					.OrderBy(u => u.Rating)
+					.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider, new { degree = request.Params.Degree, specialtyBaseId = request.Params.SpecialtyBaseId })
+					.AsQueryable();
+				return Result<PagedList<UniversityDto>>.Success(
+					await PagedList<UniversityDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)
+				);
 			}
 		}
 	}

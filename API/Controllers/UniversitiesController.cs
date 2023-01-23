@@ -6,9 +6,10 @@ namespace API.Controllers
 {
 	public class UniversitiesController : BaseApiController
 	{
-		public async Task<IActionResult> GetUniversities()
+		[HttpGet]
+		public async Task<IActionResult> GetUniversities([FromQuery] UniversityParams param)
 		{
-			return HandleResult(await Mediator.Send(new List.Query()));
+			return HandlePagedResult(await Mediator.Send(new List.Query { Params = param }));
 		}
 	}
 }

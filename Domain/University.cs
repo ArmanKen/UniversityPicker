@@ -4,7 +4,7 @@ namespace Domain
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }
-		public Region Region { get; set; }
+		public City City { get; set; }
 		public string Address { get; set; }
 		public int Rating { get; set; }
 		public int TimesRated { get; set; }

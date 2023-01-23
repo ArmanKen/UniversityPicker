@@ -39,7 +39,8 @@ namespace Persistence
 				}
 				if (!context.City.Any())
 				{
-					var region = new Region { Name = "Київ", Cities = new City[] { new City { Name = "Київ" } } };
+					var City = new City { Name = "Київ", Region = new Region { Name = "Київ" } };
+					var City1 = new City { Name = "Суми", Region = new Region { Name = "Сумська" } };
 					var isced = new ISCED { Name = "IT", Id = "022" };
 					var discipline = new Discipline { Name = "Філософія" };
 					var discipline1 = new Discipline { Name = "Політологія" };
@@ -48,8 +49,15 @@ namespace Persistence
 					{
 						Id = "121",
 						Name = "Інженер програмного забезпечення",
-						ISCEDs = new ISCED[] { isced },
-						AllDisciplines = new Discipline[] { discipline }
+						ISCEDs = new List<ISCED> { isced },
+						AllDisciplines = new List<Discipline> { discipline }
+					};
+					var specialtyBase1 = new SpecialtyBase
+					{
+						Id = "122",
+						Name = "Інженер програмного забезпечення",
+						ISCEDs = new List<ISCED> { isced },
+						AllDisciplines = new List<Discipline> { discipline }
 					};
 					var specialty = new Specialty
 					{
@@ -61,12 +69,36 @@ namespace Persistence
 						StartYear = 2023,
 						EndYear = 2024,
 						Degree = "Bachelor",
-						Disciplines = new SpecialtyDiscipline[] { discipline2 }
+						Disciplines = new List<SpecialtyDiscipline> { discipline2 }
+					};
+					var specialty1 = new Specialty
+					{
+						SpecialtyBase = specialtyBase1,
+						PriceUAH = "10000",
+						Description = "Info",
+						BudgetAllowed = true,
+						EctsCredits = 540,
+						StartYear = 2023,
+						EndYear = 2024,
+						Degree = "Bachelor",
+						Disciplines = new List<SpecialtyDiscipline> { discipline2 }
+					};
+					var specialty2 = new Specialty
+					{
+						SpecialtyBase = specialtyBase,
+						PriceUAH = "20000",
+						Description = "Info1",
+						BudgetAllowed = true,
+						EctsCredits = 540,
+						StartYear = 2023,
+						EndYear = 2024,
+						Degree = "JunBachelor",
+						Disciplines = new List<SpecialtyDiscipline> { discipline2 }
 					};
 					var university = new University
 					{
 						Name = "Дтеу",
-						Region = region,
+						City = City,
 						Address = "lol",
 						Rating = 1,
 						TimesRated = 2,
@@ -74,16 +106,46 @@ namespace Persistence
 						Info = "lol",
 						Telephone = "+3811111111",
 						StudentsCount = 40000,
-						BachelorSpecialties = new BachelorSpecialty[] { new BachelorSpecialty { Specialty = specialty } },
-						UniversityAdministrators = new UniversityAdministrator[] { new UniversityAdministrator { AppUser = users[0] } },
-						AppUserSelected = new SelectedUniversity[] { new SelectedUniversity { AppUser = users[0] } }
+						BachelorSpecialties = new List<BachelorSpecialty> { new BachelorSpecialty { Specialty = specialty } },
+						UniversityAdministrators = new List<UniversityAdministrator> { new UniversityAdministrator { AppUser = users[0] } },
+						AppUserSelected = new List<SelectedUniversity> { new SelectedUniversity { AppUser = users[0] } }
 					};
 					await context.Universities.AddRangeAsync(university);
+					var university1 = new University
+					{
+						Name = "2Дтеу",
+						City = City1,
+						Address = "lol",
+						Rating = 1,
+						TimesRated = 2,
+						Website = "www.knteu.edu.ua",
+						Info = "lol",
+						Telephone = "+3811111111",
+						StudentsCount = 40000,
+						BachelorSpecialties = new List<BachelorSpecialty> { new BachelorSpecialty { Specialty = specialty1 } },
+						UniversityAdministrators = new List<UniversityAdministrator> { new UniversityAdministrator { AppUser = users[0] } },
+						AppUserSelected = new List<SelectedUniversity> { new SelectedUniversity { AppUser = users[0] } }
+					};
+					var university2 = new University
+					{
+						Name = "3Дтеу",
+						City = City1,
+						Address = "lol",
+						Rating = 1,
+						TimesRated = 2,
+						Website = "www.knteu.edu.ua",
+						Info = "lol",
+						Telephone = "+3811111111",
+						StudentsCount = 40000,
+						JunBachelorSpecialties = new List<JunBachelorSpecialty> { new JunBachelorSpecialty { Specialty = specialty2 } },
+						UniversityAdministrators = new List<UniversityAdministrator> { new UniversityAdministrator { AppUser = users[0] } },
+						AppUserSelected = new List<SelectedUniversity> { new SelectedUniversity { AppUser = users[0] } }
+					};
+					await context.Universities.AddRangeAsync(university);
+					await context.Universities.AddRangeAsync(university1);
+					await context.Universities.AddRangeAsync(university2);
 				}
 			}
-			// await context.Disciplines.AddRangeAsync(disciplines);
-			// await context.Universities.AddRangeAsync(universities);
-			// await context.Specialties.AddRangeAsync(specialties);
 			await context.SaveChangesAsync();
 		}
 	}

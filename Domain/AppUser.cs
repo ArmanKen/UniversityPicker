@@ -10,6 +10,7 @@ namespace Domain
 		public SpecialtyBase Specialty { get; set; }
 		public Photo Photo { get; set; }
 		public string Degree { get; set; }
+		public bool IsGlobalAdmin { get; set; }
 		public ICollection<UniversityAdministrator> UniversityAdministration { get; set; } = new List<UniversityAdministrator>();
 		public ICollection<SelectedUniversity> SelectedUniversities { get; set; } = new List<SelectedUniversity>();
 	}

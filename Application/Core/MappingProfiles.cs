@@ -1,5 +1,7 @@
 using Application.Disciplines;
+using Application.Region;
 using Application.Specialties;
+using Application.SpecialtiesBases;
 using Application.Universities;
 using AutoMapper;
 using Domain;
@@ -10,24 +12,29 @@ namespace Application.Core
 	{
 		public MappingProfiles()
 		{
-			CreateMap<Specialty, SpecialtyDto>()
-				.ForMember(d => d.Disciplines, o => o.MapFrom(s => s.Disciplines));
-			CreateMap<SpecialtyDisciplines, DisciplineDto>()
-				.ForMember(d => d.Id, o => o.MapFrom(s => s.Discipline!.Id))
-				.ForMember(d => d.Name, o => o.MapFrom(s => s.Discipline!.Name))
-				.ForMember(d => d.Info, o => o.MapFrom(s => s.Discipline!.Info))
-				.ForMember(d => d.Optional, o => o.MapFrom(s => s.Discipline!.Optional));
-
+			string specialtyId = null;
+			string degree = null;
+			string specialtyBaseId = null;
+			CreateMap<University, University>();
+			CreateMap<Specialty, Specialty>();
+			CreateMap<Discipline, Discipline>();
 			CreateMap<University, UniversityDto>()
-				.ForMember(d => d.Specialties, o => o.MapFrom(s => s.Specialties));
-			CreateMap<UniversitySpecialties, SpecialtyDto>()
-				.ForMember(d => d.Id, o => o.MapFrom(s => s.Specialty!.Id))
-				.ForMember(d => d.Code, o => o.MapFrom(s => s.Specialty!.Code))
-				.ForMember(d => d.Name, o => o.MapFrom(s => s.Specialty!.Name))
-				.ForMember(d => d.Price, o => o.MapFrom(s => s.Specialty!.Price))
-				.ForMember(d => d.Info, o => o.MapFrom(s => s.Specialty!.Info))
-				.ForMember(d => d.BudgetAllowed, o => o.MapFrom(s => s.Specialty!.BudgetAllowed))
-				.ForMember(d => d.Disciplines, o => o.MapFrom(s => s.Specialty!.Disciplines));
+				.ForMember(u => u.Specialty, o => o.MapFrom(u =>
+					degree == "Bachelor" ? u.BachelorSpecialties.FirstOrDefault(s => s.Specialty.SpecialtyBase.Id == specialtyBaseId).Specialty :
+					degree == "JunBachelor" ? u.JunBachelorSpecialties.FirstOrDefault(s => s.Specialty.SpecialtyBase.Id == specialtyBaseId).Specialty :
+					degree == "Magister" ? u.MagisterSpecialties.FirstOrDefault(s => s.Specialty.SpecialtyBase.Id == specialtyBaseId).Specialty :
+					null))
+				.ForMember(u => u.Region, o => o.MapFrom(u => u.City.Region.Name))
+				.ForMember(u => u.City, o => o.MapFrom(u => u.City.Name));
+			CreateMap<Specialty, SpecialtyDto>()
+				.ForMember(s => s.SpecialtyBaseId, o => o.MapFrom(s => s.SpecialtyBase.Id))
+				.ForMember(s => s.Name, o => o.MapFrom(s => s.SpecialtyBase.Name))
+				.ForMember(s => s.ISCEDs, o => o.MapFrom(s => s.SpecialtyBase.ISCEDs));
+			CreateMap<Discipline, DisciplineDto>()
+				.ForMember(d => d.IsOptional, o => o.MapFrom(d => d.Specialties
+					.FirstOrDefault(x => x.SpecialtyId.ToString() == specialtyId).IsOptional));
+			CreateMap<Domain.Region, RegionDto>();
+			CreateMap<Domain.City, CityDto>();
 		}
 	}
 }

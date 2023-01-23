@@ -60,6 +60,9 @@ namespace Persistence.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsGlobalAdmin")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
 
@@ -369,6 +372,9 @@ namespace Persistence.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("CityId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Info")
                         .HasColumnType("TEXT");
 
@@ -376,9 +382,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Rating")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("RegionId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("StudentsCount")
@@ -395,7 +398,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RegionId");
+                    b.HasIndex("CityId");
 
                     b.ToTable("Universities");
                 });
@@ -725,11 +728,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.University", b =>
                 {
-                    b.HasOne("Domain.Region", "Region")
+                    b.HasOne("Domain.City", "City")
                         .WithMany()
-                        .HasForeignKey("RegionId");
+                        .HasForeignKey("CityId");
 
-                    b.Navigation("Region");
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("Domain.UniversityAdministrator", b =>

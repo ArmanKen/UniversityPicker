@@ -3,8 +3,8 @@ import { University } from "../models/university";
 import { store } from "./store";
 
 export default class FilterStore {
+	loading: boolean = false;
 	filteredUniversities: University[] = [];
-	enablePriceFilter: boolean = false;
 	minPrice: number = 0;
 	maxPrice: number = 0;
 	allowedBudget = false;
@@ -16,6 +16,7 @@ export default class FilterStore {
 	}
 
 	updateUniversityList = () => {
+		this.loading = true
 		this.filteredUniversities = store.universityStore.universities.filter(university => {
 			if (this.countryTopMinPlace && university.countryTopRating === 0)
 				return null;
@@ -27,10 +28,11 @@ export default class FilterStore {
 				return null;
 			if (this.allowedBudget && !this.filterByBudget(university))
 				return null;
-			if (this.enablePriceFilter && !this.filterByRegion(university))
+			if (store.specilatyStore.selectedSpecialty && (this.minPrice | this.maxPrice) && !this.filterByPrice(university))
 				return null;
 			return university;
 		})
+		this.loading = false;
 	}
 
 	filterByRegion = (university: University) => {
@@ -50,9 +52,15 @@ export default class FilterStore {
 	}
 
 	filterByPrice = (university: University) => {
-		return this.minPrice < university.specialties.find(x => x === store.specilatyStore.selectedSpecialty)?.price! &&
-			this.maxPrice > university.specialties.find(x => x === store.specilatyStore.selectedSpecialty)?.price! ?
-			true : false;
+		let minPriceTrue = !!this.minPrice;
+		let maxPriceTrue = !!this.maxPrice;
+		if (minPriceTrue)
+			minPriceTrue =  this.minPrice <= university.specialties.find(x => x.code === store.specilatyStore.selectedSpecialty?.code)?.price!;
+		else minPriceTrue = true;
+		if (maxPriceTrue)
+			maxPriceTrue = this.maxPrice >= university.specialties.find(x => x.code === store.specilatyStore.selectedSpecialty?.code)?.price!
+		else maxPriceTrue = true;
+		return maxPriceTrue && minPriceTrue;
 	}
 
 	filterByBudget = (university: University) => {
@@ -62,10 +70,7 @@ export default class FilterStore {
 
 	changeSelectedRegion = (region: string | undefined) => this.selectedRegion = region;
 
-	changeMinPrice = (price: number) => {
-		this.minPrice = price;
-		console.log(this.minPrice);
-	}
+	changeMinPrice = (price: number) => this.minPrice = price;
 
 	changeMaxPrice = (price: number) => this.maxPrice = price;
 }

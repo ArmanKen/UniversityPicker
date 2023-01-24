@@ -1,15 +1,28 @@
 import { observer } from "mobx-react-lite";
-import { Button, Checkbox, Container, Divider, Grid, Header, Input, Label } from "semantic-ui-react";
+import { useEffect } from "react";
+import { Button, Checkbox, Container, Divider, Grid, Header, Label } from "semantic-ui-react";
 import CustomAccordion from "../../../../app/common/customElements/CustomAccordion";
 import CustomInput from "../../../../app/common/customElements/CustomInput";
 import { RegionsOfUkraine } from "../../../../app/common/valuesForLists/RegionsOfUkraine";
+import LoadingComponent from "../../../../app/layout/LoadingComponent";
 import { useStore } from "../../../../app/stores/store";
 
 export default observer(function FilterSidebarContent() {
 	const { branchOfKnowledgeStore, specilatyStore, filterStore } = useStore();
-	const { selectedBranchOfKnowledge, branchesOfKnowledge, updateSelectedBranchOfKnowledge } = branchOfKnowledgeStore;
+	const { selectedBranchOfKnowledge, branchesOfKnowledge,
+		updateSelectedBranchOfKnowledge } = branchOfKnowledgeStore;
 	const { selectedSpecialties, selectedSpecialty, changeSelectedSpecialty } = specilatyStore;
-	const { selectedRegion, changeSelectedRegion, minPrice, maxPrice, changeMaxPrice, changeMinPrice } = filterStore;
+	const { selectedRegion, changeSelectedRegion, minPrice, maxPrice,
+		changeMaxPrice, changeMinPrice, updateUniversityList, loading } = filterStore;
+
+	useEffect(() => {
+		updateUniversityList();
+	}, [selectedRegion, minPrice, maxPrice,
+		selectedSpecialty, selectedBranchOfKnowledge])
+
+	if (loading === true) {
+		<LoadingComponent content="Шукаємо університети для вас. Зачекайте будь-ласка кілька секунд." />
+	}
 
 	return (
 		<Grid container columns={1}>
@@ -161,19 +174,21 @@ export default observer(function FilterSidebarContent() {
 								<CustomInput
 									inputValue={minPrice}
 									changeValue={changeMinPrice}
-									isNegative={true}
+									isNumber={true}
 								/>
 								<Label
 									content='—'
 									size="massive"
 									className="sidebar-color" />
-								<Input
-									size='mini'
-									style={{ maxWidth: 95, fontSize: '1.05em' }} />
+								<CustomInput
+									inputValue={maxPrice}
+									changeValue={changeMaxPrice}
+									isNumber={true}
+								/>
 							</Container>
 						}
 					/>
-				</Grid.Column>{/* max min price */}
+				</Grid.Column>
 				<Grid.Column width={1}>
 					<Button
 						floated='right'
@@ -188,23 +203,19 @@ export default observer(function FilterSidebarContent() {
 			</Grid.Row>
 			<Divider />
 			<Grid.Row columns={2} className="custom-grid">
-				<Grid.Column floated='left' width={14} textAlign="center">
-					<Header as={'h2'} size='small' className="custom-header">
-						{'У топ 200 ВНЗ України: '}
-					</Header>
+				<Grid.Column width={14} textAlign="center">
+					<Header className="custom-header" size="medium" content={'У топ 200 ВНЗ України: '} style={{ marginLeft: '-14px' }} />
 				</Grid.Column>
-				<Grid.Column floated='left' width={1} style={{ marginLeft: -180 }}>
+				<Grid.Column width={1} style={{ marginLeft: '-80px' }} floated='left'>
 					<Checkbox fitted />
 				</Grid.Column>
 			</Grid.Row>
 			<Divider />
 			<Grid.Row columns={2} className="custom-grid">
-				<Grid.Column floated='left' width={14} textAlign="center">
-					<Header as={'h2'} size='small' className="custom-header">
-						{'Наявність бюджетних місць: '}
-					</Header>
+				<Grid.Column width={14} textAlign="center">
+					<Header size='medium' className="custom-header" content={'Наявність бюджетних місць: '} style={{ marginLeft: '10px' }} />
 				</Grid.Column>
-				<Grid.Column floated='left' width={1} style={{ marginLeft: -130 }}>
+				<Grid.Column floated='left' width={1} style={{ marginLeft: '-30px' }} >
 					<Checkbox fitted />
 				</Grid.Column>
 			</Grid.Row>

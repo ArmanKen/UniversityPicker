@@ -21,7 +21,7 @@ export default observer(function CustomInput({ isNumber, isNegative, placeholder
 		<Input
 			value={value || value !== 0 ? value : ''}
 			placeholder={placeholder ? placeholder : ''}
-			className="customInput"
+			className={"custom-input " + className}
 			loading={loading}
 			disabled={disabled}
 			onChange={(e, data) => {

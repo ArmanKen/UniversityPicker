@@ -37,9 +37,5 @@ export default class UniversityStore {
 		return university.specialties.find(x => x.code === store.specilatyStore.selectedSpecialty?.code)
 	}
 
-	getFilteredUniversities = () => {
-
-	}
-
 	setSelectedUniversity = (university: University | undefined) => this.selectedUniversity = university;
 }

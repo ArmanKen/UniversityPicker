@@ -15,6 +15,6 @@ namespace Application.Universities
 		public string Info { get; set; }
 		public string Telephone { get; set; }
 		public int StudentsCount { get; set; }
-		public ICollection<SpecialtyDto> Specialty { get; set; }
+		public List<SpecialtyDto> Specialty { get; set; } = new List<SpecialtyDto>();
 	}
 }

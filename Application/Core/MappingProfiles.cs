@@ -12,9 +12,6 @@ namespace Application.Core
 	{
 		public MappingProfiles()
 		{
-			string specialtyId = null;
-			string degree = null;
-			string specialtyBaseId = null;
 			CreateMap<University, UniversityDto>()
 				.ForMember(x => x.Region, o => o.MapFrom(x => x.City.Region.Name))
 				.ForMember(x => x.City, o => o.MapFrom(x => x.City.Name))

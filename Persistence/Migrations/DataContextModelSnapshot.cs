@@ -139,7 +139,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("Domain.Comment", b =>
@@ -169,7 +169,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Domain.Discipline", b =>
@@ -183,7 +183,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Discipline");
+                    b.ToTable("Disciplines");
                 });
 
             modelBuilder.Entity("Domain.Isced", b =>
@@ -196,7 +196,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Isced");
+                    b.ToTable("Isceds");
                 });
 
             modelBuilder.Entity("Domain.Photo", b =>
@@ -209,7 +209,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Photo");
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("Domain.Region", b =>
@@ -223,7 +223,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Region");
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("Domain.SelectedUniversity", b =>
@@ -262,8 +262,8 @@ namespace Persistence.Migrations
                     b.Property<int>("EndYear")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PriceUAH")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PriceUAH")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SpecialtyBaseId")
                         .HasColumnType("TEXT");
@@ -302,6 +302,9 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("DisciplineId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EctsCredits")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsOptional")

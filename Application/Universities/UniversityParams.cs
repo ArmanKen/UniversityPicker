@@ -8,7 +8,7 @@ namespace Application.Universities
 		public string City { get; set; }
 		public string Degree { get; set; }
 		public string SpecialtyBaseId { get; set; }
-		public bool BudgetAllowed { get; set; }
+		public string BudgetAllowed { get; set; }
 		public string MinPrice { get; set; }
 		public string MaxPrice { get; set; }
 	}

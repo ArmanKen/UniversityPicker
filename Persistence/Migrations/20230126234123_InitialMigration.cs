@@ -24,7 +24,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Discipline",
+                name: "Disciplines",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -33,11 +33,11 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Discipline", x => x.Id);
+                    table.PrimaryKey("PK_Disciplines", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Isced",
+                name: "Isceds",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -45,11 +45,11 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Isced", x => x.Id);
+                    table.PrimaryKey("PK_Isceds", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Photo",
+                name: "Photos",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -57,11 +57,11 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Photo", x => x.Id);
+                    table.PrimaryKey("PK_Photos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Region",
+                name: "Regions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -70,7 +70,7 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Region", x => x.Id);
+                    table.PrimaryKey("PK_Regions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,7 +107,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "City",
+                name: "Cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -117,11 +117,11 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_City_Region_RegionId",
+                        name: "FK_Cities_Regions_RegionId",
                         column: x => x.RegionId,
-                        principalTable: "Region",
+                        principalTable: "Regions",
                         principalColumn: "Id");
                 });
 
@@ -136,9 +136,9 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_DisciplineSpecialtyBase", x => new { x.AllDisciplinesId, x.BasedSpecialtiesId });
                     table.ForeignKey(
-                        name: "FK_DisciplineSpecialtyBase_Discipline_AllDisciplinesId",
+                        name: "FK_DisciplineSpecialtyBase_Disciplines_AllDisciplinesId",
                         column: x => x.AllDisciplinesId,
-                        principalTable: "Discipline",
+                        principalTable: "Disciplines",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -160,9 +160,9 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_IscedSpecialtyBase", x => new { x.IscedsId, x.SpecialtyBasesId });
                     table.ForeignKey(
-                        name: "FK_IscedSpecialtyBase_Isced_IscedsId",
+                        name: "FK_IscedSpecialtyBase_Isceds_IscedsId",
                         column: x => x.IscedsId,
-                        principalTable: "Isced",
+                        principalTable: "Isceds",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -192,9 +192,9 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Universities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Universities_City_CityId",
+                        name: "FK_Universities_Cities_CityId",
                         column: x => x.CityId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id");
                 });
 
@@ -229,9 +229,9 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Photo_PhotoId",
+                        name: "FK_AspNetUsers_Photos_PhotoId",
                         column: x => x.PhotoId,
-                        principalTable: "Photo",
+                        principalTable: "Photos",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AspNetUsers_SpecialtyBases_SpecialtyId",
@@ -251,7 +251,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     SpecialtyBaseId = table.Column<string>(type: "TEXT", nullable: true),
-                    PriceUAH = table.Column<string>(type: "TEXT", nullable: true),
+                    PriceUAH = table.Column<int>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     BudgetAllowed = table.Column<bool>(type: "INTEGER", nullable: false),
                     EctsCredits = table.Column<int>(type: "INTEGER", nullable: false),
@@ -361,7 +361,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -374,14 +374,14 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_AspNetUsers_AuthorId",
+                        name: "FK_Comments_AspNetUsers_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Comment_Universities_UniversityId",
+                        name: "FK_Comments_Universities_UniversityId",
                         column: x => x.UniversityId,
                         principalTable: "Universities",
                         principalColumn: "Id",
@@ -442,15 +442,16 @@ namespace Persistence.Migrations
                 {
                     SpecialtyId = table.Column<Guid>(type: "TEXT", nullable: false),
                     DisciplineId = table.Column<int>(type: "INTEGER", nullable: false),
+                    EctsCredits = table.Column<int>(type: "INTEGER", nullable: false),
                     IsOptional = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SpecialtyDisciplines", x => new { x.SpecialtyId, x.DisciplineId });
                     table.ForeignKey(
-                        name: "FK_SpecialtyDisciplines_Discipline_DisciplineId",
+                        name: "FK_SpecialtyDisciplines_Disciplines_DisciplineId",
                         column: x => x.DisciplineId,
-                        principalTable: "Discipline",
+                        principalTable: "Disciplines",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -514,18 +515,18 @@ namespace Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_City_RegionId",
-                table: "City",
+                name: "IX_Cities_RegionId",
+                table: "Cities",
                 column: "RegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_AuthorId",
-                table: "Comment",
+                name: "IX_Comments_AuthorId",
+                table: "Comments",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_UniversityId",
-                table: "Comment",
+                name: "IX_Comments_UniversityId",
+                table: "Comments",
                 column: "UniversityId");
 
             migrationBuilder.CreateIndex(
@@ -587,7 +588,7 @@ namespace Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "DisciplineSpecialtyBase");
@@ -608,10 +609,10 @@ namespace Persistence.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Isced");
+                name: "Isceds");
 
             migrationBuilder.DropTable(
-                name: "Discipline");
+                name: "Disciplines");
 
             migrationBuilder.DropTable(
                 name: "Specialties");
@@ -620,7 +621,7 @@ namespace Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Photo");
+                name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "SpecialtyBases");
@@ -629,10 +630,10 @@ namespace Persistence.Migrations
                 name: "Universities");
 
             migrationBuilder.DropTable(
-                name: "City");
+                name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "Region");
+                name: "Regions");
         }
     }
 }

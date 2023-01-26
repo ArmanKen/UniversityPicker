@@ -15,11 +15,12 @@ public class DataContext : IdentityDbContext<AppUser>
 	public DbSet<Specialty> Specialties { get; set; }
 	public DbSet<SpecialtyBase> SpecialtyBases { get; set; }
 	public DbSet<SpecialtyDiscipline> SpecialtyDisciplines { get; set; }
-	public DbSet<Region> Region { get; set; }
-	public DbSet<City> City { get; set; }
-	public DbSet<Discipline> Discipline { get; set; }
-	public DbSet<Photo> Photo { get; set; }
-	public DbSet<Comment> Comment { get; set; }
+	public DbSet<Region> Regions { get; set; }
+	public DbSet<City> Cities { get; set; }
+	public DbSet<Discipline> Disciplines { get; set; }
+	public DbSet<Photo> Photos { get; set; }
+	public DbSet<Comment> Comments { get; set; }
+	public DbSet<Isced> Isceds { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{

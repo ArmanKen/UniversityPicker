@@ -4,7 +4,7 @@ namespace Domain
 	{
 		public Guid Id { get; set; }
 		public SpecialtyBase SpecialtyBase { get; set; }
-		public string PriceUAH { get; set; }
+		public int PriceUAH { get; set; }
 		public string Description { get; set; }
 		public bool BudgetAllowed { get; set; }
 		public int EctsCredits { get; set; }

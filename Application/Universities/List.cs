@@ -29,7 +29,8 @@ namespace Application.Universities
 			{
 				var query = _context.Universities
 					.OrderBy(u => u.Rating)
-					.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider, new { degree = request.Params.Degree, specialtyBaseId = request.Params.SpecialtyBaseId })
+					.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider,
+						new { degree = request.Params.Degree, specialtyBaseId = request.Params.SpecialtyBaseId })
 					.AsQueryable();
 				return Result<PagedList<UniversityDto>>.Success(
 					await PagedList<UniversityDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)

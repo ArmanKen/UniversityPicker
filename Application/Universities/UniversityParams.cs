@@ -9,7 +9,7 @@ namespace Application.Universities
 		public string Degree { get; set; }
 		public string SpecialtyBaseId { get; set; }
 		public bool BudgetAllowed { get; set; }
-		public string MinPrice { get; set; }		
-		public string MaxPrice { get; set; }		
+		public string MinPrice { get; set; }
+		public string MaxPrice { get; set; }
 	}
 }

@@ -10,12 +10,11 @@ namespace Application.Universities
 		public string Region { get; set; }
 		public string City { get; set; }
 		public string Address { get; set; }
-		public int Rating { get; set; }
-		public int TimesRated { get; set; }
+		public double Rating { get; set; }
 		public string Website { get; set; }
 		public string Info { get; set; }
 		public string Telephone { get; set; }
 		public int StudentsCount { get; set; }
-		public SpecialtyDto Specialty { get; set; }
+		public ICollection<SpecialtyDto> Specialty { get; set; }
 	}
 }

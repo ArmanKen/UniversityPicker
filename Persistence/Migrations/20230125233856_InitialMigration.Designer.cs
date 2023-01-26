@@ -11,7 +11,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230123170650_InitialMigration")]
+    [Migration("20230125233856_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,24 +125,6 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.BachelorSpecialty", b =>
-                {
-                    b.Property<Guid>("SpecialtyId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("UniversityId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SpecialtyId", "UniversityId");
-
-                    b.HasIndex("SpecialtyId")
-                        .IsUnique();
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("BachelorSpecilaties");
-                });
-
             modelBuilder.Entity("Domain.City", b =>
                 {
                     b.Property<int>("Id")
@@ -206,7 +188,7 @@ namespace Persistence.Migrations
                     b.ToTable("Discipline");
                 });
 
-            modelBuilder.Entity("Domain.ISCED", b =>
+            modelBuilder.Entity("Domain.Isced", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -216,43 +198,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ISCED");
-                });
-
-            modelBuilder.Entity("Domain.JunBachelorSpecialty", b =>
-                {
-                    b.Property<Guid>("SpecialtyId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("UniversityId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SpecialtyId", "UniversityId");
-
-                    b.HasIndex("SpecialtyId")
-                        .IsUnique();
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("JunBachelorSpecialties");
-                });
-
-            modelBuilder.Entity("Domain.MagisterSpecialty", b =>
-                {
-                    b.Property<Guid>("SpecialtyId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("UniversityId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SpecialtyId", "UniversityId");
-
-                    b.HasIndex("SpecialtyId")
-                        .IsUnique();
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("MagisterSpecialties");
+                    b.ToTable("Isced");
                 });
 
             modelBuilder.Entity("Domain.Photo", b =>
@@ -327,9 +273,14 @@ namespace Persistence.Migrations
                     b.Property<int>("StartYear")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("UniversityId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SpecialtyBaseId");
+
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("Specialties");
                 });
@@ -420,19 +371,19 @@ namespace Persistence.Migrations
                     b.ToTable("UniversityAdministrators");
                 });
 
-            modelBuilder.Entity("ISCEDSpecialtyBase", b =>
+            modelBuilder.Entity("IscedSpecialtyBase", b =>
                 {
-                    b.Property<string>("ISCEDsId")
+                    b.Property<string>("IscedsId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SpecialtyBasesId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ISCEDsId", "SpecialtyBasesId");
+                    b.HasKey("IscedsId", "SpecialtyBasesId");
 
                     b.HasIndex("SpecialtyBasesId");
 
-                    b.ToTable("ISCEDSpecialtyBase");
+                    b.ToTable("IscedSpecialtyBase");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -599,25 +550,6 @@ namespace Persistence.Migrations
                     b.Navigation("University");
                 });
 
-            modelBuilder.Entity("Domain.BachelorSpecialty", b =>
-                {
-                    b.HasOne("Domain.Specialty", "Specialty")
-                        .WithOne("Bachelor")
-                        .HasForeignKey("Domain.BachelorSpecialty", "SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.University", "University")
-                        .WithMany("BachelorSpecialties")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Specialty");
-
-                    b.Navigation("University");
-                });
-
             modelBuilder.Entity("Domain.City", b =>
                 {
                     b.HasOne("Domain.Region", "Region")
@@ -639,44 +571,6 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Author");
-
-                    b.Navigation("University");
-                });
-
-            modelBuilder.Entity("Domain.JunBachelorSpecialty", b =>
-                {
-                    b.HasOne("Domain.Specialty", "Specialty")
-                        .WithOne("JunBachelor")
-                        .HasForeignKey("Domain.JunBachelorSpecialty", "SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.University", "University")
-                        .WithMany("JunBachelorSpecialties")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Specialty");
-
-                    b.Navigation("University");
-                });
-
-            modelBuilder.Entity("Domain.MagisterSpecialty", b =>
-                {
-                    b.HasOne("Domain.Specialty", "Specialty")
-                        .WithOne("Magister")
-                        .HasForeignKey("Domain.MagisterSpecialty", "SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.University", "University")
-                        .WithMany("MagisterSpecialties")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Specialty");
 
                     b.Navigation("University");
                 });
@@ -703,10 +597,16 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Specialty", b =>
                 {
                     b.HasOne("Domain.SpecialtyBase", "SpecialtyBase")
-                        .WithMany()
+                        .WithMany("Specialties")
                         .HasForeignKey("SpecialtyBaseId");
 
+                    b.HasOne("Domain.University", "University")
+                        .WithMany("Specialties")
+                        .HasForeignKey("UniversityId");
+
                     b.Navigation("SpecialtyBase");
+
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Domain.SpecialtyDiscipline", b =>
@@ -756,11 +656,11 @@ namespace Persistence.Migrations
                     b.Navigation("University");
                 });
 
-            modelBuilder.Entity("ISCEDSpecialtyBase", b =>
+            modelBuilder.Entity("IscedSpecialtyBase", b =>
                 {
-                    b.HasOne("Domain.ISCED", null)
+                    b.HasOne("Domain.Isced", null)
                         .WithMany()
-                        .HasForeignKey("ISCEDsId")
+                        .HasForeignKey("IscedsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -841,26 +741,21 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Specialty", b =>
                 {
-                    b.Navigation("Bachelor");
-
                     b.Navigation("Disciplines");
+                });
 
-                    b.Navigation("JunBachelor");
-
-                    b.Navigation("Magister");
+            modelBuilder.Entity("Domain.SpecialtyBase", b =>
+                {
+                    b.Navigation("Specialties");
                 });
 
             modelBuilder.Entity("Domain.University", b =>
                 {
                     b.Navigation("AppUserSelected");
 
-                    b.Navigation("BachelorSpecialties");
-
                     b.Navigation("Comments");
 
-                    b.Navigation("JunBachelorSpecialties");
-
-                    b.Navigation("MagisterSpecialties");
+                    b.Navigation("Specialties");
 
                     b.Navigation("UniversityAdministrators");
                 });

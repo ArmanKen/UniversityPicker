@@ -9,7 +9,7 @@ namespace Application.Specialties
 		public Guid Id { get; set; }
 		public string SpecialtyBaseId { get; set; }
 		public string Name { get; set; }
-		public ICollection<ISCED> ISCEDs { get; set; } = new List<ISCED>();
+		public ICollection<IscedDto> Isceds { get; set; }
 		public string PriceUAH { get; set; }
 		public string Description { get; set; }
 		public bool BudgetAllowed { get; set; }

@@ -1,5 +1,6 @@
 using Application.Core;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -23,12 +24,10 @@ namespace Application.Specialties
 
 			public async Task<Result<List<SpecialtyDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var specialties = await _context.Specialties
-				.Include(s => s.Disciplines)
-				.ThenInclude(d => d.Discipline)
-				.ToListAsync();
-				var specialtiesToReturn = _mapper.Map<List<SpecialtyDto>>(specialties);
-				return Result<List<SpecialtyDto>>.Success(specialtiesToReturn);
+				var specialties = _context.Specialties
+				.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
+				.AsQueryable();
+				return Result<List<SpecialtyDto>>.Success(await specialties.ToListAsync());
 			}
 		}
 	}

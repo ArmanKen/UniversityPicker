@@ -41,7 +41,7 @@ namespace Persistence
 				{
 					var City = new City { Name = "Київ", Region = new Region { Name = "Київ" } };
 					var City1 = new City { Name = "Суми", Region = new Region { Name = "Сумська" } };
-					var isced = new ISCED { Name = "IT", Id = "022" };
+					var isced = new Isced { Name = "IT", Id = "022" };
 					var discipline = new Discipline { Name = "Філософія" };
 					var discipline1 = new Discipline { Name = "Політологія" };
 					var discipline2 = new SpecialtyDiscipline { Discipline = discipline1, IsOptional = true };
@@ -49,14 +49,14 @@ namespace Persistence
 					{
 						Id = "121",
 						Name = "Інженер програмного забезпечення",
-						ISCEDs = new List<ISCED> { isced },
+						Isceds = new List<Isced> { isced },
 						AllDisciplines = new List<Discipline> { discipline }
 					};
 					var specialtyBase1 = new SpecialtyBase
 					{
 						Id = "122",
 						Name = "Інженер програмного забезпечення",
-						ISCEDs = new List<ISCED> { isced },
+						Isceds = new List<Isced> { isced },
 						AllDisciplines = new List<Discipline> { discipline }
 					};
 					var specialty = new Specialty
@@ -106,7 +106,7 @@ namespace Persistence
 						Info = "lol",
 						Telephone = "+3811111111",
 						StudentsCount = 40000,
-						BachelorSpecialties = new List<BachelorSpecialty> { new BachelorSpecialty { Specialty = specialty } },
+						Specialties = new List<Specialty> {  specialty  },
 						UniversityAdministrators = new List<UniversityAdministrator> { new UniversityAdministrator { AppUser = users[0] } },
 						AppUserSelected = new List<SelectedUniversity> { new SelectedUniversity { AppUser = users[0] } }
 					};
@@ -122,7 +122,7 @@ namespace Persistence
 						Info = "lol",
 						Telephone = "+3811111111",
 						StudentsCount = 40000,
-						BachelorSpecialties = new List<BachelorSpecialty> { new BachelorSpecialty { Specialty = specialty1 } },
+						Specialties = new List<Specialty> { specialty1 },
 						UniversityAdministrators = new List<UniversityAdministrator> { new UniversityAdministrator { AppUser = users[0] } },
 						AppUserSelected = new List<SelectedUniversity> { new SelectedUniversity { AppUser = users[0] } }
 					};
@@ -137,7 +137,7 @@ namespace Persistence
 						Info = "lol",
 						Telephone = "+3811111111",
 						StudentsCount = 40000,
-						JunBachelorSpecialties = new List<JunBachelorSpecialty> { new JunBachelorSpecialty { Specialty = specialty2 } },
+						Specialties = new List<Specialty> { specialty2 },
 						UniversityAdministrators = new List<UniversityAdministrator> { new UniversityAdministrator { AppUser = users[0] } },
 						AppUserSelected = new List<SelectedUniversity> { new SelectedUniversity { AppUser = users[0] } }
 					};

@@ -6,6 +6,6 @@ namespace Application.SpecialtiesBases
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }
-		public ICollection<ISCED> ISCEDs { get; set; } = new List<ISCED>();
+		public ICollection<IscedDto> Isceds { get; set; }
 	}
 }

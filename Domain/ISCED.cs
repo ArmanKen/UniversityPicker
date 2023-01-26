@@ -1,6 +1,6 @@
 namespace Domain
 {
-	public class ISCED
+	public class Isced
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }

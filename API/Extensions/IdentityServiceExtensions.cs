@@ -48,10 +48,7 @@ namespace API.Extensions
 			});
 			services.AddAuthorization(opt =>
 			{
-				opt.AddPolicy("IsGlobalAdmin", policy =>
-				{
-					policy.Requirements.Add(new IsGlobalAdminRequirement());
-				});
+				
 				opt.AddPolicy("IsLocalAdmin", policy =>
 				{
 					policy.Requirements.Add(new IsLocalAdminRequirement());
@@ -59,6 +56,10 @@ namespace API.Extensions
 				opt.AddPolicy("IsUser", policy =>
 				{
 					policy.Requirements.Add(new IsUserRequirement());
+				});
+				opt.AddPolicy("IsGlobalAdmin", policy =>
+				{
+					policy.Requirements.Add(new IsGlobalAdminRequirement());
 				});
 			});
 			services.AddTransient<IAuthorizationHandler, IsGlobalAdminRequirementHandler>();

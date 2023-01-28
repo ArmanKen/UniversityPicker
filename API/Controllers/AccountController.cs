@@ -62,6 +62,7 @@ namespace API.Controllers
 				DisplayName = registerDTO.DisplayName,
 				Email = registerDTO.Email,
 				UserName = registerDTO.Username,
+				Photo = new Photo { Id = (_userManager.Users.Count() + 1).ToString(), Url = "" } //<=change
 			};
 
 			var result = await _userManager.CreateAsync(user, registerDTO.Password);
@@ -85,6 +86,7 @@ namespace API.Controllers
 
 		private UserDTO CreateUserObject(AppUser user)
 		{
+			if (user == null) return null;
 			return new UserDTO
 			{
 				DisplayName = user.DisplayName,

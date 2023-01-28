@@ -10,11 +10,11 @@ namespace Infrastracture.Security
 	{
 
 	}
-	public class IsLocalAdminRequirementHandler : AuthorizationHandler<IsGlobalAdminRequirement>
+	public class IsLocalAdminRequirementHandler : AuthorizationHandler<IsLocalAdminRequirement>
 	{
 		private readonly DataContext _dbContext;
 		private readonly IHttpContextAccessor _httpContentAccessor;
-		
+
 		public IsLocalAdminRequirementHandler(DataContext dbContext, IHttpContextAccessor httpContentAccessor)
 		{
 			_httpContentAccessor = httpContentAccessor;
@@ -22,16 +22,16 @@ namespace Infrastracture.Security
 		}
 
 		protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
-			IsGlobalAdminRequirement requirement)
+			IsLocalAdminRequirement requirement)
 		{
 			var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 			if (userId == null) return Task.CompletedTask;
 			var globalAdministrator = _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId).Result;
 			var universityId = Guid.Parse(_httpContentAccessor.HttpContext?.Request.RouteValues
-				.SingleOrDefault(x => x.Key == "id").Value?.ToString()!);
+				.SingleOrDefault(x => x.Key == "id").Value?.ToString());
 			var localAdministrator = _dbContext.UniversityAdministrators.AsNoTracking()
 				.SingleOrDefaultAsync(x => x.AppUserId == userId && x.UniversityId == universityId).Result;
-			if (localAdministrator != null || globalAdministrator.IsGlobalAdmin) context.Succeed(requirement); 
+			if (localAdministrator != null || globalAdministrator.IsGlobalAdmin) context.Succeed(requirement);
 			return Task.CompletedTask;
 		}
 	}

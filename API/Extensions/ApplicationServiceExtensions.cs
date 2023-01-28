@@ -1,5 +1,9 @@
+using Application.Universities;
 using Application.Core;
-using Application.Disciplines;
+using Application.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Infrastracture.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -10,6 +14,11 @@ namespace API.Extensions
 	{
 		public static IServiceCollection AddApplicationExtensions(this IServiceCollection services, IConfiguration configuration)
 		{
+			services.AddFluentValidationAutoValidation()
+					.AddFluentValidationClientsideAdapters()
+					.AddValidatorsFromAssemblyContaining<Create>();
+			services.AddEndpointsApiExplorer();
+			services.AddSwaggerGen();
 			services.AddDbContext<DataContext>(opt =>
 			{
 				opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
@@ -23,6 +32,7 @@ namespace API.Extensions
 			});
 			services.AddMediatR(typeof(List.Handler).Assembly);
 			services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+			services.AddScoped<IUserAccessor, UserAccessor>();
 			return services;
 		}
 	}

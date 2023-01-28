@@ -15,6 +15,6 @@ namespace Application.Universities
 		public string Info { get; set; }
 		public string Telephone { get; set; }
 		public int StudentsCount { get; set; }
-		public List<SpecialtyDto> Specialty { get; set; } = new List<SpecialtyDto>();
+		public int PriceUAH { get; set; }
 	}
 }

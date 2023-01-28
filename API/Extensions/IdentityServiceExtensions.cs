@@ -1,6 +1,7 @@
 using System.Text;
 using API.Services;
 using Domain;
+using Infrastracture.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -45,15 +46,25 @@ namespace API.Extensions
 					}
 				};
 			});
-			// services.AddAuthorization(opt =>
-			// {
-			// 	opt.AddPolicy("IsActivityHost", policy =>
-			// 	{
-			// 		policy.Requirements.Add(new IsHostRequirement());
-			// 	});
-			// });
-			// services.AddTransient<IAuthorizationHandler, IsHostReqiurementHandler>();
-			// services.AddScoped<TokenService>();
+			services.AddAuthorization(opt =>
+			{
+				opt.AddPolicy("IsGlobalAdmin", policy =>
+				{
+					policy.Requirements.Add(new IsGlobalAdminRequirement());
+				});
+				opt.AddPolicy("IsLocalAdmin", policy =>
+				{
+					policy.Requirements.Add(new IsLocalAdminRequirement());
+				});
+				opt.AddPolicy("IsUser", policy =>
+				{
+					policy.Requirements.Add(new IsUserRequirement());
+				});
+			});
+			services.AddTransient<IAuthorizationHandler, IsGlobalAdminRequirementHandler>();
+			services.AddTransient<IAuthorizationHandler, IsLocalAdminRequirementHandler>();
+			services.AddTransient<IAuthorizationHandler, IsUserRequirementHandler>();
+			services.AddScoped<TokenService>();
 			return services;
 		}
 	}

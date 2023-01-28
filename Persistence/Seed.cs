@@ -2079,6 +2079,7 @@ namespace Persistence
 					}
 				};
 				await context.Regions.AddRangeAsync(regions);
+				await context.SaveChangesAsync();
 				var isceds = new List<Isced>
 				{
 					new Isced
@@ -2478,6 +2479,7 @@ namespace Persistence
 					},
 				};
 				await context.Isceds.AddRangeAsync(isceds);
+				await context.SaveChangesAsync();
 				var disciplines = new List<Discipline>
 				{
 					new Discipline
@@ -2634,6 +2636,7 @@ namespace Persistence
 					},
 				};
 				await context.Disciplines.AddRangeAsync(disciplines);
+				await context.SaveChangesAsync();
 				var specialtyBases = new List<SpecialtyBase>
 				{
 					new SpecialtyBase
@@ -3937,6 +3940,7 @@ namespace Persistence
 					},
 				};
 				await context.SpecialtyBases.AddRangeAsync(specialtyBases);
+				await context.SaveChangesAsync();
 				var universities = new List<University>
 				{
 					new University
@@ -4215,6 +4219,7 @@ namespace Persistence
 					},
 				};
 				await context.Universities.AddRangeAsync(universities);
+				await context.SaveChangesAsync();
 				foreach (var item in context.Universities)
 				{
 					var specialties = new List<Specialty>
@@ -4443,8 +4448,9 @@ namespace Persistence
 							Rating=new Random().Next(1, 6),
 						},
 					};
-					await context.AddRangeAsync(comments);
-					await context.AddRangeAsync(specialties.Skip(new Random().Next(0, 8)).Skip(new Random().Next(0, 8)));
+					await context.Comments.AddRangeAsync(comments);
+					await context.Specialties.AddRangeAsync(specialties.Skip(new Random().Next(0, 8)).Skip(new Random().Next(0, 8)));
+					await context.SaveChangesAsync();
 				}
 				foreach (var item in context.Specialties)
 				{
@@ -4546,13 +4552,6 @@ namespace Persistence
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Практична підготовка"),
-							EctsCredits=12,
-							IsOptional=false,
-							Specialty=item,
-						},
-						new SpecialtyDiscipline
-						{
 							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Оптимізаційні методи та моделі"),
 							EctsCredits=12,
 							IsOptional=false,
@@ -4615,8 +4614,10 @@ namespace Persistence
 							Specialty=item,
 						},
 					};
-					await context.AddRangeAsync(specialtyDisciplineCyber);
-					await context.AddRangeAsync(specialtyDisciplinesLaw);
+					await context.SpecialtyDisciplines.AddRangeAsync(specialtyDisciplineCyber);
+					await context.SaveChangesAsync();
+					await context.SpecialtyDisciplines.AddRangeAsync(specialtyDisciplinesLaw);
+					await context.SaveChangesAsync();
 				}
 				await context.SaveChangesAsync();
 			}

@@ -18,6 +18,7 @@ namespace Persistence
 						UserName = "GlobalAdmin1",
 						Email = "GlobalAdmin@test.com",
 						Bio="GlobalAdmin!",
+						Photo = new Photo{Id = "1",Url = ""},
 						IsGlobalAdmin = true
 					},
 					new AppUser
@@ -25,6 +26,7 @@ namespace Persistence
 						DisplayName = "LocalAdmin",
 						UserName = "LocalAdmin1",
 						Email = "LocalAdmin@test.com",
+						Photo = new Photo{Id = "2",Url = ""},
 						Bio="LocalAdmin!"
 					},
 					new AppUser
@@ -32,6 +34,7 @@ namespace Persistence
 						DisplayName = "User",
 						UserName = "User1",
 						Email = "User@test.com",
+						Photo = new Photo{Id = "3",Url = ""},
 						Bio="User!"
 					},
 				};

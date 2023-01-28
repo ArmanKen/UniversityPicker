@@ -41,6 +41,7 @@ public class Program
 			app.UseSwagger();
 			app.UseSwaggerUI();
 		}
+		app.UseRouting();
 		app.UseCors("CorsPolicy");
 		app.UseAuthentication();
 		app.UseAuthorization();

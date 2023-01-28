@@ -8,12 +8,14 @@ namespace API.Controllers
 {
 	public class UniversitiesController : BaseApiController
 	{
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> GetUniversities([FromQuery] UniversityParams param)
 		{
 			return HandlePagedResult(await Mediator.Send(new List.Query { Params = param }));
 		}
 
+		[AllowAnonymous]
 		[HttpGet("{id}")]
 		public async Task<IActionResult> GetUniversity(Guid id)
 		{

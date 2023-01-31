@@ -12,6 +12,8 @@ namespace Domain
 		public string Info { get; set; }
 		public string Telephone { get; set; }
 		public int StudentsCount { get; set; }
+		public Photo TitlePhoto { get; set; } = new Photo();
+		public ICollection<Photo> Photos { get; set; } = new List<Photo>();
 		public ICollection<Specialty> Specialties { get; set; } = new List<Specialty>();
 		public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 		public ICollection<UniversityAdministrator> UniversityAdministrators { get; set; } = new List<UniversityAdministrator>();

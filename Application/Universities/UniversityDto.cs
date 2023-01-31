@@ -16,5 +16,6 @@ namespace Application.Universities
 		public string Telephone { get; set; }
 		public int StudentsCount { get; set; }
 		public int PriceUAH { get; set; }
+		public ICollection<Photo> Photos { get; set; }
 	}
 }

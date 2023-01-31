@@ -204,10 +204,15 @@ namespace Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("UniversityId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("Photos");
                 });
@@ -347,12 +352,17 @@ namespace Persistence.Migrations
                     b.Property<int>("TimesRated")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("TitlePhotoId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Website")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
+
+                    b.HasIndex("TitlePhotoId");
 
                     b.ToTable("Universities");
                 });
@@ -576,6 +586,13 @@ namespace Persistence.Migrations
                     b.Navigation("University");
                 });
 
+            modelBuilder.Entity("Domain.Photo", b =>
+                {
+                    b.HasOne("Domain.University", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("UniversityId");
+                });
+
             modelBuilder.Entity("Domain.SelectedUniversity", b =>
                 {
                     b.HasOne("Domain.AppUser", "AppUser")
@@ -635,7 +652,13 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("CityId");
 
+                    b.HasOne("Domain.Photo", "TitlePhoto")
+                        .WithMany()
+                        .HasForeignKey("TitlePhotoId");
+
                     b.Navigation("City");
+
+                    b.Navigation("TitlePhoto");
                 });
 
             modelBuilder.Entity("Domain.UniversityAdministrator", b =>
@@ -755,6 +778,8 @@ namespace Persistence.Migrations
                     b.Navigation("AppUserSelected");
 
                     b.Navigation("Comments");
+
+                    b.Navigation("Photos");
 
                     b.Navigation("Specialties");
 

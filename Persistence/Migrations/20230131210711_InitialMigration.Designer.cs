@@ -11,7 +11,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230130163115_InitialMigration")]
+    [Migration("20230131210711_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -356,6 +356,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("TitlePhotoId")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("UkraineTop")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Website")
                         .HasColumnType("TEXT");

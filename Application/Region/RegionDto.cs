@@ -4,6 +4,6 @@ namespace Application.Region
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public int UniversityCount { get; set; }
+		public ICollection<CityDto> Cities { get; set; }
 	}
 }

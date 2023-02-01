@@ -30,6 +30,8 @@ namespace Application.Universities
 			{
 				var query = _context.Universities
 					.AsQueryable();
+				if (!string.IsNullOrEmpty(request.Params.UkraineTop))
+					query = query.Where(x => x.UkraineTop != 0);
 				if (!string.IsNullOrEmpty(request.Params.Degree))
 					query = query.Where(x => x.Specialties.Any(x => x.Degree == request.Params.Degree));
 				if (!string.IsNullOrEmpty(request.Params.BranchBaseId))
@@ -55,7 +57,6 @@ namespace Application.Universities
 				return Result<PagedList<UniversityDto>>.Success(
 					await PagedList<UniversityDto>.CreateAsync(
 						query
-							.OrderBy(u => u.Rating)
 							.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider, new { SpecialtyBaseId = request.Params.SpecialtyBaseId }),
 					request.Params.PageNumber, request.Params.PageSize)
 				);

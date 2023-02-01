@@ -21,6 +21,22 @@ namespace API.SignalR
 				.SendAsync("ReceiveComment", comment.Value);
 		}
 
+		[Authorize]
+		public async Task EditComment(Edit.Command command)
+		{
+			var comment = await _mediator.Send(command);
+			await Clients.Group(command.UniversirtyId.ToString())
+				.SendAsync("EditComment", comment.Value);
+		}
+
+		[Authorize]
+		public async Task DeleteComment(Delete.Command command)
+		{
+			var comment = await _mediator.Send(command);
+			await Clients.Group(command.UniversirtyId.ToString())
+				.SendAsync("DeleteComment", comment.Value);
+		}
+
 		public override async Task OnConnectedAsync()
 		{
 			var httpContext = Context.GetHttpContext();

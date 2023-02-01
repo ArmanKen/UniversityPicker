@@ -314,6 +314,7 @@ namespace Persistence.Migrations
                     Info = table.Column<string>(type: "TEXT", nullable: true),
                     Telephone = table.Column<string>(type: "TEXT", nullable: true),
                     StudentsCount = table.Column<int>(type: "INTEGER", nullable: false),
+                    UkraineTop = table.Column<int>(type: "INTEGER", nullable: false),
                     TitlePhotoId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

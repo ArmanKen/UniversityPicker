@@ -5,16 +5,16 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Universities
+namespace Application.Specialties
 {
-	public class Details
-	{
-		public class Query : IRequest<Result<UniversityDto>>
+    public class Details
+    {
+		public class Query : IRequest<Result<SpecialtyDto>>
 		{
 			public Guid Id { get; set; }
 		}
 
-		public class Handler : IRequestHandler<Query, Result<UniversityDto>>
+		public class Handler : IRequestHandler<Query, Result<SpecialtyDto>>
 		{
 			private readonly DataContext _context;
 			private readonly IMapper _mapper;
@@ -25,13 +25,13 @@ namespace Application.Universities
 				_context = context;
 			}
 
-			public async Task<Result<UniversityDto>> Handle(Query request, CancellationToken cancellationToken)
+			public async Task<Result<SpecialtyDto>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities
-					.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider)
+				var specialty = await _context.Specialties
+					.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
 					.FirstOrDefaultAsync(x => x.Id == request.Id);
-				return Result<UniversityDto>.Success(university);
+				return Result<SpecialtyDto>.Success(specialty);
 			}
 		}
-	}
+    }
 }

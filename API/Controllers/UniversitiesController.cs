@@ -34,7 +34,7 @@ namespace API.Controllers
 		public async Task<IActionResult> ChangeUniversity(Guid id, University university)
 		{
 			university.Id = id;
-			return HandleResult(await Mediator.Send(new Edit.Command { University = university }));
+			return HandleResult(await Mediator.Send(new Edit.Command { Id = id, University = university }));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]

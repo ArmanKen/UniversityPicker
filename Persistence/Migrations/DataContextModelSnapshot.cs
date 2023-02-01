@@ -355,6 +355,9 @@ namespace Persistence.Migrations
                     b.Property<string>("TitlePhotoId")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UkraineTop")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Website")
                         .HasColumnType("TEXT");
 

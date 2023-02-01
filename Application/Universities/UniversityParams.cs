@@ -12,5 +12,6 @@ namespace Application.Universities
 		public string BudgetAllowed { get; set; }
 		public string MinPrice { get; set; }
 		public string MaxPrice { get; set; }
+		public string UkraineTop { get; set; }
 	}
 }

@@ -1,24 +1,16 @@
 using Application.Core;
 using Domain;
-using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Universities
+namespace Application.Specialties
 {
 	public class Create
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public University University { get; set; }
-		}
-
-		public class CommandValidator : AbstractValidator<Command>
-		{
-			public CommandValidator()
-			{
-				RuleFor(x => x.University).SetValidator(new UniversityValidator());
-			}
+			public Guid UniversityId { get; set; }
+			public Specialty Specialty { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -32,9 +24,11 @@ namespace Application.Universities
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				_context.Universities.Add(request.University);
+				var university = _context.Universities.FindAsync(request.UniversityId).Result;
+				if (university != null) return Result<Unit>.Failure("Failed to create specialty");
+				university.Specialties.Add(request.Specialty);
 				var result = await _context.SaveChangesAsync() > 0;
-				if (!result) return Result<Unit>.Failure("Failed to create university");
+				if (!result) return Result<Unit>.Failure("Failed to create specialty");
 				return Result<Unit>.Success(Unit.Value);
 			}
 		}

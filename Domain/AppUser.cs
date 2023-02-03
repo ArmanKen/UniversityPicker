@@ -7,7 +7,7 @@ namespace Domain
 		public string DisplayName { get; set; }
 		public string Bio { get; set; }
 		public University University { get; set; }
-		public SpecialtyBase Specialty { get; set; }
+		public string Specialty { get; set; }
 		public Photo Photo { get; set; }
 		public string Degree { get; set; }
 		public bool IsGlobalAdmin { get; set; }

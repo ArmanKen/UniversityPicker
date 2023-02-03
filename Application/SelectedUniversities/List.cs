@@ -31,7 +31,7 @@ namespace Application.SelectedUniversities
 
 			public async Task<Result<List<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var universitites = await _context.SelectedUniversities.Where(x => x.AppUser!.UserName == request.Username)
+				var universitites = await _context.SelectedUniversities.Where(x => x.AppUser.UserName == request.Username)
 				.Select(u => u.University)
 				.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider, new { currentUsername = _userAccessor.GetUsername() })
 				.ToListAsync();

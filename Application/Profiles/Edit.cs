@@ -11,8 +11,11 @@ namespace Application.Profiles
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public string DisplayName { get; set; } = null!;
-			public string Bio { get; set; } = null!;
+			public string DisplayName { get; set; }
+			public string Bio { get; set; }
+			public string Specialty { get; set; }
+			public string UniversityId { get; set; }
+			public string Degree { get; set; }
 		}
 
 		public class CommandValidator : AbstractValidator<Command>
@@ -33,11 +36,15 @@ namespace Application.Profiles
 				_userAccessor = userAccessor;
 				_context = context;
 			}
+
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
 				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				if (user == null) return Result<Unit>.Failure("Failed to update profile");
-				user.Bio = request.Bio ?? user.Bio;
+				user.Bio = request.Bio ?? null;
+				user.Specialty = request.Specialty ?? null;
+				user.University = await _context.Universities.FindAsync(request.UniversityId) ?? null;
+				user.Degree = request.Degree ?? null;
 				user.DisplayName = request.DisplayName ?? user.DisplayName;
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to update profile");

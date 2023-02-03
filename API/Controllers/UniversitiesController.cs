@@ -1,6 +1,5 @@
 using Application.Universities;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,11 +36,25 @@ namespace API.Controllers
 			return HandleResult(await Mediator.Send(new Edit.Command { Id = id, University = university }));
 		}
 
-		[Authorize(Policy = "IsLocalAdmin")]
+		[Authorize(Policy = "IsGlobalAdmin")]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteUniversity(Guid id)
 		{
 			return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+		}
+
+		[AllowAnonymous]
+		[HttpGet("{id}/specialties")]
+		public async Task<IActionResult> GetUniversitySpecialties(Guid id)
+		{
+			return HandleResult(await Mediator.Send(new Application.Specialties.List.Query { Id = id }));
+		}
+
+		[Authorize(Policy = "IsLocalAdmin")]
+		[HttpPost("{id}/specialties")]
+		public async Task<IActionResult> CreateSpecialty(Specialty specialty, Guid id)
+		{
+			return HandleResult(await Mediator.Send(new Application.Specialties.Create.Command { Specialty = specialty, UniversityId = id }));
 		}
 	}
 }

@@ -48,23 +48,17 @@ namespace API.Extensions
 			});
 			services.AddAuthorization(opt =>
 			{
-				
-				opt.AddPolicy("IsLocalAdmin", policy =>
-				{
-					policy.Requirements.Add(new IsLocalAdminRequirement());
-				});
-				opt.AddPolicy("IsUser", policy =>
-				{
-					policy.Requirements.Add(new IsUserRequirement());
-				});
 				opt.AddPolicy("IsGlobalAdmin", policy =>
 				{
 					policy.Requirements.Add(new IsGlobalAdminRequirement());
 				});
+				opt.AddPolicy("IsLocalAdmin", policy =>
+				{
+					policy.Requirements.Add(new IsLocalAdminRequirement());
+				});
 			});
 			services.AddTransient<IAuthorizationHandler, IsGlobalAdminRequirementHandler>();
 			services.AddTransient<IAuthorizationHandler, IsLocalAdminRequirementHandler>();
-			services.AddTransient<IAuthorizationHandler, IsUserRequirementHandler>();
 			services.AddScoped<TokenService>();
 			return services;
 		}

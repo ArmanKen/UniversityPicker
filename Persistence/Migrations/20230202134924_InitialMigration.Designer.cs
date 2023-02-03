@@ -11,7 +11,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230131210711_InitialMigration")]
+    [Migration("20230202134924_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,7 +94,7 @@ namespace Persistence.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SpecialtyId")
+                    b.Property<string>("Specialty")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -117,8 +117,6 @@ namespace Persistence.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.HasIndex("PhotoId");
-
-                    b.HasIndex("SpecialtyId");
 
                     b.HasIndex("UniversityId");
 
@@ -342,17 +340,11 @@ namespace Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("StudentsCount")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Telephone")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("TimesRated")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("TitlePhotoId")
                         .HasColumnType("TEXT");
@@ -551,17 +543,11 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("PhotoId");
 
-                    b.HasOne("Domain.SpecialtyBase", "Specialty")
-                        .WithMany()
-                        .HasForeignKey("SpecialtyId");
-
                     b.HasOne("Domain.University", "University")
                         .WithMany()
                         .HasForeignKey("UniversityId");
 
                     b.Navigation("Photo");
-
-                    b.Navigation("Specialty");
 
                     b.Navigation("University");
                 });

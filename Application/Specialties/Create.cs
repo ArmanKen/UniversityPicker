@@ -24,8 +24,8 @@ namespace Application.Specialties
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var university = _context.Universities.FindAsync(request.UniversityId).Result;
-				if (university != null) return Result<Unit>.Failure("Failed to create specialty");
+				var university = await _context.Universities.FindAsync(request.UniversityId);
+				if (university == null) return Result<Unit>.Failure("Failed to create specialty");
 				university.Specialties.Add(request.Specialty);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to create specialty");

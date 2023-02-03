@@ -1,9 +1,7 @@
 using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Domain;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Universities
@@ -57,7 +55,9 @@ namespace Application.Universities
 				return Result<PagedList<UniversityDto>>.Success(
 					await PagedList<UniversityDto>.CreateAsync(
 						query
-							.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider, new { SpecialtyBaseId = request.Params.SpecialtyBaseId }),
+							.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider,
+								new { SpecialtyBaseId = request.Params.SpecialtyBaseId })
+							.OrderByDescending(x => x.Rating),
 					request.Params.PageNumber, request.Params.PageSize)
 				);
 			}

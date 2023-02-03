@@ -216,7 +216,7 @@ namespace Persistence.Migrations
                     DisplayName = table.Column<string>(type: "TEXT", nullable: true),
                     Bio = table.Column<string>(type: "TEXT", nullable: true),
                     UniversityId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    SpecialtyId = table.Column<string>(type: "TEXT", nullable: true),
+                    Specialty = table.Column<string>(type: "TEXT", nullable: true),
                     PhotoId = table.Column<string>(type: "TEXT", nullable: true),
                     Degree = table.Column<string>(type: "TEXT", nullable: true),
                     IsGlobalAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -238,11 +238,6 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_SpecialtyBases_SpecialtyId",
-                        column: x => x.SpecialtyId,
-                        principalTable: "SpecialtyBases",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -308,8 +303,6 @@ namespace Persistence.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     CityId = table.Column<int>(type: "INTEGER", nullable: true),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
-                    Rating = table.Column<int>(type: "INTEGER", nullable: false),
-                    TimesRated = table.Column<int>(type: "INTEGER", nullable: false),
                     Website = table.Column<string>(type: "TEXT", nullable: true),
                     Info = table.Column<string>(type: "TEXT", nullable: true),
                     Telephone = table.Column<string>(type: "TEXT", nullable: true),
@@ -471,11 +464,6 @@ namespace Persistence.Migrations
                 name: "IX_AspNetUsers_PhotoId",
                 table: "AspNetUsers",
                 column: "PhotoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_SpecialtyId",
-                table: "AspNetUsers",
-                column: "SpecialtyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_UniversityId",

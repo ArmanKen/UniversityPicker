@@ -7,8 +7,8 @@ using Persistence;
 
 namespace Application.Specialties
 {
-    public class Details
-    {
+	public class Details
+	{
 		public class Query : IRequest<Result<SpecialtyDto>>
 		{
 			public Guid Id { get; set; }
@@ -33,5 +33,5 @@ namespace Application.Specialties
 				return Result<SpecialtyDto>.Success(specialty);
 			}
 		}
-    }
+	}
 }

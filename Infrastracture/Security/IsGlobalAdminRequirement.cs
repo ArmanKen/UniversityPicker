@@ -27,7 +27,7 @@ namespace Infrastracture.Security
 			var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 			if (userId == null) return Task.CompletedTask;
 			var administrator = _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId).Result;
-			if (administrator != null && administrator.IsGlobalAdmin == true) context.Succeed(requirement);
+			if (administrator != null && administrator.IsGlobalAdmin) context.Succeed(requirement);
 			return Task.CompletedTask;
 		}
 	}

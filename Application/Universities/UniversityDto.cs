@@ -17,6 +17,7 @@ namespace Application.Universities
 		public int UkraineTop { get; set; }
 		public int StudentsCount { get; set; }
 		public int PriceUAH { get; set; }
+		public Photo TitlePhoto { get; set; }
 		public ICollection<Photo> Photos { get; set; }
 	}
 }

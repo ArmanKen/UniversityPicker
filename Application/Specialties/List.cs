@@ -1,6 +1,7 @@
 using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -11,7 +12,7 @@ namespace Application.Specialties
 	{
 		public class Query : IRequest<Result<List<SpecialtyDto>>>
 		{
-			public string UniversityId { get; set; }
+			public Guid Id { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Query, Result<List<SpecialtyDto>>>
@@ -27,12 +28,12 @@ namespace Application.Specialties
 
 			public async Task<Result<List<SpecialtyDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var university = _context.Universities.FindAsync(request.UniversityId).Result;
-				if (university == null) return null;
-				var specialties = university.Specialties
-					.AsQueryable()
-					.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider);
-				return Result<List<SpecialtyDto>>.Success(await specialties.ToListAsync());
+				var specialties = await _context.Specialties.Where(x => x.University.Id == request.Id)
+															.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
+															.ToListAsync();
+				if (specialties == null) return null;
+				return Result<List<SpecialtyDto>>
+					.Success(specialties);
 			}
 		}
 	}

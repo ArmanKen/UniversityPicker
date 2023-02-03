@@ -7,12 +7,6 @@ namespace API.Controllers
 {
 	public class SpecialtiesController : BaseApiController
 	{
-		[AllowAnonymous]
-		[HttpGet]
-		public async Task<IActionResult> GetSpecialties()
-		{
-			return HandleResult(await Mediator.Send(new List.Query()));
-		}
 
 		[AllowAnonymous]
 		[HttpGet("{id}")]
@@ -22,16 +16,10 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPost]
-		public async Task<IActionResult> CreateSpecialty(Specialty specialty)
-		{
-			return HandleResult(await Mediator.Send(new Create.Command { Specialty = specialty }));
-		}
-
-		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> EditSpecialty(Specialty specialty, Guid id)
 		{
+			specialty.Id = id;
 			return HandleResult(await Mediator.Send(new Edit.Command { Specialty = specialty, Id = id }));
 		}
 

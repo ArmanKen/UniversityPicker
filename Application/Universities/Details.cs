@@ -30,6 +30,7 @@ namespace Application.Universities
 				var university = await _context.Universities
 					.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider)
 					.FirstOrDefaultAsync(x => x.Id == request.Id);
+				if (university == null) return null;
 				return Result<UniversityDto>.Success(university);
 			}
 		}

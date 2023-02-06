@@ -2,6 +2,7 @@ using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Universities
@@ -27,6 +28,10 @@ namespace Application.Universities
 			public async Task<Result<PagedList<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var query = _context.Universities
+					.Include(x => x.Specialties)
+					.ThenInclude(x => x.SpecialtyBase)
+					.Include(x => x.City)
+					.ThenInclude(x => x.Region)
 					.AsQueryable();
 				if (!string.IsNullOrEmpty(request.Params.UkraineTop))
 					query = query.Where(x => x.UkraineTop != 0);
@@ -40,14 +45,16 @@ namespace Application.Universities
 					query = query.Where(x => x.City.Region.Name == request.Params.Region);
 				if (!string.IsNullOrEmpty(request.Params.City))
 					query = query.Where(x => x.City.Name == request.Params.City);
-				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MinPrice))
+				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MinPrice) 
+					&& int.TryParse(request.Params.MinPrice, out int min))
 					query = query.Where(x => x.Specialties
 						.FirstOrDefault(x => x.SpecialtyBase.Id == request.Params.SpecialtyBaseId)
-						.PriceUAH >= int.Parse(request.Params.MinPrice));
-				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MaxPrice))
+						.PriceUAH >= min);
+				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MaxPrice) 
+					&& int.TryParse(request.Params.MaxPrice, out int max))
 					query = query.Where(x => x.Specialties
 						.FirstOrDefault(x => x.SpecialtyBase.Id == request.Params.SpecialtyBaseId)
-						.PriceUAH <= int.Parse(request.Params.MaxPrice));
+						.PriceUAH <= max);
 				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.BudgetAllowed))
 					query = query.Where(x => x.Specialties
 						.FirstOrDefault(x => x.SpecialtyBase.Id == request.Params.SpecialtyBaseId)

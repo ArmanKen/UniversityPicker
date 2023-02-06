@@ -52,6 +52,8 @@ namespace Application.Core
 				.ForMember(x => x.StudentsCount, o => o.MapFrom(x => x.University.StudentsCount))
 				.ForMember(x => x.UkraineTop, o => o.MapFrom(x => x.University.UkraineTop))
 				.ForMember(x => x.Website, o => o.MapFrom(x => x.University.Website));
+			CreateMap<DisciplineDto, Discipline>();
+			CreateMap<SpecialtyDto, Specialty>();
 			CreateMap<University, University>();
 			CreateMap<Specialty, Specialty>();
 			CreateMap<Discipline, Discipline>();

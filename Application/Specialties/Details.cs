@@ -11,7 +11,7 @@ namespace Application.Specialties
 	{
 		public class Query : IRequest<Result<SpecialtyDto>>
 		{
-			public Guid Id { get; set; }
+			public Guid SpecialtyId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Query, Result<SpecialtyDto>>
@@ -29,7 +29,8 @@ namespace Application.Specialties
 			{
 				var specialty = await _context.Specialties
 					.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
-					.FirstOrDefaultAsync(x => x.Id == request.Id);
+					.FirstOrDefaultAsync(x => x.Id == request.SpecialtyId);
+				if (specialty == null) return null;
 				return Result<SpecialtyDto>.Success(specialty);
 			}
 		}

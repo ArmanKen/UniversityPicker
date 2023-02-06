@@ -1,9 +1,8 @@
-using Domain;
 using FluentValidation;
 
 namespace Application.Disciplines
 {
-	public class DisciplineValidator : AbstractValidator<Discipline>
+	public class DisciplineValidator : AbstractValidator<DisciplineDto>
 	{
 		public DisciplineValidator()
 		{

@@ -23,7 +23,7 @@ namespace Application.Universities
 			{
 				var university = await _context.Universities.FindAsync(request.Id);
 				if (university == null) return null;
-				_context.Remove(university);
+				_context.Universities.Remove(university);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to delete the university");
 				return Result<Unit>.Success(Unit.Value);

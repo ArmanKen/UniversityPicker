@@ -23,7 +23,7 @@ namespace Application.Specialties
 			{
 				var specialty = await _context.Specialties.FindAsync(request.Id);
 				if (specialty == null) return null!;
-				_context.Remove(specialty);
+				_context.Specialties.Remove(specialty);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to delete the specialty");
 				return Result<Unit>.Success(Unit.Value);

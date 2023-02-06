@@ -11,7 +11,7 @@ namespace Application.Specialties
 		public class Command : IRequest<Result<Unit>>
 		{
 			public Specialty Specialty { get; set; }
-			public Guid Id { get; set; }
+			public Guid SpecialtyId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -27,7 +27,7 @@ namespace Application.Specialties
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var specialty = await _context.Specialties.FindAsync(request.Id);
+				var specialty = await _context.Specialties.FindAsync(request.SpecialtyId);
 				if (specialty == null) return null;
 				_mapper.Map(request.Specialty, specialty);
 				var result = await _context.SaveChangesAsync() > 0;

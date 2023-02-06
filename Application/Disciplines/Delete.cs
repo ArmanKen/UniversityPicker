@@ -23,7 +23,7 @@ namespace Application.Disciplines
 			{
 				var discipline = await _context.Disciplines.FindAsync(request.Id);
 				if (discipline == null) return null;
-				_context.Remove(discipline);
+				_context.Disciplines.Remove(discipline);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to delete the discipline");
 				return Result<Unit>.Success(Unit.Value);

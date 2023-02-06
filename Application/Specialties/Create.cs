@@ -1,4 +1,5 @@
 using Application.Core;
+using AutoMapper;
 using Domain;
 using MediatR;
 using Persistence;
@@ -10,15 +11,17 @@ namespace Application.Specialties
 		public class Command : IRequest<Result<Unit>>
 		{
 			public Guid UniversityId { get; set; }
-			public Specialty Specialty { get; set; }
+			public SpecialtyDto Specialty { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
 		{
 			private readonly DataContext _context;
+			private readonly IMapper _mapper;
 
-			public Handler(DataContext context)
+			public Handler(DataContext context, IMapper mapper)
 			{
+				_mapper = mapper;
 				_context = context;
 			}
 
@@ -26,7 +29,10 @@ namespace Application.Specialties
 			{
 				var university = await _context.Universities.FindAsync(request.UniversityId);
 				if (university == null) return Result<Unit>.Failure("Failed to create specialty");
-				university.Specialties.Add(request.Specialty);
+				var specialty = _mapper.Map<Specialty>(request.Specialty);
+				specialty.SpecialtyBase = await _context.SpecialtyBases.FindAsync(request.Specialty.SpecialtyBaseId);
+				if (specialty.SpecialtyBase == null) return Result<Unit>.Failure("Failed to create specialty");
+				university.Specialties.Add(specialty);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to create specialty");
 				return Result<Unit>.Success(Unit.Value);

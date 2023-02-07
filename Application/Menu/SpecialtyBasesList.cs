@@ -1,13 +1,14 @@
 using Application.Core;
+using Application.DTOs;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.SpecialtiesBases
+namespace Application.Menu
 {
-	public class List
+	public class SpecialtyBasesList
 	{
 		public class Query : IRequest<Result<List<SpecialtyBaseDto>>> { }
 

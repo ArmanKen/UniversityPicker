@@ -1,3 +1,4 @@
+using Application.DTOs;
 using FluentValidation;
 
 namespace Application.Disciplines

@@ -1,4 +1,4 @@
-namespace Application.Region
+namespace Application.DTOs
 {
 	public class RegionDto
 	{

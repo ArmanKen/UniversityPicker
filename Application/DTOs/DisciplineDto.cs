@@ -1,4 +1,4 @@
-namespace Application.Disciplines
+namespace Application.DTOs
 {
 	public class DisciplineDto
 	{

@@ -1,8 +1,4 @@
-using Application.Disciplines;
-using Application.SpecialtiesBases;
-using Domain;
-
-namespace Application.Specialties
+namespace Application.DTOs
 {
 	public class SpecialtyDto
 	{

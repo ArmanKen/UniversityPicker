@@ -1,13 +1,15 @@
-import { Discipline } from "./discipline";
+import { Isced } from "./isced";
 
 export interface Specialty {
 	id: string;
+	specialtyBaseId: string;
 	name: string;
-	code: number;
-	price: number;
-	info: string;
+	isceds: Isced[];
+	priceUAH: number;
+	description: string;
 	budgetAllowed: boolean;
-	academicDegree: string; //!!!!!
-	courseLength: number; //!!!!!!
-	disciplines: Discipline[];
+	ectsCredits: number; 
+	startYear: number;
+	endYear: number;
+	degree: string;
 }

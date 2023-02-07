@@ -1,4 +1,4 @@
-namespace Application.SpecialtiesBases
+namespace Application.DTOs
 {
 	public class IscedDto
 	{

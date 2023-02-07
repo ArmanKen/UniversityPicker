@@ -1,7 +1,6 @@
-using Application.Universities;
 using Domain;
 
-namespace Application.Profiles
+namespace Application.DTOs
 {
 	public class Profile
 	{

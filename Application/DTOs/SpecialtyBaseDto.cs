@@ -1,6 +1,4 @@
-using Domain;
-
-namespace Application.SpecialtiesBases
+namespace Application.DTOs
 {
 	public class SpecialtyBaseDto
 	{

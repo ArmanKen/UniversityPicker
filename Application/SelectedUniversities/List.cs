@@ -1,4 +1,5 @@
 using Application.Core;
+using Application.DTOs;
 using Application.Interfaces;
 using Application.Universities;
 using AutoMapper;

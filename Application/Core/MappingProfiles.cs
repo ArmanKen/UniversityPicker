@@ -1,15 +1,10 @@
-using Application.Comments;
-using Application.Disciplines;
-using Application.Region;
-using Application.Specialties;
-using Application.SpecialtiesBases;
-using Application.Universities;
+using Application.DTOs;
 using AutoMapper;
 using Domain;
 
 namespace Application.Core
 {
-	public class MappingProfiles : Profile
+	public class MappingProfiles : AutoMapper.Profile
 	{
 		public MappingProfiles()
 		{
@@ -34,7 +29,7 @@ namespace Application.Core
 				.ForMember(x => x.Image, o => o.MapFrom(x => x.Author.Photo))
 				.ForMember(x => x.DisplayName, o => o.MapFrom(x => x.Author.DisplayName));
 			CreateMap<Isced, IscedDto>();
-			CreateMap<AppUser, Profiles.Profile>()
+			CreateMap<AppUser, Application.DTOs.Profile>()
 				.ForMember(d => d.Photo, o => o.MapFrom(x => x.Photo))
 				.ForMember(d => d.University, o => o.MapFrom(s => s.University.Name))
 				.ForMember(d => d.SelectedUniversities, o => o.MapFrom(s => s.SelectedUniversities));

@@ -2,8 +2,9 @@ using Application.Core;
 
 namespace Application.Universities
 {
-	public class UniversityParams : PagingParams
+	public class UniversityParams : UniversityPagingParams
 	{
+		public string Name { get; set; }
 		public string Region { get; set; }
 		public string City { get; set; }
 		public string Degree { get; set; }

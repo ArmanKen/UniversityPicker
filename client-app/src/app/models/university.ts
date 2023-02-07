@@ -1,15 +1,18 @@
-import { Specialty } from "./specialty";
+import { Photo } from "./photo";
 
 export interface University {
 	id: string;
 	name: string;
-	shortInfo: string;
-	fullInfo: string;
 	region: string;
+	city: string;
 	address: string;
-	website: string;
 	rating: number;
-	countryTopRating: number;//fill
+	website: string;
+	info: string;
 	telephone: string;
-	specialties: Specialty[];
+	ukraineTop: number;
+	studentsCount: number;
+	priceUAH: number;
+	titlePhoto: Photo;
+	photos: Photo[];
 }

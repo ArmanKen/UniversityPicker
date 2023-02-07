@@ -1,7 +1,6 @@
-using Application.Specialties;
 using Domain;
 
-namespace Application.Universities
+namespace Application.DTOs
 {
 	public class UniversityDto
 	{

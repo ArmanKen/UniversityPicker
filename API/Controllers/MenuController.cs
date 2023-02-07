@@ -9,14 +9,14 @@ namespace API.Controllers
 		[HttpGet("specialtyBases")]
 		public async Task<IActionResult> GetSpecialtyBases()
 		{
-			return HandleResult(await Mediator.Send(new Application.SpecialtiesBases.List.Query()));
+			return HandleResult(await Mediator.Send(new Application.Menu.SpecialtyBasesList.Query()));
 		}
 
 		[AllowAnonymous]
 		[HttpGet("regions")]
 		public async Task<IActionResult> GetRegions()
 		{
-			return HandleResult(await Mediator.Send(new Application.Region.List.Query()));
+			return HandleResult(await Mediator.Send(new Application.Menu.RegionsList.Query()));
 		}
 	}
 }

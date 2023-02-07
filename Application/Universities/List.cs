@@ -1,4 +1,5 @@
 using Application.Core;
+using Application.DTOs;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -26,13 +27,15 @@ namespace Application.Universities
 			}
 
 			public async Task<Result<PagedList<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
-			{
+			{	
 				var query = _context.Universities
 					.Include(x => x.Specialties)
 					.ThenInclude(x => x.SpecialtyBase)
 					.Include(x => x.City)
 					.ThenInclude(x => x.Region)
 					.AsQueryable();
+				if (!string.IsNullOrEmpty(request.Params.Name))
+					query = query.Where(x => x.Name.Contains(request.Params.Name));
 				if (!string.IsNullOrEmpty(request.Params.UkraineTop))
 					query = query.Where(x => x.UkraineTop != 0);
 				if (!string.IsNullOrEmpty(request.Params.Degree))
@@ -45,12 +48,12 @@ namespace Application.Universities
 					query = query.Where(x => x.City.Region.Name == request.Params.Region);
 				if (!string.IsNullOrEmpty(request.Params.City))
 					query = query.Where(x => x.City.Name == request.Params.City);
-				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MinPrice) 
+				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MinPrice)
 					&& int.TryParse(request.Params.MinPrice, out int min))
 					query = query.Where(x => x.Specialties
 						.FirstOrDefault(x => x.SpecialtyBase.Id == request.Params.SpecialtyBaseId)
 						.PriceUAH >= min);
-				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MaxPrice) 
+				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MaxPrice)
 					&& int.TryParse(request.Params.MaxPrice, out int max))
 					query = query.Where(x => x.Specialties
 						.FirstOrDefault(x => x.SpecialtyBase.Id == request.Params.SpecialtyBaseId)

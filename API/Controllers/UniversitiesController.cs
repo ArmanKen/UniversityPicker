@@ -66,7 +66,7 @@ namespace API.Controllers
 
 		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpPost("{id}/specialties/")]
-		public async Task<IActionResult> CreateSpecialty(Application.Specialties.SpecialtyDto specialty, Guid id)
+		public async Task<IActionResult> CreateSpecialty(Application.DTOs.SpecialtyDto specialty, Guid id)
 		{
 			return HandleResult(await Mediator.Send(new Application.Specialties.Create.Command
 			{ Specialty = specialty, UniversityId = id }));
@@ -99,7 +99,7 @@ namespace API.Controllers
 
 		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpPost("{id}/specialties/{specialtyId}/disciplines")]
-		public async Task<IActionResult> CreateDiscipline(Guid specialtyId, Application.Disciplines.DisciplineDto discipline)
+		public async Task<IActionResult> CreateDiscipline(Guid specialtyId, Application.DTOs.DisciplineDto discipline)
 		{
 			return HandleResult(await Mediator.Send(new Application.Disciplines.Create.Command
 			{ Discipline = discipline }));
@@ -115,11 +115,11 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpDelete("{id}/specialties/{specialtyId}/disciplines")]
-		public async Task<IActionResult> DeleteDiscipline(Guid id)
+		[HttpDelete("{id}/specialties/{specialtyId}/disciplines/{disciplineId}")]
+		public async Task<IActionResult> DeleteDiscipline(Guid disciplineId)
 		{
 			return HandleResult(await Mediator.Send(new Application.Disciplines.Delete.Command
-			{ Id = id }));
+			{ Id = disciplineId }));
 		}
 	}
 }

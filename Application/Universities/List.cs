@@ -27,7 +27,7 @@ namespace Application.Universities
 			}
 
 			public async Task<Result<PagedList<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
-			{	
+			{
 				var query = _context.Universities
 					.Include(x => x.Specialties)
 					.ThenInclude(x => x.SpecialtyBase)
@@ -41,13 +41,35 @@ namespace Application.Universities
 				if (!string.IsNullOrEmpty(request.Params.Degree))
 					query = query.Where(x => x.Specialties.Any(x => x.Degree == request.Params.Degree));
 				if (!string.IsNullOrEmpty(request.Params.BranchBaseId))
-					query = query.Where(x => x.Specialties.Any(x => x.SpecialtyBase.Id.Substring(0, 2) == request.Params.BranchBaseId));
+				{
+					var queryParams = request.Params.BranchBaseId.Split('_');
+					query = query.Where(
+						x => x.Specialties.Any(
+							x => queryParams.Any(
+								a => a == x.SpecialtyBase.Id.Substring(0, 2))));
+				}
 				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId))
-					query = query.Where(x => x.Specialties.Any(x => x.SpecialtyBase.Id == request.Params.SpecialtyBaseId));
+				{
+					var queryParams = request.Params.SpecialtyBaseId.Split('_');
+					query = query.Where(
+						x => x.Specialties.Any(
+							x => queryParams.Any(
+								a => a == x.SpecialtyBase.Id)));
+				}
 				if (!string.IsNullOrEmpty(request.Params.Region))
-					query = query.Where(x => x.City.Region.Name == request.Params.Region);
+				{
+					var queryParams = request.Params.Region.Split('_');
+					query = query.Where(
+						x => queryParams.Any(
+							a => a == x.City.Region.Name));
+				}
 				if (!string.IsNullOrEmpty(request.Params.City))
-					query = query.Where(x => x.City.Name == request.Params.City);
+				{
+					var queryParams = request.Params.City.Split('_');
+					query = query.Where(
+						x => queryParams.Any(
+							a => a == x.City.Name));
+				}
 				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MinPrice)
 					&& int.TryParse(request.Params.MinPrice, out int min))
 					query = query.Where(x => x.Specialties
@@ -66,7 +88,7 @@ namespace Application.Universities
 					await PagedList<UniversityDto>.CreateAsync(
 						query
 							.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider,
-								new { SpecialtyBaseId = request.Params.SpecialtyBaseId })
+								new { SpecialtyBaseId = !string.IsNullOrEmpty(request.Params.SpecialtyBaseId) ? request.Params.SpecialtyBaseId.Split('_') : new string[0] })
 							.OrderByDescending(x => x.Rating),
 					request.Params.PageNumber, request.Params.PageSize)
 				);

@@ -8,13 +8,13 @@ namespace Application.Core
 	{
 		public MappingProfiles()
 		{
-			string SpecialtyBaseId = null;
+			string[] SpecialtyBaseId = null;
 			CreateMap<University, UniversityDto>()
 				.ForMember(x => x.Region, o => o.MapFrom(x => x.City.Region.Name))
 				.ForMember(x => x.City, o => o.MapFrom(x => x.City.Name))
 				.ForMember(x => x.Rating, o => o.MapFrom(x => x.Comments.Count() > 0 ? x.Comments.Average(x => x.Rating) : 0))
-				.ForMember(x => x.PriceUAH, o => o.MapFrom(x => !string.IsNullOrEmpty(SpecialtyBaseId) ?
-					x.Specialties.FirstOrDefault(x => x.SpecialtyBase.Id == SpecialtyBaseId).PriceUAH : 0));
+				.ForMember(x => x.PriceUAH, o => o.MapFrom(x => SpecialtyBaseId.Length == 1 && !string.IsNullOrEmpty(SpecialtyBaseId[0]) ?
+					x.Specialties.FirstOrDefault(x => x.SpecialtyBase.Id == SpecialtyBaseId[0]).PriceUAH : 0));
 			CreateMap<Specialty, SpecialtyDto>()
 				.ForMember(x => x.Name, o => o.MapFrom(x => x.SpecialtyBase.Name))
 				.ForMember(x => x.SpecialtyBaseId, o => o.MapFrom(x => x.SpecialtyBase.Id))

@@ -4,6 +4,6 @@ namespace Application.Specialties
 {
 	public class SpecialtyParams : SpecialtyPagingParams
 	{
-		public string Name { get; set; }
+		public string SearchString { get; set; }
 	}
 }

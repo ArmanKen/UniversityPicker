@@ -34,14 +34,16 @@ namespace Application.Specialties
 					.ThenInclude(x => x.SpecialtyBase.Isceds)
 					.FirstOrDefaultAsync(x => x.Id == request.Id);
 				if (university == null) return null;
-				var specialties = university.Specialties
+				var query = university.Specialties
 					.AsQueryable();
-				if (specialties == null) return null;
+				if (!string.IsNullOrEmpty(request.Params.SearchString))
+					query = query.Where(x => x.SpecialtyBase.Name.Contains(request.Params.SearchString) ||
+						x.SpecialtyBase.Id.Contains(request.Params.SearchString));
 				return Result<PagedList<SpecialtyDto>>.Success(
-					await PagedList<SpecialtyDto>.CreateAsync(
-						specialties
+					PagedList<SpecialtyDto>.Create(
+						query
 							.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
-							.OrderBy(x=>x.SpecialtyBaseId),
+							.OrderBy(x => x.SpecialtyBaseId),
 					request.Params.PageNumber, request.Params.PageSize));
 			}
 		}

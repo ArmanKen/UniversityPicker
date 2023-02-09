@@ -13,11 +13,19 @@ namespace API.Controllers
 			return HandleResult(await Mediator.Send(new Details.Query { Username = username }));
 		}
 
-		[Authorize(Policy = "IsUser")]
+		[Authorize]
 		[HttpPut]
 		public async Task<IActionResult> Edit(Edit.Command command)
 		{
 			return HandleResult(await Mediator.Send(command));
+		}
+
+		[Authorize]
+		[HttpGet("selected")]
+		public async Task<IActionResult> ListSelectedUniversity()
+		{
+			return HandleResult(await Mediator.Send(new Application.SelectedUniversities.List.Query
+			{ }));
 		}
 	}
 }

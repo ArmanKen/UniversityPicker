@@ -6,7 +6,7 @@ namespace API.Controllers
 {
 	public class PhotosController : BaseApiController
 	{
-		[Authorize(Policy = "IsUser")]
+		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> AddUsersPhoto([FromForm] AddUsersPhoto.Command command)
 		{
@@ -29,7 +29,7 @@ namespace API.Controllers
 			return HandleResult(await Mediator.Send(command));
 		}
 
-		[Authorize(Policy = "IsUser")]
+		[Authorize]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(string id)
 		{

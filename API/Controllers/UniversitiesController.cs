@@ -48,6 +48,14 @@ namespace API.Controllers
 			{ Id = id }));
 		}
 
+		[Authorize]
+		[HttpPut("{id}/selectUniversity")]
+		public async Task<IActionResult> SelectUniversity(Guid id)
+		{
+			return HandleResult(await Mediator.Send(new Application.SelectedUniversities.SelectedToggle.Command
+			{ TargetUniversityId = id }));
+		}
+
 		[AllowAnonymous]
 		[HttpGet("{id}/specialties")]
 		public async Task<IActionResult> GetSpecialties([FromQuery] Application.Specialties.SpecialtyParams param, Guid id)

@@ -11,6 +11,5 @@ namespace Application.DTOs
 		public University University { get; set; }
 		public Photo Photo { get; set; }
 		public string Degree { get; set; }
-		public ICollection<UniversityDto> SelectedUniversities { get; set; }
 	}
 }

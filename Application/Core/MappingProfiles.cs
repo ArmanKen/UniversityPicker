@@ -39,7 +39,6 @@ namespace Application.Core
 				.ForMember(x => x.Id, o => o.MapFrom(x => x.University.Id))
 				.ForMember(x => x.Info, o => o.MapFrom(x => x.University.Info))
 				.ForMember(x => x.Name, o => o.MapFrom(x => x.University.Name))
-				.ForMember(x => x.Photos, o => o.MapFrom(x => x.University.Photos))
 				.ForMember(x => x.TitlePhoto, o => o.MapFrom(x => x.University.TitlePhoto != null ? x.University.TitlePhoto : null))
 				.ForMember(x => x.Telephone, o => o.MapFrom(x => x.University.Telephone))
 				.ForMember(x => x.Rating, o => o.MapFrom(x => x.University.Comments.Count() > 0 ? x.University.Comments.Average(x => x.Rating) : 0))

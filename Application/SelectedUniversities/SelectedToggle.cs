@@ -32,14 +32,11 @@ namespace Application.SelectedUniversities
 				if (university == null) return null;
 				var selected = await _context.SelectedUniversities.FindAsync(observer!.Id, university.Id);
 				if (selected == null)
-				{
-					selected = new SelectedUniversity
+					_context.SelectedUniversities.Add(new SelectedUniversity
 					{
 						AppUser = observer,
 						University = university
-					};
-					_context.SelectedUniversities.Add(selected);
-				}
+					});
 				else _context.SelectedUniversities.Remove(selected);
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<Unit>.Success(Unit.Value);

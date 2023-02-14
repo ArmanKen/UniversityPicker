@@ -48,8 +48,16 @@ namespace API.Controllers
 			{ Id = id }));
 		}
 
+		[Authorize(Policy = "IsLocalAdmin")]
+		[HttpPost("{id}/localAdmin/{username}")]
+		public async Task<IActionResult> ToggleLocalAdmin(Guid id, string username)
+		{
+			return HandleResult(await Mediator.Send(new ToggleLocalAdministrator.Command
+			{ Id = id, Username = username }));
+		}
+
 		[Authorize]
-		[HttpPut("{id}/selectUniversity")]
+		[HttpPost("{id}/selectUniversity")]
 		public async Task<IActionResult> SelectUniversity(Guid id)
 		{
 			return HandleResult(await Mediator.Send(new Application.SelectedUniversities.SelectedToggle.Command

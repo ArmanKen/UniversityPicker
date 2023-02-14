@@ -6,6 +6,13 @@ namespace API.Controllers
 {
 	public class PhotosController : BaseApiController
 	{
+		[AllowAnonymous]
+		[HttpGet("{id}/gallery")]
+		public async Task<IActionResult> GetUniversityPhotos(Guid id)
+		{
+			return HandleResult(await Mediator.Send(new List.Query { UniversityId = id }));
+		}
+
 		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> AddUsersPhoto([FromForm] AddUsersPhoto.Command command)

@@ -1,7 +1,7 @@
 export interface Comment {
 	id: number;
 	createAt: any;
-	rating: string;
+	rating: number;
 	body: string;
 	username: string;
 	displayName: string;

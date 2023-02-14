@@ -1,5 +1,3 @@
-import { Isced } from "./isced";
-
 export interface Specialty {
 	id: string;
 	specialtyBaseId: string;
@@ -12,4 +10,15 @@ export interface Specialty {
 	startYear: number;
 	endYear: number;
 	degree: string;
+}
+
+export interface SpecialtyBase {
+	id: string;
+	name: string;
+	isceds: Isced[];
+}
+
+export interface Isced {
+	id: string;
+	name: string;
 }

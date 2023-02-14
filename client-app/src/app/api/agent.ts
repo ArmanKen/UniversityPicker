@@ -2,7 +2,13 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { history } from "../..";
 import { toast } from "react-toastify";
 import { store } from "../stores/store";
-import { University } from "../models/university";
+import { University, UniversityFormValues } from "../models/university";
+import { PaginatedResult } from "../models/pagination";
+import { Specialty, SpecialtyBase } from "../models/specialty";
+import { Discipline } from "../models/discipline";
+import { Region } from "../models/region";
+import { Profile } from "../models/profile";
+import { Photo } from "../models/photo";
 
 const sleep = (delay: number) => {
 	return new Promise((resolve) => {
@@ -12,9 +18,20 @@ const sleep = (delay: number) => {
 
 axios.defaults.baseURL = 'http://localhost:5000/api'
 
-axios.interceptors.response.use(async resopnse => {
+axios.interceptors.request.use(config => {
+	const token = store.commonStore.token;
+	if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+	return config;
+})
+
+axios.interceptors.response.use(async response => {
 	await sleep(1000);
-	return resopnse
+	const pagination = response.headers['pagination'];
+	if (pagination) {
+		response.data = new PaginatedResult(response.data, JSON.parse(pagination));
+		return response as AxiosResponse<PaginatedResult<any>>;
+	}
+	return response;
 }, (error: AxiosError) => {
 	const { data, status, config }: { data: any; status: number, config: AxiosRequestConfig } = error.response!;
 	switch (status) {
@@ -36,7 +53,7 @@ axios.interceptors.response.use(async resopnse => {
 			}
 			break;
 		case 401:
-			toast.error('/unauthorized');
+			toast.error('unauthorized');
 			break;
 		case 404:
 			history.push('/not-found')
@@ -59,11 +76,87 @@ const requests = {
 }
 
 const Universities = {
-	list: () => requests.get<University[]>('/universities')
+	list: (params: URLSearchParams) => axios.get<PaginatedResult<University[]>>('/universities/', { params }).then(responseBody),
+	details: (id: string) => requests.get<University>(`/universities/${id}`),
+	create: (university: UniversityFormValues) => requests.post<void>(`/universities/`, university),
+	edit: (university: University) => requests.put<void>(`/universities/`, university),
+	delete: (id: string) => requests.delete<void>(`/universities/${id}`),
+	select: (id: string) => requests.post<void>(`/universities/${id}/selectUniversity/`, {}),
+	toggleLocalAdmin: (id: string, username: string) => requests.post<void>(`/universities/${id}/localAdmin/${username}`, {})
+}
+
+const Specialties = {
+	list: (params: URLSearchParams, id: string) =>
+		axios.get<Specialty[]>(`/universities/${id}/specialties/`, { params }).then(responseBody),
+	details: (id: string, specialtyId: string) =>
+		requests.get<Specialty>(`/universities/${id}/specialties/${specialtyId}`),
+	create: (id: string, specialty: Specialty) =>
+		requests.post<void>(`/universities/${id}/specialties/`, specialty),
+	edit: (id: string, specialtyId: string, specialty: Specialty) =>
+		requests.put<void>(`/universities/${id}/specialties/${specialtyId}`, specialty),
+	delete: (id: string, specialtyId: string) =>
+		requests.delete<void>(`/universities/${id}/specialties/${specialtyId}`)
+}
+
+const Disciplines = {
+	list: (id: string, specialtyId: string) =>
+		requests.get<Discipline[]>(`/universities/${id}/specialties/${specialtyId}/disciplines`),
+	create: (id: string, specialtyId: string, discipline: Discipline) =>
+		requests.post<void>(`/universities/${id}/specialties/${specialtyId}/disciplines`, discipline),
+	edit: (id: string, specialtyId: string, disciplineId: string, discipline: Discipline) =>
+		requests.put<void>(`/universities/${id}/specialties/${specialtyId}/disciplines/${disciplineId}`, discipline),
+	delete: (id: string, specialtyId: string, disciplineId: string) =>
+		requests.delete<void>(`/universities/${id}/specialties/${specialtyId}/disciplines/${disciplineId}`)
+}
+
+const Menus = {
+	regionsList: () =>
+		requests.get<Region[]>(`/menu/regions`),
+	specialtyBasesLiost: () =>
+		requests.get<SpecialtyBase[]>(`/menu/specialtyBases`),
+}
+
+const Profiles = {
+	list: (username: string) =>
+		requests.get<Profile>(`/profile/${username}`),
+	edit: (profile: Partial<Profile>) =>
+		requests.put<void>(`/profile/`, profile),
+	selectedList: () => requests.get<University[]>('/profile/selected')
+}
+
+const Photos = {
+	listUniversityPhotos: (id: string) => requests.get<Photo[]>(`/photos/${id}/gallery`),
+	addPhoto: (file: Blob) => {
+		let formData = new FormData();
+		formData.append('File', file);
+		return axios.post<Photo>('photos', formData, {
+			headers: { 'Content-Type': 'multipart/form-data' }
+		})
+	},
+	addUniversityGalleryPhoto: (file: Blob, universityId: string) => {
+		let formData = new FormData();
+		formData.append('File', file);
+		return axios.post<Photo>(`photos/${universityId}/gallery`, formData, {
+			headers: { 'Content-Type': 'multipart/form-data' }
+		})
+	},
+	addUniversityTitlePhoto: (file: Blob, universityId: string) => {
+		let formData = new FormData();
+		formData.append('File', file);
+		return axios.post<Photo>(`photos/${universityId}/titleImage`, formData, {
+			headers: { 'Content-Type': 'multipart/form-data' }
+		})
+	},
+	delete: (id: string) => requests.delete<void>(`photos/${id}`)
 }
 
 const agent = {
-	Universities
+	Universities,
+	Specialties,
+	Disciplines,
+	Menus,
+	Profiles,
+	Photos
 }
 
 export default agent;

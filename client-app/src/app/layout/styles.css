@@ -42,7 +42,7 @@ body {
 .pushable:not(body)>.fixed,
 .pushable:not(body)>.pusher:after {
 	position: fixed !important;
-	margin-top: 72px !important;
+	margin-top: 51.4px !important;
 }
 
 .sidebar-color {

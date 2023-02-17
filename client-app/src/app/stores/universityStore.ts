@@ -1,6 +1,6 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Pagination, UniversityParams } from "../models/pagination";
+import { Pagination, UniversityParams, PagingParams } from "../models/pagination";
 import { University, UniversityFormValues } from "../models/university";
 
 export default class UniversityStore {
@@ -8,24 +8,58 @@ export default class UniversityStore {
 	selectedUniversity: University | undefined = undefined;
 	loadingInitial = false;
 	loading = false;
-	pagination: Pagination | null = null;
-	pagingParams = new UniversityParams();
+	pagination: Pagination | undefined = undefined;
+	pagingParams = new PagingParams();
+	queryParams = new UniversityParams();
 
 	constructor() {
 		makeAutoObservable(this);
+
+		// reaction(
+		// 	() => { this.queryParams },
+		// 	() => {
+		// 		this.pagingParams = new PagingParams();
+		// 		this.universities.clear();
+		// 		this.loadUniversities();
+		// 	}
+		// )
 	}
 
-	get axiosParams() {
-		const params = new URLSearchParams(); //new params
-		params.append('pageNumber', this.pagingParams.pageNumber.toString());
-		params.append('pageSize', this.pagingParams.pageSize.toString());
-		return params;
-	}
+	setPagingParams = (pagingParams: PagingParams) => this.pagingParams = pagingParams;
+
+	setPagination = (pagination: Pagination) => this.pagination = pagination;
+
+	setLoadingInitial = (state: boolean) => this.loadingInitial = state;
+
+	setLoading = (state: boolean) => this.loading = state;
+
+	setSelectedUniversity = (university: University | undefined) =>
+		this.selectedUniversity = this.selectedUniversity == university ? undefined : university;
 
 	private getUniversity = (id: string) => this.universities.get(id);
 
+	get axiosParams() {
+		const params = new URLSearchParams();
+		params.append('pageNumber', this.pagingParams.pageNumber.toString());
+		params.append('pageSize', this.pagingParams.pageSize.toString());
+		if (this.queryParams.name) params.append('name', this.queryParams.name);
+		if (this.queryParams.region) params.append('region', this.queryParams.region.name);
+		if (this.queryParams.city) params.append('city', this.queryParams.city.name);
+		if (this.queryParams.degree) params.append('degree', this.queryParams.degree);
+		if (this.queryParams.branchBaseId) params.append('branchBaseId', this.queryParams.branchBaseId);
+		if (this.queryParams.specialtyBaseId) params.append('specialtyBaseId', this.queryParams.specialtyBaseId);
+		if (this.queryParams.budgetAllowed) params.append('budgetAllowed', this.queryParams.budgetAllowed.toString());
+		if (this.queryParams.minPrice) params.append('minPrice', this.queryParams.minPrice.toString());
+		if (this.queryParams.maxPrice) params.append('maxPrice', this.queryParams.maxPrice.toString());
+		if (this.queryParams.ukraineTop) params.append('ukraineTop', this.queryParams.ukraineTop.toString());
+		return params;
+	}
+
 	loadUniversities = async () => {
-		this.setLoadingInitial(true);
+		if (this.universities.size < 1)
+			this.setLoadingInitial(true);
+		else
+			this.setLoading(true);
 		try {
 			const result = await agent.Universities.list(this.axiosParams);
 			runInAction(() => {
@@ -35,11 +69,13 @@ export default class UniversityStore {
 			})
 			this.setPagination(result.pagination);
 			this.setLoadingInitial(false);
+			this.setLoading(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			})
 			this.setLoadingInitial(false);
+			this.setLoading(false);
 		}
 	}
 
@@ -104,10 +140,4 @@ export default class UniversityStore {
 			this.setLoadingInitial(false);
 		}
 	}
-
-	setPagination = (pagination: Pagination) => this.pagination = pagination;
-
-	setLoadingInitial = (state: boolean) => this.loadingInitial = state;
-
-	setLoading = (state: boolean) => this.loading = state;
 }

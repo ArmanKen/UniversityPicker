@@ -13,9 +13,9 @@ export default function HomePage() {
 				</Header>
 				<Button
 					as={Link}
-					to='/start'
+					to='/universities'
 					inverted>
-					Start pick
+					Main page
 				</Button>
 			</Container>
 		</Segment>)

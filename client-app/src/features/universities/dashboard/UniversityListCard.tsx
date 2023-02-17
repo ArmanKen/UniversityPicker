@@ -9,40 +9,24 @@ interface Props {
 }
 
 export default observer(function UniversityListCard({ university }: Props) {
-	const { specilatyStore: { selectedSpecialty }, universityStore, sidebarStore } = useStore()
-	const { getUniversitySelectedSpecialty, setSelectedUniversity } = universityStore;
-	const { setFilterSidebarOpen, setUniversitySidebarOpen } = sidebarStore;
+	const { universityStore: { setSelectedUniversity } } = useStore();
 
 	return (
-		<Card style={{ minWidth: 250 }}
-			
-			onClick={() => {
-				setSelectedUniversity(university);
-				setFilterSidebarOpen(false);
-				setUniversitySidebarOpen(true);
-			}}>
-			<Image src='assets/1.png' size="large" />
+		<Card style={{ minWidth: 220, minHeight: 340 }}
+			onClick={() => setSelectedUniversity(university)}
+			color='black'
+			raised
+		>
+			<Image src='assets/1.png' />
 			<Card.Content>
 				<Card.Header textAlign="center">
 					{university.name}
 				</Card.Header>
-				<Card.Description textAlign="center" style={{ fontSize: '1.1em', color: 'black' }}>
-					{university.shortInfo}
-				</Card.Description>
 			</Card.Content>
-			<Card.Content textAlign="center" style={{height:'100%'}}>
-				<Grid columns='equal'>
-					<Grid.Column floated="left" textAlign="center" color="black" style={{ fontSize: '1.05em', whiteSpace: 'nowrap' }}>
-						{selectedSpecialty ? (
-							'Ціна: ' + getUniversitySelectedSpecialty(university)?.price + ' ₴'
-						) : ''}
-					</Grid.Column>
-					<Grid.Column floated='right' textAlign="center" color="black">
-						<Icon name="star" color="yellow" fitted style={{ fontSize: '1.05em' }}>
-							{' Рейтинг: ' + university.rating}
-						</Icon>
-					</Grid.Column>
-				</Grid>
+			<Card.Content extra textAlign="right">
+				<Icon name="star" color="red" fitted style={{ fontSize: '1.2em', fontWeight: 600 }}>
+					{' Рейтинг: ' + university.rating.toFixed(1)}
+				</Icon>
 			</Card.Content>
 		</Card>
 	)

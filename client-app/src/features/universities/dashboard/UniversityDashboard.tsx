@@ -1,15 +1,17 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import { Container, Divider, Grid, Label, Loader, Menu, Segment, Sidebar } from "semantic-ui-react";
+import { Divider, Grid } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import InfiniteScroll from "react-infinite-scroller";
 import UniversityList from "./UniversityList";
 import { PagingParams } from "../../../app/models/pagination";
-import LoadingComponent from "../../../app/layout/LoadingComponent";
+import UniversityCardGroupPlaceholder from "./UniversityCardGroupPlaceholder";
+import UniversityFilters from "./UniversityFilters";
 
 export default observer(function UniversityDashboard() {
 	const { universityStore } = useStore();
-	const { universities, loadUniversities, pagination, setPagingParams, loadingInitial, loading } = universityStore;
+	const { universities, loadUniversities, pagination, setPagingParams,
+		loadingInitial } = universityStore;
 
 	useEffect(() => {
 		if (universities.size < 1) loadUniversities();
@@ -20,35 +22,21 @@ export default observer(function UniversityDashboard() {
 		loadUniversities();
 	}
 
-	if (loadingInitial) {
-		return <LoadingComponent content="Завантаження університетів" />;
-	}
-
 	return (
 		<Grid>
 			<Grid.Column floated="left" width={4}>
-				<Segment.Group >
-					<Segment clearing padded='very'></Segment>
-					<Segment clearing padded='very'></Segment>
-					<Segment clearing padded='very'></Segment>
-					<Segment clearing padded='very'></Segment>
-					<Segment clearing padded='very'></Segment>
-					<Segment clearing padded='very'></Segment>
-					<Segment clearing padded='very'></Segment>
-					<Segment clearing padded='very'></Segment>
-					<Segment clearing padded='very'></Segment>
-				</Segment.Group>
+				<UniversityFilters />
 			</Grid.Column>
-			<Grid.Column floated="left" width={12}>
+			<Grid.Column width={12}>
 				<InfiniteScroll
 					pageStart={0}
 					loadMore={handleGetNext}
-					hasMore={!loading && !!pagination && pagination.currentPage < pagination.totalPages}
+					hasMore={!loadingInitial && !!pagination &&
+						pagination.currentPage < pagination.totalPages}
 					initialLoad={false}>
 					<UniversityList />
-					{loading && (
-						<Loader inline='centered' />
-					)}
+					{loadingInitial &&
+						<UniversityCardGroupPlaceholder />}
 					<Divider hidden style={{ height: 90 }} />
 				</InfiniteScroll>
 			</Grid.Column>

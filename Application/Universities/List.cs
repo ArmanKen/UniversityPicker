@@ -42,7 +42,7 @@ namespace Application.Universities
 					query = query.Where(x => x.Specialties.Any(x => x.Degree == request.Params.Degree));
 				if (!string.IsNullOrEmpty(request.Params.BranchBaseId))
 				{
-					var queryParams = request.Params.BranchBaseId.Split('_');
+					var queryParams = request.Params.BranchBaseId.Split('_', StringSplitOptions.RemoveEmptyEntries);
 					query = query.Where(
 						x => x.Specialties.Any(
 							x => queryParams.Any(
@@ -50,7 +50,7 @@ namespace Application.Universities
 				}
 				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId))
 				{
-					var queryParams = request.Params.SpecialtyBaseId.Split('_');
+					var queryParams = request.Params.SpecialtyBaseId.Split('_', StringSplitOptions.RemoveEmptyEntries);
 					query = query.Where(
 						x => x.Specialties.Any(
 							x => queryParams.Any(
@@ -58,17 +58,17 @@ namespace Application.Universities
 				}
 				if (!string.IsNullOrEmpty(request.Params.Region))
 				{
-					var queryParams = request.Params.Region.Split('_');
+					var queryParams = request.Params.Region.Split('_', StringSplitOptions.RemoveEmptyEntries);
 					query = query.Where(
 						x => queryParams.Any(
-							a => a == x.City.Region.Name));
+							a => a == x.City.Region.Id.ToString()));
 				}
 				if (!string.IsNullOrEmpty(request.Params.City))
 				{
-					var queryParams = request.Params.City.Split('_');
+					var queryParams = request.Params.City.Split('_', StringSplitOptions.RemoveEmptyEntries);
 					query = query.Where(
 						x => queryParams.Any(
-							a => a == x.City.Name));
+							a => a == x.City.Id.ToString()));
 				}
 				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MinPrice)
 					&& int.TryParse(request.Params.MinPrice, out int min))

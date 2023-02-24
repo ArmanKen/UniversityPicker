@@ -1,8 +1,8 @@
-import { makeAutoObservable } from "mobx";
-import React from "react";
-import { Checkbox, CheckboxProps, DropdownItemProps } from "semantic-ui-react";
-import { Specialty } from "../models/specialty";
-import { store } from "./store";
+// import { makeAutoObservable } from "mobx";
+// import React from "react";
+// import { Checkbox, CheckboxProps, DropdownItemProps } from "semantic-ui-react";
+// import { Specialty } from "../models/specialty";
+// import { store } from "./store";
 
 export default class SpecilatyStore {
 	// specialties: Specialty[] = [];

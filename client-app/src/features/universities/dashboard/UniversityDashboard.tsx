@@ -1,17 +1,16 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import { Divider, Grid } from "semantic-ui-react";
+import { Grid, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
-import InfiniteScroll from "react-infinite-scroller";
 import UniversityList from "./UniversityList";
 import { PagingParams } from "../../../app/models/pagination";
 import UniversityCardGroupPlaceholder from "./UniversityCardGroupPlaceholder";
 import UniversityFilters from "./UniversityFilters";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default observer(function UniversityDashboard() {
 	const { universityStore } = useStore();
-	const { universities, loadUniversities, pagination, setPagingParams,
-		loadingInitial } = universityStore;
+	const { universities, loadUniversities, pagination, setPagingParams, universityLoadingInitial } = universityStore;
 
 	useEffect(() => {
 		if (universities.size < 1) loadUniversities();
@@ -27,17 +26,34 @@ export default observer(function UniversityDashboard() {
 			<Grid.Column floated="left" width={4}>
 				<UniversityFilters />
 			</Grid.Column>
-			<Grid.Column width={12}>
+			<Grid.Column width={12} >
 				<InfiniteScroll
-					pageStart={0}
-					loadMore={handleGetNext}
-					hasMore={!loadingInitial && !!pagination &&
-						pagination.currentPage < pagination.totalPages}
-					initialLoad={false}>
+					style={{ overflow: 'hidden', paddingTop: 20 }}
+					dataLength={universities.size}
+					next={handleGetNext}
+					loader=''
+					hasMore={!universityLoadingInitial && !!pagination
+						&& pagination.currentPage < pagination.totalPages}>
 					<UniversityList />
-					{loadingInitial &&
-						<UniversityCardGroupPlaceholder />}
-					<Divider hidden style={{ height: 90 }} />
+					{universityLoadingInitial && (
+						universities.size < 1 ? (
+							<>
+								< UniversityCardGroupPlaceholder />
+								< UniversityCardGroupPlaceholder />
+								< UniversityCardGroupPlaceholder />
+								< UniversityCardGroupPlaceholder />
+							</>) : < UniversityCardGroupPlaceholder />)
+					}
+					{!universityLoadingInitial && universities.size < 1 &&
+						<Segment
+							textAlign="center"
+							color="grey"
+							inverted
+							style={{ fontSize: '1.2em' }}
+						>
+							По заданим фільтрам нічного не знайдено
+						</Segment>
+					}
 				</InfiniteScroll>
 			</Grid.Column>
 		</Grid>

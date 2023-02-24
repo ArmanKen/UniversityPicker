@@ -1,6 +1,6 @@
-import { makeAutoObservable } from "mobx";
-import { Discipline } from "../models/discipline";
-import { store } from "./store";
+// import { makeAutoObservable } from "mobx";
+// import { Discipline } from "../models/discipline";
+// import { store } from "./store";
 
 export default class DisciplineStore {
 	// disciplines: Discipline[] = [];

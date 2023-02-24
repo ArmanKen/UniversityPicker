@@ -1,5 +1,3 @@
-import { City, Region } from "./region";
-
 export interface Pagination {
 	currentPage: number;
 	itemsPerPage: number;
@@ -21,23 +19,10 @@ export class PagingParams {
 	pageNumber;
 	pageSize;
 
-	constructor(pageNumber = 1, pageSize = 16) {
+	constructor(pageNumber = 1, pageSize = 20) {
 		this.pageNumber = pageNumber;
 		this.pageSize = pageSize;
 	}
-}
-
-export class UniversityParams {
-	name = '';
-	region: Region | undefined = undefined;
-	city: City | undefined = undefined;
-	degree = '';
-	branchBaseId = '';
-	specialtyBaseId = '';
-	budgetAllowed = false;
-	minPrice = 0;
-	maxPrice = 0;
-	ukraineTop = 0;
 }
 
 export class SpecialtyParams {

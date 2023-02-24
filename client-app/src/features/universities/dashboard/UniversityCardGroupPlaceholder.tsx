@@ -9,14 +9,6 @@ export default function UniversityCardGroupPlaceholder() {
 			<UnviersityCardPlaceholder />
 			<UnviersityCardPlaceholder />
 			<UnviersityCardPlaceholder />
-			<UnviersityCardPlaceholder />
-			<UnviersityCardPlaceholder />
-			<UnviersityCardPlaceholder />
-			<UnviersityCardPlaceholder />
-			<UnviersityCardPlaceholder />
-			<UnviersityCardPlaceholder />
-			<UnviersityCardPlaceholder />
-			<UnviersityCardPlaceholder />
 		</Card.Group>
 	)
 }

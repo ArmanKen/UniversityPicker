@@ -112,7 +112,7 @@ const Disciplines = {
 const Menus = {
 	regionsList: () =>
 		requests.get<Region[]>(`/menu/regions`),
-	specialtyBasesLiost: () =>
+	specialtyBasesList: () =>
 		requests.get<SpecialtyBase[]>(`/menu/specialtyBases`),
 }
 

@@ -9,17 +9,17 @@ interface Props {
 }
 
 export default observer(function UniversityListCard({ university }: Props) {
-	const { universityStore: { setSelectedUniversity } } = useStore();
+	const { universityStore: { setUniversity } } = useStore();
 
 	return (
-		<Card style={{ minWidth: 220, minHeight: 340 }}
-			onClick={() => setSelectedUniversity(university)}
-			color='black'
+		<Card
+			style={{ minWidth: 220, minHeight: 340 }}
+			onClick={() => setUniversity(university)}
 			raised>
 			<Image src='assets/1.png' />
 			<Card.Content
 				textAlign="center"
-				style={{ fontSize: '1.1em', fontWeight: 600 }}>
+				style={{ fontSize: '1.03em', fontWeight: 600 }}>
 				<Card.Header>
 					{university.name}
 				</Card.Header>
@@ -28,8 +28,7 @@ export default observer(function UniversityListCard({ university }: Props) {
 						university.city &&
 						university.region &&
 						university.address + ', ' + university.city +
-						(university.region === 'м.Київ' ? '' : ', ' +
-							university.region + ' область')}
+						', ' + university.region}
 				</Card.Description>
 			</Card.Content>
 			<Card.Content
@@ -37,7 +36,7 @@ export default observer(function UniversityListCard({ university }: Props) {
 				textAlign="right">
 				<Icon
 					name="star"
-					color="red"
+					color="orange"
 					fitted
 					style={{ fontSize: '1.2em', fontWeight: 600 }}>
 					{' Рейтинг: ' + university.rating.toFixed(1)}

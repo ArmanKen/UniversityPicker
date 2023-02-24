@@ -131,7 +131,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Вінницька",
+						Name = "Вінницька область",
 						Cities = new List<City>
 						{
 							new City
@@ -210,7 +210,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Волинська",
+						Name = "Волинська область",
 						Cities = new List<City>
 						{
 							new City
@@ -261,7 +261,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Дніпропетровська",
+						Name = "Дніпропетровська область",
 						Cities = new List<City>
 						{
 							new City
@@ -348,7 +348,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Донецька",
+						Name = "Донецька область",
 						Cities = new List<City>
 						{
 							new City
@@ -563,7 +563,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Житомирська",
+						Name = "Житомирська область",
 						Cities = new List<City>
 						{
 							new City
@@ -618,7 +618,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Закарпатська",
+						Name = "Закарпатська область",
 						Cities = new List<City>
 						{
 							new City
@@ -669,7 +669,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Запорізька",
+						Name = "Запорізька область",
 						Cities = new List<City>
 						{
 							new City
@@ -732,7 +732,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Івано-Франківська",
+						Name = "Івано-Франківська область",
 						Cities = new List<City>
 						{
 							new City
@@ -799,7 +799,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Київська",
+						Name = "Київська область",
 						Cities = new List<City>
 						{
 							new City
@@ -910,7 +910,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Кіровоградська",
+						Name = "Кіровоградська область",
 						Cities = new List<City>
 						{
 							new City
@@ -965,7 +965,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Луганська",
+						Name = "Луганська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1120,7 +1120,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Львівська",
+						Name = "Львівська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1303,7 +1303,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Миколаївська",
+						Name = "Миколаївська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1346,7 +1346,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Одеська",
+						Name = "Одеська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1429,7 +1429,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Полтавська",
+						Name = "Полтавська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1500,7 +1500,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Рівненська",
+						Name = "Рівненська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1551,7 +1551,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Сумська",
+						Name = "Сумська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1618,7 +1618,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Тернопільська",
+						Name = "Тернопільська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1697,7 +1697,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Харківська",
+						Name = "Харківська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1772,7 +1772,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Херсонська",
+						Name = "Херсонська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1815,7 +1815,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Хмельницька",
+						Name = "Хмельницька область",
 						Cities = new List<City>
 						{
 							new City
@@ -1874,7 +1874,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Черкаська",
+						Name = "Черкаська область",
 						Cities = new List<City>
 						{
 							new City
@@ -1945,7 +1945,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Чернівецька",
+						Name = "Чернівецька область",
 						Cities = new List<City>
 						{
 							new City
@@ -2000,7 +2000,7 @@ namespace Persistence
 					},
 					new Region
 					{
-						Name = "Чернігівська",
+						Name = "Чернігівська область" ,
 						Cities = new List<City>
 						{
 							new City
@@ -3013,7 +3013,7 @@ namespace Persistence
 					new SpecialtyBase
 					{
 						Id="103",
-						Name="Науки про Землю**",
+						Name="Науки про Землю",
 					Isceds = new List<Isced>
 						{
 							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0532"),
@@ -4232,7 +4232,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "122"),
 							Description = "Загальна освіта в галузі інформаційних технологій, спеціалізація «Комп’ютерні науки».Ключові слова: програмування, алгоритмізація, моделювання,комп’ютерна обробка даних, обчислювальні системи та технології,нечіткі моделі, Machine Learning, Big Data Processing, програмування на C#, C++, Python, Java, комп’ютерні мережі, розподілені серверні системи, розподілені та паралельні обчислення, нечіткі моделі та мережі, методи обчислювального інтелекту.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 80000,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4243,7 +4243,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "081"),
 							Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
 							EctsCredits = 60,
-							Degree = "Master",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 40001,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4254,7 +4254,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "081"),
 							Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
 							PriceUAH = 100001,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4265,7 +4265,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "125"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 180,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
 							PriceUAH = 45021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4276,7 +4276,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "121"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 75021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4287,7 +4287,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "123"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4298,7 +4298,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "124"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
 							PriceUAH = 95021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4309,7 +4309,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "112"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 76021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4321,7 +4321,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "111"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 52331,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4332,7 +4332,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "076"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
 							PriceUAH = 88754,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4343,7 +4343,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "073"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
 							PriceUAH = 87213,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4354,7 +4354,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "141"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4365,7 +4365,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "142"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4376,7 +4376,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "143"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4387,7 +4387,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "144"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4399,7 +4399,7 @@ namespace Persistence
 							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "145"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = "Bachelor",
+							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,

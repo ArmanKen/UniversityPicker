@@ -11,15 +11,15 @@ export default class UniversityStore {
 	pagination: Pagination | undefined = undefined;
 	pagingParams = new PagingParams();
 	name = '';
-	region = '';
-	city = '';
+	region: number[] = [];
+	city: number[] = [];
 	degree = '';
-	branchBaseId = '';
-	specialtyBaseId = '';
-	budgetAllowed = '';
+	branchBaseId: string[] = [];
+	specialtyBaseId: string[] = [];
+	budgetAllowed = false;
 	minPrice = 0;
 	maxPrice = 0;
-	ukraineTop = 0;
+	ukraineTop = false;
 
 	constructor() {
 		makeAutoObservable(this);
@@ -59,15 +59,15 @@ export default class UniversityStore {
 		params.append('pageNumber', this.pagingParams.pageNumber.toString());
 		params.append('pageSize', this.pagingParams.pageSize.toString());
 		if (this.name) params.append('name', this.name);
-		if (this.region) params.append('region', this.region);
-		if (this.city) params.append('city', this.city);
-		if (this.degree) params.append('degree', this.degree);
-		if (this.branchBaseId) params.append('branchBaseId', this.branchBaseId);
-		if (this.specialtyBaseId) params.append('specialtyBaseId', this.specialtyBaseId);
-		if (this.budgetAllowed) params.append('budgetAllowed', this.budgetAllowed);
-		if (this.minPrice) params.append('minPrice', this.minPrice.toString());
-		if (this.maxPrice) params.append('maxPrice', this.maxPrice.toString());
-		if (this.ukraineTop) params.append('ukraineTop', this.ukraineTop.toString());
+		// if (this.region) params.append('region', this.region);
+		// if (this.city) params.append('city', this.city);
+		// if (this.degree) params.append('degree', this.degree);
+		// if (this.branchBaseId) params.append('branchBaseId', this.branchBaseId);
+		// if (this.specialtyBaseId) params.append('specialtyBaseId', this.specialtyBaseId);
+		// if (this.budgetAllowed) params.append('budgetAllowed', this.budgetAllowed.toString());
+		// if (this.minPrice) params.append('minPrice', this.minPrice.toString());
+		// if (this.maxPrice) params.append('maxPrice', this.maxPrice.toString());
+		// if (this.ukraineTop) params.append('ukraineTop', this.ukraineTop.toString());
 		return params;
 	}
 
@@ -155,44 +155,34 @@ export default class UniversityStore {
 	changeQueryParams = (value: string | number | boolean | (string | number | boolean)[] | undefined, key: string) => {
 		switch (key) {
 			case 'searchString':
-				if (typeof value === 'string')
-					this.name = value;
+				this.name = value as string;
 				break;
 			case 'degreeSearch':
-				if (typeof value === 'string')
-					this.degree = value;
+				this.degree = value as string;
 				break;
 			case 'regionsSearch':
-				let regions = '';
-				(value as number[]).forEach(region => {
-
-					regions += '_' + region;
-				})
-				this.region = regions;
+				this.region = value as number[];
 				break;
 			case 'citiesSearch':
-				let cities = '';
-				(value as number[]).forEach(city => {
-
-					cities += '_' + city;
-				})
-				this.city = cities;
+				this.city = value as number[];
 				break;
 			case 'branchesSearch':
-				let branches = '';
-				(value as number[]).forEach(branch => {
-
-					branches += '_' + branch;
-				})
-				this.branchBaseId = branches;
+				this.branchBaseId = value as string[];
 				break;
 			case 'specialtiesSearch':
-				let specialties = '';
-				(value as number[]).forEach(specialty => {
-
-					specialties += '_' + specialty;
-				})
-				this.specialtyBaseId = specialties;
+				this.specialtyBaseId = value as string[];
+				break;
+			case 'minPriceSearch':
+				this.minPrice = value as number;
+				break;
+			case 'maxPriceSearch':
+				this.maxPrice = value as number;
+				break;
+			case 'budgetSearch':
+				this.budgetAllowed = value as boolean;
+				break;
+			case 'UkraineTopSearch':
+				this.ukraineTop = value as boolean;
 				break;
 		}
 	}

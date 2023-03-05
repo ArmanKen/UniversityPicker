@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { DropdownItemProps } from "semantic-ui-react";
 import agent from "../api/agent";
-import { BranchesOfKnowledge } from "../common/valuesForLists/BranchesOfKnowledge";
+import { BranchesOfKnowledge } from "../common/commonData/branchesList";
 import { City, Region } from "../models/region";
 import { SpecialtyBase } from "../models/specialty";
 import { store } from "./store";
@@ -103,7 +103,7 @@ export default class MenuStore {
 
 	setCitiesDropdown = (value: number[]) => {
 		if (value.length !== 0) {
-			store.universityStore.city = "";
+			store.universityStore.city = [];
 			this.selectedCities = [];
 		}
 		this.citiesDropdown.length = 0;
@@ -119,7 +119,7 @@ export default class MenuStore {
 
 	setSpecialtiesBaseDropdown = (value: string[]) => {
 		if (value.length !== 0) {
-			store.universityStore.specialtyBaseId = "";
+			store.universityStore.specialtyBaseId = [];
 			this.selectedSpecialtiesBase = [];
 		}
 		this.specialtiesBaseDropdown.length = 0;

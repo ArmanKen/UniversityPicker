@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import HomePage from '../../features/home/HomePage';
 import ModalContainer from '../common/modals/ModalContainer';
-import { Container } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import NotFound from '../../features/errors/NotFound';
 import TestErrors from '../../features/errors/TestError';
 import ServerError from '../../features/errors/ServerError';
@@ -19,8 +19,10 @@ function App() {
 			<Routes>
 				<Route path='' element={<HomePage />} />
 				<Route path='/*' element={
-					<>
-						<NavBar />
+					<Grid>
+						<Grid.Row>
+							<NavBar />
+						</Grid.Row>
 						<Container style={{ marginTop: 75, width: '97%' }}>
 							<Routes>
 								<Route path='/universities' element={<UniversityDashboard />} />
@@ -29,7 +31,7 @@ function App() {
 								<Route path='/*' element={<NotFound />} />
 							</Routes>
 						</Container>
-					</>
+					</Grid>
 				} />
 			</Routes>
 		</>

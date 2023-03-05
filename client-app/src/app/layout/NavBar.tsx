@@ -1,28 +1,38 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Header, Input, Menu } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { Dropdown, Header, Input, Menu } from 'semantic-ui-react'
 import { useStore } from '../stores/store'
 
 export default observer(function NavBar() {
-	const { universityStore: { universityLoadingInitial, changeQueryParams } } = useStore()
+	const { universityStore: { changeQueryParams } } = useStore()
 
 	return (
 		<Menu
 			fixed='top'
-			size='massive'
-			stackable>
-			<Menu.Item position='left' style={{ marginLeft: 15 }}>
-				<Header textAlign='center'>
+			size='massive'>
+			<Menu.Item
+				position='left'
+				style={{ marginLeft: 15 }}>
+				<Header
+					textAlign='center'
+					as={Link} to='universities'>
 					University Picker
 				</Header>
 			</Menu.Item>
-			<Menu.Item position='right' style={{ width: 600 }}>
+			<Menu.Item
+				position='right'
+				style={{ width: 600 }}>
 				<Input
 					icon='search'
 					placeholder='Пошук по назві університету...'
-					disabled={universityLoadingInitial}
-					loading={universityLoadingInitial}
 					onChange={(e, d) => changeQueryParams(d.value, "searchString")}
+				/>
+			</Menu.Item>
+			<Menu.Item
+				position='right'>
+				<Dropdown
+					//account
 				/>
 			</Menu.Item>
 		</Menu>

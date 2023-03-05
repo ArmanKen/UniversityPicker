@@ -35,7 +35,7 @@ namespace Application.Universities
 					.ThenInclude(x => x.Region)
 					.AsQueryable();
 				if (!string.IsNullOrEmpty(request.Params.Name))
-					query = query.Where(x => x.Name.Contains(request.Params.Name));
+					query = query.Where(x => x.Name.Contains(request.Params.Name.ToLower()));
 				if (!string.IsNullOrEmpty(request.Params.UkraineTop))
 					query = query.Where(x => x.UkraineTop != 0);
 				if (!string.IsNullOrEmpty(request.Params.Degree))
@@ -70,20 +70,31 @@ namespace Application.Universities
 						x => queryParams.Any(
 							a => a == x.City.Id.ToString()));
 				}
-				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MinPrice)
+				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId)
+					&& !string.IsNullOrEmpty(request.Params.MinPrice)
 					&& int.TryParse(request.Params.MinPrice, out int min))
-					query = query.Where(x => x.Specialties
-						.FirstOrDefault(x => x.SpecialtyBase.Id == request.Params.SpecialtyBaseId)
-						.PriceUAH >= min);
+				{
+					var queryParams = request.Params.SpecialtyBaseId.Split('_', StringSplitOptions.RemoveEmptyEntries);
+					query = query.Where(
+						x => x.Specialties.Any(
+							y => y.SpecialtyBase != null && queryParams.Any(a => a == y.SpecialtyBase.Id) && y.PriceUAH >= min));
+				}
 				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.MaxPrice)
 					&& int.TryParse(request.Params.MaxPrice, out int max))
-					query = query.Where(x => x.Specialties
-						.FirstOrDefault(x => x.SpecialtyBase.Id == request.Params.SpecialtyBaseId)
-						.PriceUAH <= max);
-				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.BudgetAllowed))
-					query = query.Where(x => x.Specialties
-						.FirstOrDefault(x => x.SpecialtyBase.Id == request.Params.SpecialtyBaseId)
-						.BudgetAllowed == bool.Parse(request.Params.BudgetAllowed));
+				{
+					var queryParams = request.Params.SpecialtyBaseId.Split('_', StringSplitOptions.RemoveEmptyEntries);
+					query = query.Where(
+						x => x.Specialties.Any(
+							y => y.SpecialtyBase != null && queryParams.Any(a => a == y.SpecialtyBase.Id) && y.PriceUAH <= max));
+				}
+				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId) && !string.IsNullOrEmpty(request.Params.BudgetAllowed)
+					&& bool.TryParse(request.Params.BudgetAllowed, out bool budget))
+				{
+					var queryParams = request.Params.SpecialtyBaseId.Split('_', StringSplitOptions.RemoveEmptyEntries);
+					query = query.Where(
+						x => x.Specialties.Any(
+							y => y.SpecialtyBase != null && queryParams.Any(a => a == y.SpecialtyBase.Id) && y.BudgetAllowed == budget));
+				}
 				return Result<PagedList<UniversityDto>>.Success(
 					await PagedList<UniversityDto>.CreateAsync(
 						query

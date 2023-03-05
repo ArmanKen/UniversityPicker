@@ -2482,7 +2482,6 @@ namespace Persistence
 					},
 				};
 				await context.Isceds.AddRangeAsync(isceds);
-				await context.SaveChangesAsync();
 				var disciplines = new List<Discipline>
 				{
 					new Discipline
@@ -2639,7 +2638,6 @@ namespace Persistence
 					},
 				};
 				await context.Disciplines.AddRangeAsync(disciplines);
-				await context.SaveChangesAsync();
 				var specialtyBases = new List<SpecialtyBase>
 				{
 					new SpecialtyBase
@@ -2648,7 +2646,7 @@ namespace Persistence
 						Name="Освітні, педагогічні науки",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0111"),
+							isceds.FirstOrDefault(x => x.Id == "0111"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2658,7 +2656,7 @@ namespace Persistence
 						Name="Дошкільна освіта",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0112"),
+							isceds.FirstOrDefault(x => x.Id == "0112"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2668,7 +2666,7 @@ namespace Persistence
 						Name="Початкова освіта",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0113"),
+							isceds.FirstOrDefault(x => x.Id == "0113"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2678,7 +2676,7 @@ namespace Persistence
 						Name="Середня освіта (за предметними спеціальностями)",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0114"),
+							isceds.FirstOrDefault(x => x.Id == "0114"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2688,7 +2686,7 @@ namespace Persistence
 						Name="Професійна освіта (за спеціалізаціями)",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0114"),
+							isceds.FirstOrDefault(x => x.Id == "0114"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2698,7 +2696,7 @@ namespace Persistence
 						Name="Спеціальна освіта",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0113"),
+							isceds.FirstOrDefault(x => x.Id == "0113"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2708,7 +2706,7 @@ namespace Persistence
 						Name="Фізична культура і спорт",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1014"),
+							isceds.FirstOrDefault(x => x.Id == "1014"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2718,7 +2716,7 @@ namespace Persistence
 						Name="Аудіовізуальне мистецтво та виробництво",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0211"),
+							isceds.FirstOrDefault(x => x.Id == "0211"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2728,7 +2726,7 @@ namespace Persistence
 						Name="Дизайн",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0212"),
+							isceds.FirstOrDefault(x => x.Id == "0212"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2738,8 +2736,8 @@ namespace Persistence
 						Name="Образотворче мистецтво, декоративне мистецтво, реставрація",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0213"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0214"),
+							isceds.FirstOrDefault(x => x.Id == "0213"),
+							isceds.FirstOrDefault(x => x.Id == "0214"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2749,7 +2747,7 @@ namespace Persistence
 						Name="Хореографія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0215"),
+							isceds.FirstOrDefault(x => x.Id == "0215"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2759,7 +2757,7 @@ namespace Persistence
 						Name="Музичне мистецтво",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0215"),
+							isceds.FirstOrDefault(x => x.Id == "0215"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2769,7 +2767,7 @@ namespace Persistence
 						Name="Сценічне мистецтво",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0215"),
+							isceds.FirstOrDefault(x => x.Id == "0215"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2779,7 +2777,7 @@ namespace Persistence
 						Name="Музеєзнавство, пам’яткознавство",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0322"),
+							isceds.FirstOrDefault(x => x.Id == "0322"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2789,7 +2787,7 @@ namespace Persistence
 						Name="Менеджмент соціокультурної діяльності",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0413"),
+							isceds.FirstOrDefault(x => x.Id == "0413"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2799,8 +2797,8 @@ namespace Persistence
 						Name="Інформаційна, бібліотечна та архівна справа",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0322"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0415"),
+							isceds.FirstOrDefault(x => x.Id == "0322"),
+							isceds.FirstOrDefault(x => x.Id == "0415"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2810,7 +2808,7 @@ namespace Persistence
 						Name="Релігієзнавство",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0221"),
+							isceds.FirstOrDefault(x => x.Id == "0221"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2820,7 +2818,7 @@ namespace Persistence
 						Name="Історія та археологія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0222"),
+							isceds.FirstOrDefault(x => x.Id == "0222"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2830,7 +2828,7 @@ namespace Persistence
 						Name="Філософія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0223"),
+							isceds.FirstOrDefault(x => x.Id == "0223"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2840,7 +2838,7 @@ namespace Persistence
 						Name="Культурологія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0314"),
+							isceds.FirstOrDefault(x => x.Id == "0314"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2850,8 +2848,8 @@ namespace Persistence
 						Name="Філологія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0231"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0232"),
+							isceds.FirstOrDefault(x => x.Id == "0231"),
+							isceds.FirstOrDefault(x => x.Id == "0232"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2861,7 +2859,7 @@ namespace Persistence
 						Name="Богослов’я",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0221"),
+							isceds.FirstOrDefault(x => x.Id == "0221"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2871,7 +2869,7 @@ namespace Persistence
 						Name="Економіка",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0311"),
+							isceds.FirstOrDefault(x => x.Id == "0311"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2881,7 +2879,7 @@ namespace Persistence
 						Name="Політологія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0312"),
+							isceds.FirstOrDefault(x => x.Id == "0312"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2891,7 +2889,7 @@ namespace Persistence
 						Name="Психологія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0313"),
+							isceds.FirstOrDefault(x => x.Id == "0313"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2901,7 +2899,7 @@ namespace Persistence
 						Name="Соціологія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0314"),
+							isceds.FirstOrDefault(x => x.Id == "0314"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2911,7 +2909,7 @@ namespace Persistence
 						Name="Журналістика",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0321"),
+							isceds.FirstOrDefault(x => x.Id == "0321"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2921,7 +2919,7 @@ namespace Persistence
 						Name="Облік і оподаткування",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0411"),
+							isceds.FirstOrDefault(x => x.Id == "0411"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2931,7 +2929,7 @@ namespace Persistence
 						Name="Фінанси, банківська справа, страхування та фондовий ринок",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0412"),
+							isceds.FirstOrDefault(x => x.Id == "0412"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2941,8 +2939,8 @@ namespace Persistence
 						Name="Менеджмент",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0413"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0415"),
+							isceds.FirstOrDefault(x => x.Id == "0413"),
+							isceds.FirstOrDefault(x => x.Id == "0415"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2952,7 +2950,7 @@ namespace Persistence
 						Name="Маркетинг",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0414"),
+							isceds.FirstOrDefault(x => x.Id == "0414"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2962,8 +2960,8 @@ namespace Persistence
 						Name="Підприємництво та торгівля",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0413"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0416"),
+							isceds.FirstOrDefault(x => x.Id == "0413"),
+							isceds.FirstOrDefault(x => x.Id == "0416"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2973,7 +2971,7 @@ namespace Persistence
 						Name="Право",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0421"),
+							isceds.FirstOrDefault(x => x.Id == "0421"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2983,9 +2981,9 @@ namespace Persistence
 						Name="Біологія та біохімія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0511"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0512"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0522"),
+							isceds.FirstOrDefault(x => x.Id == "0511"),
+							isceds.FirstOrDefault(x => x.Id == "0512"),
+							isceds.FirstOrDefault(x => x.Id == "0522"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -2995,8 +2993,8 @@ namespace Persistence
 						Name="Екологія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0521"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0522"),
+							isceds.FirstOrDefault(x => x.Id == "0521"),
+							isceds.FirstOrDefault(x => x.Id == "0522"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3006,7 +3004,7 @@ namespace Persistence
 						Name="Хімія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0531"),
+							isceds.FirstOrDefault(x => x.Id == "0531"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3016,7 +3014,7 @@ namespace Persistence
 						Name="Науки про Землю",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0532"),
+							isceds.FirstOrDefault(x => x.Id == "0532"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3026,7 +3024,7 @@ namespace Persistence
 						Name="Фізика та астрономія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0533"),
+							isceds.FirstOrDefault(x => x.Id == "0533"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3036,8 +3034,8 @@ namespace Persistence
 						Name="Прикладна фізика та наноматеріали",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0533"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0588"),
+							isceds.FirstOrDefault(x => x.Id == "0533"),
+							isceds.FirstOrDefault(x => x.Id == "0588"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3047,7 +3045,7 @@ namespace Persistence
 						Name="Географія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0314"),
+							isceds.FirstOrDefault(x => x.Id == "0314"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3057,7 +3055,7 @@ namespace Persistence
 						Name="Математика",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0541"),
+							isceds.FirstOrDefault(x => x.Id == "0541"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3067,7 +3065,7 @@ namespace Persistence
 						Name="Статистика",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0542"),
+							isceds.FirstOrDefault(x => x.Id == "0542"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3077,9 +3075,9 @@ namespace Persistence
 						Name="Прикладна математика",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0541"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0588"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0613"),
+							isceds.FirstOrDefault(x => x.Id == "0541"),
+							isceds.FirstOrDefault(x => x.Id == "0588"),
+							isceds.FirstOrDefault(x => x.Id == "0613"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3089,7 +3087,7 @@ namespace Persistence
 						Name="Інженерія програмного забезпечення",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0613"),
+							isceds.FirstOrDefault(x => x.Id == "0613"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3099,7 +3097,7 @@ namespace Persistence
 						Name="Комп’ютерні науки",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0613"),
+							isceds.FirstOrDefault(x => x.Id == "0613"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3109,8 +3107,8 @@ namespace Persistence
 						Name="Комп’ютерна інженерія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0612"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0714"),
+							isceds.FirstOrDefault(x => x.Id == "0612"),
+							isceds.FirstOrDefault(x => x.Id == "0714"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3120,7 +3118,7 @@ namespace Persistence
 						Name="Системний аналіз",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0688"),
+							isceds.FirstOrDefault(x => x.Id == "0688"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3130,8 +3128,8 @@ namespace Persistence
 						Name="Кібербезпека та захист інформації",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0612"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0688"),
+							isceds.FirstOrDefault(x => x.Id == "0612"),
+							isceds.FirstOrDefault(x => x.Id == "0688"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3141,8 +3139,8 @@ namespace Persistence
 						Name="Інформаційні системи та технології",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0611"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0612"),
+							isceds.FirstOrDefault(x => x.Id == "0611"),
+							isceds.FirstOrDefault(x => x.Id == "0612"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3152,7 +3150,7 @@ namespace Persistence
 						Name="Прикладна механіка",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0715"),
+							isceds.FirstOrDefault(x => x.Id == "0715"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3162,9 +3160,9 @@ namespace Persistence
 						Name="Матеріалознавство",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0588"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0715"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0788"),
+							isceds.FirstOrDefault(x => x.Id == "0588"),
+							isceds.FirstOrDefault(x => x.Id == "0715"),
+							isceds.FirstOrDefault(x => x.Id == "0788"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3174,8 +3172,8 @@ namespace Persistence
 						Name="Галузеве машинобудування",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0715"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "0715"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3185,7 +3183,7 @@ namespace Persistence
 						Name="Авіаційна та ракетно-космічна техніка",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3195,7 +3193,7 @@ namespace Persistence
 						Name="Суднобудування",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3205,7 +3203,7 @@ namespace Persistence
 						Name="Металургія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0715"),
+							isceds.FirstOrDefault(x => x.Id == "0715"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3215,7 +3213,7 @@ namespace Persistence
 						Name="Електроенергетика, електротехніка та електромеханіка",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0713"),
+							isceds.FirstOrDefault(x => x.Id == "0713"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3225,8 +3223,8 @@ namespace Persistence
 						Name="Енергетичне машинобудування",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0713"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "0713"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3236,7 +3234,7 @@ namespace Persistence
 						Name="Атомна енергетика",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0713"),
+							isceds.FirstOrDefault(x => x.Id == "0713"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3246,7 +3244,7 @@ namespace Persistence
 						Name="Теплоенергетика",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0713"),
+							isceds.FirstOrDefault(x => x.Id == "0713"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3256,7 +3254,7 @@ namespace Persistence
 						Name="Відновлювані джерела енергії та гідроенергетика",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0713"),
+							isceds.FirstOrDefault(x => x.Id == "0713"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3266,7 +3264,7 @@ namespace Persistence
 						Name="Хімічні технології та інженерія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0711"),
+							isceds.FirstOrDefault(x => x.Id == "0711"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3276,8 +3274,8 @@ namespace Persistence
 						Name="Біотехнології та біоінженерія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0512"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0711"),
+							isceds.FirstOrDefault(x => x.Id == "0512"),
+							isceds.FirstOrDefault(x => x.Id == "0711"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3287,8 +3285,8 @@ namespace Persistence
 						Name="Біомедична інженерія",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0588"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0788"),
+							isceds.FirstOrDefault(x => x.Id == "0588"),
+							isceds.FirstOrDefault(x => x.Id == "0788"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3298,7 +3296,7 @@ namespace Persistence
 						Name="Електроніка",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0714"),
+							isceds.FirstOrDefault(x => x.Id == "0714"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3308,7 +3306,7 @@ namespace Persistence
 						Name="Електронні комунікації та радіотехніка",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0714"),
+							isceds.FirstOrDefault(x => x.Id == "0714"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3318,8 +3316,8 @@ namespace Persistence
 						Name="Авіоніка",
 					Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0714"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "0714"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3330,7 +3328,7 @@ namespace Persistence
 						Name="Автоматизація, комп’ютерно-інтегровані технології та робототехніка",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0714"),
+							isceds.FirstOrDefault(x => x.Id == "0714"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3341,8 +3339,8 @@ namespace Persistence
 						Name="Інформаційно-вимірювальні технології",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0714"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0788"),
+							isceds.FirstOrDefault(x => x.Id == "0714"),
+							isceds.FirstOrDefault(x => x.Id == "0788"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3353,8 +3351,8 @@ namespace Persistence
 						Name="Мікро- та наносистемна техніка",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0714"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0788"),
+							isceds.FirstOrDefault(x => x.Id == "0714"),
+							isceds.FirstOrDefault(x => x.Id == "0788"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3365,7 +3363,7 @@ namespace Persistence
 						Name="Харчові технології",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0721"),
+							isceds.FirstOrDefault(x => x.Id == "0721"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3376,7 +3374,7 @@ namespace Persistence
 						Name="Технології легкої промисловості",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0723"),
+							isceds.FirstOrDefault(x => x.Id == "0723"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3387,7 +3385,7 @@ namespace Persistence
 						Name="Технології захисту навколишнього середовища",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0712"),
+							isceds.FirstOrDefault(x => x.Id == "0712"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3398,7 +3396,7 @@ namespace Persistence
 						Name="Гірництво",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0724"),
+							isceds.FirstOrDefault(x => x.Id == "0724"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3409,7 +3407,7 @@ namespace Persistence
 						Name="Нафтогазова інженерія та технології",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0724"),
+							isceds.FirstOrDefault(x => x.Id == "0724"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3420,8 +3418,8 @@ namespace Persistence
 						Name="Видавництво та поліграфія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0211"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0611"),
+							isceds.FirstOrDefault(x => x.Id == "0211"),
+							isceds.FirstOrDefault(x => x.Id == "0611"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3432,7 +3430,7 @@ namespace Persistence
 						Name="Деревообробні та меблеві технології",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0722"),
+							isceds.FirstOrDefault(x => x.Id == "0722"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3443,7 +3441,7 @@ namespace Persistence
 						Name="Архітектура та містобудування",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0731"),
+							isceds.FirstOrDefault(x => x.Id == "0731"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3454,7 +3452,7 @@ namespace Persistence
 						Name="Будівництво та цивільна інженерія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0732"),
+							isceds.FirstOrDefault(x => x.Id == "0732"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3465,8 +3463,8 @@ namespace Persistence
 						Name="Геодезія та землеустрій",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0532"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0731"),
+							isceds.FirstOrDefault(x => x.Id == "0532"),
+							isceds.FirstOrDefault(x => x.Id == "0731"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3477,7 +3475,7 @@ namespace Persistence
 						Name="Гідротехнічне будівництво, водна інженерія та водні технології",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0732"),
+							isceds.FirstOrDefault(x => x.Id == "0732"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3488,7 +3486,7 @@ namespace Persistence
 						Name="Агрономія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0811"),
+							isceds.FirstOrDefault(x => x.Id == "0811"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3499,7 +3497,7 @@ namespace Persistence
 						Name="Захист і карантин рослин",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0811"),
+							isceds.FirstOrDefault(x => x.Id == "0811"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3510,8 +3508,8 @@ namespace Persistence
 						Name="Садівництво, плодоовочівництво та виноградарство",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0811"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0812"),
+							isceds.FirstOrDefault(x => x.Id == "0811"),
+							isceds.FirstOrDefault(x => x.Id == "0812"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3522,7 +3520,7 @@ namespace Persistence
 						Name="Технологія виробництва і переробки продукції тваринництва",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0811"),
+							isceds.FirstOrDefault(x => x.Id == "0811"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3533,7 +3531,7 @@ namespace Persistence
 						Name="Садово-паркове господарство",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0812"),
+							isceds.FirstOrDefault(x => x.Id == "0812"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3544,7 +3542,7 @@ namespace Persistence
 						Name="Водні біоресурси та аквакультура",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0831"),
+							isceds.FirstOrDefault(x => x.Id == "0831"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3555,8 +3553,8 @@ namespace Persistence
 						Name="Агроінженерія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0888"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "0888"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3567,8 +3565,8 @@ namespace Persistence
 						Name="Ветеринарна медицина",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0841"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1022"),
+							isceds.FirstOrDefault(x => x.Id == "0841"),
+							isceds.FirstOrDefault(x => x.Id == "1022"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3579,7 +3577,7 @@ namespace Persistence
 						Name="Стоматологія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0911"),
+							isceds.FirstOrDefault(x => x.Id == "0911"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3590,7 +3588,7 @@ namespace Persistence
 						Name="Медицина",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0912"),
+							isceds.FirstOrDefault(x => x.Id == "0912"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3601,7 +3599,7 @@ namespace Persistence
 						Name="Медсестринство",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0913"),
+							isceds.FirstOrDefault(x => x.Id == "0913"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3612,7 +3610,7 @@ namespace Persistence
 						Name="Технології медичної діагностики та лікування",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0914"),
+							isceds.FirstOrDefault(x => x.Id == "0914"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3623,7 +3621,7 @@ namespace Persistence
 						Name="Медична психологія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0313"),
+							isceds.FirstOrDefault(x => x.Id == "0313"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3634,9 +3632,9 @@ namespace Persistence
 						Name="Фармація, промислова фармація",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0588"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0711"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0916"),
+							isceds.FirstOrDefault(x => x.Id == "0588"),
+							isceds.FirstOrDefault(x => x.Id == "0711"),
+							isceds.FirstOrDefault(x => x.Id == "0916"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3647,7 +3645,7 @@ namespace Persistence
 						Name="Терапія та реабілітація",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0915"),
+							isceds.FirstOrDefault(x => x.Id == "0915"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3658,7 +3656,7 @@ namespace Persistence
 						Name="Педіатрія",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0912"),
+							isceds.FirstOrDefault(x => x.Id == "0912"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3669,10 +3667,10 @@ namespace Persistence
 						Name="Громадське здоров’я",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0413"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0988"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1021"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1022"),
+							isceds.FirstOrDefault(x => x.Id == "0413"),
+							isceds.FirstOrDefault(x => x.Id == "0988"),
+							isceds.FirstOrDefault(x => x.Id == "1021"),
+							isceds.FirstOrDefault(x => x.Id == "1022"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3683,9 +3681,9 @@ namespace Persistence
 						Name="Соціальна робота",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0921"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0922"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0923"),
+							isceds.FirstOrDefault(x => x.Id == "0921"),
+							isceds.FirstOrDefault(x => x.Id == "0922"),
+							isceds.FirstOrDefault(x => x.Id == "0923"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3696,8 +3694,8 @@ namespace Persistence
 						Name="Соціальне забезпечення",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0413"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0923"),
+							isceds.FirstOrDefault(x => x.Id == "0413"),
+							isceds.FirstOrDefault(x => x.Id == "0923"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3708,7 +3706,7 @@ namespace Persistence
 						Name="Готельно-ресторанна справа",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1013"),
+							isceds.FirstOrDefault(x => x.Id == "1013"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3719,7 +3717,7 @@ namespace Persistence
 						Name="Туризм і рекреація",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1015"),
+							isceds.FirstOrDefault(x => x.Id == "1015"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3730,7 +3728,7 @@ namespace Persistence
 						Name="Державна безпека",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1031"),
+							isceds.FirstOrDefault(x => x.Id == "1031"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3741,7 +3739,7 @@ namespace Persistence
 						Name="Безпека державного кордону",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1031"),
+							isceds.FirstOrDefault(x => x.Id == "1031"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3752,7 +3750,7 @@ namespace Persistence
 						Name="Військове управління (за видами збройних сил)",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1031"),
+							isceds.FirstOrDefault(x => x.Id == "1031"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3763,7 +3761,7 @@ namespace Persistence
 						Name="Забезпечення військ (сил)",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1031"),
+							isceds.FirstOrDefault(x => x.Id == "1031"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3774,7 +3772,7 @@ namespace Persistence
 						Name="Озброєння та військова техніка",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1031"),
+							isceds.FirstOrDefault(x => x.Id == "1031"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3785,7 +3783,7 @@ namespace Persistence
 						Name="Національна безпека (за окремими сферами забезпечення і видами діяльності)***",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1031"),
+							isceds.FirstOrDefault(x => x.Id == "1031"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3796,7 +3794,7 @@ namespace Persistence
 						Name="Управління інформаційною безпекою",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1031"),
+							isceds.FirstOrDefault(x => x.Id == "1031"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3807,7 +3805,7 @@ namespace Persistence
 						Name="Пожежна безпека",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1032"),
+							isceds.FirstOrDefault(x => x.Id == "1032"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3818,7 +3816,7 @@ namespace Persistence
 						Name="Правоохоронна діяльність",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1032"),
+							isceds.FirstOrDefault(x => x.Id == "1032"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3829,8 +3827,8 @@ namespace Persistence
 						Name="Цивільна безпека",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1022"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1032"),
+							isceds.FirstOrDefault(x => x.Id == "1022"),
+							isceds.FirstOrDefault(x => x.Id == "1032"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3841,8 +3839,8 @@ namespace Persistence
 						Name="Морський та внутрішній водний транспорт****",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1041"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "1041"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3853,8 +3851,8 @@ namespace Persistence
 						Name="Авіаційний транспорт",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1041"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "1041"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3865,9 +3863,9 @@ namespace Persistence
 						Name="Залізничний транспорт",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0732"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1041"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "0732"),
+							isceds.FirstOrDefault(x => x.Id == "1041"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3878,8 +3876,8 @@ namespace Persistence
 						Name="Автомобільний транспорт",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0716"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1041"),
+							isceds.FirstOrDefault(x => x.Id == "0716"),
+							isceds.FirstOrDefault(x => x.Id == "1041"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3890,7 +3888,7 @@ namespace Persistence
 						Name="Транспортні технології (за видами)",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "1041"),
+							isceds.FirstOrDefault(x => x.Id == "1041"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3901,7 +3899,7 @@ namespace Persistence
 						Name="Публічне управління та адміністрування",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0413"),
+							isceds.FirstOrDefault(x => x.Id == "0413"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3912,9 +3910,9 @@ namespace Persistence
 						Name="Міжнародні відносини, суспільні комунікації та регіональні студії",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0312"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0314"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0388"),
+							isceds.FirstOrDefault(x => x.Id == "0312"),
+							isceds.FirstOrDefault(x => x.Id == "0314"),
+							isceds.FirstOrDefault(x => x.Id == "0388"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3925,8 +3923,8 @@ namespace Persistence
 						Name="Міжнародні економічні відносини",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0311"),
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0312"),
+							isceds.FirstOrDefault(x => x.Id == "0311"),
+							isceds.FirstOrDefault(x => x.Id == "0312"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
@@ -3937,20 +3935,20 @@ namespace Persistence
 						Name="Міжнародне право",
 						Isceds = new List<Isced>
 						{
-							await context.Isceds.FirstOrDefaultAsync(x => x.Id == "0421"),
+							isceds.FirstOrDefault(x => x.Id == "0421"),
 						},
 						AllDisciplines = new List<Discipline>(disciplines)
 					},
 				};
 				await context.SpecialtyBases.AddRangeAsync(specialtyBases);
-				await context.SaveChangesAsync();
+				var citiesList = await context.Cities.ToListAsync();
 				var universities = new List<University>
 				{
 					new University
 					{
 						Name = "Львівський національний медичний університет імені Данила Галицького",
 						Info = "Львівський національний медичний університет імені Данила Галицького (ЛНМУ; лат. Universitatis Medicinalis Leopoliensis) — один з найбільших та найстаріших медичних навчальних закладів України. Готує спеціалістів за напрямами: медицина, медико-профілактична справа, стоматологія та фармація. За даними міжнародної бази Scopus університет посідає перше місце серед медичних вишів України",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Львів"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Львів"),
 						StudentsCount = 5150,
 						Address = "вул. Пекарська, 69",
 						Website = "new.meduniv.lviv.ua",
@@ -3961,7 +3959,7 @@ namespace Persistence
 					{
 						Name = "Київський національний університет імені Тараса Шевченка",
 						Info = "державний заклад вищої освіти України, розташований у місті Києві. За рейтингами ВНЗ, на 2020 рік посідав 1 місце і є найбільшим університетом за кількістю студентів і спеціальностей. З 2009 до 2014 року мав статус автономного дослідницького університету",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Київ"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 						StudentsCount = 32000,
 						Address = "вул. Володимирська, 60",
 						Website = "knu.ua",
@@ -3972,7 +3970,7 @@ namespace Persistence
 					{
 						Name = "Буковинський державний медичний університет",
 						Info = "один із найбільших закладів вищої освіти м. Чернівці. Це сучасний багатопрофільний заклад вищої медичної освіти, включений до загального реєстру Всесвітньої організації охорони здоров'я, Великої Хартії університетів, Європейської асоціації університету, що здійснює підготовку здобувачів вищої освіти за ступеневою системою освіти. ",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Чернівці"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Чернівці"),
 						StudentsCount = 5284,
 						Address = "Театральна площа, 2",
 						Website = "www.bsmu.edu.ua",
@@ -3983,7 +3981,7 @@ namespace Persistence
 					{
 						Name = "Тернопільський національний медичний університет",
 						Info = "державний заклад вищої освіти України, розташований у місті Києві. За рейтингами ВНЗ, на 2020 рік посідав 1 місце і є найбільшим університетом за кількістю студентів і спеціальностей. З 2009 до 2014 року мав статус автономного дослідницького університету",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Тернопіль"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Тернопіль"),
 						StudentsCount = 6530,
 						Address = "Майдан Волі, 1",
 						Website = "tdmu.edu.ua",
@@ -3994,7 +3992,7 @@ namespace Persistence
 					{
 						Name = "Львівський національний університет імені Івана Франка",
 						Info = "один із найстаріших університетів України й Східної Європи та найпрестижніших в Україні. Є спадкоємцем колегіуму (1608—1661) та академії (1661—1773) єзуїтів, Йосифинського університету (1784—1805), Львівського ліцею (1805—1817), Університету Франца I (1817—1918), Львівського університету Яна-Казимира (1919—1939), Львівського державного університету імені Івана Франка (1939—1999).",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Львів"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Львів"),
 						StudentsCount = 25000,
 						Address = "вул. Університетська, 1",
 						Website = "lnu.edu.ua",
@@ -4005,7 +4003,7 @@ namespace Persistence
 					{
 						Name = "Національний університет «Києво-Могилянська академія»",
 						Info = "Національний університет «Києво-Могилянська академія» це заклад вищої освіти в Україні. Заснований 1615 року. Розміщується в корпусах історичної Києво-Могилянської академії, від якої отримав свою назву. Університетське містечко розташоване на Подолі в Києві, між Контрактовою площею та набережною Дніпра. ",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Київ"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 						StudentsCount = 4422,
 						Address = "вулиця Григорія Сковороди, 2",
 						Website = "www.ukma.edu.ua",
@@ -4016,7 +4014,7 @@ namespace Persistence
 					{
 						Name = "Державний торговельно-економічний університет",
 						Info = "вищий навчальний заклад Міністерства освіти і науки України в Києві, Україна. Заснований як Київський філіал Всесоюзного заочного інституту радянської торгівлі в 1946 році. Знаходиться у Деснянському районі на території Лісового масиву між вулицями Кіото і Мілютенка.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Київ"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 						StudentsCount = 36600,
 						Address = "вулиця Кіото, 19",
 						Website = "knute.edu.ua",
@@ -4027,7 +4025,7 @@ namespace Persistence
 					{
 						Name = "Прикарпатський національний університет імені Василя Стефаника",
 						Info = "Прикарпатський національний університет імені Василя Стефаника є одним з найстаріших вищих навчальних закладів Івано-Франківської області. Згідно з указом Президента України від 26 серпня 1992 р. його створено на базі педагогічного інституту, заснованого 1940 р. ",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Івано-Франківськ"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Івано-Франківськ"),
 						StudentsCount = 18000,
 						Address = "вулиця Шевченка, 57",
 						Website = "pnu.edu.ua",
@@ -4038,7 +4036,7 @@ namespace Persistence
 					{
 						Name = "Національний технічний університет «Дніпровська політехніка»",
 						Info = "Національний технічний університет «Дніпро́вська політе́хніка» — державний заклад вищої освіти, багатогалузевий технічний університет, найстаріший заклад вищої освіти в м. Дніпро, перший заклад вищої гірничої освіти України. Має статус національного.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Дніпро"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Дніпро"),
 						StudentsCount = 8260,
 						Address = "проспект Дмитра Яворницького, 19",
 						Website = "nmu.org.ua",
@@ -4049,7 +4047,7 @@ namespace Persistence
 					{
 						Name = "Київський національний університет технологій та дизайну",
 						Info = "Ки́ївський націона́льний університе́т техноло́гій та диза́йну — вищий навчальний заклад в Україні IV рівня акредитації, заснований 1930 року. В університеті навчається більше 10 тис. Київський національний університет технологій та дизайну увійшов у рейтинг «ТОР-100 кращих дизайнерських шкіл світу» і посів 71 місце.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Київ"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 						StudentsCount = 15000,
 						Address = "вулиця Немировича-Данченка, 2",
 						Website = "knutd.com.ua",
@@ -4060,7 +4058,7 @@ namespace Persistence
 					{
 						Name = "Волинський національний університет імені Лесі Українки",
 						Info = "державний вищий навчальний заклад IV рівня акредитації у місті Луцьк, Україна. Заснований у 1940 році, впродовж історії змінював назви: Луцький державний учительський інститут, Луцький державний педагогічний інститут; у статусі університету мав назви Волинського державного, Волинського національного і Східноєвропейського національного. З 2020 року повернув назву Волинський національний університет. Названий на честь письменниці Лесі Українки.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Луцьк"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Луцьк"),
 						StudentsCount = 12369,
 						Address = "проспект Волі, 13",
 						Website = "vnu.edu.ua",
@@ -4071,7 +4069,7 @@ namespace Persistence
 					{
 						Name = "Національний університет «Полтавська політехніка імені Юрія Кондратюка»",
 						Info = "Університет володіє сучасними матеріально-технічними ресурсами. 9 навчальних корпусів із загальною площею 87 000 м², безпечні сприятливі умови для високоякісного навчання. Бібліотека налічує приблизно 500 тисяч одиниць літератури, 5 читальних залів з 400 місцями, 55 навчальних лабораторій та 10 науково-дослідницьких, споряджених стаціонарним обладнанням, 26 комп'ютерних класів у розпорядженні студентів і викладачів. ",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Полтава"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Полтава"),
 						StudentsCount = 10000,
 						Address = "Першотравневий проспект, 24",
 						Website = "nupp.edu.ua",
@@ -4082,7 +4080,7 @@ namespace Persistence
 					{
 						Name = "Дніпропетровський державний університет внутрішніх справ",
 						Info = "Університет заснований 16 березня 1966, як Дніпропетровська спеціальна середня школа міліції МВС СРСР. В 1992 вона була реорганізована в Дніпропетровське училище міліції МВС України. 1 вересня 1997 училище міліції було перетворено у вищий навчальний заклад — Дніпропетровський юридичний інститут МВС України. 1998 р. заклад з вул. Артема, 147 переїхав до приміщень колишнього Дніпропетровського військового зенітно-ракетного училища за адресою просп. Гагарина, 26. ",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Дніпро"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Дніпро"),
 						StudentsCount = 0,
 						Address = "проспект Гагаріна, 26",
 						Website = "dduvs.in.ua",
@@ -4093,7 +4091,7 @@ namespace Persistence
 					{
 						Name = "Запорізький державний медичний університет",
 						Info = "Запорізький державний медичний університет — заклад вищої освіти в Україні. Запорізький державний медичний університет — це сучасний навчальний центр, що має вищий (IV) ступінь акредитації. Університет — один з найстаріших вищих медичних навчальних закладів України.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Запоріжжя"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Запоріжжя"),
 						StudentsCount = 8879,
 						Address = "проспект Маяковського, 26",
 						Website = "www.zsmu.edu.ua",
@@ -4104,7 +4102,7 @@ namespace Persistence
 					{
 						Name = "Чернівецький національний університет імені Юрія Федьковича",
 						Info = "Чернівецький національний університет імені Юрія Федьковича — державний вищий заклад освіти 4-го рівня акредитації у місті Чернівці.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Чернівці"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Чернівці"),
 						StudentsCount = 19227,
 						Address = "вулиця Коцюбинського, 2",
 						Website = "www.chnu.edu.ua",
@@ -4115,7 +4113,7 @@ namespace Persistence
 					{
 						Name = "Національний університет біоресурсів і природокористування України",
 						Info = "Націона́льний університе́т біоресу́рсів і природокористува́ння Украї́ни, є провідним вищим аграрним закладом освіти України. З 2009 до 2014 року мав статус автономного дослідницького університету. Розташований у місті Києві. ",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Київ"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 						StudentsCount = 0,
 						Address = "вулиця Героїв Оборони, 15",
 						Website = "www.nubip.edu.ua",
@@ -4126,7 +4124,7 @@ namespace Persistence
 					{
 						Name = "Західноукраїнський національний універиситет",
 						Info = "Західноукраїнський національний університет — вищий навчальний заклад України IV-го рівня акредитації в м. Тернополі. Університет здійснює підготовку майже 25 тисяч студентів на всіх рівнях вищої освіти. ЗУНУ є підписантом Великої хартії університетів та членом Асоціації європейських університетів.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Тернопіль"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Тернопіль"),
 						StudentsCount = 14963,
 						Address = "вулиця Львівська, 11",
 						Website = "wunu.edu.ua",
@@ -4137,7 +4135,7 @@ namespace Persistence
 					{
 						Name = "Національний педагогічний університет імені М. П. Драгоманова",
 						Info = "З осені 1989 року колектив вишу став активно домагатися повернення інститутові несправедливо відібраного в середині 20-х років імені Михайла Петровича Драгоманова. Це питання постійно стало порушуватися на зборах викладачів і студентів, засіданнях ради інституту і рад філологічного, історичного, педагогічного та інших факультетів й у статтях в періодичній пресі. Усі ці вимоги й акції завершилися перемогою справедливості: в 1993 році інститутові було повернуто ім'я видатного українського вченого-енциклопедиста, борця за вільну українську школу М. П. Драгоманова. ",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Київ"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 						StudentsCount = 36000,
 						Address = "вулиця Пирогова, 9",
 						Website = "www.npu.edu.ua",
@@ -4148,7 +4146,7 @@ namespace Persistence
 					{
 						Name = "Хмельницький національний університет",
 						Info = "вищий навчальний заклад на Поділлі, який готує спеціалістів із багатьох галузей знань і проводить навчальну, методичну, наукову та виховну роботу. Університет засновано 1962 року. Пройшов шлях від загальнотехнічного факультету Українського поліграфічного інституту до Хмельницького національного університету, який має найвищий IV рівень акредитації. ",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Хмельницький"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Хмельницький"),
 						StudentsCount = 9759,
 						Address = "вулиця Інститутська, 11",
 						Website = "khnu.km.ua",
@@ -4159,7 +4157,7 @@ namespace Persistence
 					{
 						Name = "Вінницький національний технічний університет",
 						Info = "український заклад вищої освіти четвертого рівня акредитації, який здійснює підготовку фахівців інженерно-технічного профілю. Заклад є центром освіти, науки та культури Подільського регіону. ",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Вінниця"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Вінниця"),
 						StudentsCount = 6000,
 						Address = "Хмельницьке шосе, 95",
 						Website = "vntu.edu.ua",
@@ -4170,7 +4168,7 @@ namespace Persistence
 					{
 						Name = "Житомирський державний університет імені Івана Франка",
 						Info = "найстаріший вищий навчальний заклад Житомирщини. Заснований у 1919 році як «Волинський педагогічний інститут».",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Житомир"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Житомир"),
 						StudentsCount = 4456,
 						Address = "вулиця Велика Бердичівська, 40",
 						Website = "zu.edu.ua",
@@ -4181,7 +4179,7 @@ namespace Persistence
 					{
 						Name = "Харківський політехнічний інститут",
 						Info = "Національний технічний університет «Харківський політехнічний інститут», до 1929 Харківський технологічний інститут, з 1975 Харківський ордена Леніна політехнічний інститут імені В. І. Леніна — заснований в 1885 році в Харкові. Другий технологічний інститут в Російській імперії після санкт-петербурзького.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Харків"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Харків"),
 						StudentsCount = 12000,
 						Address = "вулиця Кирпичова, 2",
 						Website = "kpi.kharkov.ua",
@@ -4192,7 +4190,7 @@ namespace Persistence
 					{
 						Name = "Харківський національний медичний університет",
 						Info = "Ха́рківський націона́льний меди́чний університе́т, раніше Харківський державний медичний інститут. Вищий навчальний заклад, метою якого є підготовка медичних фахівців та підвищення кваліфікації, формування на базі університету науково-виробничого кластеру.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Харків"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Харків"),
 						StudentsCount = 6167,
 						Address = "проспект Науки, 4",
 						Website = "knmu.edu.ua",
@@ -4203,7 +4201,7 @@ namespace Persistence
 					{
 						Name = "Ужгородський національний університет",
 						Info = "Ужгородський національний університет є членом Асоціації університетів Карпатського регіону (ACRU), яка входить до Асоціації європейських університетів (EUA) та є асоційованим членом Міжнародної асоціації університетів (IAU). Виш співпрацює зі 125 партнерами з різних країн, зокрема з такими, як Карлів університет, Технічний університет у м. Прага (Чехія), Університет Корвіна, Університет держави і права ім. Л.Кошута (Угорщина), Кошицький університет ім. П. Й. Шафарика, Університет ім. Я. А. Коменського (Словаччина), Університет м. Орадеа, Клузький університет м. Бабеш-Бояї (Румунія), Інститут германістики Університету м. Ландау, Університет Регенсбургу (Німеччина), Асоціація гомеопатичної медицини м. Рим (Італія), Загребський університет (Хорватія), Словацьким медичним університетом (Братислава) та іншими. У 2020 році укладено 7 нових міжнародних білатеральних угод, 7 угод з реалізації міжнародних проєктів та 8 угод з метою супроводу академічної мобільності Erasmus+.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Ужгород"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Ужгород"),
 						StudentsCount = 14460,
 						Address = "вулиця Університетська, 14",
 						Website = "uzhnu.edu.ua",
@@ -4214,7 +4212,7 @@ namespace Persistence
 					{
 						Name = "Національний університет «Львівська Політехніка»",
 						Info = "найстаріший технічний заклад вищої освіти України та Східної Європи, заснований у 1816 році як Реальна школа з дозволу австрійського імператора Франца І.",
-						City = await context.Cities.FirstOrDefaultAsync(x => x.Name == "Львів"),
+						City = citiesList.FirstOrDefault(x => x.Name == "Львів"),
 						StudentsCount = 35000,
 						Address = "вул. Степана Бандери, 12",
 						Website = "lp.edu.ua",
@@ -4222,14 +4220,13 @@ namespace Persistence
 					},
 				};
 				await context.Universities.AddRangeAsync(universities);
-				await context.SaveChangesAsync();
-				foreach (var item in context.Universities)
+				foreach (var item in universities)
 				{
 					var specialties = new List<Specialty>
 					{
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "122"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "122"),
 							Description = "Загальна освіта в галузі інформаційних технологій, спеціалізація «Комп’ютерні науки».Ключові слова: програмування, алгоритмізація, моделювання,комп’ютерна обробка даних, обчислювальні системи та технології,нечіткі моделі, Machine Learning, Big Data Processing, програмування на C#, C++, Python, Java, комп’ютерні мережі, розподілені серверні системи, розподілені та паралельні обчислення, нечіткі моделі та мережі, методи обчислювального інтелекту.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
@@ -4240,7 +4237,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "081"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
 							Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
 							EctsCredits = 60,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
@@ -4251,7 +4248,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "081"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
 							Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
@@ -4262,7 +4259,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "125"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "125"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 180,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
@@ -4273,7 +4270,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "121"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "121"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
@@ -4284,7 +4281,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "123"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "123"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
@@ -4295,7 +4292,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "124"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "124"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
@@ -4306,7 +4303,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "112"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "112"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
@@ -4318,7 +4315,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "111"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "111"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
@@ -4329,7 +4326,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "076"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "076"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
@@ -4340,7 +4337,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "073"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "073"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
@@ -4351,7 +4348,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "141"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "141"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
@@ -4362,7 +4359,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "142"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "142"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
@@ -4373,7 +4370,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "143"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "143"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
@@ -4384,7 +4381,7 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "144"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "144"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
@@ -4396,14 +4393,14 @@ namespace Persistence
 						},
 						new Specialty
 						{
-							SpecialtyBase = await context.SpecialtyBases.FirstOrDefaultAsync(x => x.Id == "145"),
+							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "145"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
 							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
-							University = item,
+							University = item
 						},
 					};
 					var comments = new List<Comment>
@@ -4453,57 +4450,58 @@ namespace Persistence
 					};
 					await context.Comments.AddRangeAsync(comments);
 					await context.Specialties.AddRangeAsync(specialties.Skip(new Random().Next(0, 8)).Skip(new Random().Next(0, 8)));
-					await context.SaveChangesAsync();
+
 				}
+				await context.SaveChangesAsync();
 				foreach (var item in context.Specialties)
 				{
 					var specialtyDisciplinesLaw = new List<SpecialtyDiscipline>
 					{
 						new SpecialtyDiscipline
 						{
-							Discipline = await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Цивільне право"),
+							Discipline = disciplines.FirstOrDefault(x => x.Name == "Цивільне право"),
 							EctsCredits=12,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline= await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Правові висновки Верховного Cуду"),
+							Discipline= disciplines.FirstOrDefault(x => x.Name == "Правові висновки Верховного Cуду"),
 							EctsCredits=6,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Альтернативні способи вирішення суперечок"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Альтернативні способи вирішення суперечок"),
 							EctsCredits=6,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Нотаріальний процес"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Нотаріальний процес"),
 							EctsCredits=6,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Порівняльне цивільне право і процес"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Порівняльне цивільне право і процес"),
 							EctsCredits=6,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Школа прикладної юриспруденції"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Школа прикладної юриспруденції"),
 							EctsCredits=18,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Практична підготовка"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Практична підготовка"),
 							EctsCredits=12,
 							IsOptional=false,
 							Specialty=item,
@@ -4513,114 +4511,112 @@ namespace Persistence
 					{
 						new SpecialtyDiscipline
 						{
-							Discipline = await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Вступ до комп'ютерних наук"),
+							Discipline = disciplines.FirstOrDefault(x => x.Name == "Вступ до комп'ютерних наук"),
 							EctsCredits=12,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline= await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Дискретна математика"),
+							Discipline= disciplines.FirstOrDefault(x => x.Name == "Дискретна математика"),
 							EctsCredits=6,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Фізика"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Фізика"),
 							EctsCredits=6,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Математичний аналіз"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Математичний аналіз"),
 							EctsCredits=6,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Комп'ютерні технології обробки та візуалізації даних"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Комп'ютерні технології обробки та візуалізації даних"),
 							EctsCredits=6,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Алгоритмізація та програмування"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Алгоритмізація та програмування"),
 							EctsCredits=18,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Оптимізаційні методи та моделі"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Оптимізаційні методи та моделі"),
 							EctsCredits=12,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Філософія"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Філософія"),
 							EctsCredits=6,
 							IsOptional=true,
 							Specialty=item
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Адміністрування серверних систем"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Адміністрування серверних систем"),
 							EctsCredits=6,
 							IsOptional=true,
 							Specialty=item
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Організація баз даних та знань"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Організація баз даних та знань"),
 							EctsCredits=6,
 							IsOptional=true,
 							Specialty=item
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Архітектура обчислювальних систем"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Архітектура обчислювальних систем"),
 							EctsCredits=6,
 							IsOptional=true,
 							Specialty=item
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Web-технології"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Web-технології"),
 							EctsCredits=6,
 							IsOptional=true,
 							Specialty=item
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Теорія управління в інформаційних системах"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Теорія управління в інформаційних системах"),
 							EctsCredits=12,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Технології аналізу даних"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Технології аналізу даних"),
 							EctsCredits=12,
 							IsOptional=false,
 							Specialty=item,
 						},
 						new SpecialtyDiscipline
 						{
-							Discipline=await context.Disciplines.FirstOrDefaultAsync(x => x.Name == "Безпека життя"),
+							Discipline=disciplines.FirstOrDefault(x => x.Name == "Безпека життя"),
 							EctsCredits=12,
 							IsOptional=false,
 							Specialty=item,
 						},
 					};
 					await context.SpecialtyDisciplines.AddRangeAsync(specialtyDisciplineCyber);
-					await context.SaveChangesAsync();
 					await context.SpecialtyDisciplines.AddRangeAsync(specialtyDisciplinesLaw);
-					await context.SaveChangesAsync();
 				}
 				await context.SaveChangesAsync();
 			}

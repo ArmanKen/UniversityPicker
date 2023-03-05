@@ -28,46 +28,6 @@ body {
 	font-weight: normal;
 }
 
-.ui.menu a.ui.active.button {
-	background-color: black !important;
-}
-
-.pushable:not(body) {
-	-webkit-transform: none !important;
-	-ms-transform: none !important;
-	transform: none !important;
-}
-
-.pushable:not(body)>.ui.sidebar,
-.pushable:not(body)>.fixed,
-.pushable:not(body)>.pusher:after {
-	position: fixed !important;
-	margin-top: 51.4px !important;
-}
-
-.sidebar-color {
-	background-color: #f0f5f4 !important;
-}
-
-.top-menu-color {
-	background-color: rgb(44, 104, 182) !important;
-}
-
-.label-color {
-	background-color: rgb(218, 183, 27) !important;
-}
-
-.custom-header {
-	width: 100% !important;
-	font-size: 1.15em !important;
-	color: black !important;
-	font-weight: 550 !important;
-}
-
-.custom-grid {
-	padding: 0 !important;
-}
-
 .centered {
 	display: block !important;
 	margin-top: auto !important;
@@ -76,30 +36,8 @@ body {
 	margin-right: auto !important;
 }
 
-.custom-accordion {
-	width: 100% !important;
-	font-size: 1.1em !important;
-	color: black !important;
-	font-weight: 550 !important;
-}
-
-.disabled.title {
-	cursor: default !important;
-	background-color: #f0f5f4 !important;
-	color: rgba(0, 0, 0, 0.4) !important;
-	opacity: 0.3 !important;
-	background-image: none !important;
-	box-shadow: none !important;
-	pointer-events: none !important;
-}
-
-.undobutton {
-	margin-top: -9px !important;
-	margin-right: -2px !important;
-}
-
-.custom-input {
-	color: black !important;
-	max-width: 85px !important;
-	font-size: 0.95em !important;
+.square {
+	height: 40px !important;
+	width: 60px !important;
+	background-color: #ffae00 !important;
 }

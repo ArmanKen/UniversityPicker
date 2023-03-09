@@ -8,15 +8,13 @@ namespace Application.Core
 	{
 		public MappingProfiles()
 		{
-			string[] SpecialtyBaseId = null;
 			CreateMap<University, UniversityDto>()
 				.ForMember(x => x.Region, o => o.MapFrom(x => x.City != null ? x.City.Region.Name : null))
 				.ForMember(x => x.City, o => o.MapFrom(x => x.City != null ? x.City.Name : null))
-				.ForMember(x => x.Rating, o => o.MapFrom(x => x.Comments.Count() > 0 ? x.Comments.Average(x => x.Rating) : 0))
-				.ForMember(x => x.PriceUAH, o => o.MapFrom(x => SpecialtyBaseId.Length == 1 && !string.IsNullOrEmpty(SpecialtyBaseId[0]) ?
-					x.Specialties.FirstOrDefault(x => x.SpecialtyBase.Id == SpecialtyBaseId[0]).PriceUAH : 0));
+				.ForMember(x => x.Rating, o => o.MapFrom(x => x.Comments.Count() > 0 ? x.Comments.Average(x => x.Rating) : 0));
 			CreateMap<Specialty, SpecialtyDto>()
 				.ForMember(x => x.Name, o => o.MapFrom(x => x.SpecialtyBase.Name))
+				.ForMember(x => x.Degree, o => o.MapFrom(x => x.Degree.Name))
 				.ForMember(x => x.SpecialtyBaseId, o => o.MapFrom(x => x.SpecialtyBase.Id))
 				.ForMember(x => x.Isceds, o => o.MapFrom(x => x.SpecialtyBase.Isceds));
 			CreateMap<Discipline, DisciplineDto>();
@@ -31,6 +29,7 @@ namespace Application.Core
 			CreateMap<Isced, IscedDto>();
 			CreateMap<AppUser, Application.DTOs.Profile>()
 				.ForMember(d => d.Photo, o => o.MapFrom(x => x.Photo != null ? x.Photo : null))
+				.ForMember(d => d.Degree, o => o.MapFrom(x => x.Degree.Name))
 				.ForMember(d => d.University, o => o.MapFrom(s => s.University));
 			CreateMap<SelectedUniversity, UniversityDto>()
 				.ForMember(x => x.Address, o => o.MapFrom(x => x.University.Address))

@@ -52,8 +52,8 @@ namespace Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<string>("Degree")
-                        .HasColumnType("text");
+                    b.Property<int?>("DegreeId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("text");
@@ -111,6 +111,8 @@ namespace Persistence.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DegreeId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -177,6 +179,22 @@ namespace Persistence.Migrations
                     b.HasIndex("UniversityId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Domain.Degree", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Degrees");
                 });
 
             modelBuilder.Entity("Domain.Discipline", b =>
@@ -266,8 +284,8 @@ namespace Persistence.Migrations
                     b.Property<bool>("BudgetAllowed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Degree")
-                        .HasColumnType("text");
+                    b.Property<int?>("DegreeId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -291,6 +309,8 @@ namespace Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DegreeId");
 
                     b.HasIndex("SpecialtyBaseId");
 
@@ -554,6 +574,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
+                    b.HasOne("Domain.Degree", "Degree")
+                        .WithMany()
+                        .HasForeignKey("DegreeId");
+
                     b.HasOne("Domain.Photo", "Photo")
                         .WithMany()
                         .HasForeignKey("PhotoId");
@@ -561,6 +585,8 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.University", "University")
                         .WithMany()
                         .HasForeignKey("UniversityId");
+
+                    b.Navigation("Degree");
 
                     b.Navigation("Photo");
 
@@ -620,6 +646,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Specialty", b =>
                 {
+                    b.HasOne("Domain.Degree", "Degree")
+                        .WithMany()
+                        .HasForeignKey("DegreeId");
+
                     b.HasOne("Domain.SpecialtyBase", "SpecialtyBase")
                         .WithMany("Specialties")
                         .HasForeignKey("SpecialtyBaseId");
@@ -627,6 +657,8 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.University", "University")
                         .WithMany("Specialties")
                         .HasForeignKey("UniversityId");
+
+                    b.Navigation("Degree");
 
                     b.Navigation("SpecialtyBase");
 

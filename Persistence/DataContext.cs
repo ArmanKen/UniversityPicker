@@ -21,6 +21,7 @@ public class DataContext : IdentityDbContext<AppUser>
 	public DbSet<Photo> Photos { get; set; }
 	public DbSet<Comment> Comments { get; set; }
 	public DbSet<Isced> Isceds { get; set; }
+	public DbSet<Degree> Degrees { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{

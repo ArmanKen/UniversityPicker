@@ -2,7 +2,6 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import HomePage from '../../features/home/HomePage';
 import ModalContainer from '../common/modals/ModalContainer';
 import { Container, Grid } from 'semantic-ui-react';
 import NotFound from '../../features/errors/NotFound';
@@ -17,7 +16,6 @@ function App() {
 			<ToastContainer position='bottom-right' hideProgressBar />
 			<ModalContainer />
 			<Routes>
-				<Route path='' element={<HomePage />} />
 				<Route path='/*' element={
 					<Grid>
 						<Grid.Row>
@@ -25,7 +23,7 @@ function App() {
 						</Grid.Row>
 						<Container style={{ marginTop: 75, width: '97%' }}>
 							<Routes>
-								<Route path='/universities' element={<UniversityDashboard />} />
+								<Route path='/' element={<UniversityDashboard />} />
 								<Route path='/errors' element={<TestErrors />} />
 								<Route path='/server-error' element={<ServerError />} />
 								<Route path='/*' element={<NotFound />} />

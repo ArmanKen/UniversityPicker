@@ -24,17 +24,17 @@ export default class MenuStore {
 		this.degreeDropdown =
 			[{
 				key: 'junBachelor',
-				value: 'JunBachelor',
+				value: '1',
 				text: 'Молодший Бакалавр'
 			},
 			{
 				key: 'bachelor',
-				value: 'Bachelor',
+				value: '2',
 				text: 'Бакалавр'
 			},
 			{
 				key: 'magister',
-				value: 'Magister',
+				value: '3',
 				text: 'Магістр'
 			}];
 		this.branchesOfKnowlegdeDropdown = BranchesOfKnowledge;

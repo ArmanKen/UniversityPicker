@@ -37,8 +37,8 @@ namespace Application.Specialties
 				var query = university.Specialties
 					.AsQueryable();
 				if (!string.IsNullOrEmpty(request.Params.SearchString))
-					query = query.Where(x => x.SpecialtyBase.Name.Contains(request.Params.SearchString) ||
-						x.SpecialtyBase.Id.Contains(request.Params.SearchString));
+					query = query.Where(x => x.SpecialtyBase.Name.ToLower().Contains(request.Params.SearchString.ToLower()) ||
+						x.SpecialtyBase.Id.ToLower().Contains(request.Params.SearchString.ToLower()));
 				return Result<PagedList<SpecialtyDto>>.Success(
 					PagedList<SpecialtyDto>.Create(
 						query

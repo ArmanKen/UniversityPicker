@@ -10,6 +10,13 @@ namespace Persistence
 		{
 			if (!userManager.Users.Any())
 			{
+				var degrees = new List<Degree>
+				{
+					new Degree{Name="Молодший Бакалавр"},
+					new Degree{Name="Бакалавр"},
+					new Degree{Name="Магістр"}
+				};
+				await context.Degrees.AddRangeAsync(degrees);
 				var users = new List<AppUser>
 				{
 					new AppUser
@@ -42,7 +49,8 @@ namespace Persistence
 				{
 					await userManager.CreateAsync(user, "Pa$$w0rd");
 				}
-				var regions = new List<Region>{
+				var regions = new List<Region>
+				{
 					new Region
 					{
 						Name = "м. Севастополь",
@@ -4229,7 +4237,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "122"),
 							Description = "Загальна освіта в галузі інформаційних технологій, спеціалізація «Комп’ютерні науки».Ключові слова: програмування, алгоритмізація, моделювання,комп’ютерна обробка даних, обчислювальні системи та технології,нечіткі моделі, Machine Learning, Big Data Processing, програмування на C#, C++, Python, Java, комп’ютерні мережі, розподілені серверні системи, розподілені та паралельні обчислення, нечіткі моделі та мережі, методи обчислювального інтелекту.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 80000,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4240,7 +4248,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
 							Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
 							EctsCredits = 60,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 40001,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4251,7 +4259,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
 							Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 100001,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4262,7 +4270,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "125"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 180,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 45021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4273,7 +4281,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "121"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 75021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4284,7 +4292,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "123"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4295,7 +4303,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "124"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 95021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4306,7 +4314,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "112"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 76021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4318,7 +4326,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "111"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 52331,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4329,7 +4337,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "076"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 88754,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4340,7 +4348,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "073"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 87213,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4351,7 +4359,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "141"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4362,7 +4370,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "142"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4373,7 +4381,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "143"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "JunBachelor",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4384,7 +4392,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "144"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,
@@ -4396,7 +4404,7 @@ namespace Persistence
 							SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "145"),
 							Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 							EctsCredits = 240,
-							Degree = new Random().Next(0,2) == 0 ? "Bachelor" : "Magister",
+							Degree = degrees[new Random().Next(0,3)],
 							PriceUAH = 85021,
 							StartYear = 2020,
 							EndYear = 2024,

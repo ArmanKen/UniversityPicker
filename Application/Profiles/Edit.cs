@@ -44,7 +44,7 @@ namespace Application.Profiles
 				user.Bio = request.Bio ?? null;
 				user.Specialty = request.Specialty ?? null;
 				user.University = await _context.Universities.FindAsync(request.UniversityId) ?? null;
-				user.Degree = request.Degree ?? null;
+				user.Degree = await _context.Degrees.FindAsync(request.Degree) ?? null;
 				user.DisplayName = request.DisplayName ?? user.DisplayName;
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to update profile");

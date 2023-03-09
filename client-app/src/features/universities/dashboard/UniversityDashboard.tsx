@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import { Grid, Segment, Transition } from "semantic-ui-react";
+import { Grid, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
-import UniversityList from "./cards/UniversityList";
+import UniversityList from "./UniversityList";
 import { PagingParams } from "../../../app/models/pagination";
 import UniversityFilters from "./filters/UniversityFilters";
 import InfiniteScroll from "react-infinite-scroll-component";

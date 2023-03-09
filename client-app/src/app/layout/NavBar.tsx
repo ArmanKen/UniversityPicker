@@ -16,7 +16,7 @@ export default observer(function NavBar() {
 				style={{ marginLeft: 15 }}>
 				<Header
 					textAlign='center'
-					as={Link} to='universities'>
+					as={Link} to=''>
 					University Picker
 				</Header>
 			</Menu.Item>
@@ -32,7 +32,7 @@ export default observer(function NavBar() {
 			<Menu.Item
 				position='right'>
 				<Dropdown
-					//account
+				//account
 				/>
 			</Menu.Item>
 		</Menu>

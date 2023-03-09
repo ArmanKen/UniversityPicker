@@ -15,7 +15,6 @@ namespace Application.DTOs
 		public string Telephone { get; set; }
 		public int UkraineTop { get; set; }
 		public int StudentsCount { get; set; }
-		public int PriceUAH { get; set; }
 		public Photo TitlePhoto { get; set; }
 	}
 }

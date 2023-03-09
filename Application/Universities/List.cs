@@ -35,11 +35,11 @@ namespace Application.Universities
 					.ThenInclude(x => x.Region)
 					.AsQueryable();
 				if (!string.IsNullOrEmpty(request.Params.Name))
-					query = query.Where(x => x.Name.Contains(request.Params.Name.ToLower()));
+					query = query.Where(x => x.Name.ToLower().Contains(request.Params.Name.ToLower()));
 				if (!string.IsNullOrEmpty(request.Params.UkraineTop))
 					query = query.Where(x => x.UkraineTop != 0);
-				if (!string.IsNullOrEmpty(request.Params.Degree))
-					query = query.Where(x => x.Specialties.Any(x => x.Degree == request.Params.Degree));
+				if (!string.IsNullOrEmpty(request.Params.Degree) && int.TryParse(request.Params.Degree, out int degree))
+					query = query.Where(x => x.Specialties.Any(x => x.Degree.Id == degree));
 				if (!string.IsNullOrEmpty(request.Params.BranchBaseId))
 				{
 					var queryParams = request.Params.BranchBaseId.Split('_', StringSplitOptions.RemoveEmptyEntries);

@@ -25,6 +25,19 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Degrees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Degrees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Disciplines",
                 columns: table => new
                 {
@@ -219,7 +232,7 @@ namespace Persistence.Migrations
                     UniversityId = table.Column<Guid>(type: "uuid", nullable: true),
                     Specialty = table.Column<string>(type: "text", nullable: true),
                     PhotoId = table.Column<string>(type: "text", nullable: true),
-                    Degree = table.Column<string>(type: "text", nullable: true),
+                    DegreeId = table.Column<int>(type: "integer", nullable: true),
                     IsGlobalAdmin = table.Column<bool>(type: "boolean", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -239,6 +252,11 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Degrees_DegreeId",
+                        column: x => x.DegreeId,
+                        principalTable: "Degrees",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -362,12 +380,17 @@ namespace Persistence.Migrations
                     EctsCredits = table.Column<int>(type: "integer", nullable: false),
                     StartYear = table.Column<int>(type: "integer", nullable: false),
                     EndYear = table.Column<int>(type: "integer", nullable: false),
-                    Degree = table.Column<string>(type: "text", nullable: true),
+                    DegreeId = table.Column<int>(type: "integer", nullable: true),
                     UniversityId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Specialties", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Specialties_Degrees_DegreeId",
+                        column: x => x.DegreeId,
+                        principalTable: "Degrees",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Specialties_SpecialtyBases_SpecialtyBaseId",
                         column: x => x.SpecialtyBaseId,
@@ -462,6 +485,11 @@ namespace Persistence.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_DegreeId",
+                table: "AspNetUsers",
+                column: "DegreeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_PhotoId",
                 table: "AspNetUsers",
                 column: "PhotoId");
@@ -511,6 +539,11 @@ namespace Persistence.Migrations
                 name: "IX_SelectedUniversities_UniversityId",
                 table: "SelectedUniversities",
                 column: "UniversityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Specialties_DegreeId",
+                table: "Specialties",
+                column: "DegreeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Specialties_SpecialtyBaseId",
@@ -652,6 +685,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "SpecialtyBases");
+
+            migrationBuilder.DropTable(
+                name: "Degrees");
 
             migrationBuilder.DropTable(
                 name: "Photos");

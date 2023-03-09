@@ -39,6 +39,7 @@ export default class UniversityStore {
 				if (this.universities.size < 1)
 					this.handleDebounceWithLoad();
 				else this.handleDebounce();
+				this.selectedUniversity = undefined;
 			}
 		)
 	}
@@ -50,7 +51,7 @@ export default class UniversityStore {
 	setUniversityLoadingInitial = (state: boolean) => this.universityLoadingInitial = state;
 
 	setUniversity = (university: University | undefined) =>
-		this.selectedUniversity = this.selectedUniversity === university ? undefined : university;
+		this.selectedUniversity = university;
 
 	private getUniversity = (id: string) => this.universities.get(id);
 

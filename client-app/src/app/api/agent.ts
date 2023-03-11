@@ -86,7 +86,7 @@ const Universities = {
 
 const Specialties = {
 	list: (params: URLSearchParams, id: string) =>
-		axios.get<Specialty[]>(`/universities/${id}/specialties/`, { params }).then(responseBody),
+		axios.get<PaginatedResult<Specialty[]>>(`/universities/${id}/specialties/`, { params }).then(responseBody),
 	details: (id: string, specialtyId: string) =>
 		requests.get<Specialty>(`/universities/${id}/specialties/${specialtyId}`),
 	create: (id: string, specialty: Specialty) =>

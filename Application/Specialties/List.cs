@@ -36,9 +36,14 @@ namespace Application.Specialties
 				if (university == null) return null;
 				var query = university.Specialties
 					.AsQueryable();
-				if (!string.IsNullOrEmpty(request.Params.SearchString))
-					query = query.Where(x => x.SpecialtyBase.Name.ToLower().Contains(request.Params.SearchString.ToLower()) ||
-						x.SpecialtyBase.Id.ToLower().Contains(request.Params.SearchString.ToLower()));
+				if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId))
+				{
+					var queryParams = request.Params.SpecialtyBaseId.Split('_', StringSplitOptions.RemoveEmptyEntries);
+					query = query.Where(x => queryParams.Any(a => a == x.SpecialtyBase.Id));
+				}
+				if (!string.IsNullOrEmpty(request.Params.SpecialtyName))
+					query = query.Where(x => x.SpecialtyBase.Name.ToLower().Contains(request.Params.SpecialtyName.ToLower()) ||
+						x.SpecialtyBase.Id.ToLower().Contains(request.Params.SpecialtyName.ToLower()));
 				return Result<PagedList<SpecialtyDto>>.Success(
 					PagedList<SpecialtyDto>.Create(
 						query

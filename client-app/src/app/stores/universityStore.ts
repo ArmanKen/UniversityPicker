@@ -2,7 +2,9 @@ import _ from "lodash";
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Pagination, PagingParams } from "../models/pagination";
+import { UniversityParams } from "../models/queryParams";
 import { University, UniversityFormValues } from "../models/university";
+import { store } from "./store";
 
 export default class UniversityStore {
 	universities = new Map<string, University>();
@@ -10,36 +12,38 @@ export default class UniversityStore {
 	universityLoadingInitial = false;
 	pagination: Pagination | undefined = undefined;
 	pagingParams = new PagingParams();
-	name = '';
-	region: number[] = [];
-	city: number[] = [];
-	degree = '';
-	branchBaseId: string[] = [];
-	specialtyBaseId: string[] = [];
-	budgetAllowed = false;
-	minPrice = 0;
-	maxPrice = 0;
-	ukraineTop = false;
+	universityParams: UniversityParams = {
+		name: '',
+		regions: [],
+		cities: [],
+		degree: 0,
+		branchBaseIds: [],
+		specialtyBaseIds: [],
+		onlyBudget: false,
+		minPrice: 0,
+		maxPrice: 0,
+		ukraineTop: false
+	}
 
 	constructor() {
 		makeAutoObservable(this);
 
 		reaction(
-			() => [this.name,
-			this.degree,
-			this.region,
-			this.city,
-			this.branchBaseId,
-			this.specialtyBaseId,
-			this.budgetAllowed,
-			this.minPrice,
-			this.maxPrice,
-			this.ukraineTop],
+			() => this.universityParams,
 			() => {
 				if (this.universities.size < 1)
 					this.handleDebounceWithLoad();
 				else this.handleDebounce();
 				this.selectedUniversity = undefined;
+			}
+		)
+
+		reaction(
+			() => this.selectedUniversity,
+			() => {
+				if (this.selectedUniversity)
+					store.specilatyStore.loadSpecialties(this.selectedUniversity.id);
+				else store.specilatyStore.specialties.clear()
 			}
 		)
 	}
@@ -50,8 +54,27 @@ export default class UniversityStore {
 
 	setUniversityLoadingInitial = (state: boolean) => this.universityLoadingInitial = state;
 
-	setUniversity = (university: University | undefined) =>
-		this.selectedUniversity = university;
+	setUniversity = (university: University | undefined) => this.selectedUniversity = university;
+
+	setNameParam = (name: string) => this.universityParams.name = name;
+
+	setDegreeParam = (degree: number) => this.universityParams.degree = degree;
+
+	setRegionsParam = (regions: number[]) => this.universityParams.regions = regions;
+
+	setCitiesnsParam = (cities: number[]) => this.universityParams.cities = cities;
+
+	setBranchBaseIdsParam = (branchBaseIds: string[]) => this.universityParams.branchBaseIds = branchBaseIds;
+
+	setSpecialtyBaseIdsParam = (specialtyBaseIds: string[]) => this.universityParams.specialtyBaseIds = specialtyBaseIds;
+
+	setOnlyBudgetParam = (onlyBudget: boolean) => this.universityParams.onlyBudget = onlyBudget;
+
+	setMinPriceParam = (minPrice: number) => this.universityParams.minPrice = minPrice;
+
+	setMaxPriceParam = (maxPrice: number) => this.universityParams.maxPrice = maxPrice;
+
+	setUkraineTopParam = (ukraineTop: boolean) => this.universityParams.ukraineTop = ukraineTop;
 
 	private getUniversity = (id: string) => this.universities.get(id);
 
@@ -59,7 +82,7 @@ export default class UniversityStore {
 		const params = new URLSearchParams();
 		params.append('pageNumber', this.pagingParams.pageNumber.toString());
 		params.append('pageSize', this.pagingParams.pageSize.toString());
-		if (this.name) params.append('name', this.name);
+		if (this.universityParams.name) params.append('name', this.universityParams.name);
 		// if (this.region) params.append('region', this.region);
 		// if (this.city) params.append('city', this.city);
 		// if (this.degree) params.append('degree', this.degree);
@@ -150,41 +173,6 @@ export default class UniversityStore {
 				console.log(error);
 			});
 			this.setUniversityLoadingInitial(false);
-		}
-	}
-
-	changeQueryParams = (value: string | number | boolean | (string | number | boolean)[] | undefined, key: string) => {
-		switch (key) {
-			case 'searchString':
-				this.name = value as string;
-				break;
-			case 'degreeSearch':
-				this.degree = value as string;
-				break;
-			case 'regionsSearch':
-				this.region = value as number[];
-				break;
-			case 'citiesSearch':
-				this.city = value as number[];
-				break;
-			case 'branchesSearch':
-				this.branchBaseId = value as string[];
-				break;
-			case 'specialtiesSearch':
-				this.specialtyBaseId = value as string[];
-				break;
-			case 'minPriceSearch':
-				this.minPrice = value as number;
-				break;
-			case 'maxPriceSearch':
-				this.maxPrice = value as number;
-				break;
-			case 'budgetSearch':
-				this.budgetAllowed = value as boolean;
-				break;
-			case 'UkraineTopSearch':
-				this.ukraineTop = value as boolean;
-				break;
 		}
 	}
 

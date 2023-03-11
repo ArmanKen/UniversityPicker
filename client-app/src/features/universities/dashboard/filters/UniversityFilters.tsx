@@ -23,15 +23,10 @@ export default observer(function UniversityFilters() {
 	}, [specialtiesBase.size, loadSpecialtiesBase])
 
 	return (
-		<Segment.Group style={{ marginTop: 20}}>
-			<Segment
-				textAlign="center"
-			>
-				<Header
-					size='medium'
-					textAlign='center'
-					content='Фільтри для пошуку університетів'
-				/>
+		<Segment.Group style={{ marginTop: 20 }}>
+			<Segment textAlign="center"	>
+				<Header size='medium' textAlign='center'
+					content='Фільтри для пошуку університетів' />
 			</Segment>
 			<DegreeFilter />
 			<RegionFilter />

@@ -41,3 +41,9 @@ body {
 	width: 60px !important;
 	background-color: #ffae00 !important;
 }
+
+.bigSquare {
+	height: 45px !important;
+	width: 80px !important;
+	background-color: #ffae00 !important;
+}

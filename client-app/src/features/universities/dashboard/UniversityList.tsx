@@ -8,14 +8,9 @@ export default observer(function UniversityList() {
 	const { universityStore: { universities } } = useStore();
 
 	return (
-		<Card.Group
-			itemsPerRow={4}
-			style={{ marginBottom: 10 }}>
+		<Card.Group itemsPerRow={4} style={{ marginBottom: 10 }}>
 			{Array.from(universities.values()).map(university => (
-				<UniversityListCard
-					key={university.id}
-					university={university}
-				/>
+				<UniversityListCard key={university.id} university={university} />
 			))}
 		</Card.Group>
 	)

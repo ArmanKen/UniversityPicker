@@ -24,7 +24,3 @@ export class PagingParams {
 		this.pageSize = pageSize;
 	}
 }
-
-export class SpecialtyParams {
-	searchString = '';
-}

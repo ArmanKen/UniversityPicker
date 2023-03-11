@@ -1,55 +1,49 @@
-// import { makeAutoObservable } from "mobx";
-// import React from "react";
-// import { Checkbox, CheckboxProps, DropdownItemProps } from "semantic-ui-react";
-// import { Specialty } from "../models/specialty";
-// import { store } from "./store";
+import { makeAutoObservable, runInAction } from "mobx";
+import agent from "../api/agent";
+import { Pagination, PagingParams } from "../models/pagination";
+import { Specialty } from "../models/specialty";
+import { store } from "./store";
 
 export default class SpecilatyStore {
-	// specialties: Specialty[] = [];
-	// selectedSpecialties: Specialty[] = [];
-	// selectedSpecialty: Specialty | undefined = undefined;
-	// dropdownContent: DropdownItemProps[] = [];
+	specialties = new Map<string, Specialty>();
+	specialtyLoadingInitial = false;
+	pagination: Pagination | undefined = undefined;
+	pagingParams = new PagingParams();
+	specialtyBaseId = '';
+	specialtyName = '';
 
-	// constructor() {
-	// 	makeAutoObservable(this);
-	// }
+	constructor() {
+		makeAutoObservable(this);
+	}
 
-	// loadSpecialties = () => {
-	// 	try {
-	// 		store.universityStore.universities.forEach(university => {
-	// 			university.specialties.forEach(specialty => {
-	// 				if (!this.specialties.some(x => x.code === specialty.code))
-	// 					this.specialties.push(specialty);
-	// 			})
-	// 		})
-	// 		this.specialties = this.specialties.sort((s1, s2) => s1.code - s2.code);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// }
+	//TODO: URL,Modal specialties,filters values,navbar,broken budget filter,degree?
 
-	// updateSelectedSpecialties = () => {
-	// 	this.specialties.forEach(specialty => {
-	// 		let specialtyCode = specialty.code.toFixed().slice(0, -1);
-	// 		if (specialtyCode === store.branchOfKnowledgeStore.selectedBranchOfKnowledge?.code) {
-	// 			this.selectedSpecialties.push(specialty);
-	// 			this.dropdownContent.push({ key: specialty.id, text: specialty.name, value: specialty.code });
-	// 		}
-	// 	}
-	// 	)
-	// }
+	get axiosParams() {
+		const params = new URLSearchParams();
+		params.append('pageNumber', this.pagingParams.pageNumber.toString());
+		params.append('pageSize', this.pagingParams.pageSize.toString());
+		// if (this.region) params.append('region', this.region);
+		// if (this.city) params.append('city', this.city);
+		return params;
+	}
 
-	// changeSelectedSpecialty = (value: number | undefined) => {
-	// 	value === undefined ?
-	// 		this.selectedSpecialty = undefined
-	// 		: this.selectedSpecialty = this.specialties.find(specialty => specialty.code === value);
-	// 	store.disciplineStore.undoDisciplineStore();
-	// }
+	setPagination = (pagination: Pagination) => this.pagination = pagination;
 
-	// undoSpecialtyStore = () => {
-	// 	store.disciplineStore.undoDisciplineStore();
-	// 	this.selectedSpecialty = undefined;
-	// 	this.selectedSpecialties = [];
-	// 	this.dropdownContent = [];
-	// }
+	setSpecialtyLoadingInitial = (state: boolean) => this.specialtyLoadingInitial = state;
+
+	loadSpecialties = async (id: string) => {
+		try {
+			if (!id) return;
+			const result = await agent.Specialties.list(this.axiosParams, id);
+			runInAction(() => {
+				result.data.forEach(specialty => {
+					this.specialties.set(specialty.id, specialty);
+				});
+			});
+			this.setPagination(result.pagination);
+			this.setSpecialtyLoadingInitial(false);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 }

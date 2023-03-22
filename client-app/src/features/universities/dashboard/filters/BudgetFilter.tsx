@@ -3,7 +3,7 @@ import { Checkbox, Grid, Header, Segment } from "semantic-ui-react";
 import { useStore } from "../../../../app/stores/store";
 
 export default observer(function BudgetFilter() {
-	const { universityStore: { changeQueryParams, budgetAllowed, ukraineTop, universityLoadingInitial, specialtyBaseId },
+	const { institutionStore: { changeQueryParams, budgetAllowed, ukraineTop, institutionLoadingInitial, specialtyBaseId },
 		menuStore: { menuLoadingInitial } } = useStore()
 
 	return (
@@ -20,7 +20,7 @@ export default observer(function BudgetFilter() {
 						floated='left'>
 						<Header
 							size='small'
-							disabled={universityLoadingInitial || menuLoadingInitial || !specialtyBaseId}
+							disabled={institutionLoadingInitial || menuLoadingInitial || !specialtyBaseId}
 							content='Тільки з бюджетними місцями'
 						/>
 					</Grid.Column>
@@ -30,7 +30,7 @@ export default observer(function BudgetFilter() {
 						floated='left'>
 						<Checkbox
 							toggle
-							disabled={universityLoadingInitial || menuLoadingInitial || !specialtyBaseId}
+							disabled={institutionLoadingInitial || menuLoadingInitial || !specialtyBaseId}
 						/>
 					</Grid.Column>
 				</Grid.Row>

@@ -5,13 +5,13 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.SelectedUniversities
+namespace Application.FavoriteLists
 {
 	public class SelectedToggle
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public Guid TargetUniversityId { get; set; }
+			public Guid TargetInstitutionId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -28,16 +28,16 @@ namespace Application.SelectedUniversities
 			{
 				var observer = await _context.Users.FirstOrDefaultAsync(x =>
 					x.UserName == _userAccessor.GetUsername());
-				var university = await _context.Universities.FirstOrDefaultAsync(x => x.Id == request.TargetUniversityId);
-				if (university == null) return null;
-				var selected = await _context.SelectedUniversities.FindAsync(observer!.Id, university.Id);
+				var institution = await _context.Institutions.FirstOrDefaultAsync(x => x.Id == request.TargetInstitutionId);
+				if (institution == null) return null;
+				var selected = await _context.FavoriteLists.FindAsync(observer!.Id, institution.Id);
 				if (selected == null)
-					_context.SelectedUniversities.Add(new SelectedUniversity
+					_context.FavoriteLists.Add(new FavoriteList
 					{
 						AppUser = observer,
-						University = university
+						Institution = institution
 					});
-				else _context.SelectedUniversities.Remove(selected);
+				else _context.FavoriteLists.Remove(selected);
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<Unit>.Success(Unit.Value);
 				return Result<Unit>.Failure("Failed to update selected");

@@ -27,10 +27,10 @@ namespace Infrastracture.Security
 			var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 			if (userId == null) return Task.CompletedTask;
 			var globalAdministrator = _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId).Result;
-			var universityId = Guid.Parse(_httpContentAccessor.HttpContext?.Request.RouteValues
+			var institutionId = Guid.Parse(_httpContentAccessor.HttpContext?.Request.RouteValues
 				.SingleOrDefault(x => x.Key == "id").Value?.ToString());
-			var localAdministrator = _dbContext.UniversityAdministrators.AsNoTracking()
-				.SingleOrDefaultAsync(x => x.AppUserId == userId && x.UniversityId == universityId).Result;
+			var localAdministrator = _dbContext.InstitutionsAdmins.AsNoTracking()
+				.SingleOrDefaultAsync(x => x.AppUserId == userId && x.InstitutionId == institutionId).Result;
 			if (localAdministrator != null || globalAdministrator.IsGlobalAdmin) context.Succeed(requirement);
 			return Task.CompletedTask;
 		}

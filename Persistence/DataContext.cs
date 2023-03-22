@@ -9,41 +9,41 @@ public class DataContext : IdentityDbContext<AppUser>
 	{
 	}
 
-	public DbSet<University> Universities { get; set; }
-	public DbSet<UniversityAdministrator> UniversityAdministrators { get; set; }
-	public DbSet<SelectedUniversity> SelectedUniversities { get; set; }
+	public DbSet<Institution> Institutions { get; set; }
+	public DbSet<InstitutionAdmin> InstitutionsAdmins { get; set; }
 	public DbSet<Specialty> Specialties { get; set; }
 	public DbSet<SpecialtyBase> SpecialtyBases { get; set; }
-	public DbSet<SpecialtyDiscipline> SpecialtyDisciplines { get; set; }
 	public DbSet<Region> Regions { get; set; }
 	public DbSet<City> Cities { get; set; }
-	public DbSet<Discipline> Disciplines { get; set; }
+	public DbSet<EduComponent> EduComponents { get; set; }
 	public DbSet<Photo> Photos { get; set; }
-	public DbSet<Comment> Comments { get; set; }
+	public DbSet<Review> Reviews { get; set; }
 	public DbSet<Isced> Isceds { get; set; }
 	public DbSet<Degree> Degrees { get; set; }
+	public DbSet<CurrentStatus> CurrentStatuses { get; set; }
+	public DbSet<Faculty> Faculties { get; set; }
+	public DbSet<KnowledgeBranch> KnowledgeBranches { get; set; }
+	public DbSet<Language> Languages { get; set; }
+	public DbSet<Location> Locations { get; set; }
+	public DbSet<StudyForm> StudyForms { get; set; }
+	public DbSet<InstitutionType> InstitutionTypes { get; set; }
+	public DbSet<FavoriteList> FavoriteLists { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
 		base.OnModelCreating(builder);
-		builder.Entity<UniversityAdministrator>(b =>
+		builder.Entity<InstitutionAdmin>(b =>
 		{
-			b.HasKey(x => new { x.AppUserId, x.UniversityId });
-			b.HasOne(x => x.AppUser).WithMany(x => x.UniversityAdministration).HasForeignKey(x => x.AppUserId);
-			b.HasOne(u => u.University).WithMany(x => x.UniversityAdministrators).HasForeignKey(u => u.UniversityId);
+			b.HasKey(x => new { x.AppUserId, x.InstitutionId });
+			b.HasOne(x => x.AppUser).WithMany(x => x.InstitutionsAdmin).HasForeignKey(x => x.AppUserId);
+			b.HasOne(u => u.Institution).WithMany(x => x.InstitutionAdmins).HasForeignKey(u => u.InstitutionId);
 		});
-		builder.Entity<SpecialtyDiscipline>(b =>
+		builder.Entity<FavoriteList>(b =>
 		{
-			b.HasKey(x => new { x.SpecialtyId, x.DisciplineId });
-			b.HasOne(x => x.Discipline).WithMany(x => x.Specialties).HasForeignKey(x => x.DisciplineId);
-			b.HasOne(u => u.Specialty).WithMany(x => x.Disciplines).HasForeignKey(u => u.SpecialtyId);
+			b.HasKey(x => new { x.AppUserId, x.InstitutionId });
+			b.HasOne(x => x.AppUser).WithMany(x => x.FavoriteList).HasForeignKey(x => x.AppUserId);
+			b.HasOne(x => x.Institution).WithMany(x => x.FavoriteList).HasForeignKey(x => x.InstitutionId);
 		});
-		builder.Entity<SelectedUniversity>(b =>
-		{
-			b.HasKey(k => new { k.AppUserId, k.UniversityId });
-			b.HasOne(o => o.AppUser).WithMany(f => f.SelectedUniversities).HasForeignKey(o => o.AppUserId).OnDelete(DeleteBehavior.Cascade);
-			b.HasOne(o => o.University).WithMany(f => f.AppUserSelected).HasForeignKey(o => o.UniversityId).OnDelete(DeleteBehavior.Cascade);
-		});
-		builder.Entity<Comment>().HasOne(a => a.University).WithMany(c => c.Comments).OnDelete(DeleteBehavior.Cascade);
+		builder.Entity<Review>().HasOne(a => a.Institution).WithMany(c => c.Reviews).OnDelete(DeleteBehavior.Cascade);
 	}
 }

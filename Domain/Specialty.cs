@@ -7,11 +7,11 @@ namespace Domain
 		public int PriceUAH { get; set; }
 		public string Description { get; set; }
 		public bool BudgetAllowed { get; set; }
-		public int EctsCredits { get; set; }
-		public int StartYear { get; set; }
-		public int EndYear { get; set; }
+		public int Year { get; set; }
 		public Degree Degree { get; set; }
-		public University University { get; set; }
-		public ICollection<SpecialtyDiscipline> Disciplines { get; set; } = new List<SpecialtyDiscipline>();
+		public Faculty Faculty { get; set; }
+		public ICollection<Language> Languages { get; set; } = new List<Language>();
+		public ICollection<StudyForm> StudyForms { get; set; } = new List<StudyForm>();
+		public ICollection<EduComponent> EduComponents { get; set; } = new List<EduComponent>();
 	}
 }

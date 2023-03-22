@@ -10,7 +10,7 @@ import PriceFilter from './PriceFilter';
 import RegionFilter from './RegionFilter';
 import SpecialtyFilter from './SpecialtyFilter';
 
-export default observer(function UniversityFilters() {
+export default observer(function InstitutionFilters() {
 	const { menuStore } = useStore();
 	const { regions, loadRegions, loadSpecialtiesBase, specialtiesBase } = menuStore;
 
@@ -28,11 +28,11 @@ export default observer(function UniversityFilters() {
 				<Header size='medium' textAlign='center'
 					content='Фільтри для пошуку університетів' />
 			</Segment>
-			<DegreeFilter />
 			<RegionFilter />
 			<CityFilter />
 			<BranchFilter />
 			<SpecialtyFilter />
+			<DegreeFilter />
 			<PriceFilter />
 			<BudgetFilter />
 		</Segment.Group>

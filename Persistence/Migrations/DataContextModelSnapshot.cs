@@ -22,21 +22,6 @@ namespace Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DisciplineSpecialtyBase", b =>
-                {
-                    b.Property<int>("AllDisciplinesId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("BasedSpecialtiesId")
-                        .HasColumnType("text");
-
-                    b.HasKey("AllDisciplinesId", "BasedSpecialtiesId");
-
-                    b.HasIndex("BasedSpecialtiesId");
-
-                    b.ToTable("DisciplineSpecialtyBase");
-                });
-
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -52,11 +37,11 @@ namespace Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<int?>("DegreeId")
+                    b.Property<int?>("CurrentStatusId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("text");
+                    b.Property<int?>("DegreeId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -64,6 +49,12 @@ namespace Persistence.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("InstitutionId")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsGlobalAdmin")
                         .HasColumnType("boolean");
@@ -97,14 +88,11 @@ namespace Persistence.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
-                    b.Property<string>("Specialty")
+                    b.Property<string>("SpecialtyBaseId")
                         .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
-
-                    b.Property<Guid?>("UniversityId")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -112,7 +100,11 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurrentStatusId");
+
                     b.HasIndex("DegreeId");
+
+                    b.HasIndex("InstitutionId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -123,7 +115,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("PhotoId");
 
-                    b.HasIndex("UniversityId");
+                    b.HasIndex("SpecialtyBaseId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -149,7 +141,7 @@ namespace Persistence.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Domain.Comment", b =>
+            modelBuilder.Entity("Domain.CurrentStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,28 +149,12 @@ namespace Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AuthorId")
+                    b.Property<string>("Status")
                         .HasColumnType("text");
-
-                    b.Property<string>("Body")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("UniversityId")
-                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("Comments");
+                    b.ToTable("CurrentStatuses");
                 });
 
             modelBuilder.Entity("Domain.Degree", b =>
@@ -197,7 +173,7 @@ namespace Persistence.Migrations
                     b.ToTable("Degrees");
                 });
 
-            modelBuilder.Entity("Domain.Discipline", b =>
+            modelBuilder.Entity("Domain.EduComponent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -205,12 +181,156 @@ namespace Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("EctsCredits")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Info")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsOptional")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("SpecialtyId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("EduComponents");
+                });
+
+            modelBuilder.Entity("Domain.Faculty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FacultyPhotoId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Info")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("InstitutionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("StudentsCount")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacultyPhotoId");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("Faculties");
+                });
+
+            modelBuilder.Entity("Domain.FavoriteList", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("InstitutionId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("AppUserId", "InstitutionId");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("FavoriteLists");
+                });
+
+            modelBuilder.Entity("Domain.Institution", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("CityId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Info")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("InstitutionTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Telephone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TitlePhotoId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UkraineTop")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Website")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Disciplines");
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("InstitutionTypeId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("TitlePhotoId");
+
+                    b.ToTable("Institutions");
+                });
+
+            modelBuilder.Entity("Domain.InstitutionAdmin", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("InstitutionId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("AppUserId", "InstitutionId");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("InstitutionsAdmins");
+                });
+
+            modelBuilder.Entity("Domain.InstitutionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InstitutionTypes");
                 });
 
             modelBuilder.Entity("Domain.Isced", b =>
@@ -226,12 +346,57 @@ namespace Persistence.Migrations
                     b.ToTable("Isceds");
                 });
 
+            modelBuilder.Entity("Domain.KnowledgeBranch", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KnowledgeBranches");
+                });
+
+            modelBuilder.Entity("Domain.Language", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("Domain.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("Domain.Photo", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("UniversityId")
+                    b.Property<Guid?>("InstitutionId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Url")
@@ -239,7 +404,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UniversityId");
+                    b.HasIndex("InstitutionId");
 
                     b.ToTable("Photos");
                 });
@@ -260,19 +425,46 @@ namespace Persistence.Migrations
                     b.ToTable("Regions");
                 });
 
-            modelBuilder.Entity("Domain.SelectedUniversity", b =>
+            modelBuilder.Entity("Domain.Review", b =>
                 {
-                    b.Property<string>("AppUserId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AuthorId")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UniversityId")
+                    b.Property<string>("Body")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("FacultyId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("AppUserId", "UniversityId");
+                    b.Property<Guid?>("InstitutionId")
+                        .HasColumnType("uuid");
 
-                    b.HasIndex("UniversityId");
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
 
-                    b.ToTable("SelectedUniversities");
+                    b.Property<string>("SpecialtyBaseId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("FacultyId");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.HasIndex("SpecialtyBaseId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Domain.Specialty", b =>
@@ -290,11 +482,8 @@ namespace Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<int>("EctsCredits")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EndYear")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("FacultyId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("PriceUAH")
                         .HasColumnType("integer");
@@ -302,19 +491,16 @@ namespace Persistence.Migrations
                     b.Property<string>("SpecialtyBaseId")
                         .HasColumnType("text");
 
-                    b.Property<int>("StartYear")
+                    b.Property<int>("Year")
                         .HasColumnType("integer");
-
-                    b.Property<Guid?>("UniversityId")
-                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DegreeId");
 
-                    b.HasIndex("SpecialtyBaseId");
+                    b.HasIndex("FacultyId");
 
-                    b.HasIndex("UniversityId");
+                    b.HasIndex("SpecialtyBaseId");
 
                     b.ToTable("Specialties");
                 });
@@ -324,90 +510,48 @@ namespace Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("KnowledgeBranchId")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("KnowledgeBranchId");
 
                     b.ToTable("SpecialtyBases");
                 });
 
-            modelBuilder.Entity("Domain.SpecialtyDiscipline", b =>
+            modelBuilder.Entity("Domain.StudyForm", b =>
                 {
-                    b.Property<Guid>("SpecialtyId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("DisciplineId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EctsCredits")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsOptional")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("SpecialtyId", "DisciplineId");
-
-                    b.HasIndex("DisciplineId");
-
-                    b.ToTable("SpecialtyDisciplines");
-                });
-
-            modelBuilder.Entity("Domain.University", b =>
-                {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("CityId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Info")
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("StudentsCount")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Telephone")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitlePhotoId")
-                        .HasColumnType("text");
-
-                    b.Property<int>("UkraineTop")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Website")
+                    b.Property<string>("Form")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("TitlePhotoId");
-
-                    b.ToTable("Universities");
+                    b.ToTable("StudyForms");
                 });
 
-            modelBuilder.Entity("Domain.UniversityAdministrator", b =>
+            modelBuilder.Entity("FacultyKnowledgeBranch", b =>
                 {
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UniversityId")
+                    b.Property<Guid>("FacultiesId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("AppUserId", "UniversityId");
+                    b.Property<string>("KnowledgeBranchesId")
+                        .HasColumnType("text");
 
-                    b.HasIndex("UniversityId");
+                    b.HasKey("FacultiesId", "KnowledgeBranchesId");
 
-                    b.ToTable("UniversityAdministrators");
+                    b.HasIndex("KnowledgeBranchesId");
+
+                    b.ToTable("FacultyKnowledgeBranch");
                 });
 
             modelBuilder.Entity("IscedSpecialtyBase", b =>
@@ -423,6 +567,21 @@ namespace Persistence.Migrations
                     b.HasIndex("SpecialtyBasesId");
 
                     b.ToTable("IscedSpecialtyBase");
+                });
+
+            modelBuilder.Entity("LanguageSpecialty", b =>
+                {
+                    b.Property<string>("LanguagesId")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("SpecialtiesId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("LanguagesId", "SpecialtiesId");
+
+                    b.HasIndex("SpecialtiesId");
+
+                    b.ToTable("LanguageSpecialty");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -557,91 +716,189 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DisciplineSpecialtyBase", b =>
+            modelBuilder.Entity("SpecialtyStudyForm", b =>
                 {
-                    b.HasOne("Domain.Discipline", null)
-                        .WithMany()
-                        .HasForeignKey("AllDisciplinesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("SpecialtiesId")
+                        .HasColumnType("uuid");
 
-                    b.HasOne("Domain.SpecialtyBase", null)
-                        .WithMany()
-                        .HasForeignKey("BasedSpecialtiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("StudyFormsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("SpecialtiesId", "StudyFormsId");
+
+                    b.HasIndex("StudyFormsId");
+
+                    b.ToTable("SpecialtyStudyForm");
                 });
 
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
+                    b.HasOne("Domain.CurrentStatus", "CurrentStatus")
+                        .WithMany()
+                        .HasForeignKey("CurrentStatusId");
+
                     b.HasOne("Domain.Degree", "Degree")
                         .WithMany()
                         .HasForeignKey("DegreeId");
+
+                    b.HasOne("Domain.Institution", "Institution")
+                        .WithMany()
+                        .HasForeignKey("InstitutionId");
 
                     b.HasOne("Domain.Photo", "Photo")
                         .WithMany()
                         .HasForeignKey("PhotoId");
 
-                    b.HasOne("Domain.University", "University")
+                    b.HasOne("Domain.SpecialtyBase", "SpecialtyBase")
                         .WithMany()
-                        .HasForeignKey("UniversityId");
+                        .HasForeignKey("SpecialtyBaseId");
+
+                    b.Navigation("CurrentStatus");
 
                     b.Navigation("Degree");
 
+                    b.Navigation("Institution");
+
                     b.Navigation("Photo");
 
-                    b.Navigation("University");
+                    b.Navigation("SpecialtyBase");
                 });
 
             modelBuilder.Entity("Domain.City", b =>
                 {
-                    b.HasOne("Domain.Region", "Region")
+                    b.HasOne("Domain.Region", null)
                         .WithMany("Cities")
                         .HasForeignKey("RegionId");
-
-                    b.Navigation("Region");
                 });
 
-            modelBuilder.Entity("Domain.Comment", b =>
+            modelBuilder.Entity("Domain.EduComponent", b =>
                 {
-                    b.HasOne("Domain.AppUser", "Author")
+                    b.HasOne("Domain.Specialty", "Specialty")
+                        .WithMany("EduComponents")
+                        .HasForeignKey("SpecialtyId");
+
+                    b.Navigation("Specialty");
+                });
+
+            modelBuilder.Entity("Domain.Faculty", b =>
+                {
+                    b.HasOne("Domain.Photo", "FacultyPhoto")
                         .WithMany()
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("FacultyPhotoId");
 
-                    b.HasOne("Domain.University", "University")
-                        .WithMany("Comments")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Domain.Institution", "Institution")
+                        .WithMany("Faculties")
+                        .HasForeignKey("InstitutionId");
 
-                    b.Navigation("Author");
+                    b.Navigation("FacultyPhoto");
 
-                    b.Navigation("University");
+                    b.Navigation("Institution");
                 });
 
-            modelBuilder.Entity("Domain.Photo", b =>
-                {
-                    b.HasOne("Domain.University", null)
-                        .WithMany("Photos")
-                        .HasForeignKey("UniversityId");
-                });
-
-            modelBuilder.Entity("Domain.SelectedUniversity", b =>
+            modelBuilder.Entity("Domain.FavoriteList", b =>
                 {
                     b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("SelectedUniversities")
+                        .WithMany("FavoriteList")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.University", "University")
-                        .WithMany("AppUserSelected")
-                        .HasForeignKey("UniversityId")
+                    b.HasOne("Domain.Institution", "Institution")
+                        .WithMany("FavoriteList")
+                        .HasForeignKey("InstitutionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("University");
+                    b.Navigation("Institution");
+                });
+
+            modelBuilder.Entity("Domain.Institution", b =>
+                {
+                    b.HasOne("Domain.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
+                    b.HasOne("Domain.InstitutionType", "InstitutionType")
+                        .WithMany()
+                        .HasForeignKey("InstitutionTypeId");
+
+                    b.HasOne("Domain.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("Domain.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId");
+
+                    b.HasOne("Domain.Photo", "TitlePhoto")
+                        .WithMany()
+                        .HasForeignKey("TitlePhotoId");
+
+                    b.Navigation("City");
+
+                    b.Navigation("InstitutionType");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Region");
+
+                    b.Navigation("TitlePhoto");
+                });
+
+            modelBuilder.Entity("Domain.InstitutionAdmin", b =>
+                {
+                    b.HasOne("Domain.AppUser", "AppUser")
+                        .WithMany("InstitutionsAdmin")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Institution", "Institution")
+                        .WithMany("InstitutionAdmins")
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Institution");
+                });
+
+            modelBuilder.Entity("Domain.Photo", b =>
+                {
+                    b.HasOne("Domain.Institution", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("InstitutionId");
+                });
+
+            modelBuilder.Entity("Domain.Review", b =>
+                {
+                    b.HasOne("Domain.AppUser", "Author")
+                        .WithMany("Reviews")
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("Domain.Faculty", "Faculty")
+                        .WithMany()
+                        .HasForeignKey("FacultyId");
+
+                    b.HasOne("Domain.Institution", "Institution")
+                        .WithMany("Reviews")
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Domain.SpecialtyBase", "SpecialtyBase")
+                        .WithMany()
+                        .HasForeignKey("SpecialtyBaseId");
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Faculty");
+
+                    b.Navigation("Institution");
+
+                    b.Navigation("SpecialtyBase");
                 });
 
             modelBuilder.Entity("Domain.Specialty", b =>
@@ -650,72 +907,43 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("DegreeId");
 
+                    b.HasOne("Domain.Faculty", "Faculty")
+                        .WithMany("Specialties")
+                        .HasForeignKey("FacultyId");
+
                     b.HasOne("Domain.SpecialtyBase", "SpecialtyBase")
                         .WithMany("Specialties")
                         .HasForeignKey("SpecialtyBaseId");
 
-                    b.HasOne("Domain.University", "University")
-                        .WithMany("Specialties")
-                        .HasForeignKey("UniversityId");
-
                     b.Navigation("Degree");
 
+                    b.Navigation("Faculty");
+
                     b.Navigation("SpecialtyBase");
-
-                    b.Navigation("University");
                 });
 
-            modelBuilder.Entity("Domain.SpecialtyDiscipline", b =>
+            modelBuilder.Entity("Domain.SpecialtyBase", b =>
                 {
-                    b.HasOne("Domain.Discipline", "Discipline")
-                        .WithMany("Specialties")
-                        .HasForeignKey("DisciplineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Domain.KnowledgeBranch", "KnowledgeBranch")
+                        .WithMany("SpecialtyBases")
+                        .HasForeignKey("KnowledgeBranchId");
 
-                    b.HasOne("Domain.Specialty", "Specialty")
-                        .WithMany("Disciplines")
-                        .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Discipline");
-
-                    b.Navigation("Specialty");
+                    b.Navigation("KnowledgeBranch");
                 });
 
-            modelBuilder.Entity("Domain.University", b =>
+            modelBuilder.Entity("FacultyKnowledgeBranch", b =>
                 {
-                    b.HasOne("Domain.City", "City")
+                    b.HasOne("Domain.Faculty", null)
                         .WithMany()
-                        .HasForeignKey("CityId");
+                        .HasForeignKey("FacultiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Domain.Photo", "TitlePhoto")
+                    b.HasOne("Domain.KnowledgeBranch", null)
                         .WithMany()
-                        .HasForeignKey("TitlePhotoId");
-
-                    b.Navigation("City");
-
-                    b.Navigation("TitlePhoto");
-                });
-
-            modelBuilder.Entity("Domain.UniversityAdministrator", b =>
-                {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("UniversityAdministration")
-                        .HasForeignKey("AppUserId")
+                        .HasForeignKey("KnowledgeBranchesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Domain.University", "University")
-                        .WithMany("UniversityAdministrators")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("IscedSpecialtyBase", b =>
@@ -729,6 +957,21 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.SpecialtyBase", null)
                         .WithMany()
                         .HasForeignKey("SpecialtyBasesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LanguageSpecialty", b =>
+                {
+                    b.HasOne("Domain.Language", null)
+                        .WithMany()
+                        .HasForeignKey("LanguagesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Specialty", null)
+                        .WithMany()
+                        .HasForeignKey("SpecialtiesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -784,16 +1027,51 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.AppUser", b =>
+            modelBuilder.Entity("SpecialtyStudyForm", b =>
                 {
-                    b.Navigation("SelectedUniversities");
+                    b.HasOne("Domain.Specialty", null)
+                        .WithMany()
+                        .HasForeignKey("SpecialtiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("UniversityAdministration");
+                    b.HasOne("Domain.StudyForm", null)
+                        .WithMany()
+                        .HasForeignKey("StudyFormsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Discipline", b =>
+            modelBuilder.Entity("Domain.AppUser", b =>
+                {
+                    b.Navigation("FavoriteList");
+
+                    b.Navigation("InstitutionsAdmin");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("Domain.Faculty", b =>
                 {
                     b.Navigation("Specialties");
+                });
+
+            modelBuilder.Entity("Domain.Institution", b =>
+                {
+                    b.Navigation("Faculties");
+
+                    b.Navigation("FavoriteList");
+
+                    b.Navigation("InstitutionAdmins");
+
+                    b.Navigation("Photos");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("Domain.KnowledgeBranch", b =>
+                {
+                    b.Navigation("SpecialtyBases");
                 });
 
             modelBuilder.Entity("Domain.Region", b =>
@@ -803,25 +1081,12 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Specialty", b =>
                 {
-                    b.Navigation("Disciplines");
+                    b.Navigation("EduComponents");
                 });
 
             modelBuilder.Entity("Domain.SpecialtyBase", b =>
                 {
                     b.Navigation("Specialties");
-                });
-
-            modelBuilder.Entity("Domain.University", b =>
-                {
-                    b.Navigation("AppUserSelected");
-
-                    b.Navigation("Comments");
-
-                    b.Navigation("Photos");
-
-                    b.Navigation("Specialties");
-
-                    b.Navigation("UniversityAdministrators");
                 });
 #pragma warning restore 612, 618
         }

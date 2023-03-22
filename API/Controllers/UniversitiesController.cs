@@ -1,15 +1,15 @@
-using Application.Universities;
+using Application.Institutions;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-	public class UniversitiesController : BaseApiController
+	public class InstitutionsController : BaseApiController
 	{
 		[AllowAnonymous]
 		[HttpGet]
-		public async Task<IActionResult> GetUniversities([FromQuery] UniversityParams param)
+		public async Task<IActionResult> GetInstitutions([FromQuery] InstitutionParams param)
 		{
 			return HandlePagedResult(await Mediator.Send(new List.Query
 			{ Params = param }));
@@ -17,7 +17,7 @@ namespace API.Controllers
 
 		[AllowAnonymous]
 		[HttpGet("{id}")]
-		public async Task<IActionResult> GetUniversity(Guid id)
+		public async Task<IActionResult> GetInstitution(Guid id)
 		{
 			return HandleResult(await Mediator.Send(new Details.Query
 			{ Id = id }));
@@ -25,24 +25,24 @@ namespace API.Controllers
 
 		[Authorize(Policy = "IsGlobalAdmin")]
 		[HttpPost]
-		public async Task<IActionResult> CreateUniversity(University university)
+		public async Task<IActionResult> CreateInstitution(Institution institution)
 		{
 			return HandleResult(await Mediator.Send(new Create.Command
-			{ University = university }));
+			{ Institution = institution }));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpPut("{id}")]
-		public async Task<IActionResult> ChangeUniversity(Guid id, University university)
+		public async Task<IActionResult> ChangeInstitution(Guid id, Institution institution)
 		{
-			university.Id = id;
+			institution.Id = id;
 			return HandleResult(await Mediator.Send(new Edit.Command
-			{ Id = id, University = university }));
+			{ Id = id, Institution = institution }));
 		}
 
 		[Authorize(Policy = "IsGlobalAdmin")]
 		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteUniversity(Guid id)
+		public async Task<IActionResult> DeleteInstitution(Guid id)
 		{
 			return HandleResult(await Mediator.Send(new Delete.Command
 			{ Id = id }));
@@ -57,11 +57,11 @@ namespace API.Controllers
 		}
 
 		[Authorize]
-		[HttpPost("{id}/selectUniversity")]
-		public async Task<IActionResult> SelectUniversity(Guid id)
+		[HttpPost("{id}/selectInstitution")]
+		public async Task<IActionResult> SelectInstitution(Guid id)
 		{
-			return HandleResult(await Mediator.Send(new Application.SelectedUniversities.SelectedToggle.Command
-			{ TargetUniversityId = id }));
+			return HandleResult(await Mediator.Send(new Application.FavoriteLists.SelectedToggle.Command
+			{ TargetInstitutionId = id }));
 		}
 
 		[AllowAnonymous]
@@ -85,7 +85,7 @@ namespace API.Controllers
 		public async Task<IActionResult> CreateSpecialty(Application.DTOs.SpecialtyDto specialty, Guid id)
 		{
 			return HandleResult(await Mediator.Send(new Application.Specialties.Create.Command
-			{ Specialty = specialty, UniversityId = id }));
+			{ Specialty = specialty, InstitutionId = id }));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
@@ -106,35 +106,35 @@ namespace API.Controllers
 		}
 
 		[AllowAnonymous]
-		[HttpGet("{id}/specialties/{specialtyId}/disciplines")]
-		public async Task<IActionResult> GetDisciplines(Guid specialtyId)
+		[HttpGet("{id}/specialties/{specialtyId}/eduComponents")]
+		public async Task<IActionResult> GetEduComponents(Guid specialtyId)
 		{
-			return HandleResult(await Mediator.Send(new Application.Disciplines.List.Query
+			return HandleResult(await Mediator.Send(new Application.EduComponents.List.Query
 			{ SpecialtyId = specialtyId }));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPost("{id}/specialties/{specialtyId}/disciplines")]
-		public async Task<IActionResult> CreateDiscipline(Guid specialtyId, Application.DTOs.DisciplineDto discipline)
+		[HttpPost("{id}/specialties/{specialtyId}/eduComponents")]
+		public async Task<IActionResult> CreateDiscipline(Guid specialtyId, Application.DTOs.EduComponentDto educationComponent)
 		{
-			return HandleResult(await Mediator.Send(new Application.Disciplines.Create.Command
-			{ Discipline = discipline }));
+			return HandleResult(await Mediator.Send(new Application.EduComponents.Create.Command
+			{ EducationComponent = educationComponent }));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPut("{id}/specialties/{specialtyId}/disciplines/{disciplineId}")]
-		public async Task<IActionResult> EditDiscipline(int disciplineId, Discipline discipline)
+		[HttpPut("{id}/specialties/{specialtyId}/eduComponents/{educationComponentId}")]
+		public async Task<IActionResult> EditDiscipline(int educationComponentId, EduComponent educationComponent)
 		{
-			discipline.Id = disciplineId;
-			return HandleResult(await Mediator.Send(new Application.Disciplines.Edit.Command
-			{ Id = disciplineId, Discipline = discipline }));
+			educationComponent.Id = educationComponentId;
+			return HandleResult(await Mediator.Send(new Application.EduComponents.Edit.Command
+			{ Id = educationComponentId, EducationComponent = educationComponent }));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpDelete("{id}/specialties/{specialtyId}/disciplines/{disciplineId}")]
+		[HttpDelete("{id}/specialties/{specialtyId}/eduComponents/{educationComponentId}")]
 		public async Task<IActionResult> DeleteDiscipline(Guid disciplineId)
 		{
-			return HandleResult(await Mediator.Send(new Application.Disciplines.Delete.Command
+			return HandleResult(await Mediator.Send(new Application.EduComponents.Delete.Command
 			{ Id = disciplineId }));
 		}
 	}

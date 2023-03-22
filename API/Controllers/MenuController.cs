@@ -18,5 +18,12 @@ namespace API.Controllers
 		{
 			return HandleResult(await Mediator.Send(new Application.Menu.RegionsList.Query()));
 		}
+
+		[AllowAnonymous]
+		[HttpGet("degrees")]
+		public async Task<IActionResult> GetDegrees()
+		{
+			return HandleResult(await Mediator.Send(new Application.Menu.DegreeList.Query()));
+		}
 	}
 }

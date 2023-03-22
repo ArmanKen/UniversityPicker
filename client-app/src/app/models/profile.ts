@@ -1,12 +1,12 @@
 import { Photo } from "./photo";
-import { University } from "./university";
+import { Institution } from "./institution";
 
-export interface Profile{
+export interface Profile {
 	username: string;
 	displayName: string;
 	bio: string;
 	specialty: string;
-	university: University;
+	institution: Institution;
 	photo: Photo;
 	degree: string;
 }

@@ -59,7 +59,7 @@ namespace API.Controllers
 
 			var user = new AppUser
 			{
-				DisplayName = registerDTO.DisplayName,
+				FullName = registerDTO.DisplayName,
 				Email = registerDTO.Email,
 				UserName = registerDTO.Username,
 				Photo = new Photo { Id = (_userManager.Users.Count() + 1).ToString(), Url = "" } //<=change
@@ -89,7 +89,7 @@ namespace API.Controllers
 			if (user == null) return null;
 			return new UserDTO
 			{
-				DisplayName = user.DisplayName,
+				DisplayName = user.FullName,
 				Image = user.Photo.Url,
 				Token = _tokenService.CreateToken(user),
 				Username = user.UserName

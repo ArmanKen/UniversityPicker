@@ -2,13 +2,14 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { history } from "../..";
 import { toast } from "react-toastify";
 import { store } from "../stores/store";
-import { University, UniversityFormValues } from "../models/university";
+import { Institution, InstitutionFormValues } from "../models/institution";
 import { PaginatedResult } from "../models/pagination";
 import { Specialty, SpecialtyBase } from "../models/specialty";
 import { Discipline } from "../models/discipline";
 import { Region } from "../models/region";
 import { Profile } from "../models/profile";
 import { Photo } from "../models/photo";
+import { Degree } from "../models/degree";
 
 const sleep = (delay: number) => {
 	return new Promise((resolve) => {
@@ -74,38 +75,38 @@ const requests = {
 	delete: <T>(url: string) => axios.delete<T>(url).then(responseBody)
 }
 
-const Universities = {
-	list: (params: URLSearchParams) => axios.get<PaginatedResult<University[]>>('/universities/', { params }).then(responseBody),
-	details: (id: string) => requests.get<University>(`/universities/${id}`),
-	create: (university: UniversityFormValues) => requests.post<void>(`/universities/`, university),
-	edit: (university: University) => requests.put<void>(`/universities/`, university),
-	delete: (id: string) => requests.delete<void>(`/universities/${id}`),
-	select: (id: string) => requests.post<void>(`/universities/${id}/selectUniversity/`, {}),
-	toggleLocalAdmin: (id: string, username: string) => requests.post<void>(`/universities/${id}/localAdmin/${username}`, {})
+const Institutions = {
+	list: (params: URLSearchParams) => axios.get<PaginatedResult<Institution[]>>('/institutions/', { params }).then(responseBody),
+	details: (id: string) => requests.get<Institution>(`/institutions/${id}`),
+	create: (institution: InstitutionFormValues) => requests.post<void>(`/institutions/`, institution),
+	edit: (institution: Institution) => requests.put<void>(`/institutions/`, institution),
+	delete: (id: string) => requests.delete<void>(`/institutions/${id}`),
+	select: (id: string) => requests.post<void>(`/institutions/${id}/selectInstitution/`, {}),
+	toggleLocalAdmin: (id: string, username: string) => requests.post<void>(`/institutions/${id}/localAdmin/${username}`, {})
 }
 
 const Specialties = {
 	list: (params: URLSearchParams, id: string) =>
-		axios.get<PaginatedResult<Specialty[]>>(`/universities/${id}/specialties/`, { params }).then(responseBody),
+		axios.get<PaginatedResult<Specialty[]>>(`/institutions/${id}/specialties/`, { params }).then(responseBody),
 	details: (id: string, specialtyId: string) =>
-		requests.get<Specialty>(`/universities/${id}/specialties/${specialtyId}`),
+		requests.get<Specialty>(`/institutions/${id}/specialties/${specialtyId}`),
 	create: (id: string, specialty: Specialty) =>
-		requests.post<void>(`/universities/${id}/specialties/`, specialty),
+		requests.post<void>(`/institutions/${id}/specialties/`, specialty),
 	edit: (id: string, specialtyId: string, specialty: Specialty) =>
-		requests.put<void>(`/universities/${id}/specialties/${specialtyId}`, specialty),
+		requests.put<void>(`/institutions/${id}/specialties/${specialtyId}`, specialty),
 	delete: (id: string, specialtyId: string) =>
-		requests.delete<void>(`/universities/${id}/specialties/${specialtyId}`)
+		requests.delete<void>(`/institutions/${id}/specialties/${specialtyId}`)
 }
 
 const Disciplines = {
 	list: (id: string, specialtyId: string) =>
-		requests.get<Discipline[]>(`/universities/${id}/specialties/${specialtyId}/disciplines`),
+		requests.get<Discipline[]>(`/institutions/${id}/specialties/${specialtyId}/disciplines`),
 	create: (id: string, specialtyId: string, discipline: Discipline) =>
-		requests.post<void>(`/universities/${id}/specialties/${specialtyId}/disciplines`, discipline),
+		requests.post<void>(`/institutions/${id}/specialties/${specialtyId}/disciplines`, discipline),
 	edit: (id: string, specialtyId: string, disciplineId: string, discipline: Discipline) =>
-		requests.put<void>(`/universities/${id}/specialties/${specialtyId}/disciplines/${disciplineId}`, discipline),
+		requests.put<void>(`/institutions/${id}/specialties/${specialtyId}/disciplines/${disciplineId}`, discipline),
 	delete: (id: string, specialtyId: string, disciplineId: string) =>
-		requests.delete<void>(`/universities/${id}/specialties/${specialtyId}/disciplines/${disciplineId}`)
+		requests.delete<void>(`/institutions/${id}/specialties/${specialtyId}/disciplines/${disciplineId}`)
 }
 
 const Menus = {
@@ -113,6 +114,8 @@ const Menus = {
 		requests.get<Region[]>(`/menu/regions`),
 	specialtyBasesList: () =>
 		requests.get<SpecialtyBase[]>(`/menu/specialtyBases`),
+	degreesList: () =>
+		requests.get<Degree[]>(`/menu/degrees`),
 }
 
 const Profiles = {
@@ -120,11 +123,11 @@ const Profiles = {
 		requests.get<Profile>(`/profile/${username}`),
 	edit: (profile: Partial<Profile>) =>
 		requests.put<void>(`/profile/`, profile),
-	selectedList: () => requests.get<University[]>('/profile/selected')
+	selectedList: () => requests.get<Institution[]>('/profile/selected')
 }
 
 const Photos = {
-	listUniversityPhotos: (id: string) => requests.get<Photo[]>(`/photos/${id}/gallery`),
+	listInstitutionPhotos: (id: string) => requests.get<Photo[]>(`/photos/${id}/gallery`),
 	addPhoto: (file: Blob) => {
 		let formData = new FormData();
 		formData.append('File', file);
@@ -132,17 +135,17 @@ const Photos = {
 			headers: { 'Content-Type': 'multipart/form-data' }
 		})
 	},
-	addUniversityGalleryPhoto: (file: Blob, universityId: string) => {
+	addInstitutionGalleryPhoto: (file: Blob, institutionId: string) => {
 		let formData = new FormData();
 		formData.append('File', file);
-		return axios.post<Photo>(`photos/${universityId}/gallery`, formData, {
+		return axios.post<Photo>(`photos/${institutionId}/gallery`, formData, {
 			headers: { 'Content-Type': 'multipart/form-data' }
 		})
 	},
-	addUniversityTitlePhoto: (file: Blob, universityId: string) => {
+	addInstitutionTitlePhoto: (file: Blob, institutionId: string) => {
 		let formData = new FormData();
 		formData.append('File', file);
-		return axios.post<Photo>(`photos/${universityId}/titleImage`, formData, {
+		return axios.post<Photo>(`photos/${institutionId}/titleImage`, formData, {
 			headers: { 'Content-Type': 'multipart/form-data' }
 		})
 	},
@@ -150,7 +153,7 @@ const Photos = {
 }
 
 const agent = {
-	Universities,
+	Institutions,
 	Specialties,
 	Disciplines,
 	Menus,

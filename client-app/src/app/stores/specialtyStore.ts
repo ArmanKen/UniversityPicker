@@ -16,7 +16,7 @@ export default class SpecilatyStore {
 		makeAutoObservable(this);
 	}
 
-	//TODO: URL,Modal specialties,filters values,navbar,broken budget filter,degree?
+	//TODO: URL,Modal specialties,filters values,navbar,
 
 	get axiosParams() {
 		const params = new URLSearchParams();

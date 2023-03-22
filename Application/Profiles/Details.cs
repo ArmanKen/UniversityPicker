@@ -32,7 +32,7 @@ namespace Application.Profiles
 			public async Task<Result<DTOs.Profile>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var user = await _context.Users
-					.ProjectTo<DTOs.Profile>(_mapper.ConfigurationProvider, new { currentUsername = _userAccessor.GetUsername() })
+					.ProjectTo<DTOs.Profile>(_mapper.ConfigurationProvider)
 					.SingleOrDefaultAsync(x => x.Username == request.Username);
 				return Result<DTOs.Profile>.Success(user!);
 			}

@@ -1,6 +1,5 @@
 using API.Extensions;
 using API.Middleware;
-using API.SignalR;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -47,7 +46,6 @@ public class Program
 		app.UseAuthentication();
 		app.UseAuthorization();
 		app.MapControllers();
-		app.MapHub<ChatHub>("/chat");
 		await app.RunAsync();
 	}
 }

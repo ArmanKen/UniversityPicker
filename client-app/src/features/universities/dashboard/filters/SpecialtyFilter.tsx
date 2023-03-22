@@ -3,7 +3,7 @@ import { Dropdown, Header, Segment } from "semantic-ui-react";
 import { useStore } from "../../../../app/stores/store";
 
 export default observer(function SpecialtyFilter() {
-	const { universityStore: { universityLoadingInitial, changeQueryParams },
+	const { institutionStore: { institutionLoadingInitial, changeQueryParams },
 		menuStore: { specialtiesBaseDropdown, menuLoadingInitial,
 			selectedSpecialtiesBase, setSelectedSpecialtiesBase } } = useStore();
 
@@ -21,7 +21,7 @@ export default observer(function SpecialtyFilter() {
 				placeholder='Спеціальність...'
 				search
 				multiple
-				disabled={universityLoadingInitial || menuLoadingInitial}
+				disabled={institutionLoadingInitial || menuLoadingInitial}
 				options={specialtiesBaseDropdown}
 				value={selectedSpecialtiesBase}
 				selection

@@ -3,7 +3,7 @@ import { Dropdown, Header, Segment } from "semantic-ui-react";
 import { useStore } from "../../../../app/stores/store";
 
 export default observer(function DegreeFilter() {
-	const { universityStore: { changeQueryParams, degree },
+	const { institutionStore: { changeQueryParams, degree },
 		menuStore: { degreeDropdown } } = useStore();
 
 	return (

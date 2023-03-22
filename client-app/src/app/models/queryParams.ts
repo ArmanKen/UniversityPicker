@@ -1,4 +1,4 @@
-export interface UniversityParams {
+export interface InstitutionParams {
 	name: string,
 	regions: number[],
 	cities: number[],

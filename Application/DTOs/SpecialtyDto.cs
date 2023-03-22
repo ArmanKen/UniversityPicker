@@ -10,8 +10,7 @@ namespace Application.DTOs
 		public string Description { get; set; }
 		public bool BudgetAllowed { get; set; }
 		public int EctsCredits { get; set; }
-		public int StartYear { get; set; }
-		public int EndYear { get; set; }
+		public int Year { get; set; }
 		public string Degree { get; set; }
 	}
 }

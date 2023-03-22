@@ -1,7 +1,7 @@
 import { Photo } from "./photo";
 import { City, Region } from "./region";
 
-export interface University {
+export interface Institution {
 	id: string;
 	name: string;
 	region: string;
@@ -17,13 +17,13 @@ export interface University {
 	titlePhoto: Photo;
 }
 
-export class University implements University {
-	constructor(init?: UniversityFormValues) {
+export class Institution implements Institution {
+	constructor(init?: InstitutionFormValues) {
 		Object.assign(this, init);
 	}
 }
 
-export class UniversityFormValues {
+export class InstitutionFormValues {
 	id?: string = undefined;
 	name: string = '';
 	region?: Region = undefined;
@@ -35,17 +35,17 @@ export class UniversityFormValues {
 	studentsCount: number = 0;
 	titlePhoto?: Photo = undefined;
 
-	constructor(university?: UniversityFormValues) {
-		if (university) {
-			this.id = university.id;
-			this.name = university.name;
-			this.region = university.region;
-			this.city = university.city;
-			this.address = university.address;
-			this.website = university.website;
-			this.info = university.info;
-			this.studentsCount = university.studentsCount;
-			this.titlePhoto = university.titlePhoto;
+	constructor(institution?: InstitutionFormValues) {
+		if (institution) {
+			this.id = institution.id;
+			this.name = institution.name;
+			this.region = institution.region;
+			this.city = institution.city;
+			this.address = institution.address;
+			this.website = institution.website;
+			this.info = institution.info;
+			this.studentsCount = institution.studentsCount;
+			this.titlePhoto = institution.titlePhoto;
 		}
 	}
 }

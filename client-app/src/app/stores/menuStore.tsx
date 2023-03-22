@@ -21,22 +21,6 @@ export default class MenuStore {
 
 	constructor() {
 		makeAutoObservable(this);
-		this.degreeDropdown =
-			[{
-				key: 'junBachelor',
-				value: '1',
-				text: 'Молодший Бакалавр'
-			},
-			{
-				key: 'bachelor',
-				value: '2',
-				text: 'Бакалавр'
-			},
-			{
-				key: 'magister',
-				value: '3',
-				text: 'Магістр'
-			}];
 		this.branchesOfKnowlegdeDropdown = BranchesOfKnowledge;
 	}
 
@@ -101,9 +85,32 @@ export default class MenuStore {
 		}
 	}
 
+	loadDegrees = async () => {
+		this.setMenuLoadingInitial(true);
+		try {
+			const result = await agent.Menus.degreesList();
+			runInAction(() => {
+				result.forEach(degree => {
+					this.degreeDropdown.push(
+						{
+							key: degree.name,
+							text: degree.name,
+							value: degree.id
+						});
+				});
+			});
+			this.setMenuLoadingInitial(false);
+		} catch (error) {
+			runInAction(() => {
+				console.log(error);
+			});
+			this.setMenuLoadingInitial(false);
+		}
+	}
+
 	setCitiesDropdown = (value: number[]) => {
 		if (value.length !== 0) {
-			store.universityStore.city = [];
+			store.institutionStore.institutionParams.cities = [];
 			this.selectedCities = [];
 		}
 		this.citiesDropdown.length = 0;
@@ -119,7 +126,7 @@ export default class MenuStore {
 
 	setSpecialtiesBaseDropdown = (value: string[]) => {
 		if (value.length !== 0) {
-			store.universityStore.specialtyBaseId = [];
+			store.institutionStore.institutionParams.specialtyBaseIds = [];
 			this.selectedSpecialtiesBase = [];
 		}
 		this.specialtiesBaseDropdown.length = 0;

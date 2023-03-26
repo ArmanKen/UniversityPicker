@@ -2,22 +2,22 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { Grid, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
-import InstitutionList from "./InstitutionList";
+import UniversityList from "./UniversityList";
 import { PagingParams } from "../../../app/models/pagination";
-import InstitutionFilters from "./filters/InstitutionFilters";
+import UniversityFilters from "./filters/UniversityFilters";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export default observer(function InstitutionDashboard() {
-	const { institutionStore: { institutions, loadInstitutions,
-		pagination, setPagingParams, institutionLoadingInitial } } = useStore();
+export default observer(function UniversityDashboard() {
+	const { universityStore: { universitys, loadUniversities,
+		pagination, setPagingParams, universityLoadingInitial } } = useStore();
 
 	useEffect(() => {
-		if (institutions.size < 1) loadInstitutions();
-	}, [loadInstitutions, institutions.size])
+		if (universitys.size < 1) loadUniversities();
+	}, [loadUniversities, universitys.size])
 
 	function handleGetNext() {
 		setPagingParams(new PagingParams(pagination!.currentPage + 1));
-		loadInstitutions();
+		loadUniversities();
 	}
 
 	return (
@@ -25,15 +25,15 @@ export default observer(function InstitutionDashboard() {
 			<Grid.Row only='computer'>
 				<Grid.Column style={{ minWidth: 355, maxWidth: 355 }}
 					computer={4} floated="right">
-					<InstitutionFilters />
+					<UniversityFilters />
 				</Grid.Column>
 				<Grid.Column computer={10} floated="left">
 					<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
-						dataLength={institutions.size} next={handleGetNext}
-						loader='' hasMore={!institutionLoadingInitial && !!pagination
+						dataLength={universitys.size} next={handleGetNext}
+						loader='' hasMore={!universityLoadingInitial && !!pagination
 							&& pagination.currentPage < pagination.totalPages}>
-						<InstitutionList />
-						{!institutionLoadingInitial && institutions.size < 1 &&
+						<UniversityList />
+						{!universityLoadingInitial && universitys.size < 1 &&
 							<Segment textAlign="center" color="grey" inverted
 								style={{ fontSize: '1.2em' }}>
 								По заданим фільтрам нічного не знайдено

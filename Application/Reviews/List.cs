@@ -13,7 +13,7 @@ namespace Application.Reviews
 
 		public class Query : IRequest<Result<PagedList<ReviewDto>>>
 		{
-			public Guid InstitutionId { get; set; }
+			public Guid UniversityId { get; set; }
 			public ReviewParams Params { get; set; }
 		}
 
@@ -30,9 +30,9 @@ namespace Application.Reviews
 
 			public async Task<Result<PagedList<ReviewDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var institution = await _context.Institutions.FindAsync(request.InstitutionId);
-				if (institution == null) return Result<PagedList<ReviewDto>>.Failure("Failed to load reviews");
-				var query = institution.Reviews.AsQueryable();
+				var university = await _context.Universities.FindAsync(request.UniversityId);
+				if (university == null) return Result<PagedList<ReviewDto>>.Failure("Failed to load reviews");
+				var query = university.Reviews.AsQueryable();
 				if (!string.IsNullOrEmpty(request.Params.FacultyId))
 					query.Where(x => x.Faculty.Id == Guid.Parse(request.Params.FacultyId));
 				if (!string.IsNullOrEmpty(request.Params.GoodRating))

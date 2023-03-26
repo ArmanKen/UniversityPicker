@@ -53,9 +53,6 @@ namespace Persistence.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("InstitutionId")
-                        .HasColumnType("uuid");
-
                     b.Property<bool>("IsGlobalAdmin")
                         .HasColumnType("boolean");
 
@@ -94,6 +91,9 @@ namespace Persistence.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
+                    b.Property<Guid?>("UniversityId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -103,8 +103,6 @@ namespace Persistence.Migrations
                     b.HasIndex("CurrentStatusId");
 
                     b.HasIndex("DegreeId");
-
-                    b.HasIndex("InstitutionId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -116,6 +114,8 @@ namespace Persistence.Migrations
                     b.HasIndex("PhotoId");
 
                     b.HasIndex("SpecialtyBaseId");
+
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -215,20 +215,20 @@ namespace Persistence.Migrations
                     b.Property<string>("Info")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("InstitutionId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<int>("StudentsCount")
                         .HasColumnType("integer");
 
+                    b.Property<Guid?>("UniversityId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FacultyPhotoId");
 
-                    b.HasIndex("InstitutionId");
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("Faculties");
                 });
@@ -238,99 +238,14 @@ namespace Persistence.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("InstitutionId")
+                    b.Property<Guid>("UniversityId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("AppUserId", "InstitutionId");
+                    b.HasKey("AppUserId", "UniversityId");
 
-                    b.HasIndex("InstitutionId");
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("FavoriteLists");
-                });
-
-            modelBuilder.Entity("Domain.Institution", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("CityId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Info")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("InstitutionTypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("RegionId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Telephone")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitlePhotoId")
-                        .HasColumnType("text");
-
-                    b.Property<int>("UkraineTop")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Website")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("InstitutionTypeId");
-
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("RegionId");
-
-                    b.HasIndex("TitlePhotoId");
-
-                    b.ToTable("Institutions");
-                });
-
-            modelBuilder.Entity("Domain.InstitutionAdmin", b =>
-                {
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("InstitutionId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("AppUserId", "InstitutionId");
-
-                    b.HasIndex("InstitutionId");
-
-                    b.ToTable("InstitutionsAdmins");
-                });
-
-            modelBuilder.Entity("Domain.InstitutionType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Type")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InstitutionTypes");
                 });
 
             modelBuilder.Entity("Domain.Isced", b =>
@@ -396,7 +311,7 @@ namespace Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("InstitutionId")
+                    b.Property<Guid?>("UniversityId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Url")
@@ -404,7 +319,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InstitutionId");
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("Photos");
                 });
@@ -445,14 +360,14 @@ namespace Persistence.Migrations
                     b.Property<Guid?>("FacultyId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("InstitutionId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
 
                     b.Property<string>("SpecialtyBaseId")
                         .HasColumnType("text");
+
+                    b.Property<Guid?>("UniversityId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -460,9 +375,9 @@ namespace Persistence.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.HasIndex("InstitutionId");
-
                     b.HasIndex("SpecialtyBaseId");
+
+                    b.HasIndex("UniversityId");
 
                     b.ToTable("Reviews");
                 });
@@ -537,6 +452,70 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StudyForms");
+                });
+
+            modelBuilder.Entity("Domain.University", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("CityId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Info")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Telephone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TitlePhotoId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UkraineTop")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Website")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("TitlePhotoId");
+
+                    b.ToTable("Universities");
+                });
+
+            modelBuilder.Entity("Domain.UniversityAdmin", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UniversityId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("AppUserId", "UniversityId");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("UniversitiesAdmins");
                 });
 
             modelBuilder.Entity("FacultyKnowledgeBranch", b =>
@@ -741,10 +720,6 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("DegreeId");
 
-                    b.HasOne("Domain.Institution", "Institution")
-                        .WithMany()
-                        .HasForeignKey("InstitutionId");
-
                     b.HasOne("Domain.Photo", "Photo")
                         .WithMany()
                         .HasForeignKey("PhotoId");
@@ -753,15 +728,19 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("SpecialtyBaseId");
 
+                    b.HasOne("Domain.University", "University")
+                        .WithMany()
+                        .HasForeignKey("UniversityId");
+
                     b.Navigation("CurrentStatus");
 
                     b.Navigation("Degree");
 
-                    b.Navigation("Institution");
-
                     b.Navigation("Photo");
 
                     b.Navigation("SpecialtyBase");
+
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Domain.City", b =>
@@ -786,13 +765,13 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("FacultyPhotoId");
 
-                    b.HasOne("Domain.Institution", "Institution")
+                    b.HasOne("Domain.University", "University")
                         .WithMany("Faculties")
-                        .HasForeignKey("InstitutionId");
+                        .HasForeignKey("UniversityId");
 
                     b.Navigation("FacultyPhoto");
 
-                    b.Navigation("Institution");
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Domain.FavoriteList", b =>
@@ -803,74 +782,22 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Institution", "Institution")
+                    b.HasOne("Domain.University", "University")
                         .WithMany("FavoriteList")
-                        .HasForeignKey("InstitutionId")
+                        .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Institution");
-                });
-
-            modelBuilder.Entity("Domain.Institution", b =>
-                {
-                    b.HasOne("Domain.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId");
-
-                    b.HasOne("Domain.InstitutionType", "InstitutionType")
-                        .WithMany()
-                        .HasForeignKey("InstitutionTypeId");
-
-                    b.HasOne("Domain.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId");
-
-                    b.HasOne("Domain.Region", "Region")
-                        .WithMany()
-                        .HasForeignKey("RegionId");
-
-                    b.HasOne("Domain.Photo", "TitlePhoto")
-                        .WithMany()
-                        .HasForeignKey("TitlePhotoId");
-
-                    b.Navigation("City");
-
-                    b.Navigation("InstitutionType");
-
-                    b.Navigation("Location");
-
-                    b.Navigation("Region");
-
-                    b.Navigation("TitlePhoto");
-                });
-
-            modelBuilder.Entity("Domain.InstitutionAdmin", b =>
-                {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("InstitutionsAdmin")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Institution", "Institution")
-                        .WithMany("InstitutionAdmins")
-                        .HasForeignKey("InstitutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Institution");
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Domain.Photo", b =>
                 {
-                    b.HasOne("Domain.Institution", null)
+                    b.HasOne("Domain.University", null)
                         .WithMany("Photos")
-                        .HasForeignKey("InstitutionId");
+                        .HasForeignKey("UniversityId");
                 });
 
             modelBuilder.Entity("Domain.Review", b =>
@@ -883,22 +810,22 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("FacultyId");
 
-                    b.HasOne("Domain.Institution", "Institution")
-                        .WithMany("Reviews")
-                        .HasForeignKey("InstitutionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Domain.SpecialtyBase", "SpecialtyBase")
                         .WithMany()
                         .HasForeignKey("SpecialtyBaseId");
+
+                    b.HasOne("Domain.University", "University")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Author");
 
                     b.Navigation("Faculty");
 
-                    b.Navigation("Institution");
-
                     b.Navigation("SpecialtyBase");
+
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("Domain.Specialty", b =>
@@ -929,6 +856,52 @@ namespace Persistence.Migrations
                         .HasForeignKey("KnowledgeBranchId");
 
                     b.Navigation("KnowledgeBranch");
+                });
+
+            modelBuilder.Entity("Domain.University", b =>
+                {
+                    b.HasOne("Domain.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
+                    b.HasOne("Domain.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("Domain.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId");
+
+                    b.HasOne("Domain.Photo", "TitlePhoto")
+                        .WithMany()
+                        .HasForeignKey("TitlePhotoId");
+
+                    b.Navigation("City");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Region");
+
+                    b.Navigation("TitlePhoto");
+                });
+
+            modelBuilder.Entity("Domain.UniversityAdmin", b =>
+                {
+                    b.HasOne("Domain.AppUser", "AppUser")
+                        .WithMany("UniversitiesAdmin")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.University", "University")
+                        .WithMany("UniversityAdmins")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("FacultyKnowledgeBranch", b =>
@@ -1046,27 +1019,14 @@ namespace Persistence.Migrations
                 {
                     b.Navigation("FavoriteList");
 
-                    b.Navigation("InstitutionsAdmin");
-
                     b.Navigation("Reviews");
+
+                    b.Navigation("UniversitiesAdmin");
                 });
 
             modelBuilder.Entity("Domain.Faculty", b =>
                 {
                     b.Navigation("Specialties");
-                });
-
-            modelBuilder.Entity("Domain.Institution", b =>
-                {
-                    b.Navigation("Faculties");
-
-                    b.Navigation("FavoriteList");
-
-                    b.Navigation("InstitutionAdmins");
-
-                    b.Navigation("Photos");
-
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("Domain.KnowledgeBranch", b =>
@@ -1087,6 +1047,19 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.SpecialtyBase", b =>
                 {
                     b.Navigation("Specialties");
+                });
+
+            modelBuilder.Entity("Domain.University", b =>
+                {
+                    b.Navigation("Faculties");
+
+                    b.Navigation("FavoriteList");
+
+                    b.Navigation("Photos");
+
+                    b.Navigation("Reviews");
+
+                    b.Navigation("UniversityAdmins");
                 });
 #pragma warning restore 612, 618
         }

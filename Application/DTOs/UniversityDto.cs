@@ -2,11 +2,10 @@ using Domain;
 
 namespace Application.DTOs
 {
-	public class InstitutionDto
+	public class UniversityDto
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }
-		public string InstitutionType { get; set; }
 		public string Region { get; set; }
 		public string City { get; set; }
 		public string Address { get; set; }

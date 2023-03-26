@@ -1,6 +1,6 @@
 namespace Domain
 {
-	public class FavoriteList
+	public class UniversityAdmin
 	{
 		public string AppUserId { get; set; }
 		public AppUser AppUser { get; set; }

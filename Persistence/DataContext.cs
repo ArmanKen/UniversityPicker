@@ -9,8 +9,8 @@ public class DataContext : IdentityDbContext<AppUser>
 	{
 	}
 
-	public DbSet<Institution> Institutions { get; set; }
-	public DbSet<InstitutionAdmin> InstitutionsAdmins { get; set; }
+	public DbSet<University> Universities { get; set; }
+	public DbSet<UniversityAdmin> UniversitiesAdmins { get; set; }
 	public DbSet<Specialty> Specialties { get; set; }
 	public DbSet<SpecialtyBase> SpecialtyBases { get; set; }
 	public DbSet<Region> Regions { get; set; }
@@ -26,24 +26,23 @@ public class DataContext : IdentityDbContext<AppUser>
 	public DbSet<Language> Languages { get; set; }
 	public DbSet<Location> Locations { get; set; }
 	public DbSet<StudyForm> StudyForms { get; set; }
-	public DbSet<InstitutionType> InstitutionTypes { get; set; }
 	public DbSet<FavoriteList> FavoriteLists { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
 		base.OnModelCreating(builder);
-		builder.Entity<InstitutionAdmin>(b =>
+		builder.Entity<UniversityAdmin>(b =>
 		{
-			b.HasKey(x => new { x.AppUserId, x.InstitutionId });
-			b.HasOne(x => x.AppUser).WithMany(x => x.InstitutionsAdmin).HasForeignKey(x => x.AppUserId);
-			b.HasOne(u => u.Institution).WithMany(x => x.InstitutionAdmins).HasForeignKey(u => u.InstitutionId);
+			b.HasKey(x => new { x.AppUserId, x.UniversityId });
+			b.HasOne(x => x.AppUser).WithMany(x => x.UniversitiesAdmin).HasForeignKey(x => x.AppUserId);
+			b.HasOne(u => u.University).WithMany(x => x.UniversityAdmins).HasForeignKey(u => u.UniversityId);
 		});
 		builder.Entity<FavoriteList>(b =>
 		{
-			b.HasKey(x => new { x.AppUserId, x.InstitutionId });
+			b.HasKey(x => new { x.AppUserId, x.UniversityId });
 			b.HasOne(x => x.AppUser).WithMany(x => x.FavoriteList).HasForeignKey(x => x.AppUserId);
-			b.HasOne(x => x.Institution).WithMany(x => x.FavoriteList).HasForeignKey(x => x.InstitutionId);
+			b.HasOne(x => x.University).WithMany(x => x.FavoriteList).HasForeignKey(x => x.UniversityId);
 		});
-		builder.Entity<Review>().HasOne(a => a.Institution).WithMany(c => c.Reviews).OnDelete(DeleteBehavior.Cascade);
+		builder.Entity<Review>().HasOne(a => a.University).WithMany(c => c.Reviews).OnDelete(DeleteBehavior.Cascade);
 	}
 }

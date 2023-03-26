@@ -29,12 +29,12 @@ namespace Application.Specialties
 
 			public async Task<Result<PagedList<SpecialtyDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				// var institution = await _context.Institutions
+				// var university = await _context.Universities
 				// 	// .Include(x => x.Specialties)
 				// 	// .ThenInclude(x => x.SpecialtyBase.Isceds && x)
 				// 	.FirstOrDefaultAsync(x => x.Id == request.Id);
-				// if (institution == null) return null;
-				// var query = institution.Specialties
+				// if (university == null) return null;
+				// var query = university.Specialties
 				// 	.AsQueryable();
 				// if (!string.IsNullOrEmpty(request.Params.SpecialtyBaseId))
 				// {

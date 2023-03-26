@@ -1,25 +1,25 @@
 using Application.Core;
+using Application.DTOs;
 using AutoMapper;
 using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Institutions
+namespace Application.Universities
 {
 	public class Edit
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public Institution Institution { get; set; }
-			public Guid Id { get; set; }
+			public UniversityDto University { get; set; }
 		}
 
 		public class CommandValidator : AbstractValidator<Command>
 		{
 			public CommandValidator()
 			{
-				RuleFor(x => x.Institution).SetValidator(new InstitutionValidator());
+				RuleFor(x => x.University).SetValidator(new UniversityValidator());
 			}
 		}
 
@@ -36,11 +36,11 @@ namespace Application.Institutions
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var institution = await _context.Institutions.FindAsync(request.Id);
-				if (institution == null) return null;
-				_mapper.Map(request.Institution, institution);
+				var university = await _context.Universities.FindAsync(request.University.Id);
+				if (university == null) return null;
+				_mapper.Map(request.University, university);
 				var result = await _context.SaveChangesAsync() > 0;
-				if (!result) return Result<Unit>.Failure("Failed to update the institution");
+				if (!result) return Result<Unit>.Failure("Failed to update the university");
 				return Result<Unit>.Success(Unit.Value);
 			}
 		}

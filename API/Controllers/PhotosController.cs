@@ -8,9 +8,9 @@ namespace API.Controllers
 	{
 		[AllowAnonymous]
 		[HttpGet("{id}/gallery")]
-		public async Task<IActionResult> GetInstitutionPhotos(Guid id)
+		public async Task<IActionResult> GetUniversityPhotos(Guid id)
 		{
-			return HandleResult(await Mediator.Send(new List.Query { InstitutionId = id }));
+			return HandleResult(await Mediator.Send(new List.Query { UniversityId = id }));
 		}
 
 		[Authorize]
@@ -22,17 +22,17 @@ namespace API.Controllers
 
 		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpPost("{id}/gallery/")]
-		public async Task<IActionResult> AddInstitutionPhoto(Guid institutionId, [FromForm] AddInstitutionPhoto.Command command)
+		public async Task<IActionResult> AddUniversityPhoto(Guid universityId, [FromForm] AddUniversityPhoto.Command command)
 		{
-			command.InstitutionId = institutionId;
+			command.UniversityId = universityId;
 			return HandleResult(await Mediator.Send(command));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpPost("{id}/titleImage/")]
-		public async Task<IActionResult> AddInstitutionTitlePhoto(Guid institutionId, [FromForm] AddInstitutionPhoto.Command command)
+		public async Task<IActionResult> AddUniversityTitlePhoto(Guid universityId, [FromForm] AddUniversityPhoto.Command command)
 		{
-			command.InstitutionId = institutionId;
+			command.UniversityId = universityId;
 			return HandleResult(await Mediator.Send(command));
 		}
 

@@ -22,10 +22,9 @@ namespace API.Controllers
 
 		[Authorize]
 		[HttpGet("selected")]
-		public async Task<IActionResult> ListSelectedInstitution()
+		public async Task<IActionResult> ListSelectedUniversity()
 		{
-			return HandleResult(await Mediator.Send(new Application.FavoriteLists.List.Query
-			{ }));
+			return HandleResult(await Mediator.Send(new Application.FavoriteLists.List.Query { }));
 		}
 	}
 }

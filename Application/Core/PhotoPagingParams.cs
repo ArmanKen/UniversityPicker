@@ -1,8 +1,8 @@
 namespace Application.Core
 {
-	public class InstitutionPagingParams
+	public class PhotoPagingParams
 	{
-		private const int MaxPageSize = 50;
+		private const int MaxPageSize = 20;
 		public int PageNumber { get; set; } = 1;
 		private int _pageSize = 20;
 		public int PageSize

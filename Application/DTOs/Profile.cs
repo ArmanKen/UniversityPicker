@@ -9,8 +9,8 @@ namespace Application.DTOs
 		public string Bio { get; set; }
 		public Photo Photo { get; set; }
 		public int CurrentStatus { get; set; }
-		public InstitutionDto Institution { get; set; }
-		public int SpecialtyBase { get; set; }
+		public UniversityDto University { get; set; }
+		public string SpecialtyBase { get; set; }
 		public int Degree { get; set; }
 	}
 }

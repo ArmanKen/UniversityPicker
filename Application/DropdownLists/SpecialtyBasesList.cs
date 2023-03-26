@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Menu
+namespace Application.DropdownLists
 {
 	public class SpecialtyBasesList
 	{

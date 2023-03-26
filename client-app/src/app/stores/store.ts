@@ -4,10 +4,10 @@ import DisciplineStore from "./disciplineStore";
 import ModalStore from "./modalStore";
 import SpecilatyStore from "./specialtyStore";
 import MenuStore from "./menuStore";
-import InstitutionStore from "./institutionStore";
+import UniversityStore from "./universityStore";
 
 interface Store {
-	institutionStore: InstitutionStore,
+	universityStore: UniversityStore,
 	commonStore: CommonStore,
 	specilatyStore: SpecilatyStore,
 	disciplineStore: DisciplineStore,
@@ -17,7 +17,7 @@ interface Store {
 
 export const store: Store = {
 	specilatyStore: new SpecilatyStore(),
-	institutionStore: new InstitutionStore(),
+	universityStore: new UniversityStore(),
 	commonStore: new CommonStore(),
 	disciplineStore: new DisciplineStore(),
 	modalStore: new ModalStore(),

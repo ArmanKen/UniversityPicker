@@ -9,21 +9,21 @@ namespace API.Controllers
 		[HttpGet("specialtyBases")]
 		public async Task<IActionResult> GetSpecialtyBases()
 		{
-			return HandleResult(await Mediator.Send(new Application.Menu.SpecialtyBasesList.Query()));
+			return HandleResult(await Mediator.Send(new Application.DropdownLists.SpecialtyBasesList.Query()));
 		}
 
 		[AllowAnonymous]
 		[HttpGet("regions")]
 		public async Task<IActionResult> GetRegions()
 		{
-			return HandleResult(await Mediator.Send(new Application.Menu.RegionsList.Query()));
+			return HandleResult(await Mediator.Send(new Application.DropdownLists.RegionsList.Query()));
 		}
 
 		[AllowAnonymous]
 		[HttpGet("degrees")]
 		public async Task<IActionResult> GetDegrees()
 		{
-			return HandleResult(await Mediator.Send(new Application.Menu.DegreeList.Query()));
+			return HandleResult(await Mediator.Send(new Application.DropdownLists.DegreeList.Query()));
 		}
 	}
 }

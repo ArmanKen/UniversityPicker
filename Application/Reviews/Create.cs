@@ -32,18 +32,18 @@ namespace Application.Reviews
 
 			public async Task<Result<ReviewDto>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var institution = await _context.Institutions.FindAsync(request.UniversirtyId);
-				if (institution == null) return null!;
+				var university = await _context.Universities.FindAsync(request.UniversirtyId);
+				if (university == null) return null!;
 				var user = await _context.Users
 					.Include(p => p.Photo)
 					.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				var review = new Review
 				{
 					Author = user,
-					Institution = institution,
+					University = university,
 					Body = request.Body
 				};
-				institution.Reviews.Add(review);
+				university.Reviews.Add(review);
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<ReviewDto>.Success(_mapper.Map<ReviewDto>(review));
 				return Result<ReviewDto>.Failure("Failed to add Review");

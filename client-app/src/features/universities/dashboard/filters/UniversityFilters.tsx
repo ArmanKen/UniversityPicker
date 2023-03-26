@@ -10,7 +10,7 @@ import PriceFilter from './PriceFilter';
 import RegionFilter from './RegionFilter';
 import SpecialtyFilter from './SpecialtyFilter';
 
-export default observer(function InstitutionFilters() {
+export default observer(function UniversityFilters() {
 	const { menuStore } = useStore();
 	const { regions, loadRegions, loadSpecialtiesBase, specialtiesBase } = menuStore;
 

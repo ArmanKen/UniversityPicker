@@ -32,16 +32,16 @@ namespace Application.Reviews
 
 			public async Task<Result<ReviewDto>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var institution = await _context.Institutions.FindAsync(request.UniversirtyId);
-				if (institution == null) return null;
+				var university = await _context.Universities.FindAsync(request.UniversirtyId);
+				if (university == null) return null;
 				var user = await _context.Users
 					.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-				var previosReview = institution.Reviews.FirstOrDefault(x => x.Author == user);
+				var previosReview = university.Reviews.FirstOrDefault(x => x.Author == user);
 				if (previosReview == null) return null;
 				previosReview.Body = request.Body;
 				previosReview.Rating = request.Rating;
 				previosReview.CreatedAt = DateTime.UtcNow;
-				institution.Reviews.Add(previosReview);
+				university.Reviews.Add(previosReview);
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<ReviewDto>.Success(_mapper.Map<ReviewDto>(previosReview));
 				return Result<ReviewDto>.Failure("Failed to change comment");

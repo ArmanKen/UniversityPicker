@@ -59,17 +59,6 @@ namespace Persistence
 					};
 				await context.CurrentStatuses.AddRangeAsync(currentStatuses);
 
-				var institutionTypes = new List<InstitutionType>
-					{
-						new InstitutionType{Type="Академія"},
-						new InstitutionType{Type="Інститут"},
-						new InstitutionType{Type="Університет"},
-						new InstitutionType{Type="Консерваторія"},
-						new InstitutionType{Type="Технікум"},
-						new InstitutionType{Type="Колледж"}
-					};
-				await context.InstitutionTypes.AddRangeAsync(institutionTypes);
-
 				var users = new List<AppUser>
 					{
 						new AppUser
@@ -2545,162 +2534,6 @@ namespace Persistence
 					};
 				await context.Isceds.AddRangeAsync(isceds);
 
-				var eduComponents = new List<EduComponent>
-					{
-						new EduComponent
-						{
-							Name="Цивільне право",
-						},
-						new EduComponent
-						{
-							Name="Правові висновки Верховного Cуду",
-						},
-						new EduComponent
-						{
-							Name="Альтернативні способи вирішення суперечок",
-						},
-						new EduComponent
-						{
-							Name="Нотаріальний процес",
-						},
-						new EduComponent
-						{
-							Name="Порівняльне цивільне право і процес",
-						},
-						new EduComponent
-						{
-							Name="Школа прикладної юриспруденції",
-						},
-						new EduComponent
-						{
-							Name="Практична підготовка",
-						},
-						new EduComponent
-						{
-							Name="Дискретна математика",
-						},
-						new EduComponent
-						{
-							Name="Математичний аналіз",
-						},
-						new EduComponent
-						{
-							Name="Фізика",
-						},
-						new EduComponent
-						{
-							Name="Вступ до комп'ютерних наук",
-						},
-						new EduComponent
-						{
-							Name="Іноземна мова",
-						},
-						new EduComponent
-						{
-							Name="Теорія ймовірностей та математична статистика",
-						},
-						new EduComponent
-						{
-							Name="Комп'ютерні технології обробки та візуалізації даних",
-						},
-						new EduComponent
-						{
-							Name="Алгоритмізація та програмування",
-						},
-						new EduComponent
-						{
-							Name="Оптимізаційні методи та моделі",
-						},
-						new EduComponent
-						{
-							Name="Штучний інтелект",
-						},
-						new EduComponent
-						{
-							Name="Управління ІТ-проектами",
-						},
-						new EduComponent
-						{
-							Name="Технологія Java",
-						},
-						new EduComponent
-						{
-							Name="Адміністрування серверних систем",
-						},
-						new EduComponent
-						{
-							Name="Web-технології",
-						},
-						new EduComponent
-						{
-							Name="Інженерна та комп'ютерна графіка",
-						},
-						new EduComponent
-						{
-							Name="Технології аналізу даних",
-						},
-						new EduComponent
-						{
-							Name="Технології створення програмних продуктів",
-						},
-						new EduComponent
-						{
-							Name="Правознавство",
-						},
-						new EduComponent
-						{
-							Name="Психологія",
-						},
-						new EduComponent
-						{
-							Name="Ораторське мистецтво",
-						},
-						new EduComponent
-						{
-							Name="Безпека життя",
-						},
-						new EduComponent
-						{
-							Name="Історія української культури",
-						},
-						new EduComponent
-						{
-							Name="Ораторське мистецтво",
-						},
-						new EduComponent
-						{
-							Name="Менеджмент",
-						},
-						new EduComponent
-						{
-							Name="Філософія",
-						},
-						new EduComponent
-						{
-							Name="Соціологія",
-						},
-						new EduComponent
-						{
-							Name="Логіка",
-						},
-						new EduComponent
-						{
-							Name="Бухгалтерський облік",
-						},
-						new EduComponent
-						{
-							Name="Організація баз даних та знань",
-						},
-						new EduComponent
-						{
-							Name="Архітектура обчислювальних систем",
-						},
-						new EduComponent
-						{
-							Name="Теорія управління в інформаційних системах",
-						}
-					};
-				await context.EduComponents.AddRangeAsync(eduComponents);
 
 				var specialtyBases = new List<SpecialtyBase>
 					{
@@ -4069,11 +3902,10 @@ namespace Persistence
 
 				var citiesList = await context.Cities.ToListAsync();
 
-				var institutions = new List<Institution>
+				var universitys = new List<University>
 					{
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Львівський національний медичний університет імені Данила Галицького",
 							Info = "Львівський національний медичний університет імені Данила Галицького (ЛНМУ; лат. Universitatis Medicinalis Leopoliensis) — один з найбільших та найстаріших медичних навчальних закладів України. Готує спеціалістів за напрямами: медицина, медико-профілактична справа, стоматологія та фармація. За даними міжнародної бази Scopus університет посідає перше місце серед медичних вишів України",
 							Region = regions.FirstOrDefault(x=>x.Name == "Львівська область"),
@@ -4081,11 +3913,10 @@ namespace Persistence
 							Address = "вул. Пекарська, 69",
 							Website = "new.meduniv.lviv.ua",
 							Telephone = "0231231028",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Київський національний університет імені Тараса Шевченка",
 							Info = "державний заклад вищої освіти України, розташований у місті Києві. За рейтингами ВНЗ, на 2020 рік посідав 1 місце і є найбільшим університетом за кількістю студентів і спеціальностей. З 2009 до 2014 року мав статус автономного дослідницького університету",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
@@ -4093,11 +3924,10 @@ namespace Persistence
 							Address = "вул. Володимирська, 60",
 							Website = "knu.ua",
 							Telephone = "6683328733",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Буковинський державний медичний університет",
 							Info = "один із найбільших закладів вищої освіти м. Чернівці. Це сучасний багатопрофільний заклад вищої медичної освіти, включений до загального реєстру Всесвітньої організації охорони здоров'я, Великої Хартії університетів, Європейської асоціації університету, що здійснює підготовку здобувачів вищої освіти за ступеневою системою освіти. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Чернівецька область"),
@@ -4105,11 +3935,10 @@ namespace Persistence
 							Address = "Театральна площа, 2",
 							Website = "www.bsmu.edu.ua",
 							Telephone = "23474623659",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Тернопільський національний медичний університет",
 							Info = "державний заклад вищої освіти України, розташований у місті Києві. За рейтингами ВНЗ, на 2020 рік посідав 1 місце і є найбільшим університетом за кількістю студентів і спеціальностей. З 2009 до 2014 року мав статус автономного дослідницького університету",
 							Region = regions.FirstOrDefault(x=>x.Name == "Тернопільська область"),
@@ -4117,11 +3946,10 @@ namespace Persistence
 							Address = "Майдан Волі, 1",
 							Website = "tdmu.edu.ua",
 							Telephone = "023sdads8",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Львівський національний університет імені Івана Франка",
 							Info = "один із найстаріших університетів України й Східної Європи та найпрестижніших в Україні. Є спадкоємцем колегіуму (1608—1661) та академії (1661—1773) єзуїтів, Йосифинського університету (1784—1805), Львівського ліцею (1805—1817), Університету Франца I (1817—1918), Львівського університету Яна-Казимира (1919—1939), Львівського державного університету імені Івана Франка (1939—1999).",
 							Region = regions.FirstOrDefault(x=>x.Name == "Львівська область"),
@@ -4129,11 +3957,10 @@ namespace Persistence
 							Address = "вул. Університетська, 1",
 							Website = "lnu.edu.ua",
 							Telephone = "0322 603 402",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Національний університет «Києво-Могилянська академія»",
 							Info = "Національний університет «Києво-Могилянська академія» це заклад вищої освіти в Україні. Заснований 1615 року. Розміщується в корпусах історичної Києво-Могилянської академії, від якої отримав свою назву. Університетське містечко розташоване на Подолі в Києві, між Контрактовою площею та набережною Дніпра. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
@@ -4141,11 +3968,10 @@ namespace Persistence
 							Address = "вулиця Григорія Сковороди, 2",
 							Website = "www.ukma.edu.ua",
 							Telephone = "044 425 6059",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Державний торговельно-економічний університет",
 							Info = "вищий навчальний заклад Міністерства освіти і науки України в Києві, Україна. Заснований як Київський філіал Всесоюзного заочного інституту радянської торгівлі в 1946 році. Знаходиться у Деснянському районі на території Лісового масиву між вулицями Кіото і Мілютенка.",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
@@ -4153,11 +3979,10 @@ namespace Persistence
 							Address = "вулиця Кіото, 19",
 							Website = "knute.edu.ua",
 							Telephone = "044 513 3348",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Прикарпатський національний університет імені Василя Стефаника",
 							Info = "Прикарпатський національний університет імені Василя Стефаника є одним з найстаріших вищих навчальних закладів Івано-Франківської області. Згідно з указом Президента України від 26 серпня 1992 р. його створено на базі педагогічного інституту, заснованого 1940 р. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Івано-Франківська область"),
@@ -4165,11 +3990,10 @@ namespace Persistence
 							Address = "вулиця Шевченка, 57",
 							Website = "pnu.edu.ua",
 							Telephone = "0342 531 574",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Національний технічний університет «Дніпровська політехніка»",
 							Info = "Національний технічний університет «Дніпро́вська політе́хніка» — державний заклад вищої освіти, багатогалузевий технічний університет, найстаріший заклад вищої освіти в м. Дніпро, перший заклад вищої гірничої освіти України. Має статус національного.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Дніпропетровська область"),
@@ -4177,11 +4001,10 @@ namespace Persistence
 							Address = "проспект Дмитра Яворницького, 19",
 							Website = "nmu.org.ua",
 							Telephone = "056 744 1411",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Київський національний університет технологій та дизайну",
 							Info = "Ки́ївський націона́льний університе́т техноло́гій та диза́йну — вищий навчальний заклад в Україні IV рівня акредитації, заснований 1930 року. В університеті навчається більше 10 тис. Київський національний університет технологій та дизайну увійшов у рейтинг «ТОР-100 кращих дизайнерських шкіл світу» і посів 71 місце.",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
@@ -4189,11 +4012,10 @@ namespace Persistence
 							Address = "вулиця Немировича-Данченка, 2",
 							Website = "knutd.com.ua",
 							Telephone = "044 256 2975",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Волинський національний університет імені Лесі Українки",
 							Info = "державний вищий навчальний заклад IV рівня акредитації у місті Луцьк, Україна. Заснований у 1940 році, впродовж історії змінював назви: Луцький державний учительський інститут, Луцький державний педагогічний інститут; у статусі університету мав назви Волинського державного, Волинського національного і Східноєвропейського національного. З 2020 року повернув назву Волинський національний університет. Названий на честь письменниці Лесі Українки.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Волинська область"),
@@ -4201,11 +4023,10 @@ namespace Persistence
 							Address = "проспект Волі, 13",
 							Website = "vnu.edu.ua",
 							Telephone = "0332 720 123",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Національний університет «Полтавська політехніка імені Юрія Кондратюка»",
 							Info = "Університет володіє сучасними матеріально-технічними ресурсами. 9 навчальних корпусів із загальною площею 87 000 м², безпечні сприятливі умови для високоякісного навчання. Бібліотека налічує приблизно 500 тисяч одиниць літератури, 5 читальних залів з 400 місцями, 55 навчальних лабораторій та 10 науково-дослідницьких, споряджених стаціонарним обладнанням, 26 комп'ютерних класів у розпорядженні студентів і викладачів. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Полтавська область"),
@@ -4213,11 +4034,10 @@ namespace Persistence
 							Address = "Першотравневий проспект, 24",
 							Website = "nupp.edu.ua",
 							Telephone = "05325 61604",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Дніпропетровський державний університет внутрішніх справ",
 							Info = "Університет заснований 16 березня 1966, як Дніпропетровська спеціальна середня школа міліції МВС СРСР. В 1992 вона була реорганізована в Дніпропетровське училище міліції МВС України. 1 вересня 1997 училище міліції було перетворено у вищий навчальний заклад — Дніпропетровський юридичний інститут МВС України. 1998 р. заклад з вул. Артема, 147 переїхав до приміщень колишнього Дніпропетровського військового зенітно-ракетного училища за адресою просп. Гагарина, 26. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Дніпропетровська область"),
@@ -4225,11 +4045,10 @@ namespace Persistence
 							Address = "проспект Гагаріна, 26",
 							Website = "dduvs.in.ua",
 							Telephone = "Не зазначено",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Запорізький державний медичний університет",
 							Info = "Запорізький державний медичний університет — заклад вищої освіти в Україні. Запорізький державний медичний університет — це сучасний навчальний центр, що має вищий (IV) ступінь акредитації. Університет — один з найстаріших вищих медичних навчальних закладів України.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Запорізька область"),
@@ -4237,11 +4056,10 @@ namespace Persistence
 							Address = "проспект Маяковського, 26",
 							Website = "www.zsmu.edu.ua",
 							Telephone = "0612 246 469",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Чернівецький національний університет імені Юрія Федьковича",
 							Info = "Чернівецький національний університет імені Юрія Федьковича — державний вищий заклад освіти 4-го рівня акредитації у місті Чернівці.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Чернівецька область"),
@@ -4249,11 +4067,10 @@ namespace Persistence
 							Address = "вулиця Коцюбинського, 2",
 							Website = "www.chnu.edu.ua",
 							Telephone = "0372 584 810",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Національний університет біоресурсів і природокористування України",
 							Info = "Націона́льний університе́т біоресу́рсів і природокористува́ння Украї́ни, є провідним вищим аграрним закладом освіти України. З 2009 до 2014 року мав статус автономного дослідницького університету. Розташований у місті Києві. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
@@ -4261,11 +4078,10 @@ namespace Persistence
 							Address = "вулиця Героїв Оборони, 15",
 							Website = "www.nubip.edu.ua",
 							Telephone = "044 527 8205",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Західноукраїнський національний універиситет",
 							Info = "Західноукраїнський національний університет — вищий навчальний заклад України IV-го рівня акредитації в м. Тернополі. Університет здійснює підготовку майже 25 тисяч студентів на всіх рівнях вищої освіти. ЗУНУ є підписантом Великої хартії університетів та членом Асоціації європейських університетів.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Тернопільська область"),
@@ -4273,11 +4089,10 @@ namespace Persistence
 							Address = "вулиця Львівська, 11",
 							Website = "wunu.edu.ua",
 							Telephone = "0352 517 575",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Національний педагогічний університет імені М. П. Драгоманова",
 							Info = "З осені 1989 року колектив вишу став активно домагатися повернення інститутові несправедливо відібраного в середині 20-х років імені Михайла Петровича Драгоманова. Це питання постійно стало порушуватися на зборах викладачів і студентів, засіданнях ради інституту і рад філологічного, історичного, педагогічного та інших факультетів й у статтях в періодичній пресі. Усі ці вимоги й акції завершилися перемогою справедливості: в 1993 році інститутові було повернуто ім'я видатного українського вченого-енциклопедиста, борця за вільну українську школу М. П. Драгоманова. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
@@ -4285,11 +4100,10 @@ namespace Persistence
 							Address = "вулиця Пирогова, 9",
 							Website = "www.npu.edu.ua",
 							Telephone = "044 239 3017",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Хмельницький національний університет",
 							Info = "вищий навчальний заклад на Поділлі, який готує спеціалістів із багатьох галузей знань і проводить навчальну, методичну, наукову та виховну роботу. Університет засновано 1962 року. Пройшов шлях від загальнотехнічного факультету Українського поліграфічного інституту до Хмельницького національного університету, який має найвищий IV рівень акредитації. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Хмельницька область"),
@@ -4297,11 +4111,10 @@ namespace Persistence
 							Address = "вулиця Інститутська, 11",
 							Website = "khnu.km.ua",
 							Telephone = "0382 670 276",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Вінницький національний технічний університет",
 							Info = "український заклад вищої освіти четвертого рівня акредитації, який здійснює підготовку фахівців інженерно-технічного профілю. Заклад є центром освіти, науки та культури Подільського регіону. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Вінницька область"),
@@ -4309,11 +4122,10 @@ namespace Persistence
 							Address = "Хмельницьке шосе, 95",
 							Website = "vntu.edu.ua",
 							Telephone = "0432 560 848",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Житомирський державний університет імені Івана Франка",
 							Info = "найстаріший вищий навчальний заклад Житомирщини. Заснований у 1919 році як «Волинський педагогічний інститут».",
 							Region = regions.FirstOrDefault(x=>x.Name == "Житомирська область"),
@@ -4321,11 +4133,10 @@ namespace Persistence
 							Address = "вулиця Велика Бердичівська, 40",
 							Website = "zu.edu.ua",
 							Telephone = "0412 431 417",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Харківський політехнічний інститут",
 							Info = "Національний технічний університет «Харківський політехнічний інститут», до 1929 Харківський технологічний інститут, з 1975 Харківський ордена Леніна політехнічний інститут імені В. І. Леніна — заснований в 1885 році в Харкові. Другий технологічний інститут в Російській імперії після санкт-петербурзького.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Харківська область"),
@@ -4333,11 +4144,10 @@ namespace Persistence
 							Address = "вулиця Кирпичова, 2",
 							Website = "kpi.kharkov.ua",
 							Telephone = "057 707 6634",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Харківський національний медичний університет",
 							Info = "Ха́рківський націона́льний меди́чний університе́т, раніше Харківський державний медичний інститут. Вищий навчальний заклад, метою якого є підготовка медичних фахівців та підвищення кваліфікації, формування на базі університету науково-виробничого кластеру.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Харківська область"),
@@ -4345,11 +4155,10 @@ namespace Persistence
 							Address = "проспект Науки, 4",
 							Website = "knmu.edu.ua",
 							Telephone = "057 707 7380",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Ужгородський національний університет",
 							Info = "Ужгородський національний університет є членом Асоціації університетів Карпатського регіону (ACRU), яка входить до Асоціації європейських університетів (EUA) та є асоційованим членом Міжнародної асоціації університетів (IAU). Виш співпрацює зі 125 партнерами з різних країн, зокрема з такими, як Карлів університет, Технічний університет у м. Прага (Чехія), Університет Корвіна, Університет держави і права ім. Л.Кошута (Угорщина), Кошицький університет ім. П. Й. Шафарика, Університет ім. Я. А. Коменського (Словаччина), Університет м. Орадеа, Клузький університет м. Бабеш-Бояї (Румунія), Інститут германістики Університету м. Ландау, Університет Регенсбургу (Німеччина), Асоціація гомеопатичної медицини м. Рим (Італія), Загребський університет (Хорватія), Словацьким медичним університетом (Братислава) та іншими. У 2020 році укладено 7 нових міжнародних білатеральних угод, 7 угод з реалізації міжнародних проєктів та 8 угод з метою супроводу академічної мобільності Erasmus+.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Закарпатська область"),
@@ -4357,11 +4166,10 @@ namespace Persistence
 							Address = "вулиця Університетська, 14",
 							Website = "uzhnu.edu.ua",
 							Telephone = "0312 643 084",
-							InstitutionAdmins = new List<InstitutionAdmin>{new InstitutionAdmin{AppUser = users[1]}}
+							UniversityAdmins = new List<UniversityAdmin>{new UniversityAdmin{AppUser = users[1]}}
 						},
-						new Institution
+						new University
 						{
-							InstitutionType = institutionTypes[2],
 							Name = "Національний університет «Львівська Політехніка»",
 							Info = "найстаріший технічний заклад вищої освіти України та Східної Європи, заснований у 1816 році як Реальна школа з дозволу австрійського імператора Франца І.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Львівська область"),
@@ -4371,14 +4179,171 @@ namespace Persistence
 							Telephone = "0322 582 111"
 						},
 					};
-				await context.Institutions.AddRangeAsync(institutions);
+				await context.Universities.AddRangeAsync(universitys);
 
-				foreach (var item in institutions)
+				foreach (var item in universitys)
 				{
+					var eduComponents = new List<EduComponent>
+					{
+						new EduComponent
+						{
+							Name="Цивільне право",
+						},
+						new EduComponent
+						{
+							Name="Правові висновки Верховного Cуду",
+						},
+						new EduComponent
+						{
+							Name="Альтернативні способи вирішення суперечок",
+						},
+						new EduComponent
+						{
+							Name="Нотаріальний процес",
+						},
+						new EduComponent
+						{
+							Name="Порівняльне цивільне право і процес",
+						},
+						new EduComponent
+						{
+							Name="Школа прикладної юриспруденції",
+						},
+						new EduComponent
+						{
+							Name="Практична підготовка",
+						},
+						new EduComponent
+						{
+							Name="Дискретна математика",
+						},
+						new EduComponent
+						{
+							Name="Математичний аналіз",
+						},
+						new EduComponent
+						{
+							Name="Фізика",
+						},
+						new EduComponent
+						{
+							Name="Вступ до комп'ютерних наук",
+						},
+						new EduComponent
+						{
+							Name="Іноземна мова",
+						},
+						new EduComponent
+						{
+							Name="Теорія ймовірностей та математична статистика",
+						},
+						new EduComponent
+						{
+							Name="Комп'ютерні технології обробки та візуалізації даних",
+						},
+						new EduComponent
+						{
+							Name="Алгоритмізація та програмування",
+						},
+						new EduComponent
+						{
+							Name="Оптимізаційні методи та моделі",
+						},
+						new EduComponent
+						{
+							Name="Штучний інтелект",
+						},
+						new EduComponent
+						{
+							Name="Управління ІТ-проектами",
+						},
+						new EduComponent
+						{
+							Name="Технологія Java",
+						},
+						new EduComponent
+						{
+							Name="Адміністрування серверних систем",
+						},
+						new EduComponent
+						{
+							Name="Web-технології",
+						},
+						new EduComponent
+						{
+							Name="Інженерна та комп'ютерна графіка",
+						},
+						new EduComponent
+						{
+							Name="Технології аналізу даних",
+						},
+						new EduComponent
+						{
+							Name="Технології створення програмних продуктів",
+						},
+						new EduComponent
+						{
+							Name="Правознавство",
+						},
+						new EduComponent
+						{
+							Name="Психологія",
+						},
+						new EduComponent
+						{
+							Name="Ораторське мистецтво",
+						},
+						new EduComponent
+						{
+							Name="Безпека життя",
+						},
+						new EduComponent
+						{
+							Name="Історія української культури",
+						},
+						new EduComponent
+						{
+							Name="Ораторське мистецтво",
+						},
+						new EduComponent
+						{
+							Name="Менеджмент",
+						},
+						new EduComponent
+						{
+							Name="Філософія",
+						},
+						new EduComponent
+						{
+							Name="Соціологія",
+						},
+						new EduComponent
+						{
+							Name="Логіка",
+						},
+						new EduComponent
+						{
+							Name="Бухгалтерський облік",
+						},
+						new EduComponent
+						{
+							Name="Організація баз даних та знань",
+						},
+						new EduComponent
+						{
+							Name="Архітектура обчислювальних систем",
+						},
+						new EduComponent
+						{
+							Name="Теорія управління в інформаційних системах",
+						}
+					};
+
 					var specialties = new List<Specialty>
 						{
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "122"),
@@ -4386,11 +4351,12 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								BudgetAllowed = true,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
@@ -4398,10 +4364,12 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = false,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
@@ -4409,11 +4377,12 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								BudgetAllowed = true,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "125"),
@@ -4421,10 +4390,11 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = false,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "121"),
@@ -4432,10 +4402,11 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "123"),
@@ -4443,11 +4414,12 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								BudgetAllowed = true,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = false,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "124"),
@@ -4455,10 +4427,11 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "112"),
@@ -4466,11 +4439,12 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18))),
-								BudgetAllowed = true,
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+
 							},
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "111"),
@@ -4478,10 +4452,11 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = false,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "076"),
@@ -4489,10 +4464,11 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "073"),
@@ -4500,10 +4476,11 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "141"),
@@ -4511,10 +4488,11 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = false,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "142"),
@@ -4522,10 +4500,11 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "143"),
@@ -4533,10 +4512,11 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18)))
+								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
 							},
 							new Specialty
 							{
+								BudgetAllowed = true,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "144"),
@@ -4544,17 +4524,19 @@ namespace Persistence
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
 								Year = 2020,
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(0,18)).Reverse().Take(new Random().Next(0,18))),
-								BudgetAllowed = true,
+								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
+
 							},
 							new Specialty
 							{
+								BudgetAllowed = false,
 								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
 								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
 								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "145"),
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
+								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
 								Year = 2020
 							},
 						};
@@ -4608,43 +4590,44 @@ namespace Persistence
 						new Review
 						{
 							Author = users[0],
-							Body = "Test Review message consisting of author, Institution, message, 5 start rating",
+							Body = "Test Review message consisting of author, University, message, 5 start rating",
 							Rating = new Random().Next(1, 6),
 						},
 						new Review
 						{
 							Author = users[1],
-							Body = "Slightly different test Review message consisting of author, Institution, message, 4 star* rating",
+							Body = "Slightly different test Review message consisting of author, University, message, 4 star* rating",
 							Rating = new Random().Next(1, 6),
 						},
 						new Review
 						{
 							Author = users[2],
-							Body = "Another test Review message consisting of author being user3, Institution, message, 1 star rating",
+							Body = "Another test Review message consisting of author being user3, University, message, 1 star rating",
 							Rating = new Random().Next(1, 6),
 						},
 						new Review
 						{
 							Author = users[2],
-							Body = "Another one Review message consisting of author being user4, Institution, message, 5 star rating",
+							Body = "Another one Review message consisting of author being user4, University, message, 5 star rating",
 							Rating = new Random().Next(1, 6),
 						},
 						new Review
 						{
 							Author = users[1],
-							Body = "Test Review message consisting of author being user5, Institution, message, 3 start rating",
+							Body = "Test Review message consisting of author being user5, University, message, 3 start rating",
 							Rating = new Random().Next(1, 6),
 						},
 						new Review
 						{
 							Author = users[0],
-							Body = "Test Review message consisting of author, Institution, message, 5 start rating",
+							Body = "Test Review message consisting of author, University, message, 5 start rating",
 							Rating = new Random().Next(1, 6),
 						},
 					};
 
-					item.Faculties = faculties;
+					item.Faculties = faculties.Take(new Random().Next(0, 5)).ToList();
 					item.Reviews = reviews;
+					context.Users.FirstOrDefault().University = item;
 				}
 				await context.SaveChangesAsync();
 			}

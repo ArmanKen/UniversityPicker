@@ -26,15 +26,16 @@ namespace Application.Profiles
 				_userAccessor = userAccessor;
 				_mapper = mapper;
 				_context = context;
-
 			}
 
 			public async Task<Result<DTOs.Profile>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var user = await _context.Users
+					.Include(x => x.University.Reviews)
+					.Include(x => x.SpecialtyBase)
 					.ProjectTo<DTOs.Profile>(_mapper.ConfigurationProvider)
-					.SingleOrDefaultAsync(x => x.Username == request.Username);
-				return Result<DTOs.Profile>.Success(user!);
+					.FirstOrDefaultAsync(x => x.Username == request.Username);
+				return Result<DTOs.Profile>.Success(user);
 			}
 		}
 	}

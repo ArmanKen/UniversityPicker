@@ -1,4 +1,4 @@
-using Application.Institutions;
+using Application.Universities;
 using Application.Core;
 using Application.Interfaces;
 using FluentValidation;

@@ -5,9 +5,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Institutions
+namespace Application.Universities
 {
-	public class ToggleLocalAdministrator
+	public class ToggleLocalAdmin
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
@@ -28,20 +28,20 @@ namespace Application.Institutions
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var institution = await _context.Institutions.FindAsync(request.Id);
-				if (institution == null) return null;
+				var university = await _context.Universities.FindAsync(request.Id);
+				if (university == null) return null;
 				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == request.Username);
 				if (user == null) return null;
-				var localAdmin = await _context.InstitutionsAdmins.FindAsync(institution.Id, user.Id);
+				var localAdmin = await _context.UniversitiesAdmins.FindAsync(university.Id, user.Id);
 				if (localAdmin == null)
-					institution.InstitutionAdmins.Add(new InstitutionAdmin
+					university.UniversityAdmins.Add(new UniversityAdmin
 					{
 						AppUserId = user.Id,
 						AppUser = user,
-						InstitutionId = institution.Id,
-						Institution = institution
+						UniversityId = university.Id,
+						University = university
 					});
-				else _context.InstitutionsAdmins.Remove(localAdmin);
+				else _context.UniversitiesAdmins.Remove(localAdmin);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to update the local admin");
 				return Result<Unit>.Success(Unit.Value);

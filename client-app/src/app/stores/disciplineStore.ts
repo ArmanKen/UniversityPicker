@@ -13,8 +13,8 @@ export default class DisciplineStore {
 	// 	try {
 	// 		let selectedSpecialty = store.specilatyStore.selectedSpecialty;
 	// 		if (selectedSpecialty !== undefined) {
-	// 			store.institutionStore.institutions.forEach(institution => {
-	// 				let disciplines = institution.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!;
+	// 			store.universityStore.universitys.forEach(university => {
+	// 				let disciplines = university.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!;
 	// 				disciplines.forEach(newDiscipline => {
 	// 					if (!this.disciplines.some(discipline => discipline.id === newDiscipline.id))
 	// 						this.disciplines.push(newDiscipline);

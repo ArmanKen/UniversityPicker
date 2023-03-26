@@ -3,7 +3,7 @@ import { Dropdown, Header, Segment } from "semantic-ui-react";
 import { useStore } from "../../../../app/stores/store";
 
 export default observer(function CityFilter() {
-	const { institutionStore: { institutionLoadingInitial, changeQueryParams },
+	const { universityStore: { universityLoadingInitial, changeQueryParams },
 		menuStore: { citiesDropdown, menuLoadingInitial,
 			selectedCities, setSelectedCities } } = useStore();
 
@@ -21,7 +21,7 @@ export default observer(function CityFilter() {
 				placeholder='Місто...'
 				search
 				multiple
-				disabled={institutionLoadingInitial || menuLoadingInitial}
+				disabled={universityLoadingInitial || menuLoadingInitial}
 				options={citiesDropdown}
 				selection
 				value={selectedCities}

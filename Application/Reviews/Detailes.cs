@@ -12,7 +12,7 @@ namespace Application.Reviews
 	{
 		public class Query : IRequest<Result<ReviewDto>>
 		{
-			public Guid InstitutionId { get; set; }
+			public Guid UniversityId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Query, Result<ReviewDto>>
@@ -31,7 +31,7 @@ namespace Application.Reviews
 			public async Task<Result<ReviewDto>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-				var review = user.Reviews.FirstOrDefault(x => x.Institution.Id == request.InstitutionId);
+				var review = user.Reviews.FirstOrDefault(x => x.University.Id == request.UniversityId);
 				if (review == null) return Result<ReviewDto>.Failure("Failed to find Review");
 				return Result<ReviewDto>.Success(_mapper.Map<ReviewDto>(review));
 			}

@@ -2,13 +2,13 @@ using Application.Core;
 using MediatR;
 using Persistence;
 
-namespace Application.Institutions
+namespace Application.Faculties
 {
 	public class Delete
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public Guid Id { get; set; }
+			public Guid FacultyId { get; set; }
 		}
 		public class Handler : IRequestHandler<Command, Result<Unit>>
 		{
@@ -21,11 +21,11 @@ namespace Application.Institutions
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var institution = await _context.Institutions.FindAsync(request.Id);
-				if (institution == null) return null;
-				_context.Institutions.Remove(institution);
+				var faculty = await _context.Faculties.FindAsync(request.FacultyId);
+				if (faculty == null) return null;
+				_context.Faculties.Remove(faculty);
 				var result = await _context.SaveChangesAsync() > 0;
-				if (!result) return Result<Unit>.Failure("Failed to delete the institution");
+				if (!result) return Result<Unit>.Failure("Failed to delete the faculty");
 				return Result<Unit>.Success(Unit.Value);
 			}
 		}

@@ -28,13 +28,13 @@ namespace Application.Reviews
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var institution = await _context.Institutions.FindAsync(request.UniversirtyId);
-				if (institution == null) return null;
+				var university = await _context.Universities.FindAsync(request.UniversirtyId);
+				if (university == null) return null;
 				var user = await _context.Users
 					.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				if (user == null) return null;
-				var review = institution.Reviews.FirstOrDefault(x => x.Author == user);
-				institution.Reviews.Remove(review);
+				var review = university.Reviews.FirstOrDefault(x => x.Author == user);
+				university.Reviews.Remove(review);
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<Unit>.Success(Unit.Value);
 				return Result<Unit>.Failure("Failed to add comment");

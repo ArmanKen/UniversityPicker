@@ -3,38 +3,38 @@ import React from "react";
 import { Grid, Header, Icon, Image, Modal, Segment, Table } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 
-export default observer(function InstitutionModalBody() {
-	const { institutionStore: { selectedInstitution }, specilatyStore } = useStore();
+export default observer(function UniversityModalBody() {
+	const { universityStore: { selectedUniversity }, specilatyStore } = useStore();
 
 	return (
 		<Modal.Content>
 			<Header textAlign="center" size="large"
-				content={selectedInstitution?.name} />
+				content={selectedUniversity?.name} />
 			<div style={{ position: "relative", display: "flex" }}>
 				<Image verticalAlign="top" fluid
-					src={(selectedInstitution?.titlePhoto &&
-						selectedInstitution.titlePhoto.url) || 'assets/1.png'} />
+					src={(selectedUniversity?.titlePhoto &&
+						selectedUniversity.titlePhoto.url) || 'assets/1.png'} />
 				<div className="bigSquare" style={{ position: 'absolute', bottom: 0 }}>
 					<Icon name='star' size='big'
 						style={{ color: 'white', marginTop: 9, marginLeft: 5 }}	>
-						{selectedInstitution?.rating.toFixed(1)}
+						{selectedUniversity?.rating.toFixed(1)}
 					</Icon>
 				</div>
 			</div>
 			<Segment style={{ textAlign: 'justify' }} attached='top'
-				size='large' padded content={selectedInstitution?.info} />
+				size='large' padded content={selectedUniversity?.info} />
 			<Grid centered>
 				<Grid.Row only='computer tablet'>
 					<Table celled textAlign="left">
 						<Table.Row>
 							<Table.Cell width={5}>
-								<Icon name='institution' size="big" />
+								<Icon name='university' size="big" />
 								Адреса:
 							</Table.Cell>
 							<Table.Cell width={12}>
-								{selectedInstitution?.region + ', ' +
-									selectedInstitution?.city + ', ' +
-									selectedInstitution?.address}
+								{selectedUniversity?.region + ', ' +
+									selectedUniversity?.city + ', ' +
+									selectedUniversity?.address}
 							</Table.Cell>
 						</Table.Row>
 						<Table.Row>
@@ -44,8 +44,8 @@ export default observer(function InstitutionModalBody() {
 							</Table.Cell>
 							<Table.Cell>
 								<a target="_blank" rel="noopener noreferrer"
-									href={'https://' + selectedInstitution?.website}>
-									{selectedInstitution?.website}
+									href={'https://' + selectedUniversity?.website}>
+									{selectedUniversity?.website}
 								</a>
 							</Table.Cell>
 						</Table.Row>
@@ -54,21 +54,21 @@ export default observer(function InstitutionModalBody() {
 								<Icon name='mobile' size="big" />
 								Телефон:
 							</Table.Cell>
-							<Table.Cell content={selectedInstitution?.telephone} />
+							<Table.Cell content={selectedUniversity?.telephone} />
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell >
 								<Icon name='user' size="big" />
 								Студентів:
 							</Table.Cell>
-							<Table.Cell content={selectedInstitution?.studentsCount} />
+							<Table.Cell content={selectedUniversity?.studentsCount} />
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell >
 								<Icon name='trophy' size="big" />
 								Топ України:
 							</Table.Cell>
-							<Table.Cell content={selectedInstitution?.ukraineTop ||
+							<Table.Cell content={selectedUniversity?.ukraineTop ||
 								'Не входить до топ-200 ВНЗ України'} />
 						</Table.Row>
 						{ }
@@ -78,13 +78,13 @@ export default observer(function InstitutionModalBody() {
 					<Table celled textAlign="center">
 						<Table.Row>
 							<Table.Cell>
-								<Icon name='institution' size="big" />
+								<Icon name='university' size="big" />
 								Адреса:
 							</Table.Cell>
 							<Table.Cell>
-								{selectedInstitution?.region + ', ' +
-									selectedInstitution?.city + ', ' +
-									selectedInstitution?.address}
+								{selectedUniversity?.region + ', ' +
+									selectedUniversity?.city + ', ' +
+									selectedUniversity?.address}
 							</Table.Cell>
 						</Table.Row>
 						<Table.Row>
@@ -94,8 +94,8 @@ export default observer(function InstitutionModalBody() {
 							</Table.Cell>
 							<Table.Cell>
 								<a target="_blank" rel="noopener noreferrer"
-									href={'https://' + selectedInstitution?.website}>
-									{selectedInstitution?.website}
+									href={'https://' + selectedUniversity?.website}>
+									{selectedUniversity?.website}
 								</a>
 							</Table.Cell>
 						</Table.Row>
@@ -104,21 +104,21 @@ export default observer(function InstitutionModalBody() {
 								<Icon name='mobile' size="big" />
 								Телефон:
 							</Table.Cell>
-							<Table.Cell content={selectedInstitution?.telephone} />
+							<Table.Cell content={selectedUniversity?.telephone} />
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell >
 								<Icon name='user' size="big" />
 								Студентів:
 							</Table.Cell>
-							<Table.Cell content={selectedInstitution?.studentsCount} />
+							<Table.Cell content={selectedUniversity?.studentsCount} />
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell >
 								<Icon name='trophy' size="big" />
 								Топ України:
 							</Table.Cell>
-							<Table.Cell content={selectedInstitution?.ukraineTop || 'Не входить до топ-200 ВНЗ України'} />
+							<Table.Cell content={selectedUniversity?.ukraineTop || 'Не входить до топ-200 ВНЗ України'} />
 						</Table.Row>
 					</Table>
 				</Grid.Row>

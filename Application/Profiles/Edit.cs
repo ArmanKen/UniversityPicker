@@ -11,19 +11,14 @@ namespace Application.Profiles
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public string FullName { get; set; }
-			public string Bio { get; set; }
-			public string CurrentStatusId { get; set; }
-			public string InstitutionId { get; set; }
-			public string SpecialtyBaseId { get; set; }
-			public string DegreeId { get; set; }
+			public DTOs.Profile Profile { get; set; }
 		}
 
 		public class CommandValidator : AbstractValidator<Command>
 		{
 			public CommandValidator()
 			{
-				RuleFor(x => x.FullName).NotEmpty();
+				RuleFor(x => x.Profile.FullName).NotEmpty();
 			}
 		}
 
@@ -42,12 +37,12 @@ namespace Application.Profiles
 			{
 				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				if (user == null) return Result<Unit>.Failure("Failed to update profile");
-				user.FullName = request.FullName;
-				user.Bio = request.Bio;
-				user.CurrentStatus = await _context.CurrentStatuses.FindAsync(request.CurrentStatusId);
-				user.Institution = await _context.Institutions.FindAsync(request.InstitutionId);
-				user.SpecialtyBase = await _context.SpecialtyBases.FindAsync(request.SpecialtyBaseId);
-				user.Degree = await _context.Degrees.FindAsync(request.DegreeId);
+				user.FullName = request.Profile.FullName;
+				user.Bio = request.Profile.Bio;
+				user.CurrentStatus = await _context.CurrentStatuses.FindAsync(request.Profile.CurrentStatus);
+				user.University = await _context.Universities.FindAsync(request.Profile.University.Id);
+				user.SpecialtyBase = await _context.SpecialtyBases.FindAsync(request.Profile.SpecialtyBase);
+				user.Degree = await _context.Degrees.FindAsync(request.Profile.Degree);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to update profile");
 				return Result<Unit>.Success(Unit.Value);

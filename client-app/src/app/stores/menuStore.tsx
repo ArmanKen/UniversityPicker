@@ -110,7 +110,7 @@ export default class MenuStore {
 
 	setCitiesDropdown = (value: number[]) => {
 		if (value.length !== 0) {
-			store.institutionStore.institutionParams.cities = [];
+			store.universityStore.universityParams.cities = [];
 			this.selectedCities = [];
 		}
 		this.citiesDropdown.length = 0;
@@ -126,7 +126,7 @@ export default class MenuStore {
 
 	setSpecialtiesBaseDropdown = (value: string[]) => {
 		if (value.length !== 0) {
-			store.institutionStore.institutionParams.specialtyBaseIds = [];
+			store.universityStore.universityParams.specialtyBaseIds = [];
 			this.selectedSpecialtiesBase = [];
 		}
 		this.specialtiesBaseDropdown.length = 0;

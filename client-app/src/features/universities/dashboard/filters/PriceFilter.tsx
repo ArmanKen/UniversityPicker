@@ -3,12 +3,12 @@ import { Grid, Header, Input, Segment } from "semantic-ui-react";
 import { useStore } from "../../../../app/stores/store";
 
 export default observer(function PriceFilter() {
-	const { institutionStore: { changeQueryParams, minPrice, maxPrice, institutionLoadingInitial, specialtyBaseId },
+	const { universityStore: { changeQueryParams, minPrice, maxPrice, universityLoadingInitial, specialtyBaseId },
 		menuStore: { menuLoadingInitial } } = useStore()
 
 	return (
 		<Segment
-			disabled={institutionLoadingInitial || menuLoadingInitial || !specialtyBaseId}
+			disabled={universityLoadingInitial || menuLoadingInitial || !specialtyBaseId}
 			clearing
 			padded='very'
 			style={{ paddingBottom: 20, paddingTop: 20 }}>
@@ -22,7 +22,7 @@ export default observer(function PriceFilter() {
 					<Grid.Column width={6} floated='left' style={{ padding: 0 }}>
 						<Input
 							placeholder='Від'
-							disabled={institutionLoadingInitial || menuLoadingInitial || !specialtyBaseId}
+							disabled={universityLoadingInitial || menuLoadingInitial || !specialtyBaseId}
 							fluid
 							value={minPrice ? minPrice : ''}
 							onChange={(e, d) => {
@@ -39,7 +39,7 @@ export default observer(function PriceFilter() {
 					<Grid.Column width={6} floated='right' style={{ padding: 0 }}>
 						<Input
 							placeholder='До'
-							disabled={institutionLoadingInitial || menuLoadingInitial || !specialtyBaseId}
+							disabled={universityLoadingInitial || menuLoadingInitial || !specialtyBaseId}
 							fluid
 							value={maxPrice ? maxPrice : ''}
 							onChange={(e, d) => {

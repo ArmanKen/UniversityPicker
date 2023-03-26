@@ -2,17 +2,17 @@ import _ from "lodash";
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Pagination, PagingParams } from "../models/pagination";
-import { InstitutionParams } from "../models/queryParams";
-import { Institution, InstitutionFormValues } from "../models/institution";
+import { UniversityParams } from "../models/queryParams";
+import { University, UniversityFormValues } from "../models/university";
 import { store } from "./store";
 
-export default class InstitutionStore {
-	institutions = new Map<string, Institution>();
-	selectedInstitution: Institution | undefined = undefined;
-	institutionLoadingInitial = false;
+export default class UniversityStore {
+	universitys = new Map<string, University>();
+	selectedUniversity: University | undefined = undefined;
+	universityLoadingInitial = false;
 	pagination: Pagination | undefined = undefined;
 	pagingParams = new PagingParams();
-	institutionParams: InstitutionParams = {
+	universityParams: UniversityParams = {
 		name: '',
 		regions: [],
 		cities: [],
@@ -29,20 +29,20 @@ export default class InstitutionStore {
 		makeAutoObservable(this);
 
 		reaction(
-			() => this.institutionParams,
+			() => this.universityParams,
 			() => {
-				if (this.institutions.size < 1)
+				if (this.universitys.size < 1)
 					this.handleDebounceWithLoad();
 				else this.handleDebounce();
-				this.selectedInstitution = undefined;
+				this.selectedUniversity = undefined;
 			}
 		)
 
 		reaction(
-			() => this.selectedInstitution,
+			() => this.selectedUniversity,
 			() => {
-				if (this.selectedInstitution)
-					store.specilatyStore.loadSpecialties(this.selectedInstitution.id);
+				if (this.selectedUniversity)
+					store.specilatyStore.loadSpecialties(this.selectedUniversity.id);
 				else store.specilatyStore.specialties.clear()
 			}
 		)
@@ -52,37 +52,37 @@ export default class InstitutionStore {
 
 	setPagination = (pagination: Pagination) => this.pagination = pagination;
 
-	setInstitutionLoadingInitial = (state: boolean) => this.institutionLoadingInitial = state;
+	setUniversityLoadingInitial = (state: boolean) => this.universityLoadingInitial = state;
 
-	setInstitution = (institution: Institution | undefined) => this.selectedInstitution = institution;
+	setUniversity = (university: University | undefined) => this.selectedUniversity = university;
 
-	setNameParam = (name: string) => this.institutionParams.name = name;
+	setNameParam = (name: string) => this.universityParams.name = name;
 
-	setDegreeParam = (degree: number) => this.institutionParams.degree = degree;
+	setDegreeParam = (degree: number) => this.universityParams.degree = degree;
 
-	setRegionsParam = (regions: number[]) => this.institutionParams.regions = regions;
+	setRegionsParam = (regions: number[]) => this.universityParams.regions = regions;
 
-	setCitiesnsParam = (cities: number[]) => this.institutionParams.cities = cities;
+	setCitiesnsParam = (cities: number[]) => this.universityParams.cities = cities;
 
-	setBranchBaseIdsParam = (branchBaseIds: string[]) => this.institutionParams.branchBaseIds = branchBaseIds;
+	setBranchBaseIdsParam = (branchBaseIds: string[]) => this.universityParams.branchBaseIds = branchBaseIds;
 
-	setSpecialtyBaseIdsParam = (specialtyBaseIds: string[]) => this.institutionParams.specialtyBaseIds = specialtyBaseIds;
+	setSpecialtyBaseIdsParam = (specialtyBaseIds: string[]) => this.universityParams.specialtyBaseIds = specialtyBaseIds;
 
-	setOnlyBudgetParam = (onlyBudget: boolean) => this.institutionParams.onlyBudget = onlyBudget;
+	setOnlyBudgetParam = (onlyBudget: boolean) => this.universityParams.onlyBudget = onlyBudget;
 
-	setMinPriceParam = (minPrice: number) => this.institutionParams.minPrice = minPrice;
+	setMinPriceParam = (minPrice: number) => this.universityParams.minPrice = minPrice;
 
-	setMaxPriceParam = (maxPrice: number) => this.institutionParams.maxPrice = maxPrice;
+	setMaxPriceParam = (maxPrice: number) => this.universityParams.maxPrice = maxPrice;
 
-	setUkraineTopParam = (ukraineTop: boolean) => this.institutionParams.ukraineTop = ukraineTop;
+	setUkraineTopParam = (ukraineTop: boolean) => this.universityParams.ukraineTop = ukraineTop;
 
-	private getInstitution = (id: string) => this.institutions.get(id);
+	private getUniversity = (id: string) => this.universitys.get(id);
 
 	get axiosParams() {
 		const params = new URLSearchParams();
 		params.append('pageNumber', this.pagingParams.pageNumber.toString());
 		params.append('pageSize', this.pagingParams.pageSize.toString());
-		if (this.institutionParams.name) params.append('name', this.institutionParams.name);
+		if (this.universityParams.name) params.append('name', this.universityParams.name);
 		// if (this.region) params.append('region', this.region);
 		// if (this.city) params.append('city', this.city);
 		// if (this.degree) params.append('degree', this.degree);
@@ -95,94 +95,94 @@ export default class InstitutionStore {
 		return params;
 	}
 
-	loadInstitutions = async () => {
-		this.setInstitutionLoadingInitial(true);
+	loadUniversities = async () => {
+		this.setUniversityLoadingInitial(true);
 		try {
-			const result = await agent.Institutions.list(this.axiosParams);
+			const result = await agent.Universities.list(this.axiosParams);
 			runInAction(() => {
-				result.data.forEach(institution => {
-					this.institutions.set(institution.id, institution);
+				result.data.forEach(university => {
+					this.universitys.set(university.id, university);
 				});
 			});
 			this.setPagination(result.pagination);
-			this.setInstitutionLoadingInitial(false);
+			this.setUniversityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			});
-			this.setInstitutionLoadingInitial(false);
+			this.setUniversityLoadingInitial(false);
 		}
 	}
 
-	loadInstitution = async (id: string) => {
-		this.setInstitutionLoadingInitial(true);
-		let institution = this.getInstitution(id);
-		if (institution) {
-			this.selectedInstitution = institution;
-			return this.selectedInstitution;
+	loadUniversity = async (id: string) => {
+		this.setUniversityLoadingInitial(true);
+		let university = this.getUniversity(id);
+		if (university) {
+			this.selectedUniversity = university;
+			return this.selectedUniversity;
 		} else {
 			try {
-				institution = await agent.Institutions.details(id);
+				university = await agent.Universities.details(id);
 				runInAction(() => {
-					this.selectedInstitution = institution;
+					this.selectedUniversity = university;
 				});
-				this.setInstitutionLoadingInitial(false);
+				this.setUniversityLoadingInitial(false);
 			} catch (error) {
 				runInAction(() => {
 					console.log(error);
 				});
-				this.setInstitutionLoadingInitial(false);
+				this.setUniversityLoadingInitial(false);
 			}
 		}
 	}
 
-	createInstitution = async (institution: InstitutionFormValues) => {
-		this.setInstitutionLoadingInitial(true);
+	createUniversity = async (university: UniversityFormValues) => {
+		this.setUniversityLoadingInitial(true);
 		try {
-			await agent.Institutions.create(institution);
-			this.setInstitutionLoadingInitial(false);
+			await agent.Universities.create(university);
+			this.setUniversityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			});
-			this.setInstitutionLoadingInitial(false);
+			this.setUniversityLoadingInitial(false);
 		}
 	}
 
-	editInstitution = async (institution: Institution) => {
-		this.setInstitutionLoadingInitial(true);
+	editUniversity = async (university: University) => {
+		this.setUniversityLoadingInitial(true);
 		try {
-			await agent.Institutions.edit(institution);
-			this.setInstitutionLoadingInitial(false);
+			await agent.Universities.edit(university);
+			this.setUniversityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			});
-			this.setInstitutionLoadingInitial(false);
+			this.setUniversityLoadingInitial(false);
 		}
 	}
 
-	deleteInstitution = async (id: string) => {
-		this.setInstitutionLoadingInitial(true);
+	deleteUniversity = async (id: string) => {
+		this.setUniversityLoadingInitial(true);
 		try {
-			await agent.Institutions.delete(id);
-			this.institutions.delete(id);
-			this.setInstitutionLoadingInitial(false);
+			await agent.Universities.delete(id);
+			this.universitys.delete(id);
+			this.setUniversityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			});
-			this.setInstitutionLoadingInitial(false);
+			this.setUniversityLoadingInitial(false);
 		}
 	}
 
 	handleDebounce = _.debounce(() => {
 		this.pagingParams = new PagingParams();
-		runInAction(() => this.institutions.clear());
+		runInAction(() => this.universitys.clear());
 	}, 500);
 
 	handleDebounceWithLoad = _.debounce(() => {
 		this.pagingParams = new PagingParams();
-		runInAction(() => this.loadInstitutions());
+		runInAction(() => this.loadUniversities());
 	}, 500);
 }

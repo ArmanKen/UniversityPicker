@@ -31,14 +31,8 @@ namespace Application.Reviews
 			public async Task<Result<PagedList<ReviewDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var university = await _context.Universities.FindAsync(request.UniversityId);
-				if (university == null) return Result<PagedList<ReviewDto>>.Failure("Failed to load reviews");
+				if (university == null) return null;
 				var query = university.Reviews.AsQueryable();
-				if (!string.IsNullOrEmpty(request.Params.FacultyId))
-					query.Where(x => x.Faculty.Id == Guid.Parse(request.Params.FacultyId));
-				if (!string.IsNullOrEmpty(request.Params.GoodRating))
-					query.Where(x => x.Rating >= 3);
-				else if (!string.IsNullOrEmpty(request.Params.BadRating))
-					query.Where(x => x.Rating <= 2);
 				return Result<PagedList<ReviewDto>>.Success(
 					PagedList<ReviewDto>.Create(
 						query

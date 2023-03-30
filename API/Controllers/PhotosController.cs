@@ -7,21 +7,21 @@ namespace API.Controllers
 	public class PhotosController : BaseApiController
 	{
 		[AllowAnonymous]
-		[HttpGet("{id}/gallery")]
-		public async Task<IActionResult> GetUniversityPhotos(Guid id)
+		[HttpGet("universities/{universityId}/gallery")]
+		public async Task<IActionResult> GetUniversityPhotos(Guid universityId)
 		{
-			return HandleResult(await Mediator.Send(new List.Query { UniversityId = id }));
+			return HandleResult(await Mediator.Send(new List.Query { UniversityId = universityId }));
 		}
 
 		[Authorize]
-		[HttpPost]
+		[HttpPost("user/add")]
 		public async Task<IActionResult> AddUsersPhoto([FromForm] AddUsersPhoto.Command command)
 		{
 			return HandleResult(await Mediator.Send(command));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPost("{id}/gallery/")]
+		[HttpPost("universities/{universityId}/gallery")]
 		public async Task<IActionResult> AddUniversityPhoto(Guid universityId, [FromForm] AddUniversityPhoto.Command command)
 		{
 			command.UniversityId = universityId;
@@ -29,7 +29,7 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPost("{id}/titleImage/")]
+		[HttpPost("universities/{universityId}/titleImage/")]
 		public async Task<IActionResult> AddUniversityTitlePhoto(Guid universityId, [FromForm] AddUniversityPhoto.Command command)
 		{
 			command.UniversityId = universityId;
@@ -37,10 +37,10 @@ namespace API.Controllers
 		}
 
 		[Authorize]
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> Delete(string id)
+		[HttpDelete("{photoId}")]
+		public async Task<IActionResult> Delete(string photoId)
 		{
-			return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+			return HandleResult(await Mediator.Send(new Delete.Command { Id = photoId }));
 		}
 	}
 }

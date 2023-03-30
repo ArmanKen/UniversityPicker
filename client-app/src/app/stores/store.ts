@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import CommonStore from "./commonStore";
-import DisciplineStore from "./disciplineStore";
+import EduComponentStore from "./eduComponentStore";
 import ModalStore from "./modalStore";
 import SpecilatyStore from "./specialtyStore";
 import MenuStore from "./menuStore";
@@ -10,7 +10,7 @@ interface Store {
 	universityStore: UniversityStore,
 	commonStore: CommonStore,
 	specilatyStore: SpecilatyStore,
-	disciplineStore: DisciplineStore,
+	eduComponentStore: EduComponentStore,
 	modalStore: ModalStore,
 	menuStore: MenuStore
 }
@@ -19,7 +19,7 @@ export const store: Store = {
 	specilatyStore: new SpecilatyStore(),
 	universityStore: new UniversityStore(),
 	commonStore: new CommonStore(),
-	disciplineStore: new DisciplineStore(),
+	eduComponentStore: new EduComponentStore(),
 	modalStore: new ModalStore(),
 	menuStore: new MenuStore()
 }

@@ -33,8 +33,8 @@ namespace Application.Photos
 			{
 				var university = await _context.Universities.Include(p => p.Photos)
 					.FirstOrDefaultAsync(x => x.Id == request.UniversityId);
-				if (university == null) return null!;
-				var photoUploadResult = await _photoAccessor.AddPhoto(request.File!);
+				if (university == null) return null;
+				var photoUploadResult = await _photoAccessor.AddPhoto(request.File);
 				var photo = new Photo
 				{
 					Url = photoUploadResult.Url,

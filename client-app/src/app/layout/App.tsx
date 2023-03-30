@@ -7,7 +7,7 @@ import { Container, Grid } from 'semantic-ui-react';
 import NotFound from '../../features/errors/NotFound';
 import TestErrors from '../../features/errors/TestError';
 import ServerError from '../../features/errors/ServerError';
-import UniversityDashboard from '../../features/universitys/dashboard/UniversityDashboard';
+import UniversityDashboard from '../../features/universities/dashboard/UniversityDashboard';
 import NavBar from './NavBar';
 
 function App() {

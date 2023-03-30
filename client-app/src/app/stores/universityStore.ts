@@ -7,7 +7,7 @@ import { University, UniversityFormValues } from "../models/university";
 import { store } from "./store";
 
 export default class UniversityStore {
-	universitys = new Map<string, University>();
+	universities = new Map<string, University>();
 	selectedUniversity: University | undefined = undefined;
 	universityLoadingInitial = false;
 	pagination: Pagination | undefined = undefined;
@@ -31,7 +31,7 @@ export default class UniversityStore {
 		reaction(
 			() => this.universityParams,
 			() => {
-				if (this.universitys.size < 1)
+				if (this.universities.size < 1)
 					this.handleDebounceWithLoad();
 				else this.handleDebounce();
 				this.selectedUniversity = undefined;
@@ -76,7 +76,7 @@ export default class UniversityStore {
 
 	setUkraineTopParam = (ukraineTop: boolean) => this.universityParams.ukraineTop = ukraineTop;
 
-	private getUniversity = (id: string) => this.universitys.get(id);
+	private getUniversity = (id: string) => this.universities.get(id);
 
 	get axiosParams() {
 		const params = new URLSearchParams();
@@ -101,7 +101,7 @@ export default class UniversityStore {
 			const result = await agent.Universities.list(this.axiosParams);
 			runInAction(() => {
 				result.data.forEach(university => {
-					this.universitys.set(university.id, university);
+					this.universities.set(university.id, university);
 				});
 			});
 			this.setPagination(result.pagination);
@@ -166,7 +166,7 @@ export default class UniversityStore {
 		this.setUniversityLoadingInitial(true);
 		try {
 			await agent.Universities.delete(id);
-			this.universitys.delete(id);
+			this.universities.delete(id);
 			this.setUniversityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
@@ -178,7 +178,7 @@ export default class UniversityStore {
 
 	handleDebounce = _.debounce(() => {
 		this.pagingParams = new PagingParams();
-		runInAction(() => this.universitys.clear());
+		runInAction(() => this.universities.clear());
 	}, 500);
 
 	handleDebounceWithLoad = _.debounce(() => {

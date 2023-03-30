@@ -5,11 +5,11 @@ import { useStore } from "../../../app/stores/store";
 import UniversityListCard from "./UniversityListCard";
 
 export default observer(function UniversityList() {
-	const { universityStore: { universitys } } = useStore();
+	const { universityStore: { universities } } = useStore();
 
 	return (
 		<Card.Group itemsPerRow={4} style={{ marginBottom: 10 }}>
-			{Array.from(universitys.values()).map(university => (
+			{Array.from(universities.values()).map(university => (
 				<UniversityListCard key={university.id} university={university} />
 			))}
 		</Card.Group>

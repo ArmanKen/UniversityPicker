@@ -1,31 +1,31 @@
 // import { makeAutoObservable } from "mobx";
-// import { Discipline } from "../models/discipline";
+// import { EduComponent } from "../models/eduComponent";
 // import { store } from "./store";
 
-export default class DisciplineStore {
-	// disciplines: Discipline[] = [];
+export default class EduComponentStore {
+	// eduComponents: EduComponent[] = [];
 
 	// constructor() {
 	// 	makeAutoObservable(this);
 	// }
 
-	// loadDisciplines = () => {
+	// loadEduComponents = () => {
 	// 	try {
 	// 		let selectedSpecialty = store.specilatyStore.selectedSpecialty;
 	// 		if (selectedSpecialty !== undefined) {
-	// 			store.universityStore.universitys.forEach(university => {
-	// 				let disciplines = university.specialties.find(x => x.code === selectedSpecialty!.code)?.disciplines!;
-	// 				disciplines.forEach(newDiscipline => {
-	// 					if (!this.disciplines.some(discipline => discipline.id === newDiscipline.id))
-	// 						this.disciplines.push(newDiscipline);
+	// 			store.universityStore.universities.forEach(university => {
+	// 				let eduComponents = university.specialties.find(x => x.code === selectedSpecialty!.code)?.eduComponents!;
+	// 				eduComponents.forEach(newEduComponent => {
+	// 					if (!this.eduComponents.some(eduComponent => eduComponent.id === newEduComponent.id))
+	// 						this.eduComponents.push(newEduComponent);
 	// 				});
 	// 			})
 	// 		}
 	// 		else {
 	// 			store.specilatyStore.selectedSpecialties.forEach(specialty => {
-	// 				specialty.disciplines!.forEach(discipline => {
-	// 					if (!this.disciplines.some(x => x.id === discipline.id)) {
-	// 						this.disciplines.push(discipline);
+	// 				specialty.eduComponents!.forEach(eduComponent => {
+	// 					if (!this.eduComponents.some(x => x.id === eduComponent.id)) {
+	// 						this.eduComponents.push(eduComponent);
 	// 					}
 	// 				})
 	// 			})
@@ -35,15 +35,15 @@ export default class DisciplineStore {
 	// 	}
 	// }
 
-	// updateSelectedDisciplines = (discipline: Discipline) => discipline.isSelected ?
-	// 	discipline.isSelected = false : discipline.isSelected = true;
+	// updateSelectedEduComponents = (eduComponent: EduComponent) => eduComponent.isSelected ?
+	// 	eduComponent.isSelected = false : eduComponent.isSelected = true;
 
-	// clearSelectedDisciplines = () => this.disciplines.forEach(discipline => discipline.isSelected = false)
+	// clearSelectedEduComponents = () => this.eduComponents.forEach(eduComponent => eduComponent.isSelected = false)
 
-	// selectAllDisciplines = () => this.disciplines.forEach(discipline => discipline.isSelected = true)
+	// selectAllEduComponents = () => this.eduComponents.forEach(eduComponent => eduComponent.isSelected = true)
 
-	// undoDisciplineStore = () => {
-	// 	this.clearSelectedDisciplines();
-	// 	this.disciplines = [];
+	// undoEduComponentStore = () => {
+	// 	this.clearSelectedEduComponents();
+	// 	this.eduComponents = [];
 	// }
 }

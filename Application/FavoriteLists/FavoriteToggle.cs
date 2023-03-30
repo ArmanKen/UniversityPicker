@@ -40,7 +40,7 @@ namespace Application.FavoriteLists
 				else _context.FavoriteLists.Remove(selected);
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<Unit>.Success(Unit.Value);
-				return Result<Unit>.Failure("Failed to update selected");
+				return Result<Unit>.Failure("Failed to update facorite list");
 			}
 		}
 	}

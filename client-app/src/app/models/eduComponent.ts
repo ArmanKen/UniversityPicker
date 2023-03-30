@@ -1,4 +1,4 @@
-export interface Discipline {
+export interface EduComponent {
 	id: string;
 	name: string;
 	info: string;

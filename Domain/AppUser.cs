@@ -9,6 +9,7 @@ namespace Domain
 		public Photo Photo { get; set; }
 		public CurrentStatus CurrentStatus { get; set; }
 		public University University { get; set; }
+		public Faculty Faculty { get; set; }
 		public SpecialtyBase SpecialtyBase { get; set; }
 		public Degree Degree { get; set; }
 		public bool IsGlobalAdmin { get; set; }

@@ -19,6 +19,15 @@ namespace Persistence
 					};
 				await context.Degrees.AddRangeAsync(degrees);
 
+				var accreditation = new List<Accreditation>
+					{
+						new Accreditation{AccreditationLevel="I"},
+						new Accreditation{AccreditationLevel="II"},
+						new Accreditation{AccreditationLevel="III"},
+						new Accreditation{AccreditationLevel="IV"},
+					};
+				await context.Accreditations.AddRangeAsync(accreditation);
+
 				var languages = new List<Language>
 				{
 					new Language
@@ -3902,7 +3911,7 @@ namespace Persistence
 
 				var citiesList = await context.Cities.ToListAsync();
 
-				var universitys = new List<University>
+				var universities = new List<University>
 					{
 						new University
 						{
@@ -3910,6 +3919,7 @@ namespace Persistence
 							Info = "Львівський національний медичний університет імені Данила Галицького (ЛНМУ; лат. Universitatis Medicinalis Leopoliensis) — один з найбільших та найстаріших медичних навчальних закладів України. Готує спеціалістів за напрямами: медицина, медико-профілактична справа, стоматологія та фармація. За даними міжнародної бази Scopus університет посідає перше місце серед медичних вишів України",
 							Region = regions.FirstOrDefault(x=>x.Name == "Львівська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Львів"),
+							Accreditation = accreditation[3],
 							Address = "вул. Пекарська, 69",
 							Website = "new.meduniv.lviv.ua",
 							Telephone = "0231231028",
@@ -3921,6 +3931,7 @@ namespace Persistence
 							Info = "державний заклад вищої освіти України, розташований у місті Києві. За рейтингами ВНЗ, на 2020 рік посідав 1 місце і є найбільшим університетом за кількістю студентів і спеціальностей. З 2009 до 2014 року мав статус автономного дослідницького університету",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
+							Accreditation = accreditation[3],
 							Address = "вул. Володимирська, 60",
 							Website = "knu.ua",
 							Telephone = "6683328733",
@@ -3932,6 +3943,7 @@ namespace Persistence
 							Info = "один із найбільших закладів вищої освіти м. Чернівці. Це сучасний багатопрофільний заклад вищої медичної освіти, включений до загального реєстру Всесвітньої організації охорони здоров'я, Великої Хартії університетів, Європейської асоціації університету, що здійснює підготовку здобувачів вищої освіти за ступеневою системою освіти. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Чернівецька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Чернівці"),
+							Accreditation = accreditation[3],
 							Address = "Театральна площа, 2",
 							Website = "www.bsmu.edu.ua",
 							Telephone = "23474623659",
@@ -3943,6 +3955,7 @@ namespace Persistence
 							Info = "державний заклад вищої освіти України, розташований у місті Києві. За рейтингами ВНЗ, на 2020 рік посідав 1 місце і є найбільшим університетом за кількістю студентів і спеціальностей. З 2009 до 2014 року мав статус автономного дослідницького університету",
 							Region = regions.FirstOrDefault(x=>x.Name == "Тернопільська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Тернопіль"),
+							Accreditation = accreditation[3],
 							Address = "Майдан Волі, 1",
 							Website = "tdmu.edu.ua",
 							Telephone = "023sdads8",
@@ -3954,6 +3967,7 @@ namespace Persistence
 							Info = "один із найстаріших університетів України й Східної Європи та найпрестижніших в Україні. Є спадкоємцем колегіуму (1608—1661) та академії (1661—1773) єзуїтів, Йосифинського університету (1784—1805), Львівського ліцею (1805—1817), Університету Франца I (1817—1918), Львівського університету Яна-Казимира (1919—1939), Львівського державного університету імені Івана Франка (1939—1999).",
 							Region = regions.FirstOrDefault(x=>x.Name == "Львівська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Львів"),
+							Accreditation = accreditation[3],
 							Address = "вул. Університетська, 1",
 							Website = "lnu.edu.ua",
 							Telephone = "0322 603 402",
@@ -3965,6 +3979,7 @@ namespace Persistence
 							Info = "Національний університет «Києво-Могилянська академія» це заклад вищої освіти в Україні. Заснований 1615 року. Розміщується в корпусах історичної Києво-Могилянської академії, від якої отримав свою назву. Університетське містечко розташоване на Подолі в Києві, між Контрактовою площею та набережною Дніпра. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Григорія Сковороди, 2",
 							Website = "www.ukma.edu.ua",
 							Telephone = "044 425 6059",
@@ -3976,6 +3991,7 @@ namespace Persistence
 							Info = "вищий навчальний заклад Міністерства освіти і науки України в Києві, Україна. Заснований як Київський філіал Всесоюзного заочного інституту радянської торгівлі в 1946 році. Знаходиться у Деснянському районі на території Лісового масиву між вулицями Кіото і Мілютенка.",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Кіото, 19",
 							Website = "knute.edu.ua",
 							Telephone = "044 513 3348",
@@ -3987,6 +4003,7 @@ namespace Persistence
 							Info = "Прикарпатський національний університет імені Василя Стефаника є одним з найстаріших вищих навчальних закладів Івано-Франківської області. Згідно з указом Президента України від 26 серпня 1992 р. його створено на базі педагогічного інституту, заснованого 1940 р. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Івано-Франківська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Івано-Франківськ"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Шевченка, 57",
 							Website = "pnu.edu.ua",
 							Telephone = "0342 531 574",
@@ -3998,6 +4015,7 @@ namespace Persistence
 							Info = "Національний технічний університет «Дніпро́вська політе́хніка» — державний заклад вищої освіти, багатогалузевий технічний університет, найстаріший заклад вищої освіти в м. Дніпро, перший заклад вищої гірничої освіти України. Має статус національного.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Дніпропетровська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Дніпро"),
+							Accreditation = accreditation[3],
 							Address = "проспект Дмитра Яворницького, 19",
 							Website = "nmu.org.ua",
 							Telephone = "056 744 1411",
@@ -4009,6 +4027,7 @@ namespace Persistence
 							Info = "Ки́ївський націона́льний університе́т техноло́гій та диза́йну — вищий навчальний заклад в Україні IV рівня акредитації, заснований 1930 року. В університеті навчається більше 10 тис. Київський національний університет технологій та дизайну увійшов у рейтинг «ТОР-100 кращих дизайнерських шкіл світу» і посів 71 місце.",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Немировича-Данченка, 2",
 							Website = "knutd.com.ua",
 							Telephone = "044 256 2975",
@@ -4020,6 +4039,7 @@ namespace Persistence
 							Info = "державний вищий навчальний заклад IV рівня акредитації у місті Луцьк, Україна. Заснований у 1940 році, впродовж історії змінював назви: Луцький державний учительський інститут, Луцький державний педагогічний інститут; у статусі університету мав назви Волинського державного, Волинського національного і Східноєвропейського національного. З 2020 року повернув назву Волинський національний університет. Названий на честь письменниці Лесі Українки.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Волинська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Луцьк"),
+							Accreditation = accreditation[3],
 							Address = "проспект Волі, 13",
 							Website = "vnu.edu.ua",
 							Telephone = "0332 720 123",
@@ -4031,6 +4051,7 @@ namespace Persistence
 							Info = "Університет володіє сучасними матеріально-технічними ресурсами. 9 навчальних корпусів із загальною площею 87 000 м², безпечні сприятливі умови для високоякісного навчання. Бібліотека налічує приблизно 500 тисяч одиниць літератури, 5 читальних залів з 400 місцями, 55 навчальних лабораторій та 10 науково-дослідницьких, споряджених стаціонарним обладнанням, 26 комп'ютерних класів у розпорядженні студентів і викладачів. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Полтавська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Полтава"),
+							Accreditation = accreditation[3],
 							Address = "Першотравневий проспект, 24",
 							Website = "nupp.edu.ua",
 							Telephone = "05325 61604",
@@ -4042,6 +4063,7 @@ namespace Persistence
 							Info = "Університет заснований 16 березня 1966, як Дніпропетровська спеціальна середня школа міліції МВС СРСР. В 1992 вона була реорганізована в Дніпропетровське училище міліції МВС України. 1 вересня 1997 училище міліції було перетворено у вищий навчальний заклад — Дніпропетровський юридичний інститут МВС України. 1998 р. заклад з вул. Артема, 147 переїхав до приміщень колишнього Дніпропетровського військового зенітно-ракетного училища за адресою просп. Гагарина, 26. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Дніпропетровська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Дніпро"),
+							Accreditation = accreditation[3],
 							Address = "проспект Гагаріна, 26",
 							Website = "dduvs.in.ua",
 							Telephone = "Не зазначено",
@@ -4053,6 +4075,7 @@ namespace Persistence
 							Info = "Запорізький державний медичний університет — заклад вищої освіти в Україні. Запорізький державний медичний університет — це сучасний навчальний центр, що має вищий (IV) ступінь акредитації. Університет — один з найстаріших вищих медичних навчальних закладів України.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Запорізька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Запоріжжя"),
+							Accreditation = accreditation[3],
 							Address = "проспект Маяковського, 26",
 							Website = "www.zsmu.edu.ua",
 							Telephone = "0612 246 469",
@@ -4064,6 +4087,7 @@ namespace Persistence
 							Info = "Чернівецький національний університет імені Юрія Федьковича — державний вищий заклад освіти 4-го рівня акредитації у місті Чернівці.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Чернівецька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Чернівці"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Коцюбинського, 2",
 							Website = "www.chnu.edu.ua",
 							Telephone = "0372 584 810",
@@ -4075,6 +4099,7 @@ namespace Persistence
 							Info = "Націона́льний університе́т біоресу́рсів і природокористува́ння Украї́ни, є провідним вищим аграрним закладом освіти України. З 2009 до 2014 року мав статус автономного дослідницького університету. Розташований у місті Києві. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Героїв Оборони, 15",
 							Website = "www.nubip.edu.ua",
 							Telephone = "044 527 8205",
@@ -4086,6 +4111,7 @@ namespace Persistence
 							Info = "Західноукраїнський національний університет — вищий навчальний заклад України IV-го рівня акредитації в м. Тернополі. Університет здійснює підготовку майже 25 тисяч студентів на всіх рівнях вищої освіти. ЗУНУ є підписантом Великої хартії університетів та членом Асоціації європейських університетів.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Тернопільська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Тернопіль"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Львівська, 11",
 							Website = "wunu.edu.ua",
 							Telephone = "0352 517 575",
@@ -4097,6 +4123,7 @@ namespace Persistence
 							Info = "З осені 1989 року колектив вишу став активно домагатися повернення інститутові несправедливо відібраного в середині 20-х років імені Михайла Петровича Драгоманова. Це питання постійно стало порушуватися на зборах викладачів і студентів, засіданнях ради інституту і рад філологічного, історичного, педагогічного та інших факультетів й у статтях в періодичній пресі. Усі ці вимоги й акції завершилися перемогою справедливості: в 1993 році інститутові було повернуто ім'я видатного українського вченого-енциклопедиста, борця за вільну українську школу М. П. Драгоманова. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Пирогова, 9",
 							Website = "www.npu.edu.ua",
 							Telephone = "044 239 3017",
@@ -4108,6 +4135,7 @@ namespace Persistence
 							Info = "вищий навчальний заклад на Поділлі, який готує спеціалістів із багатьох галузей знань і проводить навчальну, методичну, наукову та виховну роботу. Університет засновано 1962 року. Пройшов шлях від загальнотехнічного факультету Українського поліграфічного інституту до Хмельницького національного університету, який має найвищий IV рівень акредитації. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Хмельницька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Хмельницький"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Інститутська, 11",
 							Website = "khnu.km.ua",
 							Telephone = "0382 670 276",
@@ -4119,6 +4147,7 @@ namespace Persistence
 							Info = "український заклад вищої освіти четвертого рівня акредитації, який здійснює підготовку фахівців інженерно-технічного профілю. Заклад є центром освіти, науки та культури Подільського регіону. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Вінницька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Вінниця"),
+							Accreditation = accreditation[3],
 							Address = "Хмельницьке шосе, 95",
 							Website = "vntu.edu.ua",
 							Telephone = "0432 560 848",
@@ -4130,6 +4159,7 @@ namespace Persistence
 							Info = "найстаріший вищий навчальний заклад Житомирщини. Заснований у 1919 році як «Волинський педагогічний інститут».",
 							Region = regions.FirstOrDefault(x=>x.Name == "Житомирська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Житомир"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Велика Бердичівська, 40",
 							Website = "zu.edu.ua",
 							Telephone = "0412 431 417",
@@ -4141,6 +4171,7 @@ namespace Persistence
 							Info = "Національний технічний університет «Харківський політехнічний інститут», до 1929 Харківський технологічний інститут, з 1975 Харківський ордена Леніна політехнічний інститут імені В. І. Леніна — заснований в 1885 році в Харкові. Другий технологічний інститут в Російській імперії після санкт-петербурзького.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Харківська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Харків"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Кирпичова, 2",
 							Website = "kpi.kharkov.ua",
 							Telephone = "057 707 6634",
@@ -4152,6 +4183,7 @@ namespace Persistence
 							Info = "Ха́рківський націона́льний меди́чний університе́т, раніше Харківський державний медичний інститут. Вищий навчальний заклад, метою якого є підготовка медичних фахівців та підвищення кваліфікації, формування на базі університету науково-виробничого кластеру.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Харківська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Харків"),
+							Accreditation = accreditation[3],
 							Address = "проспект Науки, 4",
 							Website = "knmu.edu.ua",
 							Telephone = "057 707 7380",
@@ -4163,6 +4195,7 @@ namespace Persistence
 							Info = "Ужгородський національний університет є членом Асоціації університетів Карпатського регіону (ACRU), яка входить до Асоціації європейських університетів (EUA) та є асоційованим членом Міжнародної асоціації університетів (IAU). Виш співпрацює зі 125 партнерами з різних країн, зокрема з такими, як Карлів університет, Технічний університет у м. Прага (Чехія), Університет Корвіна, Університет держави і права ім. Л.Кошута (Угорщина), Кошицький університет ім. П. Й. Шафарика, Університет ім. Я. А. Коменського (Словаччина), Університет м. Орадеа, Клузький університет м. Бабеш-Бояї (Румунія), Інститут германістики Університету м. Ландау, Університет Регенсбургу (Німеччина), Асоціація гомеопатичної медицини м. Рим (Італія), Загребський університет (Хорватія), Словацьким медичним університетом (Братислава) та іншими. У 2020 році укладено 7 нових міжнародних білатеральних угод, 7 угод з реалізації міжнародних проєктів та 8 угод з метою супроводу академічної мобільності Erasmus+.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Закарпатська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Ужгород"),
+							Accreditation = accreditation[3],
 							Address = "вулиця Університетська, 14",
 							Website = "uzhnu.edu.ua",
 							Telephone = "0312 643 084",
@@ -4174,14 +4207,15 @@ namespace Persistence
 							Info = "найстаріший технічний заклад вищої освіти України та Східної Європи, заснований у 1816 році як Реальна школа з дозволу австрійського імператора Франца І.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Львівська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Львів"),
+							Accreditation = accreditation[3],
 							Address = "вул. Степана Бандери, 12",
 							Website = "lp.edu.ua",
 							Telephone = "0322 582 111"
 						},
 					};
-				await context.Universities.AddRangeAsync(universitys);
+				await context.Universities.AddRangeAsync(universities);
 
-				foreach (var item in universitys)
+				foreach (var item in universities)
 				{
 					var eduComponents = new List<EduComponent>
 					{
@@ -4604,28 +4638,10 @@ namespace Persistence
 							Author = users[2],
 							Body = "Another test Review message consisting of author being user3, University, message, 1 star rating",
 							Rating = new Random().Next(1, 6),
-						},
-						new Review
-						{
-							Author = users[2],
-							Body = "Another one Review message consisting of author being user4, University, message, 5 star rating",
-							Rating = new Random().Next(1, 6),
-						},
-						new Review
-						{
-							Author = users[1],
-							Body = "Test Review message consisting of author being user5, University, message, 3 start rating",
-							Rating = new Random().Next(1, 6),
-						},
-						new Review
-						{
-							Author = users[0],
-							Body = "Test Review message consisting of author, University, message, 5 start rating",
-							Rating = new Random().Next(1, 6),
-						},
+						}
 					};
 
-					item.Faculties = faculties.Take(new Random().Next(0, 5)).ToList();
+					item.Faculties = faculties.Take(new Random().Next(2, 5)).ToList();
 					item.Reviews = reviews;
 					context.Users.FirstOrDefault().University = item;
 				}

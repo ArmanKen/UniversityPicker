@@ -10,7 +10,7 @@ export default function NotFound() {
 				Нічого не змогли знайти за цим посиланням.
 			</Header>
 			<Segment.Inline>
-				<Button as={Link} to='/universitys' primary>
+				<Button as={Link} to='/universities' primary>
 					Повернутися до головної сторінки.
 				</Button>
 			</Segment.Inline>

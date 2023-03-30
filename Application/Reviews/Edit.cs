@@ -2,6 +2,7 @@ using Application.Core;
 using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
+using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -10,14 +11,12 @@ namespace Application.Reviews
 {
 	public class Edit
 	{
-		public class Command : IRequest<Result<ReviewDto>>
+		public class Command : IRequest<Result<Unit>>
 		{
-			public string Body { get; set; }
-			public int Rating { get; set; }
-			public Guid UniversirtyId { get; set; }
+			public ReviewDto Review { get; set; }
 		}
 
-		public class Handler : IRequestHandler<Command, Result<ReviewDto>>
+		public class Handler : IRequestHandler<Command, Result<Unit>>
 		{
 			private readonly IUserAccessor _userAccessor;
 			private readonly IMapper _mapper;
@@ -30,21 +29,14 @@ namespace Application.Reviews
 				_userAccessor = userAccessor;
 			}
 
-			public async Task<Result<ReviewDto>> Handle(Command request, CancellationToken cancellationToken)
+			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities.FindAsync(request.UniversirtyId);
-				if (university == null) return null;
-				var user = await _context.Users
-					.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-				var previosReview = university.Reviews.FirstOrDefault(x => x.Author == user);
-				if (previosReview == null) return null;
-				previosReview.Body = request.Body;
-				previosReview.Rating = request.Rating;
-				previosReview.CreatedAt = DateTime.UtcNow;
-				university.Reviews.Add(previosReview);
+				var review = await _context.Reviews.FindAsync(request.Review.Id);
+				if (review == null) return Result<Unit>.Failure("Failed to update the review");
+				_mapper.Map(request.Review, review);
 				var success = await _context.SaveChangesAsync() > 0;
-				if (success) return Result<ReviewDto>.Success(_mapper.Map<ReviewDto>(previosReview));
-				return Result<ReviewDto>.Failure("Failed to change comment");
+				if (success) return Result<Unit>.Success(Unit.Value);
+				return Result<Unit>.Failure("Failed to update review");
 			}
 		}
 	}

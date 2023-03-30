@@ -8,7 +8,7 @@ namespace Application.EduComponents
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public Guid Id { get; set; }
+			public Guid EduComponentId { get; set; }
 		}
 		public class Handler : IRequestHandler<Command, Result<Unit>>
 		{
@@ -21,7 +21,7 @@ namespace Application.EduComponents
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var educationComponent = await _context.EduComponents.FindAsync(request.Id);
+				var educationComponent = await _context.EduComponents.FindAsync(request.EduComponentId);
 				if (educationComponent == null) return null;
 				_context.EduComponents.Remove(educationComponent);
 				var result = await _context.SaveChangesAsync() > 0;

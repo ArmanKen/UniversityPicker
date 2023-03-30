@@ -7,12 +7,12 @@ using Persistence;
 
 namespace Application.Universities
 {
-	public class ToggleLocalAdmin
+	public class UpdateLocalAdmin
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
 			public string Username { get; set; }
-			public Guid Id { get; set; }
+			public Guid UniversityId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -28,7 +28,7 @@ namespace Application.Universities
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities.FindAsync(request.Id);
+				var university = await _context.Universities.FindAsync(request.UniversityId);
 				if (university == null) return null;
 				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == request.Username);
 				if (user == null) return null;

@@ -38,7 +38,7 @@ namespace Application.EduComponents
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
 				var specialty = _context.Specialties.FindAsync(request.SpecialtyId).Result;
-				if (specialty == null) return Result<Unit>.Failure("Failed to create discipline");
+				if (specialty == null) return Result<Unit>.Failure("Failed to create eduComponent");
 				var educationComponent = _mapper.Map<EduComponent>(request.EducationComponent);
 				specialty.EduComponents.Add(educationComponent);
 				var result = await _context.SaveChangesAsync() > 0;

@@ -1,7 +1,6 @@
 using Application.Core;
 using Application.DTOs;
 using AutoMapper;
-using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence;
@@ -37,7 +36,7 @@ namespace Application.Faculties
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
 				var faculty = await _context.Faculties.FindAsync(request.Faculty.Id);
-				if (faculty == null) return null;
+				if (faculty == null) return Result<Unit>.Failure("Failed to update the faculty");
 				_mapper.Map(request.Faculty, faculty);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to update the faculty");

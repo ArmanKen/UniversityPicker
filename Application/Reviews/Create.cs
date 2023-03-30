@@ -3,6 +3,7 @@ using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -11,14 +12,21 @@ namespace Application.Reviews
 {
 	public class Create
 	{
-		public class Command : IRequest<Result<ReviewDto>>
+		public class Command : IRequest<Result<Unit>>
 		{
-			public string Body { get; set; }
-			public int Rating { get; set; }
+			public ReviewDto ReviewDto { get; set; }
 			public Guid UniversirtyId { get; set; }
 		}
 
-		public class Handler : IRequestHandler<Command, Result<ReviewDto>>
+		public class CommandValidator : AbstractValidator<Command>
+		{
+			public CommandValidator()
+			{
+				RuleFor(x => x.ReviewDto).SetValidator(new ReviewValidator());
+			}
+		}
+
+		public class Handler : IRequestHandler<Command, Result<Unit>>
 		{
 			private readonly IUserAccessor _userAccessor;
 			private readonly IMapper _mapper;
@@ -30,23 +38,18 @@ namespace Application.Reviews
 				_userAccessor = userAccessor;
 			}
 
-			public async Task<Result<ReviewDto>> Handle(Command request, CancellationToken cancellationToken)
+			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
 				var university = await _context.Universities.FindAsync(request.UniversirtyId);
-				if (university == null) return null!;
+				if (university == null) return Result<Unit>.Failure("Failed to create rewiev");
 				var user = await _context.Users
-					.Include(p => p.Photo)
 					.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-				var review = new Review
-				{
-					Author = user,
-					University = university,
-					Body = request.Body
-				};
-				university.Reviews.Add(review);
-				var success = await _context.SaveChangesAsync() > 0;
-				if (success) return Result<ReviewDto>.Success(_mapper.Map<ReviewDto>(review));
-				return Result<ReviewDto>.Failure("Failed to add Review");
+				if (user == null || university.Reviews.Any(x => x.Author == user))
+					return Result<Unit>.Failure("Failed to create rewiev");
+				university.Reviews.Add(new Review { Author = user, Body = request.ReviewDto.Body });
+				var result = await _context.SaveChangesAsync() > 0;
+				if (!result) return Result<Unit>.Failure("Failed to create rewiev");
+				return Result<Unit>.Success(Unit.Value);
 			}
 		}
 	}

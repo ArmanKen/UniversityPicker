@@ -27,6 +27,7 @@ public class DataContext : IdentityDbContext<AppUser>
 	public DbSet<Location> Locations { get; set; }
 	public DbSet<StudyForm> StudyForms { get; set; }
 	public DbSet<FavoriteList> FavoriteLists { get; set; }
+	public DbSet<Accreditation> Accreditations { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{

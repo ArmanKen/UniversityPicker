@@ -28,7 +28,10 @@ namespace Application.Faculties
 
 			public async Task<Result<List<FacultyDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities.FindAsync(request.UniversityId);
+				var university = await _context.Universities
+					.Include(x => x.Faculties)
+					.ThenInclude(x => x.FacultyPhoto)
+					.FirstOrDefaultAsync(x => x.Id == request.UniversityId);
 				if (university == null) return null;
 				return Result<List<FacultyDto>>.Success(
 					await university.Faculties

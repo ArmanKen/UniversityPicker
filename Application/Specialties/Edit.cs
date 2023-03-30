@@ -1,6 +1,8 @@
 using Application.Core;
+using Application.DTOs;
 using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
 namespace Application.Specialties
@@ -10,8 +12,15 @@ namespace Application.Specialties
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public Specialty Specialty { get; set; }
-			public Guid SpecialtyId { get; set; }
+			public SpecialtyDto Specialty { get; set; }
+		}
+
+		public class CommandValidator : AbstractValidator<Command>
+		{
+			public CommandValidator()
+			{
+				RuleFor(x => x.Specialty).SetValidator(new SpecialtyValidator());
+			}
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -27,8 +36,8 @@ namespace Application.Specialties
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var specialty = await _context.Specialties.FindAsync(request.SpecialtyId);
-				if (specialty == null) return null;
+				var specialty = await _context.Specialties.FindAsync(request.Specialty.Id);
+				if (specialty == null) return Result<Unit>.Failure("Failed to update the specialty");
 				_mapper.Map(request.Specialty, specialty);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to update the specialty");

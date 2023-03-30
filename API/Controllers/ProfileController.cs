@@ -14,17 +14,26 @@ namespace API.Controllers
 		}
 
 		[Authorize]
-		[HttpPut]
+		[HttpPut("update")]
 		public async Task<IActionResult> Edit(Edit.Command command)
 		{
 			return HandleResult(await Mediator.Send(command));
 		}
 
 		[Authorize]
-		[HttpGet("selected")]
-		public async Task<IActionResult> ListSelectedUniversity()
+		[HttpGet("favoriteList")]
+		public async Task<IActionResult> FavoriteList()
 		{
 			return HandleResult(await Mediator.Send(new Application.FavoriteLists.List.Query { }));
+		}
+
+
+		[Authorize]
+		[HttpPost("favoriteToggle/{universityId}")]
+		public async Task<IActionResult> FavoriteToggle(Guid universityId)
+		{
+			return HandleResult(await Mediator.Send(new Application.FavoriteLists.FavoriteToggle.Command
+			{ TargetUniversityId = universityId }));
 		}
 	}
 }

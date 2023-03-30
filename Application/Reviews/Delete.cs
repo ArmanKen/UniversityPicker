@@ -12,6 +12,7 @@ namespace Application.Reviews
 		public class Command : IRequest<Result<Unit>>
 		{
 			public Guid UniversirtyId { get; set; }
+			public Guid ReviewId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -30,14 +31,11 @@ namespace Application.Reviews
 			{
 				var university = await _context.Universities.FindAsync(request.UniversirtyId);
 				if (university == null) return null;
-				var user = await _context.Users
-					.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-				if (user == null) return null;
-				var review = university.Reviews.FirstOrDefault(x => x.Author == user);
+				var review = university.Reviews.FirstOrDefault(x => x.Id == request.ReviewId);
 				university.Reviews.Remove(review);
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<Unit>.Success(Unit.Value);
-				return Result<Unit>.Failure("Failed to add comment");
+				return Result<Unit>.Failure("Failed to delete comment");
 			}
 		}
 	}

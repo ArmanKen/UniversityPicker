@@ -32,7 +32,7 @@ namespace Application.Reviews
 			{
 				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				var review = user.Reviews.FirstOrDefault(x => x.University.Id == request.UniversityId);
-				if (review == null) return Result<ReviewDto>.Failure("Failed to find Review");
+				if (review == null) return null;
 				return Result<ReviewDto>.Success(_mapper.Map<ReviewDto>(review));
 			}
 		}

@@ -59,10 +59,10 @@ namespace API.Controllers
 
 			var user = new AppUser
 			{
-				FullName = registerDTO.DisplayName,
+				FullName = registerDTO.FullName,
 				Email = registerDTO.Email,
 				UserName = registerDTO.Username,
-				Photo = new Photo { Id = (_userManager.Users.Count() + 1).ToString(), Url = "" } //<=change
+				Photo = default
 			};
 
 			var result = await _userManager.CreateAsync(user, registerDTO.Password);
@@ -89,7 +89,7 @@ namespace API.Controllers
 			if (user == null) return null;
 			return new UserDTO
 			{
-				DisplayName = user.FullName,
+				FullName = user.FullName,
 				Image = user.Photo.Url,
 				Token = _tokenService.CreateToken(user),
 				Username = user.UserName

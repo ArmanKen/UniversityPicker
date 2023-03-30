@@ -5,17 +5,11 @@ import { store } from "../stores/store";
 import { University, UniversityFormValues } from "../models/university";
 import { PaginatedResult } from "../models/pagination";
 import { Specialty, SpecialtyBase } from "../models/specialty";
-import { Discipline } from "../models/discipline";
+import { EduComponent } from "../models/eduComponent";
 import { Region } from "../models/region";
 import { Profile } from "../models/profile";
 import { Photo } from "../models/photo";
 import { Degree } from "../models/degree";
-
-const sleep = (delay: number) => {
-	return new Promise((resolve) => {
-		setTimeout(resolve, delay)
-	})
-}
 
 axios.defaults.baseURL = 'http://localhost:5000/api'
 
@@ -76,37 +70,37 @@ const requests = {
 }
 
 const Universities = {
-	list: (params: URLSearchParams) => axios.get<PaginatedResult<University[]>>('/universitys/', { params }).then(responseBody),
-	details: (id: string) => requests.get<University>(`/universitys/${id}`),
-	create: (university: UniversityFormValues) => requests.post<void>(`/universitys/`, university),
-	edit: (university: University) => requests.put<void>(`/universitys/`, university),
-	delete: (id: string) => requests.delete<void>(`/universitys/${id}`),
-	select: (id: string) => requests.post<void>(`/universitys/${id}/selectUniversity/`, {}),
-	toggleLocalAdmin: (id: string, username: string) => requests.post<void>(`/universitys/${id}/localAdmin/${username}`, {})
+	list: (params: URLSearchParams) => axios.get<PaginatedResult<University[]>>('/universities/', { params }).then(responseBody),
+	details: (id: string) => requests.get<University>(`/universities/${id}`),
+	create: (university: UniversityFormValues) => requests.post<void>(`/universities/`, university),
+	edit: (university: University) => requests.put<void>(`/universities/`, university),
+	delete: (id: string) => requests.delete<void>(`/universities/${id}`),
+	select: (id: string) => requests.post<void>(`/universities/${id}/selectUniversity/`, {}),
+	toggleLocalAdmin: (id: string, username: string) => requests.post<void>(`/universities/${id}/localAdmin/${username}`, {})
 }
 
 const Specialties = {
 	list: (params: URLSearchParams, id: string) =>
-		axios.get<PaginatedResult<Specialty[]>>(`/universitys/${id}/specialties/`, { params }).then(responseBody),
+		axios.get<PaginatedResult<Specialty[]>>(`/universities/${id}/specialties/`, { params }).then(responseBody),
 	details: (id: string, specialtyId: string) =>
-		requests.get<Specialty>(`/universitys/${id}/specialties/${specialtyId}`),
+		requests.get<Specialty>(`/universities/${id}/specialties/${specialtyId}`),
 	create: (id: string, specialty: Specialty) =>
-		requests.post<void>(`/universitys/${id}/specialties/`, specialty),
+		requests.post<void>(`/universities/${id}/specialties/`, specialty),
 	edit: (id: string, specialtyId: string, specialty: Specialty) =>
-		requests.put<void>(`/universitys/${id}/specialties/${specialtyId}`, specialty),
+		requests.put<void>(`/universities/${id}/specialties/${specialtyId}`, specialty),
 	delete: (id: string, specialtyId: string) =>
-		requests.delete<void>(`/universitys/${id}/specialties/${specialtyId}`)
+		requests.delete<void>(`/universities/${id}/specialties/${specialtyId}`)
 }
 
-const Disciplines = {
+const EduComponents = {
 	list: (id: string, specialtyId: string) =>
-		requests.get<Discipline[]>(`/universitys/${id}/specialties/${specialtyId}/disciplines`),
-	create: (id: string, specialtyId: string, discipline: Discipline) =>
-		requests.post<void>(`/universitys/${id}/specialties/${specialtyId}/disciplines`, discipline),
-	edit: (id: string, specialtyId: string, disciplineId: string, discipline: Discipline) =>
-		requests.put<void>(`/universitys/${id}/specialties/${specialtyId}/disciplines/${disciplineId}`, discipline),
-	delete: (id: string, specialtyId: string, disciplineId: string) =>
-		requests.delete<void>(`/universitys/${id}/specialties/${specialtyId}/disciplines/${disciplineId}`)
+		requests.get<EduComponent[]>(`/universities/${id}/specialties/${specialtyId}/eduComponents`),
+	create: (id: string, specialtyId: string, eduComponent: EduComponent) =>
+		requests.post<void>(`/universities/${id}/specialties/${specialtyId}/eduComponents`, eduComponent),
+	edit: (id: string, specialtyId: string, eduComponentId: string, eduComponent: EduComponent) =>
+		requests.put<void>(`/universities/${id}/specialties/${specialtyId}/eduComponents/${eduComponentId}`, eduComponent),
+	delete: (id: string, specialtyId: string, eduComponentId: string) =>
+		requests.delete<void>(`/universities/${id}/specialties/${specialtyId}/eduComponents/${eduComponentId}`)
 }
 
 const Menus = {
@@ -155,7 +149,7 @@ const Photos = {
 const agent = {
 	Universities,
 	Specialties,
-	Disciplines,
+	EduComponents,
 	Menus,
 	Profiles,
 	Photos

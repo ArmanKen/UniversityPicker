@@ -8,12 +8,12 @@ import UniversityFilters from "./filters/UniversityFilters";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default observer(function UniversityDashboard() {
-	const { universityStore: { universitys, loadUniversities,
+	const { universityStore: { universities, loadUniversities,
 		pagination, setPagingParams, universityLoadingInitial } } = useStore();
 
 	useEffect(() => {
-		if (universitys.size < 1) loadUniversities();
-	}, [loadUniversities, universitys.size])
+		if (universities.size < 1) loadUniversities();
+	}, [loadUniversities, universities.size])
 
 	function handleGetNext() {
 		setPagingParams(new PagingParams(pagination!.currentPage + 1));
@@ -29,11 +29,11 @@ export default observer(function UniversityDashboard() {
 				</Grid.Column>
 				<Grid.Column computer={10} floated="left">
 					<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
-						dataLength={universitys.size} next={handleGetNext}
+						dataLength={universities.size} next={handleGetNext}
 						loader='' hasMore={!universityLoadingInitial && !!pagination
 							&& pagination.currentPage < pagination.totalPages}>
 						<UniversityList />
-						{!universityLoadingInitial && universitys.size < 1 &&
+						{!universityLoadingInitial && universities.size < 1 &&
 							<Segment textAlign="center" color="grey" inverted
 								style={{ fontSize: '1.2em' }}>
 								По заданим фільтрам нічного не знайдено

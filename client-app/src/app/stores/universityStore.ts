@@ -2,8 +2,7 @@ import _ from "lodash";
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Pagination, PagingParams } from "../models/pagination";
-import { UniversityParams } from "../models/queryParams";
-import { University, UniversityFormValues } from "../models/university";
+import { University, UniversityFormValues, UniversityQueryParams } from "../models/university";
 import { store } from "./store";
 
 export default class UniversityStore {
@@ -12,14 +11,15 @@ export default class UniversityStore {
 	universityLoadingInitial = false;
 	pagination: Pagination | undefined = undefined;
 	pagingParams = new PagingParams();
-	universityParams: UniversityParams = {
+	universityQueryParams: UniversityQueryParams = {
 		name: '',
-		regions: [],
-		cities: [],
-		degree: 0,
-		branchBaseIds: [],
-		specialtyBaseIds: [],
-		onlyBudget: false,
+		accreditationId: 0,
+		regionsId: [],
+		citiesId: [],
+		degreeId: 0,
+		knowledgeBranchesId: [],
+		specialtyBasesId: [],
+		budget: false,
 		minPrice: 0,
 		maxPrice: 0,
 		ukraineTop: false
@@ -29,14 +29,26 @@ export default class UniversityStore {
 		makeAutoObservable(this);
 
 		reaction(
-			() => this.universityParams,
+			() => [
+				this.universityQueryParams.name,
+				this.universityQueryParams.accreditationId,
+				this.universityQueryParams.regionsId,
+				this.universityQueryParams.citiesId,
+				this.universityQueryParams.knowledgeBranchesId,
+				this.universityQueryParams.specialtyBasesId,
+				this.universityQueryParams.budget,
+				this.universityQueryParams.ukraineTop,
+				this.universityQueryParams.minPrice,
+				this.universityQueryParams.maxPrice,
+				this.universityQueryParams.degreeId,
+			],
 			() => {
 				if (this.universities.size < 1)
 					this.handleDebounceWithLoad();
 				else this.handleDebounce();
 				this.selectedUniversity = undefined;
 			}
-		)
+		);
 
 		reaction(
 			() => this.selectedUniversity,
@@ -45,7 +57,21 @@ export default class UniversityStore {
 					store.specilatyStore.loadSpecialties(this.selectedUniversity.id);
 				else store.specilatyStore.specialties.clear()
 			}
-		)
+		);
+
+		reaction(
+			() => this.universityQueryParams.regionsId,
+			() => {
+				store.uiStore.setCitiesDropdown(this.universityQueryParams.regionsId);
+			}
+		);
+
+		reaction(
+			() => this.universityQueryParams.knowledgeBranchesId,
+			() => {
+				store.uiStore.setSpecialtiesBaseDropdown(this.universityQueryParams.knowledgeBranchesId);
+			}
+		);
 	}
 
 	setPagingParams = (pagingParams: PagingParams) => this.pagingParams = pagingParams;
@@ -56,33 +82,13 @@ export default class UniversityStore {
 
 	setUniversity = (university: University | undefined) => this.selectedUniversity = university;
 
-	setNameParam = (name: string) => this.universityParams.name = name;
-
-	setDegreeParam = (degree: number) => this.universityParams.degree = degree;
-
-	setRegionsParam = (regions: number[]) => this.universityParams.regions = regions;
-
-	setCitiesnsParam = (cities: number[]) => this.universityParams.cities = cities;
-
-	setBranchBaseIdsParam = (branchBaseIds: string[]) => this.universityParams.branchBaseIds = branchBaseIds;
-
-	setSpecialtyBaseIdsParam = (specialtyBaseIds: string[]) => this.universityParams.specialtyBaseIds = specialtyBaseIds;
-
-	setOnlyBudgetParam = (onlyBudget: boolean) => this.universityParams.onlyBudget = onlyBudget;
-
-	setMinPriceParam = (minPrice: number) => this.universityParams.minPrice = minPrice;
-
-	setMaxPriceParam = (maxPrice: number) => this.universityParams.maxPrice = maxPrice;
-
-	setUkraineTopParam = (ukraineTop: boolean) => this.universityParams.ukraineTop = ukraineTop;
-
 	private getUniversity = (id: string) => this.universities.get(id);
 
 	get axiosParams() {
 		const params = new URLSearchParams();
 		params.append('pageNumber', this.pagingParams.pageNumber.toString());
 		params.append('pageSize', this.pagingParams.pageSize.toString());
-		if (this.universityParams.name) params.append('name', this.universityParams.name);
+		if (this.universityQueryParams.name) params.append('name', this.universityQueryParams.name);
 		// if (this.region) params.append('region', this.region);
 		// if (this.city) params.append('city', this.city);
 		// if (this.degree) params.append('degree', this.degree);

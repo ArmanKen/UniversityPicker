@@ -1,11 +1,12 @@
 import { Photo } from "./photo";
-import { City, Region } from "./region";
+import { City, RegionDto } from "./region";
 
 export interface University {
 	id: string;
 	name: string;
-	region: string;
-	city: string;
+	accreditation: Accreditation;
+	region: RegionDto;
+	city: City;
 	address: string;
 	rating: number;
 	website: string;
@@ -13,8 +14,19 @@ export interface University {
 	telephone: string;
 	ukraineTop: number;
 	studentsCount: number;
-	priceUAH: number;
 	titlePhoto: Photo;
+	location: Location;
+}
+
+export interface Accreditation {
+	id: number;
+	accreditationLevel: string;
+}
+
+export interface Location {
+	id: number;
+	longitude: number;
+	latitude: number;
 }
 
 export class University implements University {
@@ -26,7 +38,7 @@ export class University implements University {
 export class UniversityFormValues {
 	id?: string = undefined;
 	name: string = '';
-	region?: Region = undefined;
+	region?: RegionDto = undefined;
 	city?: City = undefined;
 	address: string = '';
 	website: string = '';
@@ -48,4 +60,18 @@ export class UniversityFormValues {
 			this.titlePhoto = university.titlePhoto;
 		}
 	}
+}
+
+export interface UniversityQueryParams {
+	name: string,
+	accreditationId: number,
+	regionsId: number[],
+	citiesId: number[],
+	degreeId: number,
+	knowledgeBranchesId: string[],
+	specialtyBasesId: string[],
+	minPrice: number,
+	maxPrice: number,
+	budget: boolean,
+	ukraineTop: boolean
 }

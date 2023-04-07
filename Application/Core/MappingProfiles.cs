@@ -13,8 +13,11 @@ namespace Application.Core
 				.ForMember(x => x.Rating, o => o.MapFrom(x => x.Reviews.Count > 0 ? x.Reviews.Average(x => x.Rating) : 0));
 			CreateMap<Region, RegionDto>();
 			CreateMap<Faculty, FacultyDto>();
+			CreateMap<Language, LanguageDto>();
+			CreateMap<StudyForm, StudyFormDto>();
 			CreateMap<KnowledgeBranch, KnowledgeBranchDto>();
 			CreateMap<SpecialtyBase, SpecialtyBaseDto>();
+			CreateMap<SpecialtyBase, SpecialtyBaseIscedDto>();
 			CreateMap<Specialty, SpecialtyDto>()
 				.ForMember(x => x.EctsCredits, o => o.MapFrom(x => x.EduComponents.Count > 0 ? x.EduComponents.Sum(x => x.EctsCredits) : 0));
 			CreateMap<EduComponent, EduComponentDto>();

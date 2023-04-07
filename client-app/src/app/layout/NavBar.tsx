@@ -3,17 +3,17 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Dropdown, Header, Input, Menu } from 'semantic-ui-react'
 import { useStore } from '../stores/store'
+import { action } from "mobx"
 
 export default observer(function NavBar() {
-	const { universityStore: { changeQueryParams } } = useStore()
+	const { universityStore: { universityQueryParams } } = useStore()
 
 	return (
 		<Menu
 			fixed='top'
 			size='massive'>
 			<Menu.Item
-				position='left'
-				style={{ marginLeft: 15 }}>
+				position='left'>
 				<Header
 					textAlign='center'
 					as={Link} to=''>
@@ -22,11 +22,12 @@ export default observer(function NavBar() {
 			</Menu.Item>
 			<Menu.Item
 				position='right'
-				style={{ width: 600 }}>
+				>
 				<Input
 					icon='search'
+					value={universityQueryParams.name}
 					placeholder='Пошук по назві університету...'
-					onChange={(e, d) => changeQueryParams(d.value, "searchString")}
+					onChange={action((e, d) => universityQueryParams.name = d.value)}
 				/>
 			</Menu.Item>
 			<Menu.Item

@@ -12,16 +12,16 @@ import NavBar from './NavBar';
 
 function App() {
 	return (
-		<>
-			<ToastContainer position='bottom-right' hideProgressBar />
-			<ModalContainer />
-			<Routes>
-				<Route path='/*' element={
+		<Routes>
+			<Route path='/*' element={
+				<>
+					<ToastContainer position='bottom-right' hideProgressBar />
+					<ModalContainer/>
 					<Grid>
 						<Grid.Row>
 							<NavBar />
 						</Grid.Row>
-						<Container style={{ marginTop: 75, width: '97%' }}>
+						<Container style={{ marginTop: 55, width: '100%' }}>
 							<Routes>
 								<Route path='/' element={<UniversityDashboard />} />
 								<Route path='/errors' element={<TestErrors />} />
@@ -30,9 +30,9 @@ function App() {
 							</Routes>
 						</Container>
 					</Grid>
-				} />
-			</Routes>
-		</>
+				</>
+			} />
+		</Routes>
 	);
 }
 

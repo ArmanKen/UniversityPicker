@@ -3,5 +3,9 @@ export interface EduComponent {
 	name: string;
 	info: string;
 	isOptional: boolean;
-	isSelected: boolean;
+	ectsCredits: number;
+}
+
+export class EduComponentFormValues {
+
 }

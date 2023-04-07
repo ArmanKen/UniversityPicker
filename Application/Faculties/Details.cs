@@ -1,7 +1,9 @@
 using Application.Core;
 using Application.DTOs;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Faculties
@@ -27,9 +29,10 @@ namespace Application.Faculties
 			public async Task<Result<FacultyDto>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var faculty = await _context.Faculties
-					.FindAsync(request.FacultyId);
+					.ProjectTo<FacultyDto>(_mapper.ConfigurationProvider)
+					.FirstOrDefaultAsync(x => x.Id == request.FacultyId);
 				if (faculty == null) return null;
-				return Result<FacultyDto>.Success(_mapper.Map<FacultyDto>(faculty));
+				return Result<FacultyDto>.Success(faculty);
 			}
 		}
 	}

@@ -14,7 +14,7 @@ namespace Application.Reviews
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public ReviewDto ReviewDto { get; set; }
+			public ReviewDto Review { get; set; }
 			public Guid UniversirtyId { get; set; }
 		}
 
@@ -22,7 +22,7 @@ namespace Application.Reviews
 		{
 			public CommandValidator()
 			{
-				RuleFor(x => x.ReviewDto).SetValidator(new ReviewValidator());
+				RuleFor(x => x.Review).SetValidator(new ReviewValidator());
 			}
 		}
 
@@ -46,7 +46,7 @@ namespace Application.Reviews
 					.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				if (user == null || university.Reviews.Any(x => x.Author == user))
 					return Result<Unit>.Failure("Failed to create rewiev");
-				university.Reviews.Add(new Review { Author = user, Body = request.ReviewDto.Body });
+				university.Reviews.Add(new Review { Author = user, Body = request.Review.Body });
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to create rewiev");
 				return Result<Unit>.Success(Unit.Value);

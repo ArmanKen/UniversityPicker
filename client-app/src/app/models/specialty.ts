@@ -1,15 +1,17 @@
+import { Degree } from "./degree";
+
 export interface Specialty {
 	id: string;
-	specialtyBaseId: string;
-	name: string;
-	isceds: Isced[];
+	specialtyBase: SpecialtyBase;
 	priceUAH: number;
 	description: string;
 	budgetAllowed: boolean;
-	ectsCredits: number; 
+	ectsCredits: number;
 	startYear: number;
 	endYear: number;
-	degree: string;
+	degree: Degree;
+	languages: Language[];
+	studyForms: StudyForm[];
 }
 
 export interface SpecialtyBase {
@@ -18,7 +20,26 @@ export interface SpecialtyBase {
 	isceds: Isced[];
 }
 
+export interface SpecialtyBaseDto {
+	id: string;
+	name: string;
+}
+
 export interface Isced {
 	id: string;
 	name: string;
+}
+
+export interface Language {
+	id: string;
+	name: string;
+}
+
+export interface StudyForm {
+	id: number;
+	form: string;
+}
+
+export class SpecialtyFormValues {
+
 }

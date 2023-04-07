@@ -29,10 +29,10 @@ namespace Application.Specialties
 			public async Task<Result<SpecialtyDto>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var specialty = await _context.Specialties
+					.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
 					.FirstOrDefaultAsync(x => x.Id == request.SpecialtyId);
 				if (specialty == null) return null;
-				return Result<SpecialtyDto>.Success(
-					_mapper.Map<SpecialtyDto>(specialty));
+				return Result<SpecialtyDto>.Success(specialty);
 			}
 		}
 	}

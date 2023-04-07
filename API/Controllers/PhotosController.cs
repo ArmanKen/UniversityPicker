@@ -10,7 +10,7 @@ namespace API.Controllers
 		[HttpGet("universities/{universityId}/gallery")]
 		public async Task<IActionResult> GetUniversityPhotos(Guid universityId)
 		{
-			return HandleResult(await Mediator.Send(new List.Query { UniversityId = universityId }));
+			return HandlePagedResult(await Mediator.Send(new List.Query { UniversityId = universityId }));
 		}
 
 		[Authorize]

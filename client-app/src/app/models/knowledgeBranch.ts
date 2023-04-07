@@ -1,4 +1,7 @@
+import { SpecialtyBase } from "./specialty";
+
 export interface KnowledgeBranch {
-	code: string;
+	id: string;
 	name: string;
+	specialtyBases: SpecialtyBase[];
 }

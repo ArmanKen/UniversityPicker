@@ -9,8 +9,6 @@ namespace Application.DTOs
 		public string Info { get; set; }
 		public int StudentsCount { get; set; }
 		public Photo FacultyPhoto { get; set; }
-		public ICollection<Language> Languages { get; set; }
-		public ICollection<StudyForm> StudyForms { get; set; }
 		public ICollection<KnowledgeBranchDto> KnowledgeBranches { get; set; }
 	}
 }

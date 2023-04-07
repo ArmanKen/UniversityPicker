@@ -1,15 +1,16 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
-import { Grid, Segment } from "semantic-ui-react";
-import { useStore } from "../../../app/stores/store";
-import UniversityList from "./UniversityList";
-import { PagingParams } from "../../../app/models/pagination";
-import UniversityFilters from "./filters/UniversityFilters";
+import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Button, Grid, Segment } from "semantic-ui-react";
+import { PagingParams } from "../../../app/models/pagination";
+import { useStore } from "../../../app/stores/store";
+import UniversityList from "./card/UniversityList";
+import UniversityFiltersContent from "./filterBar/UniversityFiltersContent";
+import UnviersityFiltersHeader from "./filterBar/UniversityFiltersHeader";
 
 export default observer(function UniversityDashboard() {
 	const { universityStore: { universities, loadUniversities,
-		pagination, setPagingParams, universityLoadingInitial } } = useStore();
+		pagination, setPagingParams, universityLoadingInitial }, modalStore: { openModal } } = useStore();
 
 	useEffect(() => {
 		if (universities.size < 1) loadUniversities();
@@ -21,13 +22,55 @@ export default observer(function UniversityDashboard() {
 	}
 
 	return (
-		<Grid >
-			<Grid.Row only='computer'>
-				<Grid.Column style={{ minWidth: 355, maxWidth: 355 }}
-					computer={4} floated="right">
-					<UniversityFilters />
+		<Grid>
+			<Grid.Row only='computer' columns='equal'>
+				<Grid.Column
+					style={{
+						maxWidth: '340px',
+						minWidth: '340px',
+						marginLeft: 130,
+						marginRight: 25
+					}}
+					floated="left">
+					<Segment.Group style={{ marginTop: 20 }}>
+						<Segment >
+							<UnviersityFiltersHeader />
+						</Segment>
+						<UniversityFiltersContent />
+					</Segment.Group>
 				</Grid.Column>
-				<Grid.Column computer={10} floated="left">
+				<Grid.Column floated="left"
+					style={{
+						maxWidth: '100%',
+						minWidth: '400px',
+						marginRight: 10
+					}}>
+					<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
+						dataLength={universities.size} next={handleGetNext} loader=''
+						hasMore={!universityLoadingInitial && !!pagination
+							&& pagination.currentPage < pagination.totalPages}>
+						<UniversityList />
+						{!universityLoadingInitial && universities.size < 1 &&
+							<Segment textAlign="center" color="grey" inverted
+								style={{ fontSize: '1.2rem' }}>
+								По заданим фільтрам нічного не знайдено
+							</Segment>}
+					</InfiniteScroll>
+				</Grid.Column>
+			</Grid.Row>
+			<Grid.Row only='mobile tablet' columns='equal'>
+				<Grid.Column>
+					<Button
+						content='Фільтри'
+						color="black"
+						size='big'
+						onClick={() =>
+							openModal(
+								<UnviersityFiltersHeader />,
+								<Segment.Group>
+									<UniversityFiltersContent />
+								</Segment.Group>,
+								<></>, 'small')} />
 					<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
 						dataLength={universities.size} next={handleGetNext}
 						loader='' hasMore={!universityLoadingInitial && !!pagination

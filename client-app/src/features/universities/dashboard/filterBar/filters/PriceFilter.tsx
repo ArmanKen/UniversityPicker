@@ -21,7 +21,7 @@ export default observer(function PriceFilter() {
 					<Grid.Column width={6} floated='left' style={{ padding: 0 }}>
 						<Input
 							placeholder='Від'
-							disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId}
+							disabled={uiLoadingInitial || !!universityQueryParams.specialtyBasesId}
 							fluid
 							value={universityQueryParams.minPrice ? universityQueryParams.minPrice : ''}
 							onChange={action((e, d) => {
@@ -38,7 +38,7 @@ export default observer(function PriceFilter() {
 					<Grid.Column width={6} floated='right' style={{ padding: 0 }}>
 						<Input
 							placeholder='До'
-							disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId}
+							disabled={uiLoadingInitial || !!universityQueryParams.specialtyBasesId}
 							fluid
 							value={universityQueryParams.maxPrice ? universityQueryParams.maxPrice : ''}
 							onChange={action((e, d) => {

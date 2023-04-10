@@ -23,12 +23,11 @@ export default observer(function UniversityDashboard() {
 
 	return (
 		<Grid>
-			<Grid.Row only='computer' columns='equal'>
+			<Grid.Row only='computer tablet' columns='equal'>
 				<Grid.Column
 					style={{
 						maxWidth: '340px',
 						minWidth: '340px',
-						marginLeft: 130,
 						marginRight: 25
 					}}
 					floated="left">
@@ -41,8 +40,6 @@ export default observer(function UniversityDashboard() {
 				</Grid.Column>
 				<Grid.Column floated="left"
 					style={{
-						maxWidth: '100%',
-						minWidth: '400px',
 						marginRight: 10
 					}}>
 					<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
@@ -58,27 +55,27 @@ export default observer(function UniversityDashboard() {
 					</InfiniteScroll>
 				</Grid.Column>
 			</Grid.Row>
-			<Grid.Row only='mobile tablet' columns='equal'>
-				<Grid.Column>
+			<Grid.Row only='mobile'>
+				<Grid.Column >
 					<Button
 						content='Фільтри'
 						color="black"
 						size='big'
+						fluid
 						onClick={() =>
 							openModal(
 								<UnviersityFiltersHeader />,
 								<Segment.Group>
 									<UniversityFiltersContent />
-								</Segment.Group>,
-								<></>, 'small')} />
-					<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
+								</Segment.Group>, 'small')} />
+					<InfiniteScroll style={{ paddingTop: 20, overflow: 'hidden' }}
 						dataLength={universities.size} next={handleGetNext}
 						loader='' hasMore={!universityLoadingInitial && !!pagination
 							&& pagination.currentPage < pagination.totalPages}>
 						<UniversityList />
 						{!universityLoadingInitial && universities.size < 1 &&
 							<Segment textAlign="center" color="grey" inverted
-								style={{ fontSize: '1.2em' }}>
+								style={{ fontSize: '1em' }}>
 								По заданим фільтрам нічного не знайдено
 							</Segment>}
 					</InfiniteScroll>

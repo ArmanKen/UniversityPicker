@@ -15,14 +15,19 @@ export default observer(function UniversityListCard({ university }: Props) {
 	return (
 		<Transition animation="fade" duration={300}
 			unmountOnHide={true} transitionOnMount={true}>
-			<Card raised style={{ width: 250, height: 250 }}
+			<Card fluid raised
+				style={{
+					minWidth: 222,
+				}}
 				onClick={() => {
 					setUniversity(university);
 					openModal(<>Про університет</>,
-						<UniversityShortInfoContent />, <UniversityShortInfoAction />, 'small');
+						<UniversityShortInfoContent />, 'small',
+						<UniversityShortInfoAction />);
 				}}>
 				<div style={{ position: "relative", display: "flex" }}>
-					<Image fluid style={{ width: 250, height: 150 }} src='assets/1.png' />
+					<Image fluid
+						src='logo512.png' />
 					<div className="square" style={{ position: 'absolute', bottom: 0 }}>
 						<Icon name='star' size='large'
 							style={{ color: 'white', marginTop: 9, marginLeft: 5 }}	>
@@ -30,7 +35,7 @@ export default observer(function UniversityListCard({ university }: Props) {
 						</Icon>
 					</div>
 				</div>
-				<Card.Content textAlign="center" style={{ fontSize: '0.9em', fontWeight: 600, height: 150 }}>
+				<Card.Content textAlign="center" style={{ fontWeight: 600,fontSize: '0.9rem' }}>
 					<Card.Header content={university.name} />
 				</Card.Content>
 			</Card>

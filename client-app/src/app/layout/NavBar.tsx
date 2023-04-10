@@ -1,12 +1,12 @@
+import { action } from "mobx"
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Dropdown, Header, Input, Menu } from 'semantic-ui-react'
 import { useStore } from '../stores/store'
-import { action } from "mobx"
 
 export default observer(function NavBar() {
 	const { universityStore: { universityQueryParams } } = useStore()
+	const location = useLocation();
 
 	return (
 		<Menu
@@ -20,16 +20,15 @@ export default observer(function NavBar() {
 					University Picker
 				</Header>
 			</Menu.Item>
-			<Menu.Item
-				position='right'
-				>
+			{location.pathname === '/' && <Menu.Item>
 				<Input
+					style={{ width: '30vw' }}
 					icon='search'
 					value={universityQueryParams.name}
-					placeholder='Пошук по назві університету...'
+					placeholder='Пошук...'
 					onChange={action((e, d) => universityQueryParams.name = d.value)}
 				/>
-			</Menu.Item>
+			</Menu.Item>}
 			<Menu.Item
 				position='right'>
 				<Dropdown
@@ -37,5 +36,6 @@ export default observer(function NavBar() {
 				/>
 			</Menu.Item>
 		</Menu>
+
 	)
 })

@@ -32,8 +32,8 @@ export default observer(function UniversityShortInfoContent() {
 									Адреса:
 								</Table.Cell>
 								<Table.Cell width={12}>
-									{selectedUniversity?.region + ', ' +
-										selectedUniversity?.city + ', ' +
+									{selectedUniversity?.region.name + ', ' +
+										selectedUniversity?.city.name + ', ' +
 										selectedUniversity?.address}
 								</Table.Cell>
 							</Table.Row>
@@ -83,8 +83,8 @@ export default observer(function UniversityShortInfoContent() {
 									Адреса:
 								</Table.Cell>
 								<Table.Cell>
-									{selectedUniversity?.region + ', ' +
-										selectedUniversity?.city + ', ' +
+									{selectedUniversity?.region.name + ', ' +
+										selectedUniversity?.city.name + ', ' +
 										selectedUniversity?.address}
 								</Table.Cell>
 							</Table.Row>

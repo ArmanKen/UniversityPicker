@@ -10,7 +10,7 @@ import { Photo } from "../models/photo";
 import { Faculty, FacultyFormValues } from "../models/faculty";
 import { Review, ReviewFormValues } from "../models/review";
 import { DropdownValues } from "../models/dropdownValues";
-// import { useNavigate } from "react-router-dom";
+import { router } from "../../features/routes/Router";
 
 axios.defaults.baseURL = 'http://localhost:5000/api'
 
@@ -29,14 +29,14 @@ axios.interceptors.response.use(async response => {
 	return response;
 }, (error: AxiosError) => {
 	const { data, status, config }: { data: any; status: number, config: AxiosRequestConfig } = error.response!;
-	// // const navigate = useNavigate();
+
 	switch (status) {
 		case 400:
 			if (typeof data === 'string') {
 				toast.error(data);
 			}
 			if (config.method === 'get' && data.errors.hasOwnProperty('id')) {
-				// navigate('/not-found');
+				router.navigate('/not-found');
 			}
 			if (data.errors) {
 				const modalStateErrors = [];
@@ -52,11 +52,11 @@ axios.interceptors.response.use(async response => {
 			toast.error('unauthorized');
 			break;
 		case 404:
-			// navigate('/not-found')
+			router.navigate('/not-found');
 			break;
 		case 500:
 			store.commonStore.setServerError(data);
-			// navigate('/server-error')
+			router.navigate('/server-error');
 			break;
 	}
 	return Promise.reject(error);

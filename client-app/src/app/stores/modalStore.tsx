@@ -1,9 +1,9 @@
 import { makeAutoObservable } from "mobx"
 
 export default class ModalStore {
-	header: JSX.Element | null = null;
-	body: JSX.Element | null = null;
-	action: JSX.Element | null = null;
+	header: JSX.Element = <></>;
+	body: JSX.Element = <></>;
+	action: JSX.Element = <></>;
 	open = false;
 	size: 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen' = 'small';
 
@@ -11,8 +11,9 @@ export default class ModalStore {
 		makeAutoObservable(this);
 	}
 
-	openModal = (header: JSX.Element, content: JSX.Element, action: JSX.Element,
-		size: 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen') => {
+	openModal = (header: JSX.Element, content: JSX.Element,
+		size: 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen',
+		action: JSX.Element = <></> ) => {
 		this.open = true;
 		this.header = header;
 		this.body = content;
@@ -22,6 +23,8 @@ export default class ModalStore {
 
 	closeModal = () => {
 		this.open = false;
-		this.body = null;
+		this.header = <></>;
+		this.body = <></>;
+		this.action = <></>;
 	}
 }

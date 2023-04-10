@@ -51,15 +51,6 @@ export default class UniversityStore {
 		);
 
 		reaction(
-			() => this.selectedUniversity,
-			() => {
-				if (this.selectedUniversity)
-					store.specilatyStore.loadSpecialties(this.selectedUniversity.id);
-				else store.specilatyStore.specialties.clear()
-			}
-		);
-
-		reaction(
 			() => this.universityQueryParams.regionsId,
 			() => {
 				store.uiStore.setCitiesDropdown(this.universityQueryParams.regionsId);
@@ -80,7 +71,9 @@ export default class UniversityStore {
 
 	setUniversityLoadingInitial = (state: boolean) => this.universityLoadingInitial = state;
 
-	setUniversity = (university: University | undefined) => this.selectedUniversity = university;
+	setUniversity = (university: University) => this.selectedUniversity = university;
+
+	clearUniversity = () => this.selectedUniversity = undefined;
 
 	private getUniversity = (id: string) => this.universities.get(id);
 
@@ -129,9 +122,7 @@ export default class UniversityStore {
 		} else {
 			try {
 				university = await agent.Universities.details(id);
-				runInAction(() => {
-					this.selectedUniversity = university;
-				});
+				this.setUniversity(university);
 				this.setUniversityLoadingInitial(false);
 			} catch (error) {
 				runInAction(() => {

@@ -29,6 +29,7 @@ export default observer(function ToggleFilters() {
 						style={{ paddingRight: 0, paddingLeft: 0 }}
 						floated='left'>
 						<Checkbox
+							disabled={!!universityQueryParams.specialtyBasesId}
 							toggle
 							checked={universityQueryParams.budget}
 							onChange={action((x, d) => universityQueryParams.budget = d.checked as boolean)}
@@ -51,6 +52,7 @@ export default observer(function ToggleFilters() {
 						width={1}
 						floated='left'>
 						<Checkbox
+							disabled={!!universityQueryParams.specialtyBasesId}
 							toggle
 							checked={universityQueryParams.ukraineTop}
 							onChange={action((x, d) => universityQueryParams.ukraineTop = d.checked as boolean)}

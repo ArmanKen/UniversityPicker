@@ -16,6 +16,7 @@ export default observer(function DegreeFilter() {
 				size='small'
 			/>
 			<Dropdown
+				disabled={!!universityQueryParams.specialtyBasesId}
 				placeholder='Освітня ступінь...'
 				options={degrees}
 				value={universityQueryParams.degreeId || undefined}

@@ -16,7 +16,8 @@ namespace Application.DTOs
 		public string Telephone { get; set; }
 		public int UkraineTop { get; set; }
 		public int StudentsCount { get; set; }
-		public Photo TitlePhoto { get; set; }
+		public string TitlePhoto { get; set; }
 		public Location Location { get; set; }
+		public bool InFavoriteList { get; set; }
 	}
 }

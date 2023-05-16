@@ -16,7 +16,7 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPost("create/{specialtyId}")]
+		[HttpPost("{universityId}/create/{specialtyId}")]
 		public async Task<IActionResult> CreateEduComponent(Guid specialtyId, Application.DTOs.EduComponentDto educationComponent)
 		{
 			return HandleResult(await Mediator.Send(new Create.Command
@@ -24,7 +24,7 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPut("{educationComponentId}")]
+		[HttpPut("{universityId}/{educationComponentId}")]
 		public async Task<IActionResult> EditEduComponent(int educationComponentId, EduComponentDto educationComponent)
 		{
 			educationComponent.Id = educationComponentId;
@@ -33,7 +33,7 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpDelete("{educationComponentId}")]
+		[HttpDelete("{universityId}/{educationComponentId}")]
 		public async Task<IActionResult> DeleteEduComponent(Guid educationComponentId)
 		{
 			return HandleResult(await Mediator.Send(new Delete.Command

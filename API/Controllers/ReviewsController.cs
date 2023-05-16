@@ -9,7 +9,7 @@ namespace API.Controllers
 	{
 		[AllowAnonymous]
 		[HttpGet("list/{universityId}")]
-		public async Task<IActionResult> GetReview([FromQuery] ReviewParams param, Guid universityId)
+		public async Task<IActionResult> GetReviews([FromQuery] ReviewParams param, Guid universityId)
 		{
 			return HandlePagedResult(await Mediator.Send(new List.Query
 			{ UniversityId = universityId, Params = param }));
@@ -23,6 +23,14 @@ namespace API.Controllers
 			{ ReviewId = reviewId }));
 		}
 
+		[Authorize]
+		[HttpGet("user/{universityId}")]
+		public async Task<IActionResult> GetUserReview(Guid universityId)
+		{
+			return HandleResult(await Mediator.Send(new GetUserReview.Query
+			{ UniversityId = universityId }));
+		}
+
 		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpPost("create/{universityId}")]
 		public async Task<IActionResult> CreateReview(ReviewDto Review, Guid universityId)
@@ -31,8 +39,8 @@ namespace API.Controllers
 			{ Review = Review, UniversirtyId = universityId }));
 		}
 
-		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPut("{reviewId}")]
+		[Authorize]
+		[HttpPut("{universityId}/{reviewId}")]
 		public async Task<IActionResult> EditReview(ReviewDto Review, Guid reviewId)
 		{
 			Review.Id = reviewId;
@@ -40,8 +48,8 @@ namespace API.Controllers
 			{ Review = Review }));
 		}
 
-		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpDelete("{reviewId}")]
+		[Authorize]
+		[HttpDelete("{universityId}/{reviewId}")]
 		public async Task<IActionResult> DeleteReview(Guid reviewId)
 		{
 			return HandleResult(await Mediator.Send(new Delete.Command

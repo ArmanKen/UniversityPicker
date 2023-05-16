@@ -11,6 +11,7 @@ import { Faculty, FacultyFormValues } from "../models/faculty";
 import { Review, ReviewFormValues } from "../models/review";
 import { DropdownValues } from "../models/dropdownValues";
 import { router } from "../../features/routes/Router";
+import { User, UserFormValues } from "../models/user";
 
 axios.defaults.baseURL = 'http://localhost:5000/api'
 
@@ -79,7 +80,7 @@ const Universities = {
 		requests.get<University>(`/universities/${universityId}`),
 	create: (university: UniversityFormValues) =>
 		requests.post<void>(`/universities/create`, university),
-	edit: (university: University) =>
+	edit: (university: UniversityFormValues) =>
 		requests.put<void>(`/universities/${university.id}`, university),
 	delete: (universityId: string) =>
 		requests.delete<void>(`/universities/${universityId}`),
@@ -94,10 +95,10 @@ const Faculties = {
 		requests.get<Faculty>(`/faculties/${facultyId}`),
 	create: (universityId: string, faculty: FacultyFormValues) =>
 		requests.post<void>(`/faculties/create/${universityId}`, faculty),
-	edit: (faculty: Faculty) =>
-		requests.put<void>(`/faculties/${faculty.id}`, faculty),
-	delete: (facultyId: string) =>
-		requests.delete<void>(`/faculties/${facultyId}`),
+	edit: (universityId: string, faculty: FacultyFormValues, facultyId: string) =>
+		requests.put<void>(`${universityId}/faculties/${facultyId}`, faculty),
+	delete: (universityId: string, facultyId: string) =>
+		requests.delete<void>(`${universityId}/faculties/${facultyId}`),
 }
 
 const Specialties = {
@@ -105,24 +106,24 @@ const Specialties = {
 		axios.get<PaginatedResult<Specialty[]>>(`/specialties/list/${facultyId}`,
 			{ params }).then(responseBody),
 	details: (specialtyId: string) =>
-		requests.get<Faculty>(`/specialties/${specialtyId}`),
-	create: (facultyId: string, specialty: SpecialtyFormValues) =>
-		requests.post<void>(`/specialties/create/${facultyId}`, specialty),
-	edit: (specialty: Specialty) =>
-		requests.put<void>(`/specialties/${specialty.id}`, specialty),
-	delete: (specialtyId: string) =>
-		requests.delete<void>(`/specialties/${specialtyId}`),
+		requests.get<Specialty>(`/specialties/${specialtyId}`),
+	create: (universityId: string, facultyId: string, specialty: SpecialtyFormValues) =>
+		requests.post<void>(`${universityId}/specialties/create/${facultyId}`, specialty),
+	edit: (universityId: string, specialty: SpecialtyFormValues, specialtyId: string) =>
+		requests.put<void>(`${universityId}/specialties/${specialtyId}`, specialty),
+	delete: (universityId: string, specialtyId: string) =>
+		requests.delete<void>(`${universityId}/specialties/${specialtyId}`),
 }
 
 const EduComponents = {
 	list: (specialtyId: string) =>
-		requests.get<Faculty[]>(`/eduComponents/list/${specialtyId}`),
-	create: (specialtyId: string, eduComponent: EduComponentFormValues) =>
-		requests.post<void>(`/eduComponents/create/${specialtyId}`, eduComponent),
-	edit: (eduComponent: EduComponent) =>
-		requests.put<void>(`/eduComponents/${eduComponent.id}`, eduComponent),
-	delete: (eduComponentId: string) =>
-		requests.delete<void>(`/eduComponents/${eduComponentId}`),
+		requests.get<EduComponent[]>(`/eduComponents/list/${specialtyId}`),
+	create: (universityId: string, specialtyId: string, eduComponent: EduComponentFormValues) =>
+		requests.post<void>(`${universityId}/eduComponents/create/${specialtyId}`, eduComponent),
+	edit: (universityId: string, eduComponent: EduComponentFormValues, eduComponentId: string) =>
+		requests.put<void>(`${universityId}/eduComponents/${eduComponentId}`, eduComponent),
+	delete: (universityId: string, eduComponentId: string) =>
+		requests.delete<void>(`${universityId}/eduComponents/${eduComponentId}`),
 }
 
 const UI = {
@@ -135,33 +136,44 @@ const Reviews = {
 		axios.get<PaginatedResult<Review[]>>(`/reviews/list/${universityId}`,
 			{ params }).then(responseBody),
 	details: (reviewId: string) =>
-		requests.get<Faculty>(`/reviews/${reviewId}`),
+		requests.get<Review>(`/reviews/${reviewId}`),
+	userReview: (universityId: string) =>
+		requests.get<Review>(`/reviews/user/${universityId}`),
 	create: (universityId: string, review: ReviewFormValues) =>
 		requests.post<void>(`/reviews/create/${universityId}`, review),
-	edit: (universityId: string, review: Review) =>
-		requests.put<void>(`/reviews/${universityId}`, review),
-	delete: (universityId: string) =>
-		requests.delete<void>(`/reviews/${universityId}`),
+	edit: (universityId: string, review: ReviewFormValues, reviewId: string) =>
+		requests.put<void>(`/reviews/${universityId}/${reviewId}`, review),
+	delete: (universityId: string, reviewId: string) =>
+		requests.delete<void>(`/reviews/${universityId}/${reviewId}`),
+}
+
+const Account = {
+	current: () => requests.get<User>('/account'),
+	login: (user: UserFormValues) => requests.post<User>('/account/login', user),
+	register: (user: UserFormValues) => requests.post<User>('/account/register', user)
 }
 
 const Profiles = {
-	list: (username: string) =>
+	details: (username: string) =>
 		requests.get<Profile>(`/profiles/${username}`),
 	edit: (profile: Partial<Profile>) =>
 		requests.put<void>(`/profiles/update`, profile),
 	favoriteList: () =>
-		requests.get<University[]>('/profile/favoriteList'),
+		requests.get<PaginatedResult<University[]>>('/profile/favoriteList'),
 	favoriteToggle: (universityId: string) =>
-		requests.get<University[]>(`/profile/favoriteToggle/${universityId}`)
+		requests.get<void>(`/profile/favoriteToggle/${universityId}`),
+	toggleGlobalAdmin: (username: string) =>
+		requests.put<void>(`/profiles/admin/${username}`, username)
 }
 
 const Photos = {
-	listUniversityPhotos: (id: string) =>
-		requests.get<PaginatedResult<Photo[]>>(`/photos/${id}/gallery`),
-	addPhoto: (file: Blob) => {
+	listUniversityPhotos: (params: URLSearchParams, universityId: string) =>
+		axios.get<PaginatedResult<Photo[]>>(`/photos/${universityId}/gallery`,
+			{ params }).then(responseBody),
+	addUserPhoto: (file: Blob) => {
 		let formData = new FormData();
 		formData.append('File', file);
-		return axios.post<Photo>('photos', formData, {
+		return axios.post<Photo>('photos/user/add', formData, {
 			headers: { 'Content-Type': 'multipart/form-data' }
 		})
 	},
@@ -179,8 +191,12 @@ const Photos = {
 			headers: { 'Content-Type': 'multipart/form-data' }
 		})
 	},
-	delete: (id: string) =>
-		requests.delete<void>(`photos/${id}`)
+	deleteUserPhoto: () =>
+		requests.delete<void>(`photos/`),
+	deleteUniversityPhoto: (universityId: string, photoId: string) =>
+		requests.delete<void>(`photos/${universityId}/${photoId}`),
+	deleteUniversityTitlePhoto: (universityId: string) =>
+		requests.delete<void>(`photos/${universityId}`)
 }
 
 const agent = {
@@ -189,6 +205,7 @@ const agent = {
 	Specialties,
 	EduComponents,
 	UI,
+	Account,
 	Profiles,
 	Photos,
 	Reviews

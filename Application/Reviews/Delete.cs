@@ -32,6 +32,9 @@ namespace Application.Reviews
 				var university = await _context.Universities.FindAsync(request.UniversirtyId);
 				if (university == null) return null;
 				var review = university.Reviews.FirstOrDefault(x => x.Id == request.ReviewId);
+				if (review == null) return null;
+				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
+				if (user != null || user.UserName != review.Author.UserName || user.IsGlobalAdmin) return null;
 				university.Reviews.Remove(review);
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<Unit>.Success(Unit.Value);

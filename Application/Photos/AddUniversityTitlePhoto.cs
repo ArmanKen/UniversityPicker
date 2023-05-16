@@ -40,9 +40,10 @@ namespace Application.Photos
 					Url = photoUploadResult.Url,
 					Id = photoUploadResult.PublicId
 				};
-				if (university.TitlePhoto != null && !string.IsNullOrEmpty(university.TitlePhoto.Id))
-					await _photoAccessor.DeletePhoto(university.TitlePhoto.Id);
-				university.TitlePhoto = photo;
+				if (university.TitlePhoto != null && !string.IsNullOrEmpty(university.TitlePhoto))
+					await _photoAccessor.DeletePhoto(university.TitlePhoto);
+				university.Photos.Add(photo);
+				university.TitlePhoto = photo.Url;
 				var result = await _context.SaveChangesAsync() > 0;
 				if (result) return Result<Photo>.Success(photo);
 				return Result<Photo>.Failure("Problem when adding photo");

@@ -1,4 +1,3 @@
-import { Photo } from "./photo";
 import { City, RegionDto } from "./region";
 
 export interface University {
@@ -14,8 +13,9 @@ export interface University {
 	telephone: string;
 	ukraineTop: number;
 	studentsCount: number;
-	titlePhoto: Photo;
+	titlePhoto: string;
 	location: Location;
+	inFavoriteList: boolean;
 }
 
 export interface Accreditation {
@@ -36,16 +36,20 @@ export class University implements University {
 }
 
 export class UniversityFormValues {
-	id?: string = undefined;
+	id: string = '';
 	name: string = '';
-	region?: RegionDto = undefined;
-	city?: City = undefined;
+	accreditation?: Accreditation;
+	region?: RegionDto;
+	city?: City;
 	address: string = '';
+	rating: number = 0;
 	website: string = '';
 	info: string = '';
 	telephone: string = '';
+	ukraineTop: number = 0;
 	studentsCount: number = 0;
-	titlePhoto?: Photo = undefined;
+	titlePhoto: string = '';
+	location?: Location;
 
 	constructor(university?: UniversityFormValues) {
 		if (university) {

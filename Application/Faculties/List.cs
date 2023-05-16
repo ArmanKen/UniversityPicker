@@ -31,13 +31,15 @@ namespace Application.Faculties
 				var university = await _context.Universities
 					.Include(x => x.Faculties)
 					.ThenInclude(x => x.FacultyPhoto)
+					.Include(x => x.Faculties)
+					.ThenInclude(x => x.KnowledgeBranches)
 					.FirstOrDefaultAsync(x => x.Id == request.UniversityId);
 				if (university == null) return null;
 				return Result<List<FacultyDto>>.Success(
-					await university.Faculties
+					university.Faculties
 						.AsQueryable()
 						.ProjectTo<FacultyDto>(_mapper.ConfigurationProvider)
-						.ToListAsync());
+						.ToList());
 			}
 		}
 	}

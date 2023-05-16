@@ -114,6 +114,18 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Photos",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Url = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Photos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Regions",
                 columns: table => new
                 {
@@ -222,48 +234,93 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
+                name: "Universities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    RegionId = table.Column<int>(type: "integer", nullable: true),
+                    CityId = table.Column<int>(type: "integer", nullable: true),
+                    LocationId = table.Column<int>(type: "integer", nullable: true),
+                    AccreditationId = table.Column<int>(type: "integer", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    Website = table.Column<string>(type: "text", nullable: true),
+                    Info = table.Column<string>(type: "text", nullable: true),
+                    Telephone = table.Column<string>(type: "text", nullable: true),
+                    UkraineTop = table.Column<int>(type: "integer", nullable: false),
+                    TitlePhoto = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
-                columns: table => new
-                {
-                    LoginProvider = table.Column<string>(type: "text", nullable: false),
-                    ProviderKey = table.Column<string>(type: "text", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    RoleId = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_Universities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
+                        name: "FK_Universities_Accreditations_AccreditationId",
+                        column: x => x.AccreditationId,
+                        principalTable: "Accreditations",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Universities_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Universities_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Universities_Regions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Regions",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Faculties",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Info = table.Column<string>(type: "text", nullable: true),
+                    StudentsCount = table.Column<int>(type: "integer", nullable: false),
+                    FacultyPhotoId = table.Column<string>(type: "text", nullable: true),
+                    UniversityId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Faculties", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Faculties_Photos_FacultyPhotoId",
+                        column: x => x.FacultyPhotoId,
+                        principalTable: "Photos",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Faculties_Universities_UniversityId",
+                        column: x => x.UniversityId,
+                        principalTable: "Universities",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PhotoUniversity",
+                columns: table => new
+                {
+                    PhotosId = table.Column<string>(type: "text", nullable: false),
+                    UniversitiesId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhotoUniversity", x => new { x.PhotosId, x.UniversitiesId });
+                    table.ForeignKey(
+                        name: "FK_PhotoUniversity_Photos_PhotosId",
+                        column: x => x.PhotosId,
+                        principalTable: "Photos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PhotoUniversity_Universities_UniversitiesId",
+                        column: x => x.UniversitiesId,
+                        principalTable: "Universities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -311,63 +368,25 @@ namespace Persistence.Migrations
                         principalTable: "Degrees",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_AspNetUsers_Faculties_FacultyId",
+                        column: x => x.FacultyId,
+                        principalTable: "Faculties",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Photos_PhotoId",
+                        column: x => x.PhotoId,
+                        principalTable: "Photos",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_AspNetUsers_SpecialtyBases_SpecialtyBaseId",
                         column: x => x.SpecialtyBaseId,
                         principalTable: "SpecialtyBases",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    LoginProvider = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Value = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EduComponents",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Info = table.Column<string>(type: "text", nullable: true),
-                    EctsCredits = table.Column<int>(type: "integer", nullable: false),
-                    IsOptional = table.Column<bool>(type: "boolean", nullable: false),
-                    SpecialtyId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EduComponents", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Faculties",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Info = table.Column<string>(type: "text", nullable: true),
-                    StudentsCount = table.Column<int>(type: "integer", nullable: false),
-                    FacultyPhotoId = table.Column<string>(type: "text", nullable: true),
-                    UniversityId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Faculties", x => x.Id);
+                        name: "FK_AspNetUsers_Universities_UniversityId",
+                        column: x => x.UniversityId,
+                        principalTable: "Universities",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -403,7 +422,8 @@ namespace Persistence.Migrations
                     PriceUAH = table.Column<int>(type: "integer", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     BudgetAllowed = table.Column<bool>(type: "boolean", nullable: false),
-                    Year = table.Column<int>(type: "integer", nullable: false),
+                    StartYear = table.Column<int>(type: "integer", nullable: false),
+                    EndYear = table.Column<int>(type: "integer", nullable: false),
                     DegreeId = table.Column<int>(type: "integer", nullable: true),
                     FacultyId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -428,49 +448,86 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LanguageSpecialty",
+                name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    LanguagesId = table.Column<string>(type: "text", nullable: false),
-                    SpecialtiesId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LanguageSpecialty", x => new { x.LanguagesId, x.SpecialtiesId });
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LanguageSpecialty_Languages_LanguagesId",
-                        column: x => x.LanguagesId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_LanguageSpecialty_Specialties_SpecialtiesId",
-                        column: x => x.SpecialtiesId,
-                        principalTable: "Specialties",
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SpecialtyStudyForm",
+                name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    SpecialtiesId = table.Column<Guid>(type: "uuid", nullable: false),
-                    StudyFormsId = table.Column<int>(type: "integer", nullable: false)
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    ProviderKey = table.Column<string>(type: "text", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SpecialtyStudyForm", x => new { x.SpecialtiesId, x.StudyFormsId });
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_SpecialtyStudyForm_Specialties_SpecialtiesId",
-                        column: x => x.SpecialtiesId,
-                        principalTable: "Specialties",
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    RoleId = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SpecialtyStudyForm_StudyForms_StudyFormsId",
-                        column: x => x.StudyFormsId,
-                        principalTable: "StudyForms",
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -491,66 +548,12 @@ namespace Persistence.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Photos",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Url = table.Column<string>(type: "text", nullable: true),
-                    UniversityId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Photos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Universities",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    RegionId = table.Column<int>(type: "integer", nullable: true),
-                    CityId = table.Column<int>(type: "integer", nullable: true),
-                    LocationId = table.Column<int>(type: "integer", nullable: true),
-                    AccreditationId = table.Column<int>(type: "integer", nullable: true),
-                    Address = table.Column<string>(type: "text", nullable: true),
-                    Website = table.Column<string>(type: "text", nullable: true),
-                    Info = table.Column<string>(type: "text", nullable: true),
-                    Telephone = table.Column<string>(type: "text", nullable: true),
-                    UkraineTop = table.Column<int>(type: "integer", nullable: false),
-                    TitlePhotoId = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Universities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Universities_Accreditations_AccreditationId",
-                        column: x => x.AccreditationId,
-                        principalTable: "Accreditations",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Universities_Cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "Cities",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Universities_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Locations",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Universities_Photos_TitlePhotoId",
-                        column: x => x.TitlePhotoId,
-                        principalTable: "Photos",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Universities_Regions_RegionId",
-                        column: x => x.RegionId,
-                        principalTable: "Regions",
-                        principalColumn: "Id");
+                        name: "FK_FavoriteLists_Universities_UniversityId",
+                        column: x => x.UniversityId,
+                        principalTable: "Universities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -600,6 +603,76 @@ namespace Persistence.Migrations
                         name: "FK_UniversitiesAdmins_Universities_UniversityId",
                         column: x => x.UniversityId,
                         principalTable: "Universities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EduComponents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Info = table.Column<string>(type: "text", nullable: true),
+                    EctsCredits = table.Column<int>(type: "integer", nullable: false),
+                    IsOptional = table.Column<bool>(type: "boolean", nullable: false),
+                    SpecialtyId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EduComponents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EduComponents_Specialties_SpecialtyId",
+                        column: x => x.SpecialtyId,
+                        principalTable: "Specialties",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LanguageSpecialty",
+                columns: table => new
+                {
+                    LanguagesId = table.Column<string>(type: "text", nullable: false),
+                    SpecialtiesId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LanguageSpecialty", x => new { x.LanguagesId, x.SpecialtiesId });
+                    table.ForeignKey(
+                        name: "FK_LanguageSpecialty_Languages_LanguagesId",
+                        column: x => x.LanguagesId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LanguageSpecialty_Specialties_SpecialtiesId",
+                        column: x => x.SpecialtiesId,
+                        principalTable: "Specialties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialtyStudyForm",
+                columns: table => new
+                {
+                    SpecialtiesId = table.Column<Guid>(type: "uuid", nullable: false),
+                    StudyFormsId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialtyStudyForm", x => new { x.SpecialtiesId, x.StudyFormsId });
+                    table.ForeignKey(
+                        name: "FK_SpecialtyStudyForm_Specialties_SpecialtiesId",
+                        column: x => x.SpecialtiesId,
+                        principalTable: "Specialties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SpecialtyStudyForm_StudyForms_StudyFormsId",
+                        column: x => x.StudyFormsId,
+                        principalTable: "StudyForms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -712,9 +785,9 @@ namespace Persistence.Migrations
                 column: "SpecialtiesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Photos_UniversityId",
-                table: "Photos",
-                column: "UniversityId");
+                name: "IX_PhotoUniversity_UniversitiesId",
+                table: "PhotoUniversity",
+                column: "UniversitiesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_AuthorId",
@@ -772,103 +845,13 @@ namespace Persistence.Migrations
                 column: "RegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Universities_TitlePhotoId",
-                table: "Universities",
-                column: "TitlePhotoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UniversitiesAdmins_UniversityId",
                 table: "UniversitiesAdmins",
                 column: "UniversityId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUserClaims_AspNetUsers_UserId",
-                table: "AspNetUserClaims",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUserLogins_AspNetUsers_UserId",
-                table: "AspNetUserLogins",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                table: "AspNetUserRoles",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Faculties_FacultyId",
-                table: "AspNetUsers",
-                column: "FacultyId",
-                principalTable: "Faculties",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Photos_PhotoId",
-                table: "AspNetUsers",
-                column: "PhotoId",
-                principalTable: "Photos",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Universities_UniversityId",
-                table: "AspNetUsers",
-                column: "UniversityId",
-                principalTable: "Universities",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_EduComponents_Specialties_SpecialtyId",
-                table: "EduComponents",
-                column: "SpecialtyId",
-                principalTable: "Specialties",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Faculties_Photos_FacultyPhotoId",
-                table: "Faculties",
-                column: "FacultyPhotoId",
-                principalTable: "Photos",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Faculties_Universities_UniversityId",
-                table: "Faculties",
-                column: "UniversityId",
-                principalTable: "Universities",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_FavoriteLists_Universities_UniversityId",
-                table: "FavoriteLists",
-                column: "UniversityId",
-                principalTable: "Universities",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Photos_Universities_UniversityId",
-                table: "Photos",
-                column: "UniversityId",
-                principalTable: "Universities",
-                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Universities_Photos_TitlePhotoId",
-                table: "Universities");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -898,6 +881,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "LanguageSpecialty");
+
+            migrationBuilder.DropTable(
+                name: "PhotoUniversity");
 
             migrationBuilder.DropTable(
                 name: "Reviews");
@@ -939,13 +925,13 @@ namespace Persistence.Migrations
                 name: "SpecialtyBases");
 
             migrationBuilder.DropTable(
-                name: "KnowledgeBranches");
-
-            migrationBuilder.DropTable(
                 name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "Universities");
+
+            migrationBuilder.DropTable(
+                name: "KnowledgeBranches");
 
             migrationBuilder.DropTable(
                 name: "Accreditations");

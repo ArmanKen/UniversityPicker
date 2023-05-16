@@ -5,22 +5,34 @@ import ModalStore from "./modalStore";
 import SpecilatyStore from "./specialtyStore";
 import UIStore from "./uiStore";
 import UniversityStore from "./universityStore";
+import FacultyStore from "./facultyStore";
+import { PhotoStore } from "./photoStore";
+import UserStore from "./userStore";
+import ProfileStore from "./profileStore";
 
 interface Store {
 	universityStore: UniversityStore,
-	commonStore: CommonStore,
+	facultyStore: FacultyStore,
 	specilatyStore: SpecilatyStore,
 	eduComponentStore: EduComponentStore,
+	commonStore: CommonStore,
 	modalStore: ModalStore,
+	photoStore: PhotoStore,
+	userStore: UserStore,
+	profileStore: ProfileStore,
 	uiStore: UIStore
 }
 
 export const store: Store = {
-	specilatyStore: new SpecilatyStore(),
 	universityStore: new UniversityStore(),
-	commonStore: new CommonStore(),
+	facultyStore: new FacultyStore(),
+	specilatyStore: new SpecilatyStore(),
 	eduComponentStore: new EduComponentStore(),
+	commonStore: new CommonStore(),
 	modalStore: new ModalStore(),
+	photoStore: new PhotoStore(),
+	userStore: new UserStore(),
+	profileStore: new ProfileStore(),
 	uiStore: new UIStore()
 }
 

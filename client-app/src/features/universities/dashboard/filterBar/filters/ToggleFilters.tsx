@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { Checkbox, Grid, Header, Segment } from "semantic-ui-react";
+import { Checkbox, Grid, Header, Popup, Segment } from "semantic-ui-react";
 import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
@@ -9,6 +9,7 @@ export default observer(function ToggleFilters() {
 
 	return (
 		<Segment
+			disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId.length}
 			size="small"
 			style={{ paddingLeft: 36, paddingRight: 42 }}>
 			<Grid>
@@ -17,11 +18,13 @@ export default observer(function ToggleFilters() {
 						width={12}
 						style={{ paddingRight: 0, paddingLeft: 0 }}
 						floated='left'>
-						<Header
-							style={{ marginTop: 2 }}
-							size='small'
-							disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId}
-							content='З бюджетними місцями'
+						<Popup content="Щоб використати ці фільтри потрібно обрати спеціальність" trigger={
+							<Header
+								style={{ marginTop: 2 }}
+								size='small'
+								disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId.length}
+								content='З бюджетними місцями'
+							/>}
 						/>
 					</Grid.Column>
 					<Grid.Column
@@ -29,7 +32,7 @@ export default observer(function ToggleFilters() {
 						style={{ paddingRight: 0, paddingLeft: 0 }}
 						floated='left'>
 						<Checkbox
-							disabled={!!universityQueryParams.specialtyBasesId}
+							disabled={!universityQueryParams.specialtyBasesId.length}
 							toggle
 							checked={universityQueryParams.budget}
 							onChange={action((x, d) => universityQueryParams.budget = d.checked as boolean)}
@@ -42,6 +45,7 @@ export default observer(function ToggleFilters() {
 						style={{ paddingRight: 0, paddingLeft: 0 }}
 						floated='left'>
 						<Header
+							disabled={uiLoadingInitial}
 							style={{ marginTop: 2 }}
 							size='small'
 							content='У Топ-200 ВНЗ України'
@@ -52,7 +56,6 @@ export default observer(function ToggleFilters() {
 						width={1}
 						floated='left'>
 						<Checkbox
-							disabled={!!universityQueryParams.specialtyBasesId}
 							toggle
 							checked={universityQueryParams.ukraineTop}
 							onChange={action((x, d) => universityQueryParams.ukraineTop = d.checked as boolean)}

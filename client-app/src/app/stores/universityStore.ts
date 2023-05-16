@@ -8,7 +8,7 @@ import { store } from "./store";
 export default class UniversityStore {
 	universities = new Map<string, University>();
 	selectedUniversity: University | undefined = undefined;
-	universityLoadingInitial = false;
+	universityLoadingInitial = true;
 	pagination: Pagination | undefined = undefined;
 	pagingParams = new PagingParams();
 	universityQueryParams: UniversityQueryParams = {
@@ -46,7 +46,6 @@ export default class UniversityStore {
 				if (this.universities.size < 1)
 					this.handleDebounceWithLoad();
 				else this.handleDebounce();
-				this.selectedUniversity = undefined;
 			}
 		);
 
@@ -73,24 +72,30 @@ export default class UniversityStore {
 
 	setUniversity = (university: University) => this.selectedUniversity = university;
 
-	clearUniversity = () => this.selectedUniversity = undefined;
+	clearUniversities = () => this.universities.clear();
 
-	private getUniversity = (id: string) => this.universities.get(id);
+	clearUniversity = () => {
+		this.selectedUniversity = undefined;
+		store.facultyStore.faculties.clear();
+	}
+
+	private getUniversity = (universityId: string) => this.universities.get(universityId);
 
 	get axiosParams() {
 		const params = new URLSearchParams();
 		params.append('pageNumber', this.pagingParams.pageNumber.toString());
-		params.append('pageSize', this.pagingParams.pageSize.toString());
-		if (this.universityQueryParams.name) params.append('name', this.universityQueryParams.name);
-		// if (this.region) params.append('region', this.region);
-		// if (this.city) params.append('city', this.city);
-		// if (this.degree) params.append('degree', this.degree);
-		// if (this.branchBaseId) params.append('branchBaseId', this.branchBaseId);
-		// if (this.specialtyBaseId) params.append('specialtyBaseId', this.specialtyBaseId);
-		// if (this.budgetAllowed) params.append('budgetAllowed', this.budgetAllowed.toString());
-		// if (this.minPrice) params.append('minPrice', this.minPrice.toString());
-		// if (this.maxPrice) params.append('maxPrice', this.maxPrice.toString());
-		// if (this.ukraineTop) params.append('ukraineTop', this.ukraineTop.toString());
+		params.append('pageSize', '20');
+		const universityParams = this.universityQueryParams;
+		if (universityParams.name) params.append('name', universityParams.name);
+		if (universityParams.regionsId.length) params.append('regionsId', universityParams.regionsId.join("_"));
+		if (universityParams.citiesId.length) params.append('citiesId', universityParams.citiesId.join("_"));
+		if (universityParams.degreeId) params.append('degreeId', universityParams.degreeId.toString());
+		if (universityParams.knowledgeBranchesId.length) params.append('knowledgeBranchesId', universityParams.knowledgeBranchesId.join("_"));
+		if (universityParams.specialtyBasesId.length) params.append('specialtyBasesId', universityParams.specialtyBasesId.join("_"));
+		if (universityParams.budget) params.append('budget', universityParams.budget.toString());
+		if (universityParams.minPrice) params.append('minPrice', universityParams.minPrice.toString());
+		if (universityParams.maxPrice) params.append('maxPrice', universityParams.maxPrice.toString());
+		if (universityParams.ukraineTop) params.append('ukraineTop', universityParams.ukraineTop.toString());
 		return params;
 	}
 
@@ -113,15 +118,17 @@ export default class UniversityStore {
 		}
 	}
 
-	loadUniversity = async (id: string) => {
+	loadUniversity = async (universityId: string) => {
 		this.setUniversityLoadingInitial(true);
-		let university = this.getUniversity(id);
+		this.clearUniversity();
+		let university = this.getUniversity(universityId);
 		if (university) {
 			this.selectedUniversity = university;
+			this.setUniversityLoadingInitial(false);
 			return this.selectedUniversity;
 		} else {
 			try {
-				university = await agent.Universities.details(id);
+				university = await agent.Universities.details(universityId);
 				this.setUniversity(university);
 				this.setUniversityLoadingInitial(false);
 			} catch (error) {
@@ -159,11 +166,11 @@ export default class UniversityStore {
 		}
 	}
 
-	deleteUniversity = async (id: string) => {
+	deleteUniversity = async (universityId: string) => {
 		this.setUniversityLoadingInitial(true);
 		try {
-			await agent.Universities.delete(id);
-			this.universities.delete(id);
+			await agent.Universities.delete(universityId);
+			this.universities.delete(universityId);
 			this.setUniversityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
@@ -174,12 +181,12 @@ export default class UniversityStore {
 	}
 
 	handleDebounce = _.debounce(() => {
-		this.pagingParams = new PagingParams();
-		runInAction(() => this.universities.clear());
+		this.setPagingParams(new PagingParams(1, 20));
+		this.clearUniversities();
 	}, 500);
 
 	handleDebounceWithLoad = _.debounce(() => {
-		this.pagingParams = new PagingParams();
-		runInAction(() => this.loadUniversities());
+		this.setPagingParams(new PagingParams(1, 20));
+		this.loadUniversities();
 	}, 500);
 }

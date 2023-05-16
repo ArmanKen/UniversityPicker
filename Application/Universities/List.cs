@@ -1,5 +1,6 @@
 using Application.Core;
 using Application.DTOs;
+using Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -18,9 +19,11 @@ namespace Application.Universities
 		{
 			private readonly DataContext _context;
 			private readonly IMapper _mapper;
+			private readonly IUserAccessor _userAccessor;
 
-			public Handler(DataContext context, IMapper mapper)
+			public Handler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
 			{
+				_userAccessor = userAccessor;
 				_mapper = mapper;
 				_context = context;
 			}
@@ -65,7 +68,7 @@ namespace Application.Universities
 				return Result<PagedList<UniversityDto>>.Success(
 				await PagedList<UniversityDto>.CreateAsync(
 					query
-						.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider)
+						.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider, new { username = _userAccessor.GetUsername() })
 						.OrderByDescending(x => x.Rating),
 				request.Params.PageNumber, request.Params.PageSize)
 			);

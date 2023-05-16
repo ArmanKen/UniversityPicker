@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { Grid, Header, Icon, Image, Segment, Table } from "semantic-ui-react";
-import { useStore } from "../../../../app/stores/store";
+import { useStore } from "../../../app/stores/store";
 
 export default observer(function UniversityShortInfoContent() {
 	const { universityStore: { selectedUniversity } } = useStore();
@@ -9,10 +9,9 @@ export default observer(function UniversityShortInfoContent() {
 		<>
 			<Header textAlign="center" size="large"
 				content={selectedUniversity?.name} />
-			<div style={{ position: "relative", display: "flex" }}>
+			<div style={{ position: "relative", display: "flex"}}>
 				<Image verticalAlign="top" fluid
-					src={(selectedUniversity?.titlePhoto &&
-						selectedUniversity.titlePhoto.url) || 'assets/1.png'} />
+					src={selectedUniversity?.titlePhoto || 'defaultLogo.png'} />
 				<div className="bigSquare" style={{ position: 'absolute', bottom: 0 }}>
 					<Icon name='star' size='big'
 						style={{ color: 'white', marginTop: 9, marginLeft: 5 }}	>

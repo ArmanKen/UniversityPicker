@@ -15,12 +15,14 @@ body {
 }
 
 .square {
+	border-top-right-radius: 15px !important;
 	height: 40px !important;
 	width: 60px !important;
 	background-color: #ffae00 !important;
 }
 
 .bigSquare {
+	border-top-right-radius: 15px !important;
 	height: 45px !important;
 	width: 80px !important;
 	background-color: #ffae00 !important;

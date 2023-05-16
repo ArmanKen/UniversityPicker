@@ -20,13 +20,11 @@ namespace Application.Reviews
 		{
 			private readonly DataContext _context;
 			private readonly IMapper _mapper;
-			private readonly IUserAccessor _userAccessor;
 
-			public Handler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
+			public Handler(DataContext context, IMapper mapper)
 			{
 				_mapper = mapper;
 				_context = context;
-				_userAccessor = userAccessor;
 			}
 
 			public async Task<Result<ReviewDto>> Handle(Query request, CancellationToken cancellationToken)

@@ -1,0 +1,101 @@
+import { makeAutoObservable, runInAction } from "mobx";
+import { Faculty, FacultyFormValues } from "../models/faculty";
+import agent from "../api/agent";
+
+export default class FacultyStore {
+	faculties = new Map<string, Faculty>();
+	selectedFaculty: Faculty | undefined = undefined;
+	facultyLoadingInitial = true;
+
+	constructor() {
+		makeAutoObservable(this);
+	}
+
+	setFacultyLoadingInitial = (state: boolean) => this.facultyLoadingInitial = state;
+
+	setFaculty = (faculty: Faculty) => this.selectedFaculty = faculty;
+
+	clearFaculty = () => this.selectedFaculty = undefined;
+
+	private getFaculty = (facultyId: string) => this.faculties.get(facultyId);
+
+	loadFaculties = async (universityId: string) => {
+		this.setFacultyLoadingInitial(true);
+		try {
+			const result = await agent.Faculties.list(universityId);
+			runInAction(() => {
+				result.forEach(faculty => {
+					this.faculties.set(faculty.id, faculty);
+				});
+			});
+			this.setFacultyLoadingInitial(false);
+		} catch (error) {
+			runInAction(() => {
+				console.log(error);
+			});
+			this.setFacultyLoadingInitial(false);
+		}
+	}
+
+	loadFaculty = async (facultyId: string) => {
+		this.setFacultyLoadingInitial(true);
+		this.clearFaculty();
+		let faculty = this.getFaculty(facultyId);
+		if (faculty) {
+			this.selectedFaculty = faculty;
+			this.setFacultyLoadingInitial(false);
+			return this.selectedFaculty;
+		} else {
+			try {
+				faculty = await agent.Faculties.details(facultyId);
+				this.setFaculty(faculty);
+				this.setFacultyLoadingInitial(false);
+			} catch (error) {
+				runInAction(() => {
+					console.log(error);
+				});
+				this.setFacultyLoadingInitial(false);
+			}
+		}
+	}
+
+	createFaculty = async (facultyId: string, faculty: FacultyFormValues) => {
+		this.setFacultyLoadingInitial(true);
+		try {
+			await agent.Faculties.create(facultyId, faculty);
+			this.setFacultyLoadingInitial(false);
+		} catch (error) {
+			runInAction(() => {
+				console.log(error);
+			});
+			this.setFacultyLoadingInitial(false);
+		}
+	}
+
+	editFaculty = async (universityId: string, faculty: FacultyFormValues, facultyId: string) => {
+		this.setFacultyLoadingInitial(true);
+		try {
+			await agent.Faculties.edit(universityId, faculty, facultyId);
+			this.setFacultyLoadingInitial(false);
+		} catch (error) {
+			runInAction(() => {
+				console.log(error);
+			});
+			this.setFacultyLoadingInitial(false);
+		}
+	}
+
+	deleteFaculty = async (universityId: string, facultyId: string) => {
+		this.setFacultyLoadingInitial(true);
+		try {
+			await agent.Faculties.delete(universityId, facultyId);
+			this.faculties.delete(facultyId);
+			this.setFacultyLoadingInitial(false);
+		} catch (error) {
+			runInAction(() => {
+				console.log(error);
+			});
+			this.setFacultyLoadingInitial(false);
+		}
+	}
+}

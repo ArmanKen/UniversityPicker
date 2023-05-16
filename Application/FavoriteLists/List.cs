@@ -38,7 +38,7 @@ namespace Application.FavoriteLists
 				return Result<PagedList<UniversityDto>>.Success(
 					await PagedList<UniversityDto>.CreateAsync(
 					observer.FavoriteList.AsQueryable()
-						.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider),
+						.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider, new { username = _userAccessor.GetUsername() }),
 				request.Params.PageNumber, request.Params.PageSize));
 			}
 		}

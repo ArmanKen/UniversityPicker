@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Pagination, PagingParams } from "../models/pagination";
 import { Specialty } from "../models/specialty";
-import { store } from "./store";
 
 export default class SpecilatyStore {
 	specialties = new Map<string, Specialty>();

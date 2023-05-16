@@ -332,15 +332,10 @@ namespace Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("UniversityId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Url")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UniversityId");
 
                     b.ToTable("Photos");
                 });
@@ -406,6 +401,9 @@ namespace Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<int>("EndYear")
+                        .HasColumnType("integer");
+
                     b.Property<Guid?>("FacultyId")
                         .HasColumnType("uuid");
 
@@ -415,7 +413,7 @@ namespace Persistence.Migrations
                     b.Property<string>("SpecialtyBaseId")
                         .HasColumnType("text");
 
-                    b.Property<int>("Year")
+                    b.Property<int>("StartYear")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -493,7 +491,7 @@ namespace Persistence.Migrations
                     b.Property<string>("Telephone")
                         .HasColumnType("text");
 
-                    b.Property<string>("TitlePhotoId")
+                    b.Property<string>("TitlePhoto")
                         .HasColumnType("text");
 
                     b.Property<int>("UkraineTop")
@@ -511,8 +509,6 @@ namespace Persistence.Migrations
                     b.HasIndex("LocationId");
 
                     b.HasIndex("RegionId");
-
-                    b.HasIndex("TitlePhotoId");
 
                     b.ToTable("Universities");
                 });
@@ -709,6 +705,21 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("PhotoUniversity", b =>
+                {
+                    b.Property<string>("PhotosId")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UniversitiesId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("PhotosId", "UniversitiesId");
+
+                    b.HasIndex("UniversitiesId");
+
+                    b.ToTable("PhotoUniversity");
+                });
+
             modelBuilder.Entity("SpecialtyStudyForm", b =>
                 {
                     b.Property<Guid>("SpecialtiesId")
@@ -813,13 +824,6 @@ namespace Persistence.Migrations
                     b.Navigation("University");
                 });
 
-            modelBuilder.Entity("Domain.Photo", b =>
-                {
-                    b.HasOne("Domain.University", null)
-                        .WithMany("Photos")
-                        .HasForeignKey("UniversityId");
-                });
-
             modelBuilder.Entity("Domain.Review", b =>
                 {
                     b.HasOne("Domain.AppUser", "Author")
@@ -884,10 +888,6 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("RegionId");
 
-                    b.HasOne("Domain.Photo", "TitlePhoto")
-                        .WithMany()
-                        .HasForeignKey("TitlePhotoId");
-
                     b.Navigation("Accreditation");
 
                     b.Navigation("City");
@@ -895,8 +895,6 @@ namespace Persistence.Migrations
                     b.Navigation("Location");
 
                     b.Navigation("Region");
-
-                    b.Navigation("TitlePhoto");
                 });
 
             modelBuilder.Entity("Domain.UniversityAdmin", b =>
@@ -1014,6 +1012,21 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PhotoUniversity", b =>
+                {
+                    b.HasOne("Domain.Photo", null)
+                        .WithMany()
+                        .HasForeignKey("PhotosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.University", null)
+                        .WithMany()
+                        .HasForeignKey("UniversitiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("SpecialtyStudyForm", b =>
                 {
                     b.HasOne("Domain.Specialty", null)
@@ -1068,8 +1081,6 @@ namespace Persistence.Migrations
                     b.Navigation("Faculties");
 
                     b.Navigation("FavoriteList");
-
-                    b.Navigation("Photos");
 
                     b.Navigation("Reviews");
 

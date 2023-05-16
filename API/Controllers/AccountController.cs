@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-	[AllowAnonymous]
 	[ApiController]
 	[Route("api/[controller]")]
 	public class AccountController : ControllerBase
@@ -90,7 +89,7 @@ namespace API.Controllers
 			return new UserDTO
 			{
 				FullName = user.FullName,
-				Image = user.Photo.Url,
+				Image = user.Photo != null ? user.Photo.Url : "",
 				Token = _tokenService.CreateToken(user),
 				Username = user.UserName
 			};

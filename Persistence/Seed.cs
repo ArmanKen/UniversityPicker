@@ -4384,7 +4384,6 @@ namespace Persistence
 								Description = "Загальна освіта в галузі інформаційних технологій, спеціалізація «Комп’ютерні науки».Ключові слова: програмування, алгоритмізація, моделювання,комп’ютерна обробка даних, обчислювальні системи та технології,нечіткі моделі, Machine Learning, Big Data Processing, програмування на C#, C++, Python, Java, комп’ютерні мережі, розподілені серверні системи, розподілені та паралельні обчислення, нечіткі моделі та мережі, методи обчислювального інтелекту.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
@@ -4397,7 +4396,6 @@ namespace Persistence
 								Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
@@ -4410,7 +4408,6 @@ namespace Persistence
 								Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
@@ -4423,7 +4420,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
@@ -4435,7 +4431,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
@@ -4447,7 +4442,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
@@ -4460,7 +4454,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
@@ -4472,7 +4465,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 
 							},
@@ -4485,7 +4477,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
@@ -4497,7 +4488,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
@@ -4509,7 +4499,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 							},
 							new Specialty
@@ -4521,7 +4510,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
 							},
 							new Specialty
@@ -4533,7 +4521,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
 							},
 							new Specialty
@@ -4545,7 +4532,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
 							},
 							new Specialty
@@ -4557,7 +4543,6 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								Year = 2020,
 								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
 
 							},
@@ -4570,8 +4555,7 @@ namespace Persistence
 								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
 								Degree = degrees[new Random().Next(0,3)],
 								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
-								Year = 2020
+								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30)))
 							},
 						};
 

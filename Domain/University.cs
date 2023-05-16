@@ -13,7 +13,7 @@ namespace Domain
 		public string Info { get; set; }
 		public string Telephone { get; set; }
 		public int UkraineTop { get; set; }
-		public Photo TitlePhoto { get; set; }
+		public string TitlePhoto { get; set; }
 		public ICollection<Photo> Photos { get; set; } = new List<Photo>();
 		public ICollection<Faculty> Faculties { get; set; } = new List<Faculty>();
 		public ICollection<Review> Reviews { get; set; } = new List<Review>();

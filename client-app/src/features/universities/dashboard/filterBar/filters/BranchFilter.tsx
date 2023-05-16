@@ -5,7 +5,7 @@ import { action } from "mobx";
 
 export default observer(function BranchFilter() {
 	const { universityStore: { universityQueryParams },
-		uiStore: { knowledgeBranches, uiLoadingInitial } } = useStore();
+		uiStore: { knowledgeBranches, uiLoadingInitial, setSpecialtiesBaseDropdown } } = useStore();
 
 	return (
 		<Segment
@@ -28,6 +28,7 @@ export default observer(function BranchFilter() {
 				onChange={action((e, d) => {
 					universityQueryParams.knowledgeBranchesId = d.value as string[];
 					universityQueryParams.specialtyBasesId = [];
+					setSpecialtiesBaseDropdown(d.value as string[]);
 				})}
 			/>
 		</Segment>

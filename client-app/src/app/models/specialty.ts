@@ -2,6 +2,8 @@ import { Degree } from "./degree";
 
 export interface Specialty {
 	id: string;
+	facultyId: string;
+	universityId: string;
 	specialtyBase: SpecialtyBase;
 	priceUAH: number;
 	description: string;
@@ -41,5 +43,13 @@ export interface StudyForm {
 }
 
 export class SpecialtyFormValues {
-
+	id: string = "";
+	specialtyBase?: SpecialtyBase;
+	priceUAH: number = 0;
+	description: string = "";
+	budgetAllowed: boolean = false;
+	ectsCredits: number = 0;
+	degree?: Degree;
+	languages?: Language[];
+	studyForms?: StudyForm[];
 }

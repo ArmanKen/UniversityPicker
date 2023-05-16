@@ -4,9 +4,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Button, Grid, Segment } from "semantic-ui-react";
 import { PagingParams } from "../../../app/models/pagination";
 import { useStore } from "../../../app/stores/store";
-import UniversityList from "./card/UniversityList";
+import UniversityCardList from "../universityCard/UniversityCardList";
 import UniversityFiltersContent from "./filterBar/UniversityFiltersContent";
 import UnviersityFiltersHeader from "./filterBar/UniversityFiltersHeader";
+import NotFoundComponent from "../../../app/common/components/NotFoundComponent";
 
 export default observer(function UniversityDashboard() {
 	const { universityStore: { universities, loadUniversities,
@@ -17,8 +18,10 @@ export default observer(function UniversityDashboard() {
 	}, [loadUniversities, universities.size])
 
 	function handleGetNext() {
-		setPagingParams(new PagingParams(pagination!.currentPage + 1));
-		loadUniversities();
+		if (!universityLoadingInitial) {
+			setPagingParams(new PagingParams(pagination!.currentPage + 1));
+			loadUniversities();
+		}
 	}
 
 	return (
@@ -26,11 +29,9 @@ export default observer(function UniversityDashboard() {
 			<Grid.Row only='computer tablet' columns='equal'>
 				<Grid.Column
 					style={{
-						maxWidth: '340px',
-						minWidth: '340px',
-						marginRight: 25
-					}}
-					floated="left">
+						maxWidth: '340px', minWidth: '340px',
+						marginRight: 25, marginLeft: 25
+					}}>
 					<Segment.Group style={{ marginTop: 20 }}>
 						<Segment >
 							<UnviersityFiltersHeader />
@@ -39,46 +40,39 @@ export default observer(function UniversityDashboard() {
 					</Segment.Group>
 				</Grid.Column>
 				<Grid.Column floated="left"
-					style={{
-						marginRight: 10
-					}}>
-					<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
-						dataLength={universities.size} next={handleGetNext} loader=''
-						hasMore={!universityLoadingInitial && !!pagination
-							&& pagination.currentPage < pagination.totalPages}>
-						<UniversityList />
-						{!universityLoadingInitial && universities.size < 1 &&
-							<Segment textAlign="center" color="grey" inverted
-								style={{ fontSize: '1.2rem' }}>
-								По заданим фільтрам нічного не знайдено
-							</Segment>}
-					</InfiniteScroll>
+					style={{ marginRight: 10 }}>
+					{!universityLoadingInitial && universities.size < 1 ?
+						<NotFoundComponent content="По заданим фільтрам університети не знайденно" /> :
+						<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
+							dataLength={universities.size} next={handleGetNext} loader=''
+							hasMore={!universityLoadingInitial && !!pagination
+								&& pagination.currentPage < pagination.totalPages}>
+							<UniversityCardList />
+						</InfiniteScroll>
+					}
 				</Grid.Column>
 			</Grid.Row>
 			<Grid.Row only='mobile'>
-				<Grid.Column >
+				<Grid.Column only="mobile">
 					<Button
-						content='Фільтри'
-						color="black"
-						size='big'
-						fluid
+						style={{ marginTop: 20 }}
+						content='Фільтри' color="black"
+						size='big' fluid
 						onClick={() =>
 							openModal(
 								<UnviersityFiltersHeader />,
 								<Segment.Group>
 									<UniversityFiltersContent />
 								</Segment.Group>, 'small')} />
-					<InfiniteScroll style={{ paddingTop: 20, overflow: 'hidden' }}
-						dataLength={universities.size} next={handleGetNext}
-						loader='' hasMore={!universityLoadingInitial && !!pagination
-							&& pagination.currentPage < pagination.totalPages}>
-						<UniversityList />
-						{!universityLoadingInitial && universities.size < 1 &&
-							<Segment textAlign="center" color="grey" inverted
-								style={{ fontSize: '1em' }}>
-								По заданим фільтрам нічного не знайдено
-							</Segment>}
-					</InfiniteScroll>
+					{!universityLoadingInitial && universities.size < 1 ?
+						<NotFoundComponent content="По заданим фільтрам університети не знайденно" /> :
+						<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
+							dataLength={universities.size} next={handleGetNext} loader=''
+							hasMore={!universityLoadingInitial && !!pagination
+								&& pagination.currentPage < pagination.totalPages}>
+							<UniversityCardList />
+						</InfiniteScroll>
+					}
 				</Grid.Column>
 			</Grid.Row>
 		</Grid>

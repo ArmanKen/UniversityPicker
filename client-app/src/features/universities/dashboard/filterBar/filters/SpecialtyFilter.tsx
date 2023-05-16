@@ -21,7 +21,6 @@ export default observer(function SpecialtyFilter() {
 				multiple
 				disabled={uiLoadingInitial}
 				options={specialtyBases}
-				value={universityQueryParams.specialtyBasesId}
 				selection
 				fluid
 				clearable

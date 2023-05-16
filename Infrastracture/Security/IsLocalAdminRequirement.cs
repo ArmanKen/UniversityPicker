@@ -28,7 +28,7 @@ namespace Infrastracture.Security
 			if (userId == null) return Task.CompletedTask;
 			var globalAdministrator = _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId).Result;
 			var universityId = Guid.Parse(_httpContentAccessor.HttpContext?.Request.RouteValues
-				.SingleOrDefault(x => x.Key == "id").Value?.ToString());
+				.SingleOrDefault(x => x.Key == "universityId").Value?.ToString());
 			var localAdministrator = _dbContext.UniversitiesAdmins.AsNoTracking()
 				.SingleOrDefaultAsync(x => x.AppUserId == userId && x.UniversityId == universityId).Result;
 			if (localAdministrator != null || globalAdministrator.IsGlobalAdmin) context.Succeed(requirement);

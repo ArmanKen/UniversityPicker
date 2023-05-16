@@ -22,7 +22,7 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsGlobalAdmin")]
-		[HttpPost("create/{universityId}")]
+		[HttpPost("/create/{universityId}")]
 		public async Task<IActionResult> CreateFaculty(FacultyDto Faculty, Guid universityId)
 		{
 			return HandleResult(await Mediator.Send(new Create.Command
@@ -30,7 +30,7 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPut("{facultyId}")]
+		[HttpPut("{universityId}/{facultyId}")]
 		public async Task<IActionResult> ChangeFaculty(Guid facultyId, FacultyDto Faculty)
 		{
 			Faculty.Id = facultyId;
@@ -39,7 +39,7 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsGlobalAdmin")]
-		[HttpDelete("{facultyId}")]
+		[HttpDelete("{universityId}/{facultyId}")]
 		public async Task<IActionResult> DeleteFaculty(Guid facultyId)
 		{
 			return HandleResult(await Mediator.Send(new Delete.Command

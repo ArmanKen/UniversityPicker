@@ -1,5 +1,5 @@
 export interface Review {
-	id: number;
+	id: string;
 	createAt: any;
 	rating: number;
 	body: string;
@@ -9,5 +9,7 @@ export interface Review {
 }
 
 export class ReviewFormValues {
-
+	id: string = "";
+	rating: number = 0;
+	body: string = "";
 }

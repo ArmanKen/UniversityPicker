@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { Outlet, Route, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { Container } from 'semantic-ui-react';
 import ModalContainer from '../common/modals/ModalContainer';
-import ScrollToTop from "../common/scrollToTop/ScrollToTopButton";
+import ScrollToTop from "../common/components/ScrollToTopButton";
 import { useStore } from "../stores/store";
 import NavBar from './NavBar';
 import UniversityDashboard from "../../features/universities/dashboard/UniversityDashboard";

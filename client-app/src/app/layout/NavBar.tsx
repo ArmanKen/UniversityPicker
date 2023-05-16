@@ -10,6 +10,7 @@ export default observer(function NavBar() {
 
 	return (
 		<Menu
+			style={{ zIndex: 900 }}
 			fixed='top'
 			size='massive'>
 			<Menu.Item

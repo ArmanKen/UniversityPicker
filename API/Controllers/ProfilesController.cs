@@ -33,7 +33,15 @@ namespace API.Controllers
 		public async Task<IActionResult> FavoriteToggle(Guid universityId)
 		{
 			return HandleResult(await Mediator.Send(new Application.FavoriteLists.FavoriteToggle.Command
-			{ TargetUniversityId = universityId }));
+			{ UniversityId = universityId }));
+		}
+
+		[Authorize("IsGlobalAdmin")]
+		[HttpPut("admin/{username}")]
+		public async Task<IActionResult> ToggleUsersGlobalAdmin(string username)
+		{
+			return HandleResult(await Mediator.Send(new Application.Profiles.ToggleUsersGlobalAdmin.Command
+			{ Username = username }));
 		}
 	}
 }

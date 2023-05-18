@@ -2,16 +2,16 @@ import _ from "lodash";
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Pagination, PagingParams } from "../models/pagination";
-import { University, UniversityFormValues, UniversityQueryParams } from "../models/university";
+import { HigherEducationFacility, HigherEducationFacilityFormValues, HigherEducationFacilityQueryParams } from "../models/higherEducationFacility";
 import { store } from "./store";
 
-export default class UniversityStore {
-	universities = new Map<string, University>();
-	selectedUniversity: University | undefined = undefined;
-	universityLoadingInitial = true;
+export default class HigherEducationFacilityStore {
+	higherEducationFacilities = new Map<string, HigherEducationFacility>();
+	selectedHigherEducationFacility: HigherEducationFacility | undefined = undefined;
+	higherEducationFacilityLoadingInitial = true;
 	pagination: Pagination | undefined = undefined;
 	pagingParams = new PagingParams();
-	universityQueryParams: UniversityQueryParams = {
+	higherEducationFacilityQueryParams: HigherEducationFacilityQueryParams = {
 		name: '',
 		accreditationId: 0,
 		regionsId: [],
@@ -30,36 +30,36 @@ export default class UniversityStore {
 
 		reaction(
 			() => [
-				this.universityQueryParams.name,
-				this.universityQueryParams.accreditationId,
-				this.universityQueryParams.regionsId,
-				this.universityQueryParams.citiesId,
-				this.universityQueryParams.knowledgeBranchesId,
-				this.universityQueryParams.specialtyBasesId,
-				this.universityQueryParams.budget,
-				this.universityQueryParams.ukraineTop,
-				this.universityQueryParams.minPrice,
-				this.universityQueryParams.maxPrice,
-				this.universityQueryParams.degreeId,
+				this.higherEducationFacilityQueryParams.name,
+				this.higherEducationFacilityQueryParams.accreditationId,
+				this.higherEducationFacilityQueryParams.regionsId,
+				this.higherEducationFacilityQueryParams.citiesId,
+				this.higherEducationFacilityQueryParams.knowledgeBranchesId,
+				this.higherEducationFacilityQueryParams.specialtyBasesId,
+				this.higherEducationFacilityQueryParams.budget,
+				this.higherEducationFacilityQueryParams.ukraineTop,
+				this.higherEducationFacilityQueryParams.minPrice,
+				this.higherEducationFacilityQueryParams.maxPrice,
+				this.higherEducationFacilityQueryParams.degreeId,
 			],
 			() => {
-				if (this.universities.size < 1)
+				if (this.higherEducationFacilities.size < 1)
 					this.handleDebounceWithLoad();
 				else this.handleDebounce();
 			}
 		);
 
 		reaction(
-			() => this.universityQueryParams.regionsId,
+			() => this.higherEducationFacilityQueryParams.regionsId,
 			() => {
-				store.uiStore.setCitiesDropdown(this.universityQueryParams.regionsId);
+				store.uiStore.setCitiesDropdown(this.higherEducationFacilityQueryParams.regionsId);
 			}
 		);
 
 		reaction(
-			() => this.universityQueryParams.knowledgeBranchesId,
+			() => this.higherEducationFacilityQueryParams.knowledgeBranchesId,
 			() => {
-				store.uiStore.setSpecialtiesBaseDropdown(this.universityQueryParams.knowledgeBranchesId);
+				store.uiStore.setSpecialtiesBaseDropdown(this.higherEducationFacilityQueryParams.knowledgeBranchesId);
 			}
 		);
 	}
@@ -68,125 +68,125 @@ export default class UniversityStore {
 
 	setPagination = (pagination: Pagination) => this.pagination = pagination;
 
-	setUniversityLoadingInitial = (state: boolean) => this.universityLoadingInitial = state;
+	setHigherEducationFacilityLoadingInitial = (state: boolean) => this.higherEducationFacilityLoadingInitial = state;
 
-	setUniversity = (university: University) => this.selectedUniversity = university;
+	setHigherEducationFacility = (higherEducationFacility: HigherEducationFacility) => this.selectedHigherEducationFacility = higherEducationFacility;
 
-	clearUniversities = () => this.universities.clear();
+	clearHigherEducationFacilites = () => this.higherEducationFacilities.clear();
 
-	clearUniversity = () => {
-		this.selectedUniversity = undefined;
+	clearHigherEducationFacility = () => {
+		this.selectedHigherEducationFacility = undefined;
 		store.facultyStore.faculties.clear();
 	}
 
-	private getUniversity = (universityId: string) => this.universities.get(universityId);
+	private getHigherEducationFacility = (higherEducationFacilityId: string) => this.higherEducationFacilities.get(higherEducationFacilityId);
 
 	get axiosParams() {
 		const params = new URLSearchParams();
 		params.append('pageNumber', this.pagingParams.pageNumber.toString());
 		params.append('pageSize', '20');
-		const universityParams = this.universityQueryParams;
-		if (universityParams.name) params.append('name', universityParams.name);
-		if (universityParams.regionsId.length) params.append('regionsId', universityParams.regionsId.join("_"));
-		if (universityParams.citiesId.length) params.append('citiesId', universityParams.citiesId.join("_"));
-		if (universityParams.degreeId) params.append('degreeId', universityParams.degreeId.toString());
-		if (universityParams.knowledgeBranchesId.length) params.append('knowledgeBranchesId', universityParams.knowledgeBranchesId.join("_"));
-		if (universityParams.specialtyBasesId.length) params.append('specialtyBasesId', universityParams.specialtyBasesId.join("_"));
-		if (universityParams.budget) params.append('budget', universityParams.budget.toString());
-		if (universityParams.minPrice) params.append('minPrice', universityParams.minPrice.toString());
-		if (universityParams.maxPrice) params.append('maxPrice', universityParams.maxPrice.toString());
-		if (universityParams.ukraineTop) params.append('ukraineTop', universityParams.ukraineTop.toString());
+		const higherEducationFacilityParams = this.higherEducationFacilityQueryParams;
+		if (higherEducationFacilityParams.name) params.append('name', higherEducationFacilityParams.name);
+		if (higherEducationFacilityParams.regionsId.length) params.append('regionsId', higherEducationFacilityParams.regionsId.join("_"));
+		if (higherEducationFacilityParams.citiesId.length) params.append('citiesId', higherEducationFacilityParams.citiesId.join("_"));
+		if (higherEducationFacilityParams.degreeId) params.append('degreeId', higherEducationFacilityParams.degreeId.toString());
+		if (higherEducationFacilityParams.knowledgeBranchesId.length) params.append('knowledgeBranchesId', higherEducationFacilityParams.knowledgeBranchesId.join("_"));
+		if (higherEducationFacilityParams.specialtyBasesId.length) params.append('specialtyBasesId', higherEducationFacilityParams.specialtyBasesId.join("_"));
+		if (higherEducationFacilityParams.budget) params.append('budget', higherEducationFacilityParams.budget.toString());
+		if (higherEducationFacilityParams.minPrice) params.append('minPrice', higherEducationFacilityParams.minPrice.toString());
+		if (higherEducationFacilityParams.maxPrice) params.append('maxPrice', higherEducationFacilityParams.maxPrice.toString());
+		if (higherEducationFacilityParams.ukraineTop) params.append('ukraineTop', higherEducationFacilityParams.ukraineTop.toString());
 		return params;
 	}
 
-	loadUniversities = async () => {
-		this.setUniversityLoadingInitial(true);
+	loadHigherEducationFacilites = async () => {
+		this.setHigherEducationFacilityLoadingInitial(true);
 		try {
-			const result = await agent.Universities.list(this.axiosParams);
+			const result = await agent.HigherEducationFacilities.list(this.axiosParams);
 			runInAction(() => {
-				result.data.forEach(university => {
-					this.universities.set(university.id, university);
+				result.data.forEach(higherEducationFacility => {
+					this.higherEducationFacilities.set(higherEducationFacility.id, higherEducationFacility);
 				});
 			});
 			this.setPagination(result.pagination);
-			this.setUniversityLoadingInitial(false);
+			this.setHigherEducationFacilityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			});
-			this.setUniversityLoadingInitial(false);
+			this.setHigherEducationFacilityLoadingInitial(false);
 		}
 	}
 
-	loadUniversity = async (universityId: string) => {
-		this.setUniversityLoadingInitial(true);
-		this.clearUniversity();
-		let university = this.getUniversity(universityId);
-		if (university) {
-			this.selectedUniversity = university;
-			this.setUniversityLoadingInitial(false);
-			return this.selectedUniversity;
+	loadHigherEducationFacility = async (higherEducationFacilityId: string) => {
+		this.setHigherEducationFacilityLoadingInitial(true);
+		this.clearHigherEducationFacility();
+		let higherEducationFacility = this.getHigherEducationFacility(higherEducationFacilityId);
+		if (higherEducationFacility) {
+			this.selectedHigherEducationFacility = higherEducationFacility;
+			this.setHigherEducationFacilityLoadingInitial(false);
+			return this.selectedHigherEducationFacility;
 		} else {
 			try {
-				university = await agent.Universities.details(universityId);
-				this.setUniversity(university);
-				this.setUniversityLoadingInitial(false);
+				higherEducationFacility = await agent.HigherEducationFacilities.details(higherEducationFacilityId);
+				this.setHigherEducationFacility(higherEducationFacility);
+				this.setHigherEducationFacilityLoadingInitial(false);
 			} catch (error) {
 				runInAction(() => {
 					console.log(error);
 				});
-				this.setUniversityLoadingInitial(false);
+				this.setHigherEducationFacilityLoadingInitial(false);
 			}
 		}
 	}
 
-	createUniversity = async (university: UniversityFormValues) => {
-		this.setUniversityLoadingInitial(true);
+	createHigherEducationFacility = async (higherEducationFacility: HigherEducationFacilityFormValues) => {
+		this.setHigherEducationFacilityLoadingInitial(true);
 		try {
-			await agent.Universities.create(university);
-			this.setUniversityLoadingInitial(false);
+			await agent.HigherEducationFacilities.create(higherEducationFacility);
+			this.setHigherEducationFacilityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			});
-			this.setUniversityLoadingInitial(false);
+			this.setHigherEducationFacilityLoadingInitial(false);
 		}
 	}
 
-	editUniversity = async (university: University) => {
-		this.setUniversityLoadingInitial(true);
+	editHigherEducationFacility = async (higherEducationFacility: HigherEducationFacility) => {
+		this.setHigherEducationFacilityLoadingInitial(true);
 		try {
-			await agent.Universities.edit(university);
-			this.setUniversityLoadingInitial(false);
+			await agent.HigherEducationFacilities.edit(higherEducationFacility);
+			this.setHigherEducationFacilityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			});
-			this.setUniversityLoadingInitial(false);
+			this.setHigherEducationFacilityLoadingInitial(false);
 		}
 	}
 
-	deleteUniversity = async (universityId: string) => {
-		this.setUniversityLoadingInitial(true);
+	deleteHigherEducationFacility = async (higherEducationFacilityId: string) => {
+		this.setHigherEducationFacilityLoadingInitial(true);
 		try {
-			await agent.Universities.delete(universityId);
-			this.universities.delete(universityId);
-			this.setUniversityLoadingInitial(false);
+			await agent.HigherEducationFacilities.delete(higherEducationFacilityId);
+			this.higherEducationFacilities.delete(higherEducationFacilityId);
+			this.setHigherEducationFacilityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
 				console.log(error);
 			});
-			this.setUniversityLoadingInitial(false);
+			this.setHigherEducationFacilityLoadingInitial(false);
 		}
 	}
 
 	handleDebounce = _.debounce(() => {
 		this.setPagingParams(new PagingParams(1, 20));
-		this.clearUniversities();
+		this.clearHigherEducationFacilites();
 	}, 500);
 
 	handleDebounceWithLoad = _.debounce(() => {
 		this.setPagingParams(new PagingParams(1, 20));
-		this.loadUniversities();
+		this.loadHigherEducationFacilites();
 	}, 500);
 }

@@ -7,7 +7,7 @@ namespace Domain
 		public string Info { get; set; }
 		public int StudentsCount { get; set; }
 		public Photo FacultyPhoto { get; set; }
-		public University University { get; set; }
+		public HigherEducationFacility HigherEducationFacility { get; set; }
 		public ICollection<KnowledgeBranch> KnowledgeBranches { get; set; } = new List<KnowledgeBranch>();
 		public ICollection<Specialty> Specialties { get; set; } = new List<Specialty>();
 	}

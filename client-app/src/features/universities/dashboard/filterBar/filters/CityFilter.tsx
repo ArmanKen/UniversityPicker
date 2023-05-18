@@ -4,7 +4,7 @@ import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
 export default observer(function CityFilter() {
-	const { universityStore: { universityQueryParams },
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams },
 		uiStore: { cities, uiLoadingInitial, } } = useStore();
 
 	return (
@@ -22,12 +22,12 @@ export default observer(function CityFilter() {
 				disabled={uiLoadingInitial}
 				options={cities}
 				selection
-				value={universityQueryParams.citiesId}
+				value={higherEducationFacilityQueryParams.citiesId}
 				fluid
 				clearable
 				closeOnEscape
 				onChange={action((e, d) =>
-					universityQueryParams.citiesId = d.value as number[])
+					higherEducationFacilityQueryParams.citiesId = d.value as number[])
 				}
 			/>
 		</Segment>

@@ -2,7 +2,7 @@ using Domain;
 
 namespace Application.DTOs
 {
-	public class UniversityDto
+	public class HigherEducationFacilityDto
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }

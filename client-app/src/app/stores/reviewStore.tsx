@@ -29,10 +29,10 @@ export default class ReviewStore {
 		return params;
 	}
 
-	loadReviews = async (universityId: string) => {
+	loadReviews = async (higherEducationFacilityId: string) => {
 		this.setReviewsLoadingInitial(true);
 		try {
-			const result = await agent.Reviews.list(this.axiosParams, universityId);
+			const result = await agent.Reviews.list(this.axiosParams, higherEducationFacilityId);
 			runInAction(() => {
 				result.data.forEach(review => {
 					this.reviews.set(review.id, review);
@@ -62,10 +62,10 @@ export default class ReviewStore {
 		}
 	}
 
-	createReview = async (universityId: string, review: ReviewFormValues) => {
+	createReview = async (higherEducationFacilityId: string, review: ReviewFormValues) => {
 		this.setReviewsLoadingInitial(true);
 		try {
-			await agent.Reviews.create(universityId, review);
+			await agent.Reviews.create(higherEducationFacilityId, review);
 			this.setReviewsLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
@@ -75,10 +75,10 @@ export default class ReviewStore {
 		}
 	}
 
-	editReview = async (universityId: string, review: ReviewFormValues, reviewId: string) => {
+	editReview = async (higherEducationFacilityId: string, review: ReviewFormValues, reviewId: string) => {
 		this.setReviewsLoadingInitial(true);
 		try {
-			await agent.Reviews.edit(universityId, review, reviewId);
+			await agent.Reviews.edit(higherEducationFacilityId, review, reviewId);
 			this.setReviewsLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
@@ -88,10 +88,10 @@ export default class ReviewStore {
 		}
 	}
 
-	deleteReview = async (universityId: string, reviewId: string) => {
+	deleteReview = async (higherEducationFacilityId: string, reviewId: string) => {
 		this.setReviewsLoadingInitial(true);
 		try {
-			await agent.Reviews.delete(universityId, reviewId);
+			await agent.Reviews.delete(higherEducationFacilityId, reviewId);
 			this.reviews.delete(reviewId);
 			this.setReviewsLoadingInitial(false);
 		} catch (error) {

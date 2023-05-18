@@ -4,12 +4,12 @@ import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
 export default observer(function PriceFilter() {
-	const { universityStore: { universityQueryParams },
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams },
 		uiStore: { uiLoadingInitial } } = useStore()
 
 	return (
 		<Segment
-			disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId.length}
+			disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
 			style={{ paddingLeft: 34, paddingRight: 34 }}>
 			<Popup content="Щоб використати ці фільтри потрібно обрати спеціальність" trigger={
 				<Header
@@ -23,12 +23,12 @@ export default observer(function PriceFilter() {
 					<Grid.Column width={6} floated='left' style={{ padding: 0 }}>
 						<Input
 							placeholder='Від'
-							disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId.length}
+							disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
 							fluid
-							value={universityQueryParams.minPrice ? universityQueryParams.minPrice : ''}
+							value={higherEducationFacilityQueryParams.minPrice ? higherEducationFacilityQueryParams.minPrice : ''}
 							onChange={action((e, d) => {
 								if (Number(d.value) || d.value === '')
-									universityQueryParams.minPrice = Number(d.value);
+									higherEducationFacilityQueryParams.minPrice = Number(d.value);
 							})}
 						/>
 					</Grid.Column>
@@ -40,12 +40,12 @@ export default observer(function PriceFilter() {
 					<Grid.Column width={6} floated='right' style={{ padding: 0 }}>
 						<Input
 							placeholder='До'
-							disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId.length}
+							disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
 							fluid
-							value={universityQueryParams.maxPrice ? universityQueryParams.maxPrice : ''}
+							value={higherEducationFacilityQueryParams.maxPrice ? higherEducationFacilityQueryParams.maxPrice : ''}
 							onChange={action((e, d) => {
 								if (Number(d.value) || d.value === '')
-									universityQueryParams.maxPrice = Number(d.value);
+									higherEducationFacilityQueryParams.maxPrice = Number(d.value);
 							})}
 						/>
 					</Grid.Column>

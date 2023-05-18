@@ -4,12 +4,12 @@ import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
 export default observer(function DegreeFilter() {
-	const { universityStore: { universityQueryParams },
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams },
 		uiStore: { degrees, uiLoadingInitial } } = useStore();
 
 	return (
 		<Segment
-			disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId.length}
+			disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
 			style={{ paddingLeft: 20, paddingRight: 20 }}>
 			<Popup content="Щоб використати ці фільтри потрібно обрати спеціальність" trigger={
 				<Header
@@ -19,14 +19,14 @@ export default observer(function DegreeFilter() {
 				/>}
 			/>
 			<Dropdown
-				disabled={!universityQueryParams.specialtyBasesId.length}
+				disabled={!higherEducationFacilityQueryParams.specialtyBasesId.length}
 				placeholder='Освітня ступінь...'
 				options={degrees}
 				selection
 				fluid
 				clearable
 				closeOnEscape
-				onChange={action((e, d) => universityQueryParams.degreeId = d.value as number)}
+				onChange={action((e, d) => higherEducationFacilityQueryParams.degreeId = d.value as number)}
 			/>
 		</Segment>
 	)

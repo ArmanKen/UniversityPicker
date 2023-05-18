@@ -12,7 +12,7 @@ namespace Application.Faculties
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public Guid UniversityId { get; set; }
+			public Guid HigherEducationFacilityId { get; set; }
 			public FacultyDto Faculty { get; set; }
 		}
 
@@ -37,9 +37,9 @@ namespace Application.Faculties
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities.FindAsync(request.UniversityId);
-				if (university == default) return Result<Unit>.Failure("Failed to create faculty");
-				university.Faculties.Add(_mapper.Map<Faculty>(request.Faculty));
+				var higherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.HigherEducationFacilityId);
+				if (higherEducationFacility == default) return Result<Unit>.Failure("Failed to create faculty");
+				higherEducationFacility.Faculties.Add(_mapper.Map<Faculty>(request.Faculty));
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to create faculty");
 				return Result<Unit>.Success(Unit.Value);

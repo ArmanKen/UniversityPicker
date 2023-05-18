@@ -3,7 +3,7 @@ import { KnowledgeBranch } from "./knowledgeBranch";
 import { CurrentStatus } from "./profile";
 import { Region } from "./region";
 import { Language, StudyForm } from "./specialty";
-import { Accreditation } from "./university";
+import { Accreditation } from "./higherEducationFacility";
 
 export interface DropdownValues {
 	degrees: Degree[];

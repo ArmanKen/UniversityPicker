@@ -8,7 +8,7 @@ import RegionFilter from './filters/RegionFilter';
 import SpecialtyFilter from './filters/SpecialtyFilter';
 import ToggleFilters from './filters/ToggleFilters';
 
-export default observer(function UniversityFilterContent() {
+export default observer(function HigherEducationFacilityFilterContent() {
 
 	return (
 		<>

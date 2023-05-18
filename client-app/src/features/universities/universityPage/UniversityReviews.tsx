@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 
-export default observer(function UniversityReviews() {
+export default observer(function HigherEducationFacilityReviews() {
 
 	return (<></>
 	)

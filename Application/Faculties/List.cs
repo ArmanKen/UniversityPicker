@@ -12,7 +12,7 @@ namespace Application.Faculties
 	{
 		public class Query : IRequest<Result<List<FacultyDto>>>
 		{
-			public Guid UniversityId { get; set; }
+			public Guid HigherEducationFacilityId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Query, Result<List<FacultyDto>>>
@@ -28,15 +28,15 @@ namespace Application.Faculties
 
 			public async Task<Result<List<FacultyDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities
+				var higherEducationFacility = await _context.HigherEducationFacilities
 					.Include(x => x.Faculties)
 					.ThenInclude(x => x.FacultyPhoto)
 					.Include(x => x.Faculties)
 					.ThenInclude(x => x.KnowledgeBranches)
-					.FirstOrDefaultAsync(x => x.Id == request.UniversityId);
-				if (university == null) return null;
+					.FirstOrDefaultAsync(x => x.Id == request.HigherEducationFacilityId);
+				if (higherEducationFacility == null) return null;
 				return Result<List<FacultyDto>>.Success(
-					university.Faculties
+					higherEducationFacility.Faculties
 						.AsQueryable()
 						.ProjectTo<FacultyDto>(_mapper.ConfigurationProvider)
 						.ToList());

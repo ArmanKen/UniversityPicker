@@ -3,7 +3,7 @@ import { Photo } from "./photo";
 
 export interface Faculty {
 	id: string;
-	universityId: string;
+	higherEducationFacilityId: string;
 	name: string;
 	info: string;
 	studentsCount: number;

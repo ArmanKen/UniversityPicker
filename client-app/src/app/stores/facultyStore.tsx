@@ -19,10 +19,10 @@ export default class FacultyStore {
 
 	private getFaculty = (facultyId: string) => this.faculties.get(facultyId);
 
-	loadFaculties = async (universityId: string) => {
+	loadFaculties = async (higherEducationFacilityId: string) => {
 		this.setFacultyLoadingInitial(true);
 		try {
-			const result = await agent.Faculties.list(universityId);
+			const result = await agent.Faculties.list(higherEducationFacilityId);
 			runInAction(() => {
 				result.forEach(faculty => {
 					this.faculties.set(faculty.id, faculty);
@@ -72,10 +72,10 @@ export default class FacultyStore {
 		}
 	}
 
-	editFaculty = async (universityId: string, faculty: FacultyFormValues, facultyId: string) => {
+	editFaculty = async (higherEducationFacilityId: string, faculty: FacultyFormValues, facultyId: string) => {
 		this.setFacultyLoadingInitial(true);
 		try {
-			await agent.Faculties.edit(universityId, faculty, facultyId);
+			await agent.Faculties.edit(higherEducationFacilityId, faculty, facultyId);
 			this.setFacultyLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
@@ -85,10 +85,10 @@ export default class FacultyStore {
 		}
 	}
 
-	deleteFaculty = async (universityId: string, facultyId: string) => {
+	deleteFaculty = async (higherEducationFacilityId: string, facultyId: string) => {
 		this.setFacultyLoadingInitial(true);
 		try {
-			await agent.Faculties.delete(universityId, facultyId);
+			await agent.Faculties.delete(higherEducationFacilityId, facultyId);
 			this.faculties.delete(facultyId);
 			this.setFacultyLoadingInitial(false);
 		} catch (error) {

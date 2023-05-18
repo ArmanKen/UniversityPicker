@@ -12,8 +12,8 @@ export default class EduComponentStore {
 	// 	try {
 	// 		let selectedSpecialty = store.specilatyStore.selectedSpecialty;
 	// 		if (selectedSpecialty !== undefined) {
-	// 			store.universityStore.universities.forEach(university => {
-	// 				let eduComponents = university.specialties.find(x => x.code === selectedSpecialty!.code)?.eduComponents!;
+	// 			store.higherEducationFacilityStore.higherEducationFacilities.forEach(higherEducationFacility => {
+	// 				let eduComponents = higherEducationFacility.specialties.find(x => x.code === selectedSpecialty!.code)?.eduComponents!;
 	// 				eduComponents.forEach(newEduComponent => {
 	// 					if (!this.eduComponents.some(eduComponent => eduComponent.id === newEduComponent.id))
 	// 						this.eduComponents.push(newEduComponent);

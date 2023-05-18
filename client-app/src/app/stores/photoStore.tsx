@@ -30,10 +30,10 @@ export class PhotoStore {
 		return params;
 	}
 
-	loadPhotos = async (universityId: string) => {
+	loadPhotos = async (higherEducationFacilityId: string) => {
 		this.setPhotoLoadingInitial(true);
 		try {
-			const result = await agent.Photos.listUniversityPhotos(this.axiosParams, universityId);
+			const result = await agent.Photos.listHigherEducationFacilityPhotos(this.axiosParams, higherEducationFacilityId);
 			runInAction(() => {
 				result.data.forEach(photo => {
 					this.gallery.set(photo.id, photo);
@@ -65,10 +65,10 @@ export class PhotoStore {
 		}
 	}
 
-	addUniversityGalleryPhoto = async (universityId: string, file: Blob) => {
+	addHigherEducationFacilityGalleryPhoto = async (higherEducationFacilityId: string, file: Blob) => {
 		this.setPhotoLoadingInitial(true);
 		try {
-			const result = await agent.Photos.addUniversityGalleryPhoto(file, universityId);
+			const result = await agent.Photos.addHigherEducationFacilityGalleryPhoto(file, higherEducationFacilityId);
 			runInAction(() => {
 				this.gallery.set(result.data.id, result.data);
 			});
@@ -81,17 +81,17 @@ export class PhotoStore {
 		}
 	}
 
-	addUniversityTitlePhoto = async (universityId: string, file: Blob) => {
+	addHigherEducationFacilityTitlePhoto = async (higherEducationFacilityId: string, file: Blob) => {
 		this.setPhotoLoadingInitial(true);
 		try {
-			const result = await agent.Photos.addUniversityTitlePhoto(file, universityId);
+			const result = await agent.Photos.addHigherEducationFacilityTitlePhoto(file, higherEducationFacilityId);
 			runInAction(() => {
-				const { selectedUniversity, universities } = store.universityStore;
-				const university = universities.get(universityId);
-				if (university)
-					university.titlePhoto = result.data.url;
-				if (selectedUniversity && selectedUniversity === university) {
-					selectedUniversity.titlePhoto = result.data.url;
+				const { selectedHigherEducationFacility, higherEducationFacilities } = store.higherEducationFacilityStore;
+				const higherEducationFacility = higherEducationFacilities.get(higherEducationFacilityId);
+				if (higherEducationFacility)
+					higherEducationFacility.titlePhoto = result.data.url;
+				if (selectedHigherEducationFacility && selectedHigherEducationFacility === higherEducationFacility) {
+					selectedHigherEducationFacility.titlePhoto = result.data.url;
 				}
 			});
 			this.setPhotoLoadingInitial(false);
@@ -117,13 +117,13 @@ export class PhotoStore {
 		}
 	}
 
-	deleteUniversityTitlePhoto = async (universityId: string) => {
+	deleteHigherEducationFacilityTitlePhoto = async (higherEducationFacilityId: string) => {
 		this.setPhotoLoadingInitial(true);
 		try {
-			await agent.Photos.deleteUniversityTitlePhoto(universityId);
+			await agent.Photos.deleteHigherEducationFacilityTitlePhoto(higherEducationFacilityId);
 			runInAction(() => {
-				var university = store.universityStore.universities.get(universityId);
-				if (university) university.titlePhoto = '';
+				var higherEducationFacility = store.higherEducationFacilityStore.higherEducationFacilities.get(higherEducationFacilityId);
+				if (higherEducationFacility) higherEducationFacility.titlePhoto = '';
 			})
 			this.setPhotoLoadingInitial(false);
 		} catch (error) {
@@ -134,10 +134,10 @@ export class PhotoStore {
 		}
 	}
 
-	deleteUniversityPhoto = async (universityId: string, photoId: string) => {
+	deleteHigherEducationFacilityPhoto = async (higherEducationFacilityId: string, photoId: string) => {
 		this.setPhotoLoadingInitial(true);
 		try {
-			await agent.Photos.deleteUniversityPhoto(universityId, photoId);
+			await agent.Photos.deleteHigherEducationFacilityPhoto(higherEducationFacilityId, photoId);
 			runInAction(() => {
 				this.gallery.delete(photoId);
 			})

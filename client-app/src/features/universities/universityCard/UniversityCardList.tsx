@@ -1,15 +1,15 @@
 import { observer } from "mobx-react-lite";
 import { Card } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
-import UniversityCard from "./UniversityCard";
+import HigherEducationFacilityCard from "./HigherEducationFacilityCard";
 
-export default observer(function UniversityList() {
-	const { universityStore: { universities } } = useStore();
+export default observer(function HigherEducationFacilityList() {
+	const { higherEducationFacilityStore: { higherEducationFacilities } } = useStore();
 
 	return (
 		<Card.Group itemsPerRow={5} stackable style={{ marginBottom: 10, marginRight: 10, marginLeft: 10 }}>
-			{Array.from(universities.values()).map(university => (
-				<UniversityCard key={university.id} university={university} />
+			{Array.from(higherEducationFacilities.values()).map(higherEducationFacility => (
+				<HigherEducationFacilityCard key={higherEducationFacility.id} higherEducationFacility={higherEducationFacility} />
 			))}
 		</Card.Group>
 	)

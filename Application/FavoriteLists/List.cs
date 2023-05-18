@@ -11,12 +11,12 @@ namespace Application.FavoriteLists
 {
 	public class List
 	{
-		public class Query : IRequest<Result<PagedList<UniversityDto>>>
+		public class Query : IRequest<Result<PagedList<HigherEducationFacilityDto>>>
 		{
 			public FavoriteListParams Params { get; set; }
 		}
 
-		public class Handler : IRequestHandler<Query, Result<PagedList<UniversityDto>>>
+		public class Handler : IRequestHandler<Query, Result<PagedList<HigherEducationFacilityDto>>>
 		{
 			private readonly DataContext _context;
 			private readonly IMapper _mapper;
@@ -29,16 +29,16 @@ namespace Application.FavoriteLists
 				_context = context;
 			}
 
-			public async Task<Result<PagedList<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
+			public async Task<Result<PagedList<HigherEducationFacilityDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var observer = await _context.Users
 					.Include(x => x.FavoriteList)
-					.ThenInclude(x => x.University)
+					.ThenInclude(x => x.HigherEducationFacility)
 					.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-				return Result<PagedList<UniversityDto>>.Success(
-					await PagedList<UniversityDto>.CreateAsync(
+				return Result<PagedList<HigherEducationFacilityDto>>.Success(
+					await PagedList<HigherEducationFacilityDto>.CreateAsync(
 					observer.FavoriteList.AsQueryable()
-						.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider, new { username = _userAccessor.GetUsername() }),
+						.ProjectTo<HigherEducationFacilityDto>(_mapper.ConfigurationProvider, new { username = _userAccessor.GetUsername() }),
 				request.Params.PageNumber, request.Params.PageSize));
 			}
 		}

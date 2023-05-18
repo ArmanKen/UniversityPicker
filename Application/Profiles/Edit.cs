@@ -40,7 +40,7 @@ namespace Application.Profiles
 				user.FullName = request.Profile.FullName;
 				user.Bio = request.Profile.Bio;
 				user.CurrentStatus = await _context.CurrentStatuses.FindAsync(request.Profile.CurrentStatus);
-				user.University = await _context.Universities.FindAsync(request.Profile.University.Id);
+				user.HigherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.Profile.HigherEducationFacility.Id);
 				user.SpecialtyBase = await _context.SpecialtyBases.FindAsync(request.Profile.SpecialtyBase);
 				user.Degree = await _context.Degrees.FindAsync(request.Profile.Degree);
 				var result = await _context.SaveChangesAsync() > 0;

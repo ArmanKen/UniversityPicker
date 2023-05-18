@@ -1,16 +1,16 @@
 import { observer } from "mobx-react-lite";
 import { Card, Icon, Image, Transition } from "semantic-ui-react";
-import { University } from "../../../app/models/university";
+import { HigherEducationFacility } from "../../../app/models/higherEducationFacility";
 import { useStore } from "../../../app/stores/store";
-import UniversityShortInfoAction from "../universityModal/UniversityShortInfoAction";
-import UniversityShortInfoContent from "../universityModal/UniversityShortInfoContent";
+import HigherEducationFacilityShortInfoAction from "../higherEducationFacilityModal/HigherEducationFacilityShortInfoAction";
+import HigherEducationFacilityShortInfoContent from "../higherEducationFacilityModal/HigherEducationFacilityShortInfoContent";
 
 interface Props {
-	university: University
+	higherEducationFacility: HigherEducationFacility
 }
 
-export default observer(function UniversityCard({ university }: Props) {
-	const { universityStore: { setUniversity }, modalStore: { openModal } } = useStore();
+export default observer(function HigherEducationFacilityCard({ higherEducationFacility }: Props) {
+	const { higherEducationFacilityStore: { setHigherEducationFacility }, modalStore: { openModal } } = useStore();
 
 	return (
 		<Transition animation="fade" duration={300}
@@ -20,23 +20,23 @@ export default observer(function UniversityCard({ university }: Props) {
 					minWidth: 222,
 				}}
 				onClick={() => {
-					setUniversity(university);
+					setHigherEducationFacility(higherEducationFacility);
 					openModal(<>Про університет</>,
-						<UniversityShortInfoContent />, 'small',
-						<UniversityShortInfoAction />);
+						<HigherEducationFacilityShortInfoContent />, 'small',
+						<HigherEducationFacilityShortInfoAction />);
 				}}>
 				<div style={{ position: "relative", display: "flex" }}>
-					<Image fluid src={university.titlePhoto
+					<Image fluid src={higherEducationFacility.titlePhoto
 						|| '../defaultLogo.png'} />
 					<div className="square" style={{ position: 'absolute', bottom: 0 }}>
 						<Icon name='star' size='large'
 							style={{ color: 'white', marginTop: 9, marginLeft: 5 }}	>
-							{university.rating.toFixed(1)}
+							{higherEducationFacility.rating.toFixed(1)}
 						</Icon>
 					</div>
 				</div>
 				<Card.Content textAlign="center" style={{ fontWeight: 600, fontSize: '0.9rem' }}>
-					<Card.Header content={university.name} />
+					<Card.Header content={higherEducationFacility.name} />
 				</Card.Content>
 			</Card>
 		</Transition>

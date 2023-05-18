@@ -40,13 +40,13 @@ namespace Application.Reviews
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities.FindAsync(request.UniversirtyId);
-				if (university == null) return Result<Unit>.Failure("Failed to create rewiev");
+				var higherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.UniversirtyId);
+				if (higherEducationFacility == null) return Result<Unit>.Failure("Failed to create rewiev");
 				var user = await _context.Users
 					.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-				if (user == null || university.Reviews.Any(x => x.Author == user))
+				if (user == null || higherEducationFacility.Reviews.Any(x => x.Author == user))
 					return Result<Unit>.Failure("Failed to create rewiev");
-				university.Reviews.Add(new Review { Author = user, Body = request.Review.Body });
+				higherEducationFacility.Reviews.Add(new Review { Author = user, Body = request.Review.Body });
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to create rewiev");
 				return Result<Unit>.Success(Unit.Value);

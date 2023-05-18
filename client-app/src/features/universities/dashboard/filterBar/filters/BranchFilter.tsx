@@ -4,7 +4,7 @@ import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
 export default observer(function BranchFilter() {
-	const { universityStore: { universityQueryParams },
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams },
 		uiStore: { knowledgeBranches, uiLoadingInitial, setSpecialtiesBaseDropdown } } = useStore();
 
 	return (
@@ -26,8 +26,8 @@ export default observer(function BranchFilter() {
 				clearable
 				closeOnEscape
 				onChange={action((e, d) => {
-					universityQueryParams.knowledgeBranchesId = d.value as string[];
-					universityQueryParams.specialtyBasesId = [];
+					higherEducationFacilityQueryParams.knowledgeBranchesId = d.value as string[];
+					higherEducationFacilityQueryParams.specialtyBasesId = [];
 					setSpecialtiesBaseDropdown(d.value as string[]);
 				})}
 			/>

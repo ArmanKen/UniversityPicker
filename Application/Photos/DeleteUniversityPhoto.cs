@@ -6,7 +6,7 @@ using Persistence;
 
 namespace Application.Photos
 {
-	public class DeleteUniversityPhoto
+	public class DeleteHigherEducationFacilityPhoto
 	{
 		public class Command : IRequest<Result<Unit>>
 		{

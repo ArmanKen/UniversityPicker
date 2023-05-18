@@ -1,6 +1,6 @@
 import { City, RegionDto } from "./region";
 
-export interface University {
+export interface HigherEducationFacility {
 	id: string;
 	name: string;
 	accreditation: Accreditation;
@@ -29,13 +29,13 @@ export interface Location {
 	latitude: number;
 }
 
-export class University implements University {
-	constructor(init?: UniversityFormValues) {
+export class HigherEducationFacility implements HigherEducationFacility {
+	constructor(init?: HigherEducationFacilityFormValues) {
 		Object.assign(this, init);
 	}
 }
 
-export class UniversityFormValues {
+export class HigherEducationFacilityFormValues {
 	id: string = '';
 	name: string = '';
 	accreditation?: Accreditation;
@@ -51,22 +51,22 @@ export class UniversityFormValues {
 	titlePhoto: string = '';
 	location?: Location;
 
-	constructor(university?: UniversityFormValues) {
-		if (university) {
-			this.id = university.id;
-			this.name = university.name;
-			this.region = university.region;
-			this.city = university.city;
-			this.address = university.address;
-			this.website = university.website;
-			this.info = university.info;
-			this.studentsCount = university.studentsCount;
-			this.titlePhoto = university.titlePhoto;
+	constructor(higherEducationFacility?: HigherEducationFacilityFormValues) {
+		if (higherEducationFacility) {
+			this.id = higherEducationFacility.id;
+			this.name = higherEducationFacility.name;
+			this.region = higherEducationFacility.region;
+			this.city = higherEducationFacility.city;
+			this.address = higherEducationFacility.address;
+			this.website = higherEducationFacility.website;
+			this.info = higherEducationFacility.info;
+			this.studentsCount = higherEducationFacility.studentsCount;
+			this.titlePhoto = higherEducationFacility.titlePhoto;
 		}
 	}
 }
 
-export interface UniversityQueryParams {
+export interface HigherEducationFacilityQueryParams {
 	name: string,
 	accreditationId: number,
 	regionsId: number[],

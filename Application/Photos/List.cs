@@ -10,7 +10,7 @@ namespace Application.Photos
 	{
 		public class Query : IRequest<Result<PagedList<Photo>>>
 		{
-			public Guid UniversityId { get; set; }
+			public Guid HigherEducationFacilityId { get; set; }
 			public PhotoPagingParams Params { get; set; }
 		}
 
@@ -25,12 +25,12 @@ namespace Application.Photos
 
 			public async Task<Result<PagedList<Photo>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities
+				var higherEducationFacility = await _context.HigherEducationFacilities
 					.Include(x => x.Photos)
-					.FirstOrDefaultAsync(x => x.Id == request.UniversityId);
-				if (university == null) return null;
+					.FirstOrDefaultAsync(x => x.Id == request.HigherEducationFacilityId);
+				if (higherEducationFacility == null) return null;
 				return Result<PagedList<Photo>>.Success(
-					PagedList<Photo>.Create(university.Photos.AsQueryable(), request.Params.PageNumber, request.Params.PageSize));
+					PagedList<Photo>.Create(higherEducationFacility.Photos.AsQueryable(), request.Params.PageNumber, request.Params.PageSize));
 			}
 		}
 	}

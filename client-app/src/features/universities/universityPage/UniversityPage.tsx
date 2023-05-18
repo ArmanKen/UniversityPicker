@@ -3,40 +3,40 @@ import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Divider, Grid, Ref } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
-import UniversityMainInfo from "./UniversityMainInfo";
+import HigherEducationFacilityMainInfo from "./HigherEducationFacilityMainInfo";
 import useOnScreen from "../../../app/common/hooks/useOnScreen";
 import LoadingComponent from "../../../app/common/components/LoadingComponent";
 import FacultyCardList from "../../faculties/facultyCard/FacultyCardList";
 
-export default observer(function UniversityPage() {
-	const { universityStore: { loadUniversity, clearUniversity,
-		selectedUniversity, universityLoadingInitial } } = useStore();
+export default observer(function HigherEducationFacilityPage() {
+	const { higherEducationFacilityStore: { loadHigherEducationFacility, clearHigherEducationFacility,
+		selectedHigherEducationFacility, higherEducationFacilityLoadingInitial } } = useStore();
 	const { id } = useParams<{ id: string }>();
 	const facultiesRef = useRef(null);
-	const facultiesOnScreen = useOnScreen(facultiesRef, universityLoadingInitial);
+	const facultiesOnScreen = useOnScreen(facultiesRef, higherEducationFacilityLoadingInitial);
 	const galleryRef = useRef(null);
-	const galleryOnScreen = useOnScreen(galleryRef, universityLoadingInitial);
+	const galleryOnScreen = useOnScreen(galleryRef, higherEducationFacilityLoadingInitial);
 	// const reviewsRef = useRef(null);
-	// const reviewsOnScreen = useOnScreen(reviewsRef, universityLoadingInitial);
+	// const reviewsOnScreen = useOnScreen(reviewsRef, higherEducationFacilityLoadingInitial);
 
 	useEffect(() => {
-		if (id) loadUniversity(id);
-		return () => clearUniversity();
-	}, [clearUniversity, id, loadUniversity])
+		if (id) loadHigherEducationFacility(id);
+		return () => clearHigherEducationFacility();
+	}, [clearHigherEducationFacility, id, loadHigherEducationFacility])
 
-	if (universityLoadingInitial || !selectedUniversity)
+	if (higherEducationFacilityLoadingInitial || !selectedHigherEducationFacility)
 		return <LoadingComponent content="Завантаження даних про університет" />
 	return (
 		<Grid>
 			<Grid.Row>
-				<UniversityMainInfo university={selectedUniversity} />
+				<HigherEducationFacilityMainInfo higherEducationFacility={selectedHigherEducationFacility} />
 			</Grid.Row>
 			<Ref innerRef={facultiesRef}>
 				<Divider hidden style={{ padding: 0, margin: 0 }} />
 			</Ref>
 			<Grid.Row centered>
 				<FacultyCardList facultiesOnScreen={facultiesOnScreen}
-					universityId={selectedUniversity.id} />
+					higherEducationFacilityId={selectedHigherEducationFacility.id} />
 			</Grid.Row>
 			<Ref innerRef={galleryRef}>
 				<Divider hidden style={{ padding: 0, margin: 0 }} />

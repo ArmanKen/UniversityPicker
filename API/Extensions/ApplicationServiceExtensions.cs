@@ -1,13 +1,13 @@
-using Application.Universities;
 using Application.Core;
+using Application.HigherEducationFacilities;
 using Application.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastracture.Photos;
 using Infrastracture.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Infrastracture.Photos;
 
 namespace API.Extensions
 {

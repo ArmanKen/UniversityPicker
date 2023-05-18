@@ -7,10 +7,10 @@ namespace API.Controllers
 	public class PhotosController : BaseApiController
 	{
 		[AllowAnonymous]
-		[HttpGet("universities/{universityId}/gallery")]
-		public async Task<IActionResult> GetUniversityPhotos(Guid universityId)
+		[HttpGet("higherEducationFacilities/{higherEducationFacilityId}/gallery")]
+		public async Task<IActionResult> GetHigherEducationFacilityPhotos(Guid higherEducationFacilityId)
 		{
-			return HandlePagedResult(await Mediator.Send(new List.Query { UniversityId = universityId }));
+			return HandlePagedResult(await Mediator.Send(new List.Query { HigherEducationFacilityId = higherEducationFacilityId }));
 		}
 
 		[Authorize]
@@ -21,18 +21,18 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPost("universities/{universityId}/gallery")]
-		public async Task<IActionResult> AddUniversityPhoto(Guid universityId, [FromForm] AddUniversityPhoto.Command command)
+		[HttpPost("higherEducationFacilities/{higherEducationFacilityId}/gallery")]
+		public async Task<IActionResult> AddHigherEducationFacilityPhoto(Guid higherEducationFacilityId, [FromForm] AddHigherEducationFacilityPhoto.Command command)
 		{
-			command.UniversityId = universityId;
+			command.HigherEducationFacilityId = higherEducationFacilityId;
 			return HandleResult(await Mediator.Send(command));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPost("universities/{universityId}/titleImage/")]
-		public async Task<IActionResult> AddUniversityTitlePhoto(Guid universityId, [FromForm] AddUniversityPhoto.Command command)
+		[HttpPost("higherEducationFacilities/{higherEducationFacilityId}/titleImage/")]
+		public async Task<IActionResult> AddHigherEducationFacilityTitlePhoto(Guid higherEducationFacilityId, [FromForm] AddHigherEducationFacilityPhoto.Command command)
 		{
-			command.UniversityId = universityId;
+			command.HigherEducationFacilityId = higherEducationFacilityId;
 			return HandleResult(await Mediator.Send(command));
 		}
 
@@ -44,17 +44,17 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpDelete("{universityId}/{photoId}")]
-		public async Task<IActionResult> DeleteUniversityPhoto(Guid universityId, string photoId)
+		[HttpDelete("{higherEducationFacilityId}/{photoId}")]
+		public async Task<IActionResult> DeleteHigherEducationFacilityPhoto(Guid higherEducationFacilityId, string photoId)
 		{
-			return HandleResult(await Mediator.Send(new DeleteUniversityPhoto.Command { PhotoId = photoId }));
+			return HandleResult(await Mediator.Send(new DeleteHigherEducationFacilityPhoto.Command { PhotoId = photoId }));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpDelete("{universityId}")]
-		public async Task<IActionResult> DeleteUniversityTitlePhoto(Guid universityId)
+		[HttpDelete("{higherEducationFacilityId}")]
+		public async Task<IActionResult> DeleteHigherEducationFacilityTitlePhoto(Guid higherEducationFacilityId)
 		{
-			return HandleResult(await Mediator.Send(new DeleteUniversityTitlePhoto.Command { UniversityId = universityId }));
+			return HandleResult(await Mediator.Send(new DeleteHigherEducationFacilityTitlePhoto.Command { HigherEducationFacilityId = higherEducationFacilityId }));
 		}
 	}
 }

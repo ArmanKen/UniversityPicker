@@ -12,7 +12,7 @@ namespace Application.Reviews
 	{
 		public class Query : IRequest<Result<ReviewDto>>
 		{
-			public Guid UniversityId { get; set; }
+			public Guid HigherEducationFacilityId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Query, Result<ReviewDto>>
@@ -32,7 +32,7 @@ namespace Application.Reviews
 			{
 				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				if (user == null) return null;
-				var review = user.Reviews.FirstOrDefault(x => x.University.Id == request.UniversityId);
+				var review = user.Reviews.FirstOrDefault(x => x.HigherEducationFacility.Id == request.HigherEducationFacilityId);
 				if (review == null) return null;
 				return Result<ReviewDto>.Success(_mapper.Map<ReviewDto>(review));
 			}

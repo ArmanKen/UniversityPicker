@@ -13,7 +13,7 @@ namespace Application.Reviews
 
 		public class Query : IRequest<Result<PagedList<ReviewDto>>>
 		{
-			public Guid UniversityId { get; set; }
+			public Guid HigherEducationFacilityId { get; set; }
 			public ReviewParams Params { get; set; }
 		}
 
@@ -30,9 +30,9 @@ namespace Application.Reviews
 
 			public async Task<Result<PagedList<ReviewDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities.FindAsync(request.UniversityId);
-				if (university == null) return null;
-				var query = university.Reviews.AsQueryable();
+				var higherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.HigherEducationFacilityId);
+				if (higherEducationFacility == null) return null;
+				var query = higherEducationFacility.Reviews.AsQueryable();
 				return Result<PagedList<ReviewDto>>.Success(
 					PagedList<ReviewDto>.Create(
 						query

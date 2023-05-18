@@ -6,17 +6,17 @@ import { useEffect } from "react";
 import NotFoundComponent from "../../../app/common/components/NotFoundComponent";
 
 export interface Props {
-	universityId: string;
+	higherEducationFacilityId: string;
 	facultiesOnScreen: boolean;
 }
 
-export default observer(function FacultyList({ universityId, facultiesOnScreen }: Props) {
+export default observer(function FacultyList({ higherEducationFacilityId, facultiesOnScreen }: Props) {
 	const { facultyStore: { faculties, loadFaculties, facultyLoadingInitial } } = useStore()
 
 	useEffect(() => {
 		if (faculties.size < 1 && facultiesOnScreen)
-			loadFaculties(universityId);
-	}, [loadFaculties, faculties.size, universityId, facultiesOnScreen])
+			loadFaculties(higherEducationFacilityId);
+	}, [loadFaculties, faculties.size, higherEducationFacilityId, facultiesOnScreen])
 
 	return (
 		<Grid centered stackable stretched>

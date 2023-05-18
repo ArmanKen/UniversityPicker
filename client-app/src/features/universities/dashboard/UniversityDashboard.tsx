@@ -4,23 +4,23 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Button, Grid, Segment } from "semantic-ui-react";
 import { PagingParams } from "../../../app/models/pagination";
 import { useStore } from "../../../app/stores/store";
-import UniversityCardList from "../universityCard/UniversityCardList";
-import UniversityFiltersContent from "./filterBar/UniversityFiltersContent";
-import UnviersityFiltersHeader from "./filterBar/UniversityFiltersHeader";
+import HigherEducationFacilityCardList from "../higherEducationFacilityCard/HigherEducationFacilityCardList";
+import HigherEducationFacilityFiltersContent from "./filterBar/HigherEducationFacilityFiltersContent";
+import UnviersityFiltersHeader from "./filterBar/HigherEducationFacilityFiltersHeader";
 import NotFoundComponent from "../../../app/common/components/NotFoundComponent";
 
-export default observer(function UniversityDashboard() {
-	const { universityStore: { universities, loadUniversities,
-		pagination, setPagingParams, universityLoadingInitial }, modalStore: { openModal } } = useStore();
+export default observer(function HigherEducationFacilityDashboard() {
+	const { higherEducationFacilityStore: { higherEducationFacilities, loadHigherEducationFacilites,
+		pagination, setPagingParams, higherEducationFacilityLoadingInitial }, modalStore: { openModal } } = useStore();
 
 	useEffect(() => {
-		if (universities.size < 1) loadUniversities();
-	}, [loadUniversities, universities.size])
+		if (higherEducationFacilities.size < 1) loadHigherEducationFacilites();
+	}, [loadHigherEducationFacilites, higherEducationFacilities.size])
 
 	function handleGetNext() {
-		if (!universityLoadingInitial) {
+		if (!higherEducationFacilityLoadingInitial) {
 			setPagingParams(new PagingParams(pagination!.currentPage + 1));
-			loadUniversities();
+			loadHigherEducationFacilites();
 		}
 	}
 
@@ -36,18 +36,18 @@ export default observer(function UniversityDashboard() {
 						<Segment >
 							<UnviersityFiltersHeader />
 						</Segment>
-						<UniversityFiltersContent />
+						<HigherEducationFacilityFiltersContent />
 					</Segment.Group>
 				</Grid.Column>
 				<Grid.Column floated="left"
 					style={{ marginRight: 10 }}>
-					{!universityLoadingInitial && universities.size < 1 ?
+					{!higherEducationFacilityLoadingInitial && higherEducationFacilities.size < 1 ?
 						<NotFoundComponent content="По заданим фільтрам університети не знайденно" /> :
 						<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
-							dataLength={universities.size} next={handleGetNext} loader=''
-							hasMore={!universityLoadingInitial && !!pagination
+							dataLength={higherEducationFacilities.size} next={handleGetNext} loader=''
+							hasMore={!higherEducationFacilityLoadingInitial && !!pagination
 								&& pagination.currentPage < pagination.totalPages}>
-							<UniversityCardList />
+							<HigherEducationFacilityCardList />
 						</InfiniteScroll>
 					}
 				</Grid.Column>
@@ -62,15 +62,15 @@ export default observer(function UniversityDashboard() {
 							openModal(
 								<UnviersityFiltersHeader />,
 								<Segment.Group>
-									<UniversityFiltersContent />
+									<HigherEducationFacilityFiltersContent />
 								</Segment.Group>, 'small')} />
-					{!universityLoadingInitial && universities.size < 1 ?
+					{!higherEducationFacilityLoadingInitial && higherEducationFacilities.size < 1 ?
 						<NotFoundComponent content="По заданим фільтрам університети не знайденно" /> :
 						<InfiniteScroll style={{ overflow: 'hidden', paddingTop: 20 }}
-							dataLength={universities.size} next={handleGetNext} loader=''
-							hasMore={!universityLoadingInitial && !!pagination
+							dataLength={higherEducationFacilities.size} next={handleGetNext} loader=''
+							hasMore={!higherEducationFacilityLoadingInitial && !!pagination
 								&& pagination.currentPage < pagination.totalPages}>
-							<UniversityCardList />
+							<HigherEducationFacilityCardList />
 						</InfiniteScroll>
 					}
 				</Grid.Column>

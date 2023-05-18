@@ -29,13 +29,13 @@ namespace Application.Reviews
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities.FindAsync(request.UniversirtyId);
-				if (university == null) return null;
-				var review = university.Reviews.FirstOrDefault(x => x.Id == request.ReviewId);
+				var higherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.UniversirtyId);
+				if (higherEducationFacility == null) return null;
+				var review = higherEducationFacility.Reviews.FirstOrDefault(x => x.Id == request.ReviewId);
 				if (review == null) return null;
 				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				if (user != null || user.UserName != review.Author.UserName || user.IsGlobalAdmin) return null;
-				university.Reviews.Remove(review);
+				higherEducationFacility.Reviews.Remove(review);
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<Unit>.Success(Unit.Value);
 				return Result<Unit>.Failure("Failed to delete comment");

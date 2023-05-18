@@ -6,7 +6,7 @@ import ModalContainer from '../common/modals/ModalContainer';
 import ScrollToTop from "../common/components/ScrollToTopButton";
 import { useStore } from "../stores/store";
 import NavBar from './NavBar';
-import UniversityDashboard from "../../features/universities/dashboard/UniversityDashboard";
+import HigherEducationFacilityDashboard from "../../features/higherEducationFacilities/dashboard/HigherEducationFacilityDashboard";
 
 function App() {
 	const { modalStore: { open } } = useStore()
@@ -20,7 +20,7 @@ function App() {
 			<Container fluid style={{ width: '98%', marginTop: 60 }}>
 				<Outlet />
 				{location.pathname === '/' &&
-					<UniversityDashboard />}
+					<HigherEducationFacilityDashboard />}
 				{!open &&
 					<ScrollToTop />}
 			</Container>

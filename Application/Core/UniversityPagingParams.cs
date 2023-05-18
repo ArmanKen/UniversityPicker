@@ -1,6 +1,6 @@
 namespace Application.Core
 {
-	public class UniversityPagingParams
+	public class HigherEducationFacilityPagingParams
 	{
 		private const int MaxPageSize = 50;
 		public int PageNumber { get; set; } = 1;

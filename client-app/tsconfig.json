@@ -22,6 +22,6 @@
 	},
 	"include": [
 		"src",
-		"src/features/universities/dashboard/filterBar/filters/AccreditationFilter.tsx"
+		"src/features/higherEducationFacilities/dashboard/filterBar/filters/AccreditationFilter.tsx"
 	]
 }

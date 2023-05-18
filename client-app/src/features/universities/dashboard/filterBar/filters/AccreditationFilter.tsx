@@ -4,7 +4,7 @@ import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
 export default observer(function AccredtitationFilter() {
-	const { universityStore: { universityQueryParams },
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams },
 		uiStore: { uiLoadingInitial, accreditations } } = useStore()
 
 	return (
@@ -20,11 +20,11 @@ export default observer(function AccredtitationFilter() {
 				disabled={uiLoadingInitial}
 				placeholder='Акредитація...'
 				options={accreditations}
-				value={universityQueryParams.accreditationId || undefined}
+				value={higherEducationFacilityQueryParams.accreditationId || undefined}
 				selection
 				clearable
 				closeOnEscape
-				onChange={action((e, d) => universityQueryParams.accreditationId = d.value as number)}
+				onChange={action((e, d) => higherEducationFacilityQueryParams.accreditationId = d.value as number)}
 			/>
 		</Segment>
 	)

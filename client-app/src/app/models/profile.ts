@@ -2,14 +2,14 @@ import { Degree } from "./degree";
 import { Faculty } from "./faculty";
 import { Photo } from "./photo";
 import { SpecialtyBase } from "./specialty";
-import { University } from "./university";
+import { HigherEducationFacility } from "./higherEducationFacility";
 
 export interface Profile {
 	username: string;
 	fullName: string;
 	bio: string;
 	specialty: string;
-	university: University;
+	higherEducationFacility: HigherEducationFacility;
 	faculty: Faculty;
 	specialtyBase: SpecialtyBase;
 	photo: Photo;

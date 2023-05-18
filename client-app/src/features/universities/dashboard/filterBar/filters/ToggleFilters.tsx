@@ -4,12 +4,12 @@ import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
 export default observer(function ToggleFilters() {
-	const { universityStore: { universityQueryParams },
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams },
 		uiStore: { uiLoadingInitial } } = useStore()
 
 	return (
 		<Segment
-			disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId.length}
+			disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
 			size="small"
 			style={{ paddingLeft: 36, paddingRight: 42 }}>
 			<Grid>
@@ -22,7 +22,7 @@ export default observer(function ToggleFilters() {
 							<Header
 								style={{ marginTop: 2 }}
 								size='small'
-								disabled={uiLoadingInitial || !universityQueryParams.specialtyBasesId.length}
+								disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
 								content='З бюджетними місцями'
 							/>}
 						/>
@@ -32,10 +32,10 @@ export default observer(function ToggleFilters() {
 						style={{ paddingRight: 0, paddingLeft: 0 }}
 						floated='left'>
 						<Checkbox
-							disabled={!universityQueryParams.specialtyBasesId.length}
+							disabled={!higherEducationFacilityQueryParams.specialtyBasesId.length}
 							toggle
-							checked={universityQueryParams.budget}
-							onChange={action((x, d) => universityQueryParams.budget = d.checked as boolean)}
+							checked={higherEducationFacilityQueryParams.budget}
+							onChange={action((x, d) => higherEducationFacilityQueryParams.budget = d.checked as boolean)}
 						/>
 					</Grid.Column>
 				</Grid.Row>
@@ -57,8 +57,8 @@ export default observer(function ToggleFilters() {
 						floated='left'>
 						<Checkbox
 							toggle
-							checked={universityQueryParams.ukraineTop}
-							onChange={action((x, d) => universityQueryParams.ukraineTop = d.checked as boolean)}
+							checked={higherEducationFacilityQueryParams.ukraineTop}
+							onChange={action((x, d) => higherEducationFacilityQueryParams.ukraineTop = d.checked as boolean)}
 						/>
 					</Grid.Column>
 				</Grid.Row>

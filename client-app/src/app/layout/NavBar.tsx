@@ -5,7 +5,7 @@ import { Dropdown, Header, Input, Menu } from 'semantic-ui-react'
 import { useStore } from '../stores/store'
 
 export default observer(function NavBar() {
-	const { universityStore: { universityQueryParams } } = useStore()
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams } } = useStore()
 	const location = useLocation();
 
 	return (
@@ -18,16 +18,16 @@ export default observer(function NavBar() {
 				<Header
 					textAlign='center'
 					as={Link} to=''>
-					University Picker
+					HigherEducationFacility Picker
 				</Header>
 			</Menu.Item>
 			{location.pathname === '/' && <Menu.Item>
 				<Input
 					style={{ width: '30vw' }}
 					icon='search'
-					value={universityQueryParams.name}
+					value={higherEducationFacilityQueryParams.name}
 					placeholder='Пошук...'
-					onChange={action((e, d) => universityQueryParams.name = d.value)}
+					onChange={action((e, d) => higherEducationFacilityQueryParams.name = d.value)}
 				/>
 			</Menu.Item>}
 			<Menu.Item

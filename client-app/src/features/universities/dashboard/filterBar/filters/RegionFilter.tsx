@@ -4,7 +4,7 @@ import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
 export default observer(function RegionFilter() {
-	const { universityStore: { universityQueryParams },
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams },
 		uiStore: { regions, uiLoadingInitial } } = useStore();
 
 	return (
@@ -18,7 +18,7 @@ export default observer(function RegionFilter() {
 			<Dropdown
 				placeholder='Регіон...'
 				search
-				value={universityQueryParams.regionsId}
+				value={higherEducationFacilityQueryParams.regionsId}
 				multiple
 				disabled={uiLoadingInitial}
 				options={Array.from(regions.keys())}
@@ -27,8 +27,8 @@ export default observer(function RegionFilter() {
 				clearable
 				closeOnEscape
 				onChange={action((e, d) => {
-					universityQueryParams.regionsId = d.value as number[];
-					universityQueryParams.citiesId = [];
+					higherEducationFacilityQueryParams.regionsId = d.value as number[];
+					higherEducationFacilityQueryParams.citiesId = [];
 				})}
 			/>
 		</Segment>

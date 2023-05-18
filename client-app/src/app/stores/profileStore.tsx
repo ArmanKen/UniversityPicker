@@ -1,14 +1,14 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Profile } from "../models/profile";
-import { University } from "../models/university";
+import { HigherEducationFacility } from "../models/higherEducationFacility";
 import { Pagination, PagingParams } from "../models/pagination";
 import { store } from "./store";
 
 export default class ProfileStore {
 	profileLoadingInitial = false;
 	profile: Profile | undefined = undefined;
-	favoriteList = new Map<string, University>();
+	favoriteList = new Map<string, HigherEducationFacility>();
 	pagination: Pagination | undefined = undefined;
 	pagingParams = new PagingParams();
 
@@ -64,8 +64,8 @@ export default class ProfileStore {
 		try {
 			const result = await agent.Profiles.favoriteList();
 			runInAction(() => {
-				result.data.forEach(university =>
-					this.favoriteList.set(university.id, university))
+				result.data.forEach(higherEducationFacility =>
+					this.favoriteList.set(higherEducationFacility.id, higherEducationFacility))
 			})
 			this.setPagination(result.pagination);
 			this.setProfileLoadingInitial(false);
@@ -77,17 +77,17 @@ export default class ProfileStore {
 		}
 	}
 
-	toggleFavoriteList = async (universityId: string) => {
+	toggleFavoriteList = async (higherEducationFacilityId: string) => {
 		this.setProfileLoadingInitial(true);
 		try {
-			await agent.Profiles.favoriteToggle(universityId);
+			await agent.Profiles.favoriteToggle(higherEducationFacilityId);
 			runInAction(() => {
-				const university = store.universityStore.selectedUniversity;
-				if (university) {
-					university.inFavoriteList = !university.inFavoriteList;
+				const higherEducationFacility = store.higherEducationFacilityStore.selectedHigherEducationFacility;
+				if (higherEducationFacility) {
+					higherEducationFacility.inFavoriteList = !higherEducationFacility.inFavoriteList;
 				}
-				if (this.favoriteList.size > 0 && this.favoriteList.has(universityId))
-					this.favoriteList.delete(universityId);
+				if (this.favoriteList.size > 0 && this.favoriteList.has(higherEducationFacilityId))
+					this.favoriteList.delete(higherEducationFacilityId);
 			})
 			this.setProfileLoadingInitial(false);
 		} catch (error) {

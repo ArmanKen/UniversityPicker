@@ -8,10 +8,10 @@ namespace API.Controllers
 	public class FacultiesController : BaseApiController
 	{
 		[AllowAnonymous]
-		[HttpGet("list/{universityId}")]
-		public async Task<IActionResult> GetFaculties(Guid universityId)
+		[HttpGet("list/{higherEducationFacilityId}")]
+		public async Task<IActionResult> GetFaculties(Guid higherEducationFacilityId)
 		{
-			return HandleResult(await Mediator.Send(new List.Query { UniversityId = universityId }));
+			return HandleResult(await Mediator.Send(new List.Query { HigherEducationFacilityId = higherEducationFacilityId }));
 		}
 
 		[AllowAnonymous]
@@ -22,15 +22,15 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsGlobalAdmin")]
-		[HttpPost("/create/{universityId}")]
-		public async Task<IActionResult> CreateFaculty(FacultyDto Faculty, Guid universityId)
+		[HttpPost("/create/{higherEducationFacilityId}")]
+		public async Task<IActionResult> CreateFaculty(FacultyDto Faculty, Guid higherEducationFacilityId)
 		{
 			return HandleResult(await Mediator.Send(new Create.Command
-			{ Faculty = Faculty, UniversityId = universityId }));
+			{ Faculty = Faculty, HigherEducationFacilityId = higherEducationFacilityId }));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPut("{universityId}/{facultyId}")]
+		[HttpPut("{higherEducationFacilityId}/{facultyId}")]
 		public async Task<IActionResult> ChangeFaculty(Guid facultyId, FacultyDto Faculty)
 		{
 			Faculty.Id = facultyId;
@@ -39,7 +39,7 @@ namespace API.Controllers
 		}
 
 		[Authorize(Policy = "IsGlobalAdmin")]
-		[HttpDelete("{universityId}/{facultyId}")]
+		[HttpDelete("{higherEducationFacilityId}/{facultyId}")]
 		public async Task<IActionResult> DeleteFaculty(Guid facultyId)
 		{
 			return HandleResult(await Mediator.Send(new Delete.Command

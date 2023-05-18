@@ -4,7 +4,7 @@ import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
 export default observer(function SpecialtyFilter() {
-	const { universityStore: { universityQueryParams },
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams },
 		uiStore: { uiLoadingInitial, specialtyBases, } } = useStore();
 
 	return (
@@ -26,7 +26,7 @@ export default observer(function SpecialtyFilter() {
 				clearable
 				closeOnEscape
 				onChange={action((e, d) => {
-					universityQueryParams.specialtyBasesId = d.value as string[];
+					higherEducationFacilityQueryParams.specialtyBasesId = d.value as string[];
 				})}
 			/>
 		</Segment>

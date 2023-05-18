@@ -6,16 +6,16 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Persistence;
 
-namespace Application.Universities
+namespace Application.HigherEducationFacilities
 {
 	public class List
 	{
-		public class Query : IRequest<Result<PagedList<UniversityDto>>>
+		public class Query : IRequest<Result<PagedList<HigherEducationFacilityDto>>>
 		{
-			public UniversityParams Params { get; set; }
+			public HigherEducationFacilityParams Params { get; set; }
 		}
 
-		public class Handler : IRequestHandler<Query, Result<PagedList<UniversityDto>>>
+		public class Handler : IRequestHandler<Query, Result<PagedList<HigherEducationFacilityDto>>>
 		{
 			private readonly DataContext _context;
 			private readonly IMapper _mapper;
@@ -28,14 +28,14 @@ namespace Application.Universities
 				_context = context;
 			}
 
-			public async Task<Result<PagedList<UniversityDto>>> Handle(Query request, CancellationToken cancellationToken)
+			public async Task<Result<PagedList<HigherEducationFacilityDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var resultTop = bool.TryParse(request.Params.UkraineTop, out var top);
 				var resultBudget = bool.TryParse(request.Params.Budget, out var budget);
 				var resultMin = int.TryParse(request.Params.MinPrice, out var min);
 				var resultMax = int.TryParse(request.Params.MaxPrice, out var max);
 
-				var query = _context.Universities
+				var query = _context.HigherEducationFacilities
 					.AsQueryable()
 					.Where(x =>
 						(string.IsNullOrEmpty(request.Params.Name)
@@ -65,10 +65,10 @@ namespace Application.Universities
 									&& (!resultMin || x.PriceUAH >= min)
 									&& (!resultMax || x.PriceUAH <= max))) != default));
 
-				return Result<PagedList<UniversityDto>>.Success(
-				await PagedList<UniversityDto>.CreateAsync(
+				return Result<PagedList<HigherEducationFacilityDto>>.Success(
+				await PagedList<HigherEducationFacilityDto>.CreateAsync(
 					query
-						.ProjectTo<UniversityDto>(_mapper.ConfigurationProvider, new { username = _userAccessor.GetUsername() })
+						.ProjectTo<HigherEducationFacilityDto>(_mapper.ConfigurationProvider, new { username = _userAccessor.GetUsername() })
 						.OrderByDescending(x => x.Rating),
 				request.Params.PageNumber, request.Params.PageSize)
 			);

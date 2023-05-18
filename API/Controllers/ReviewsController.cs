@@ -8,11 +8,11 @@ namespace API.Controllers
 	public class ReviewsController : BaseApiController
 	{
 		[AllowAnonymous]
-		[HttpGet("list/{universityId}")]
-		public async Task<IActionResult> GetReviews([FromQuery] ReviewParams param, Guid universityId)
+		[HttpGet("list/{higherEducationFacilityId}")]
+		public async Task<IActionResult> GetReviews([FromQuery] ReviewParams param, Guid higherEducationFacilityId)
 		{
 			return HandlePagedResult(await Mediator.Send(new List.Query
-			{ UniversityId = universityId, Params = param }));
+			{ HigherEducationFacilityId = higherEducationFacilityId, Params = param }));
 		}
 
 		[AllowAnonymous]
@@ -24,23 +24,23 @@ namespace API.Controllers
 		}
 
 		[Authorize]
-		[HttpGet("user/{universityId}")]
-		public async Task<IActionResult> GetUserReview(Guid universityId)
+		[HttpGet("user/{higherEducationFacilityId}")]
+		public async Task<IActionResult> GetUserReview(Guid higherEducationFacilityId)
 		{
 			return HandleResult(await Mediator.Send(new GetUserReview.Query
-			{ UniversityId = universityId }));
+			{ HigherEducationFacilityId = higherEducationFacilityId }));
 		}
 
 		[Authorize(Policy = "IsLocalAdmin")]
-		[HttpPost("create/{universityId}")]
-		public async Task<IActionResult> CreateReview(ReviewDto Review, Guid universityId)
+		[HttpPost("create/{higherEducationFacilityId}")]
+		public async Task<IActionResult> CreateReview(ReviewDto Review, Guid higherEducationFacilityId)
 		{
 			return HandleResult(await Mediator.Send(new Create.Command
-			{ Review = Review, UniversirtyId = universityId }));
+			{ Review = Review, UniversirtyId = higherEducationFacilityId }));
 		}
 
 		[Authorize]
-		[HttpPut("{universityId}/{reviewId}")]
+		[HttpPut("{higherEducationFacilityId}/{reviewId}")]
 		public async Task<IActionResult> EditReview(ReviewDto Review, Guid reviewId)
 		{
 			Review.Id = reviewId;
@@ -49,7 +49,7 @@ namespace API.Controllers
 		}
 
 		[Authorize]
-		[HttpDelete("{universityId}/{reviewId}")]
+		[HttpDelete("{higherEducationFacilityId}/{reviewId}")]
 		public async Task<IActionResult> DeleteReview(Guid reviewId)
 		{
 			return HandleResult(await Mediator.Send(new Delete.Command

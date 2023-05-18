@@ -1,25 +1,24 @@
 using Application.Core;
 using Application.DTOs;
 using AutoMapper;
-using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Universities
+namespace Application.HigherEducationFacilities
 {
-	public class Create
+	public class Edit
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public UniversityDto University { get; set; }
+			public HigherEducationFacilityDto HigherEducationFacility { get; set; }
 		}
 
 		public class CommandValidator : AbstractValidator<Command>
 		{
 			public CommandValidator()
 			{
-				RuleFor(x => x.University).SetValidator(new UniversityValidator());
+				RuleFor(x => x.HigherEducationFacility).SetValidator(new HigherEducationFacilityValidator());
 			}
 		}
 
@@ -36,9 +35,11 @@ namespace Application.Universities
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				_context.Universities.Add(_mapper.Map<University>(request.University));
+				var higherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.HigherEducationFacility.Id);
+				if (higherEducationFacility == null) return Result<Unit>.Failure("Failed to update the higherEducationFacility");
+				_mapper.Map(request.HigherEducationFacility, higherEducationFacility);
 				var result = await _context.SaveChangesAsync() > 0;
-				if (!result) return Result<Unit>.Failure("Failed to create university");
+				if (!result) return Result<Unit>.Failure("Failed to update the higherEducationFacility");
 				return Result<Unit>.Success(Unit.Value);
 			}
 		}

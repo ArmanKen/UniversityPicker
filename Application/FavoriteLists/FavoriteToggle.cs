@@ -11,7 +11,7 @@ namespace Application.FavoriteLists
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public Guid UniversityId { get; set; }
+			public Guid HigherEducationFacilityId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -28,14 +28,14 @@ namespace Application.FavoriteLists
 			{
 				var observer = await _context.Users.FirstOrDefaultAsync(x =>
 					x.UserName == _userAccessor.GetUsername());
-				var university = await _context.Universities.FirstOrDefaultAsync(x => x.Id == request.UniversityId);
-				if (university == null) return null;
+				var higherEducationFacility = await _context.HigherEducationFacilities.FirstOrDefaultAsync(x => x.Id == request.HigherEducationFacilityId);
+				if (higherEducationFacility == null) return null;
 				var selected = await _context.FavoriteLists.FindAsync(observer!.Id);
 				if (selected == null)
 					_context.FavoriteLists.Add(new FavoriteList
 					{
 						AppUser = observer,
-						University = university
+						HigherEducationFacility = higherEducationFacility
 					});
 				else _context.FavoriteLists.Remove(selected);
 				var success = await _context.SaveChangesAsync() > 0;

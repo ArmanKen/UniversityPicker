@@ -3,7 +3,7 @@ import { Degree } from "./degree";
 export interface Specialty {
 	id: string;
 	facultyId: string;
-	universityId: string;
+	higherEducationFacilityId: string;
 	specialtyBase: SpecialtyBase;
 	priceUAH: number;
 	description: string;

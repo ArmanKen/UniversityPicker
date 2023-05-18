@@ -31,7 +31,7 @@ namespace Application.Profiles
 			public async Task<Result<DTOs.Profile>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var user = await _context.Users
-					.Include(x => x.University.TitlePhoto)
+					.Include(x => x.HigherEducationFacility.TitlePhoto)
 					.ProjectTo<DTOs.Profile>(_mapper.ConfigurationProvider)
 					.FirstOrDefaultAsync(x => x.Username == request.Username);
 				return Result<DTOs.Profile>.Success(user);

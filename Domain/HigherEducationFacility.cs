@@ -1,6 +1,6 @@
 namespace Domain
 {
-	public class University
+	public class HigherEducationFacility
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }
@@ -17,7 +17,7 @@ namespace Domain
 		public ICollection<Photo> Photos { get; set; } = new List<Photo>();
 		public ICollection<Faculty> Faculties { get; set; } = new List<Faculty>();
 		public ICollection<Review> Reviews { get; set; } = new List<Review>();
-		public ICollection<UniversityAdmin> UniversityAdmins { get; set; } = new List<UniversityAdmin>();
+		public ICollection<HigherEducationFacilityAdmin> HigherEducationFacilityAdmins { get; set; } = new List<HigherEducationFacilityAdmin>();
 		public ICollection<FavoriteList> FavoriteList { get; set; } = new List<FavoriteList>();
 	}
 }

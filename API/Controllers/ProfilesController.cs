@@ -29,11 +29,11 @@ namespace API.Controllers
 
 
 		[Authorize]
-		[HttpPost("favoriteToggle/{universityId}")]
-		public async Task<IActionResult> FavoriteToggle(Guid universityId)
+		[HttpPost("favoriteToggle/{higherEducationFacilityId}")]
+		public async Task<IActionResult> FavoriteToggle(Guid higherEducationFacilityId)
 		{
 			return HandleResult(await Mediator.Send(new Application.FavoriteLists.FavoriteToggle.Command
-			{ UniversityId = universityId }));
+			{ HigherEducationFacilityId = higherEducationFacilityId }));
 		}
 
 		[Authorize("IsGlobalAdmin")]

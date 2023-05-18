@@ -5,11 +5,11 @@ using Persistence;
 
 namespace Application.Photos
 {
-	public class DeleteUniversityTitlePhoto
+	public class DeleteHigherEducationFacilityTitlePhoto
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public Guid UniversityId { get; set; }
+			public Guid HigherEducationFacilityId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -25,11 +25,11 @@ namespace Application.Photos
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var university = await _context.Universities.FindAsync(request.UniversityId);
-				if (university == null) return null;
-				var photo = university.Photos.FirstOrDefault(x => x.Url == university.TitlePhoto);
+				var higherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.HigherEducationFacilityId);
+				if (higherEducationFacility == null) return null;
+				var photo = higherEducationFacility.Photos.FirstOrDefault(x => x.Url == higherEducationFacility.TitlePhoto);
 				if (photo == null) return null;
-				university.TitlePhoto = "";
+				higherEducationFacility.TitlePhoto = "";
 				var result = await _photoAccessor.DeletePhoto(photo.Id);
 				if (result == null) return Result<Unit>.Failure("Problem deleting photo from Cloudinary");
 				var success = await _context.SaveChangesAsync() > 0;

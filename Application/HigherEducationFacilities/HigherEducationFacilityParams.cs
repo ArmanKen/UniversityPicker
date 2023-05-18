@@ -1,8 +1,8 @@
 using Application.Core;
 
-namespace Application.Universities
+namespace Application.HigherEducationFacilities
 {
-	public class UniversityParams : UniversityPagingParams
+	public class HigherEducationFacilityParams : HigherEducationFacilityPagingParams
 	{
 		public string Name { get; set; }
 		public string AccreditationId { get; set; }

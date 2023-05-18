@@ -5,7 +5,7 @@ namespace Application.DTOs
 	public class SpecialtyDto
 	{
 		public Guid Id { get; set; }
-		public Guid UniversityId { get; set; }
+		public Guid HigherEducationFacilityId { get; set; }
 		public Guid FacultyId { get; set; }
 		public SpecialtyBaseIscedDto SpecialtyBase { get; set; }
 		public Degree Degree { get; set; }

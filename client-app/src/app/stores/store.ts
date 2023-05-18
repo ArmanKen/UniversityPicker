@@ -4,14 +4,14 @@ import EduComponentStore from "./eduComponentStore";
 import ModalStore from "./modalStore";
 import SpecilatyStore from "./specialtyStore";
 import UIStore from "./uiStore";
-import UniversityStore from "./universityStore";
+import HigherEducationFacilityStore from "./higherEducationFacilityStore";
 import FacultyStore from "./facultyStore";
 import { PhotoStore } from "./photoStore";
 import UserStore from "./userStore";
 import ProfileStore from "./profileStore";
 
 interface Store {
-	universityStore: UniversityStore,
+	higherEducationFacilityStore: HigherEducationFacilityStore,
 	facultyStore: FacultyStore,
 	specilatyStore: SpecilatyStore,
 	eduComponentStore: EduComponentStore,
@@ -24,7 +24,7 @@ interface Store {
 }
 
 export const store: Store = {
-	universityStore: new UniversityStore(),
+	higherEducationFacilityStore: new HigherEducationFacilityStore(),
 	facultyStore: new FacultyStore(),
 	specilatyStore: new SpecilatyStore(),
 	eduComponentStore: new EduComponentStore(),

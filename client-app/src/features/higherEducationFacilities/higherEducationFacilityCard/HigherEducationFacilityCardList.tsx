@@ -3,7 +3,7 @@ import { Card } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import HigherEducationFacilityCard from "./HigherEducationFacilityCard";
 
-export default observer(function HigherEducationFacilityList() {
+export default observer(function HigherEducationFacilityCardList() {
 	const { higherEducationFacilityStore: { higherEducationFacilities } } = useStore();
 
 	return (

@@ -1,6 +1,6 @@
 import { Header } from "semantic-ui-react"
 
-export default function UnviersityFiltersHeader() {
+export default function HigherEducationFacilityFiltersHeader() {
 
 	return (
 		<Header size='medium' textAlign='center'

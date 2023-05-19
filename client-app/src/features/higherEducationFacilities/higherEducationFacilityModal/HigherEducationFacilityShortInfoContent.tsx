@@ -27,7 +27,7 @@ export default observer(function HigherEducationFacilityShortInfoContent() {
 						<Table.Body>
 							<Table.Row>
 								<Table.Cell width={5}>
-									<Icon name='higherEducationFacility' size="big" />
+									<Icon name='university' size="big" />
 									Адреса:
 								</Table.Cell>
 								<Table.Cell width={12}>
@@ -78,7 +78,7 @@ export default observer(function HigherEducationFacilityShortInfoContent() {
 						<Table.Body>
 							<Table.Row>
 								<Table.Cell>
-									<Icon name='higherEducationFacility' size="big" />
+									<Icon name='university' size="big" />
 									Адреса:
 								</Table.Cell>
 								<Table.Cell>

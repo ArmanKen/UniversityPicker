@@ -29,6 +29,8 @@ namespace Application.Specialties
 			public async Task<Result<SpecialtyDto>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var specialty = await _context.Specialties
+					.Include(x => x.EduComponents)
+					.Include(x => x.Languages)
 					.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
 					.FirstOrDefaultAsync(x => x.Id == request.SpecialtyId);
 				if (specialty == null) return null;

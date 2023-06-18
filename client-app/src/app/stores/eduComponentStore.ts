@@ -1,48 +1,35 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { EduComponent } from "../models/eduComponent";
+import agent from "../api/agent";
 
 export default class EduComponentStore {
-	eduComponents: EduComponent[] = [];
+	eduComponents = new Map<string, EduComponent>();
+	eduComponentsLoadingInitial = false;
+	selectedEduComponent: EduComponent | undefined = undefined;
 
 	constructor() {
 		makeAutoObservable(this);
 	}
 
-	// loadEduComponents = () => {
-	// 	try {
-	// 		let selectedSpecialty = store.specilatyStore.selectedSpecialty;
-	// 		if (selectedSpecialty !== undefined) {
-	// 			store.higherEducationFacilityStore.higherEducationFacilities.forEach(higherEducationFacility => {
-	// 				let eduComponents = higherEducationFacility.specialties.find(x => x.code === selectedSpecialty!.code)?.eduComponents!;
-	// 				eduComponents.forEach(newEduComponent => {
-	// 					if (!this.eduComponents.some(eduComponent => eduComponent.id === newEduComponent.id))
-	// 						this.eduComponents.push(newEduComponent);
-	// 				});
-	// 			})
-	// 		}
-	// 		else {
-	// 			store.specilatyStore.selectedSpecialties.forEach(specialty => {
-	// 				specialty.eduComponents!.forEach(eduComponent => {
-	// 					if (!this.eduComponents.some(x => x.id === eduComponent.id)) {
-	// 						this.eduComponents.push(eduComponent);
-	// 					}
-	// 				})
-	// 			})
-	// 		}
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// }
+	setEduComponent = (eduComponents: EduComponent) => this.selectedEduComponent = eduComponents;
 
-	// updateSelectedEduComponents = (eduComponent: EduComponent) => eduComponent.isSelected ?
-	// 	eduComponent.isSelected = false : eduComponent.isSelected = true;
+	seteduComponentsLoadingInitial = (state: boolean) => this.eduComponentsLoadingInitial = state;
 
-	// clearSelectedEduComponents = () => this.eduComponents.forEach(eduComponent => eduComponent.isSelected = false)
+	clearEduComponents = () => this.eduComponents.clear();
 
-	// selectAllEduComponents = () => this.eduComponents.forEach(eduComponent => eduComponent.isSelected = true)
-
-	// undoEduComponentStore = () => {
-	// 	this.clearSelectedEduComponents();
-	// 	this.eduComponents = [];
-	// }
+	loadEduComponents = async (specialtyId: string) => {
+		this.seteduComponentsLoadingInitial(true);
+		try {
+			const result = await agent.EduComponents.list(specialtyId);
+			runInAction(() => {
+				result.forEach(eduComponent => {
+					this.eduComponents.set(eduComponent.id, eduComponent);
+				});
+			});
+			this.seteduComponentsLoadingInitial(false);
+		} catch (error) {
+			console.log(error);
+			this.seteduComponentsLoadingInitial(false);
+		}
+	}
 }

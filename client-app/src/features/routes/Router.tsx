@@ -6,6 +6,7 @@ import ServerError from "../errors/ServerError";
 import ProfilePage from "../profile/ProfilePage";
 import HigherEducationFacilitySettings from "../higherEducationFacilities/higherEducationFacilitySettings/HigherEducationFacilitySettings";
 import FacultyPage from "../faculties/facultyPage/FacultyPage";
+import SpecialtyPage from "../specialties/specialtyPage/SpecialtyPage";
 
 export const routes: RouteObject[] = [
 	{
@@ -14,7 +15,7 @@ export const routes: RouteObject[] = [
 		children: [
 			{ path: '/higherEducationFacility/:id', element: <HigherEducationFacilityPage /> },
 			{ path: '/faculty/:id', element: <FacultyPage /> },
-			{ path: '/specialty/:id', element: <HigherEducationFacilityPage /> },
+			{ path: '/specialty/:id', element: <SpecialtyPage /> },
 			{ path: '/settings/higherEducationFacility/:id', element: <HigherEducationFacilitySettings /> },
 			{ path: '/profile/:id', element: <ProfilePage /> },
 			{ path: '/not-found', element: <NotFound /> },

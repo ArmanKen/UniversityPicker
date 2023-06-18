@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { Pagination, PagingParams } from "../models/pagination";
 import { Specialty } from "../models/specialty";
 
 export default class SpecilatyStore {
@@ -8,16 +7,13 @@ export default class SpecilatyStore {
 	bachelorSpecialties = new Map<string, Specialty>();
 	magisterSpecialties = new Map<string, Specialty>();
 	specialtyLoadingInitial = false;
-	pagination: Pagination | undefined = undefined;
-	pagingParams = new PagingParams();
-	specialtyBaseId = '';
-	specialtyName = '';
+	selectedSpecialty: Specialty | undefined = undefined;
 
 	constructor() {
 		makeAutoObservable(this);
 	}
 
-	setPagination = (pagination: Pagination) => this.pagination = pagination;
+	setSpecialty = (specialty: Specialty) => this.selectedSpecialty = specialty;
 
 	setSpecialtyLoadingInitial = (state: boolean) => this.specialtyLoadingInitial = state;
 
@@ -28,6 +24,7 @@ export default class SpecilatyStore {
 	}
 
 	loadSpecialties = async (facultyId: string) => {
+		this.setSpecialtyLoadingInitial(true);
 		try {
 			const result = await agent.Specialties.list(facultyId);
 			runInAction(() => {
@@ -45,6 +42,21 @@ export default class SpecilatyStore {
 			this.setSpecialtyLoadingInitial(false);
 		} catch (error) {
 			console.log(error);
+			this.setSpecialtyLoadingInitial(false);
+		}
+	}
+
+	loadSpecialty = async (specialtyId: string) => {
+		this.setSpecialtyLoadingInitial(true);
+		try {
+			const specialty = await agent.Specialties.details(specialtyId);
+			this.setSpecialty(specialty);
+			this.setSpecialtyLoadingInitial(false);
+		} catch (error) {
+			runInAction(() => {
+				console.log(error);
+			});
+			this.setSpecialtyLoadingInitial(false);
 		}
 	}
 }

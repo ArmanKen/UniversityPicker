@@ -30,8 +30,6 @@ namespace Application.Specialties
 			{
 				var specialties = _context.Specialties
 					.Include(x => x.SpecialtyBase.Isceds)
-					.Include(x => x.StudyForms)
-					.Include(x => x.Degree)
 					.Where(x => x.Faculty.Id == request.FacultyId);
 				if (specialties == null) return null;
 				return Result<List<SpecialtyDto>>.Success(

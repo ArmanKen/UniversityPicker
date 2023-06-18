@@ -5,21 +5,23 @@ import { Divider, Grid } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import LoadingComponent from "../../../app/common/components/LoadingComponent";
 import FacultyMainInfo from "./FacultyMainInfo";
-import SpecialtyItemsList from "../../specialties/specialtyList/SpecialtyItemsList";
+import SpecialtyCardList from "../../specialties/specialtyList/SpecialtyCardList";
 
 export default observer(function FacultyPage() {
 	const { facultyStore: { loadFaculty, facultyLoadingInitial,
-		selectedFaculty } } = useStore();
+		selectedFaculty }, specilatyStore: { loadSpecialties, clearSpecialties } } = useStore();
 	const { id } = useParams<{ id: string }>();
 
 	useEffect(() => {
 		if (id) {
 			loadFaculty(id);
+			loadSpecialties(id);
 		}
-	}, [loadFaculty, id])
+		return () => clearSpecialties()
+	}, [loadFaculty, id, clearSpecialties, loadSpecialties])
 
 	if (facultyLoadingInitial || !selectedFaculty)
-		return <LoadingComponent content="Завантаження даних ЗВО" />
+		return <LoadingComponent content="Завантаження даних про Факультет" />
 
 	return (
 		<Grid>
@@ -28,7 +30,7 @@ export default observer(function FacultyPage() {
 			</Grid.Row>
 			<Divider hidden style={{ padding: 0, margin: 0 }} />
 			<Grid.Row>
-				<SpecialtyItemsList facultyId={selectedFaculty.id} />
+				<SpecialtyCardList facultyId={selectedFaculty.id} />
 			</Grid.Row>
 		</Grid>
 	)

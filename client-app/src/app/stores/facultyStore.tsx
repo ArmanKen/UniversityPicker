@@ -39,23 +39,15 @@ export default class FacultyStore {
 
 	loadFaculty = async (facultyId: string) => {
 		this.setFacultyLoadingInitial(true);
-		this.clearFaculty();
-		let faculty = this.getFaculty(facultyId);
-		if (faculty) {
-			this.selectedFaculty = faculty;
+		try {
+			const faculty = await agent.Faculties.details(facultyId);
+			this.setFaculty(faculty);
 			this.setFacultyLoadingInitial(false);
-			return this.selectedFaculty;
-		} else {
-			try {
-				faculty = await agent.Faculties.details(facultyId);
-				this.setFaculty(faculty);
-				this.setFacultyLoadingInitial(false);
-			} catch (error) {
-				runInAction(() => {
-					console.log(error);
-				});
-				this.setFacultyLoadingInitial(false);
-			}
+		} catch (error) {
+			runInAction(() => {
+				console.log(error);
+			});
+			this.setFacultyLoadingInitial(false);
 		}
 	}
 

@@ -13,7 +13,7 @@ namespace Application.Reviews
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public ReviewDto Review { get; set; }
+			public ReviewFormValues Review { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -35,7 +35,8 @@ namespace Application.Reviews
 				if (user == null) return null;
 				var review = await _context.Reviews.FindAsync(request.Review.Id);
 				if (review == null) return Result<Unit>.Failure("Failed to update the review");
-				_mapper.Map(request.Review, review);
+				review.Body = request.Review.Body;
+				review.Rating = request.Review.Rating;
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<Unit>.Success(Unit.Value);
 				return Result<Unit>.Failure("Failed to update review");

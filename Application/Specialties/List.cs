@@ -10,13 +10,12 @@ namespace Application.Specialties
 {
 	public class List
 	{
-		public class Query : IRequest<Result<PagedList<SpecialtyDto>>>
+		public class Query : IRequest<Result<List<SpecialtyDto>>>
 		{
 			public Guid FacultyId { get; set; }
-			public SpecialtyParams Params { get; set; }
 		}
 
-		public class Handler : IRequestHandler<Query, Result<PagedList<SpecialtyDto>>>
+		public class Handler : IRequestHandler<Query, Result<List<SpecialtyDto>>>
 		{
 			private readonly DataContext _context;
 			private readonly IMapper _mapper;
@@ -27,23 +26,18 @@ namespace Application.Specialties
 				_context = context;
 			}
 
-			public async Task<Result<PagedList<SpecialtyDto>>> Handle(Query request, CancellationToken cancellationToken)
+			public async Task<Result<List<SpecialtyDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var faculty = await _context.Faculties
-					.FindAsync(request.FacultyId);
-				if (faculty == null) return null;
-				var query = faculty.Specialties
-					.AsQueryable()
-					.Where(x =>
-						(string.IsNullOrEmpty(request.Params.Name)
-						|| x.SpecialtyBase.Id.ToLower() == request.Params.Name.ToLower()
-						|| x.SpecialtyBase.Name.ToLower() == request.Params.Name.ToLower()));
-				return Result<PagedList<SpecialtyDto>>.Success(
-					PagedList<SpecialtyDto>.Create(
-						query
-							.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
-							.OrderBy(x => x.SpecialtyBase.Id),
-					request.Params.PageNumber, request.Params.PageSize));
+				var specialties = _context.Specialties
+					.Include(x => x.SpecialtyBase.Isceds)
+					.Include(x => x.StudyForms)
+					.Include(x => x.Degree)
+					.Where(x => x.Faculty.Id == request.FacultyId);
+				if (specialties == null) return null;
+				return Result<List<SpecialtyDto>>.Success(
+					await specialties
+					.ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
+					.ToListAsync());
 			}
 		}
 	}

@@ -10,17 +10,17 @@ import UnviersityFiltersHeader from "./filterBar/HigherEducationFacilityFiltersH
 import NotFoundComponent from "../../../app/common/components/NotFoundComponent";
 
 export default observer(function HigherEducationFacilityDashboard() {
-	const { higherEducationFacilityStore: { higherEducationFacilities, loadHigherEducationFacilites,
+	const { higherEducationFacilityStore: { higherEducationFacilities, loadHigherEducationFacilitiesController,
 		pagination, setPagingParams, higherEducationFacilityLoadingInitial }, modalStore: { openModal } } = useStore();
 
 	useEffect(() => {
-		if (higherEducationFacilities.size < 1) loadHigherEducationFacilites();
-	}, [loadHigherEducationFacilites, higherEducationFacilities.size])
+		if (higherEducationFacilities.size < 1) loadHigherEducationFacilitiesController();
+	}, [loadHigherEducationFacilitiesController, higherEducationFacilities.size])
 
 	function handleGetNext() {
 		if (!higherEducationFacilityLoadingInitial) {
 			setPagingParams(new PagingParams(pagination!.currentPage + 1));
-			loadHigherEducationFacilites();
+			loadHigherEducationFacilitiesController();
 		}
 	}
 
@@ -47,7 +47,7 @@ export default observer(function HigherEducationFacilityDashboard() {
 							dataLength={higherEducationFacilities.size} next={handleGetNext} loader=''
 							hasMore={!higherEducationFacilityLoadingInitial && !!pagination
 								&& pagination.currentPage < pagination.totalPages}>
-							<HigherEducationFacilityCardList />
+							<HigherEducationFacilityCardList higherEducationFacilities={higherEducationFacilities} />
 						</InfiniteScroll>
 					}
 				</Grid.Column>
@@ -70,7 +70,7 @@ export default observer(function HigherEducationFacilityDashboard() {
 							dataLength={higherEducationFacilities.size} next={handleGetNext} loader=''
 							hasMore={!higherEducationFacilityLoadingInitial && !!pagination
 								&& pagination.currentPage < pagination.totalPages}>
-							<HigherEducationFacilityCardList />
+							<HigherEducationFacilityCardList higherEducationFacilities={higherEducationFacilities} />
 						</InfiniteScroll>
 					}
 				</Grid.Column>

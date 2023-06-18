@@ -30,7 +30,11 @@ namespace Application.Reviews
 
 			public async Task<Result<PagedList<ReviewDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var higherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.HigherEducationFacilityId);
+				var higherEducationFacility = await _context.HigherEducationFacilities
+					.Include(x => x.Reviews)
+					.ThenInclude(x => x.Author)
+					.ThenInclude(x => x.Photo)
+					.FirstOrDefaultAsync(x => x.Id == request.HigherEducationFacilityId);
 				if (higherEducationFacility == null) return null;
 				var query = higherEducationFacility.Reviews.AsQueryable();
 				return Result<PagedList<ReviewDto>>.Success(

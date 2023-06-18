@@ -1,3 +1,4 @@
+using Application.FavoriteLists;
 using Application.Profiles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,21 +16,20 @@ namespace API.Controllers
 
 		[Authorize]
 		[HttpPut("update")]
-		public async Task<IActionResult> Edit(Edit.Command command)
+		public async Task<IActionResult> Edit(ProfileFormValues profile)
 		{
-			return HandleResult(await Mediator.Send(command));
+			return HandleResult(await Mediator.Send(new Edit.Command { Profile = profile }));
 		}
 
 		[Authorize]
 		[HttpGet("favoriteList")]
-		public async Task<IActionResult> FavoriteList()
+		public async Task<IActionResult> FavoriteList([FromQuery] FavoriteListParams param)
 		{
-			return HandlePagedResult(await Mediator.Send(new Application.FavoriteLists.List.Query { }));
+			return HandlePagedResult(await Mediator.Send(new Application.FavoriteLists.List.Query { Params = param }));
 		}
 
-
 		[Authorize]
-		[HttpPost("favoriteToggle/{higherEducationFacilityId}")]
+		[HttpPut("favoriteToggle/{higherEducationFacilityId}")]
 		public async Task<IActionResult> FavoriteToggle(Guid higherEducationFacilityId)
 		{
 			return HandleResult(await Mediator.Send(new Application.FavoriteLists.FavoriteToggle.Command

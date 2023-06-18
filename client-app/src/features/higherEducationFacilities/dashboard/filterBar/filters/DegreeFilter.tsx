@@ -9,17 +9,20 @@ export default observer(function DegreeFilter() {
 
 	return (
 		<Segment
-			disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
 			style={{ paddingLeft: 20, paddingRight: 20 }}>
-			<Popup content="Щоб використати ці фільтри потрібно обрати спеціальність" trigger={
-				<Header
-					textAlign='center'
-					content='Освітня ступінь'
-					size='small'
-				/>}
+			<Popup
+				disabled={!!higherEducationFacilityQueryParams.specialtyBasesId.length}
+				content="Щоб використати ці фільтри потрібно обрати спеціальність"
+				trigger={
+					<Header
+						disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
+						textAlign='center'
+						content='Освітня ступінь'
+						size='small'
+					/>}
 			/>
 			<Dropdown
-				disabled={!higherEducationFacilityQueryParams.specialtyBasesId.length}
+				disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
 				placeholder='Освітня ступінь...'
 				options={degrees}
 				selection

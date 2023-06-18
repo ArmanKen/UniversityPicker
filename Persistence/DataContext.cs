@@ -10,7 +10,7 @@ public class DataContext : IdentityDbContext<AppUser>
 	}
 
 	public DbSet<HigherEducationFacility> HigherEducationFacilities { get; set; }
-	public DbSet<HigherEducationFacilityAdmin> HigherEducationFacilitesAdmins { get; set; }
+	public DbSet<HigherEducationFacilityAdmin> HigherEducationFacilitiesAdmins { get; set; }
 	public DbSet<Specialty> Specialties { get; set; }
 	public DbSet<SpecialtyBase> SpecialtyBases { get; set; }
 	public DbSet<Region> Regions { get; set; }
@@ -35,7 +35,7 @@ public class DataContext : IdentityDbContext<AppUser>
 		builder.Entity<HigherEducationFacilityAdmin>(b =>
 		{
 			b.HasKey(x => new { x.AppUserId, x.HigherEducationFacilityId });
-			b.HasOne(x => x.AppUser).WithMany(x => x.HigherEducationFacilitesAdmin).HasForeignKey(x => x.AppUserId);
+			b.HasOne(x => x.AppUser).WithMany(x => x.HigherEducationFacilitiesAdmin).HasForeignKey(x => x.AppUserId);
 			b.HasOne(u => u.HigherEducationFacility).WithMany(x => x.HigherEducationFacilityAdmins).HasForeignKey(u => u.HigherEducationFacilityId);
 		});
 		builder.Entity<FavoriteList>(b =>

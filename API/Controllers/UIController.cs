@@ -8,7 +8,7 @@ namespace API.Controllers
 	{
 		[AllowAnonymous]
 		[HttpGet("list")]
-		public async Task<IActionResult> GetSpecialtyBases()
+		public async Task<IActionResult> GetUIList()
 		{
 			return HandleResult(await Mediator.Send(new List.Query()));
 		}

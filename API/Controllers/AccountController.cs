@@ -24,6 +24,7 @@ namespace API.Controllers
 			_userManager = userManager;
 		}
 
+		[AllowAnonymous]
 		[HttpPost("login")]
 		public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
 		{
@@ -41,6 +42,7 @@ namespace API.Controllers
 			return Unauthorized();
 		}
 
+		[AllowAnonymous]
 		[HttpPost("register")]
 		public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
 		{
@@ -81,6 +83,20 @@ namespace API.Controllers
 			var user = await _userManager.Users.Include(p => p.Photo)
 				.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
 			return CreateUserObject(user!);
+		}
+
+		[Authorize("isGlobalAdmin")]
+		[HttpGet("isGlobalAdmin")]
+		public ActionResult<bool> UserIsGlobalAdmin()
+		{
+			return Ok(true);
+		}
+
+		[Authorize("isLocalAdmin")]
+		[HttpGet("isLocalAdmin/{higherEducationFacilityId}")]
+		public ActionResult<bool> UserIsLocalAdmin()
+		{
+			return Ok(true);
 		}
 
 		private UserDTO CreateUserObject(AppUser user)

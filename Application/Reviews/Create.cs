@@ -14,16 +14,8 @@ namespace Application.Reviews
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public ReviewDto Review { get; set; }
+			public ReviewFormValues Review { get; set; }
 			public Guid UniversirtyId { get; set; }
-		}
-
-		public class CommandValidator : AbstractValidator<Command>
-		{
-			public CommandValidator()
-			{
-				RuleFor(x => x.Review).SetValidator(new ReviewValidator());
-			}
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>

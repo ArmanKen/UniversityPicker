@@ -11,6 +11,7 @@ export default class HigherEducationFacilityStore {
 	higherEducationFacilityLoadingInitial = true;
 	pagination: Pagination | undefined = undefined;
 	pagingParams = new PagingParams();
+	activeTab = 0;
 	higherEducationFacilityQueryParams: HigherEducationFacilityQueryParams = {
 		name: '',
 		accreditationId: 0,
@@ -72,7 +73,7 @@ export default class HigherEducationFacilityStore {
 
 	setHigherEducationFacility = (higherEducationFacility: HigherEducationFacility) => this.selectedHigherEducationFacility = higherEducationFacility;
 
-	clearHigherEducationFacilites = () => this.higherEducationFacilities.clear();
+	clearHigherEducationFacilitiesController = () => this.higherEducationFacilities.clear();
 
 	clearHigherEducationFacility = () => {
 		this.selectedHigherEducationFacility = undefined;
@@ -99,7 +100,7 @@ export default class HigherEducationFacilityStore {
 		return params;
 	}
 
-	loadHigherEducationFacilites = async () => {
+	loadHigherEducationFacilitiesController = async () => {
 		this.setHigherEducationFacilityLoadingInitial(true);
 		try {
 			const result = await agent.HigherEducationFacilities.list(this.axiosParams);
@@ -153,7 +154,7 @@ export default class HigherEducationFacilityStore {
 		}
 	}
 
-	editHigherEducationFacility = async (higherEducationFacility: HigherEducationFacility) => {
+	editHigherEducationFacility = async (higherEducationFacility: HigherEducationFacilityFormValues) => {
 		this.setHigherEducationFacilityLoadingInitial(true);
 		try {
 			await agent.HigherEducationFacilities.edit(higherEducationFacility);
@@ -166,11 +167,11 @@ export default class HigherEducationFacilityStore {
 		}
 	}
 
-	deleteHigherEducationFacility = async (higherEducationFacilityId: string) => {
+	deleteHigherEducationFacility = async (higherEducationFacility: { higherEducationFacilityId: string }) => {
 		this.setHigherEducationFacilityLoadingInitial(true);
 		try {
-			await agent.HigherEducationFacilities.delete(higherEducationFacilityId);
-			this.higherEducationFacilities.delete(higherEducationFacilityId);
+			await agent.HigherEducationFacilities.delete(higherEducationFacility.higherEducationFacilityId);
+			this.higherEducationFacilities.delete(higherEducationFacility.higherEducationFacilityId);
 			this.setHigherEducationFacilityLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
@@ -180,13 +181,17 @@ export default class HigherEducationFacilityStore {
 		}
 	}
 
+	setActiveTab = (activeTab: any) => {
+		this.activeTab = activeTab;
+	}
+
 	handleDebounce = _.debounce(() => {
 		this.setPagingParams(new PagingParams(1, 20));
-		this.clearHigherEducationFacilites();
+		this.clearHigherEducationFacilitiesController();
 	}, 500);
 
 	handleDebounceWithLoad = _.debounce(() => {
 		this.setPagingParams(new PagingParams(1, 20));
-		this.loadHigherEducationFacilites();
+		this.loadHigherEducationFacilitiesController();
 	}, 500);
 }

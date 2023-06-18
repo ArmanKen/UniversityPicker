@@ -7,16 +7,15 @@ import NotFoundComponent from "../../../app/common/components/NotFoundComponent"
 
 export interface Props {
 	higherEducationFacilityId: string;
-	facultiesOnScreen: boolean;
 }
 
-export default observer(function FacultyList({ higherEducationFacilityId, facultiesOnScreen }: Props) {
+export default observer(function FacultyList({ higherEducationFacilityId }: Props) {
 	const { facultyStore: { faculties, loadFaculties, facultyLoadingInitial } } = useStore()
 
 	useEffect(() => {
-		if (faculties.size < 1 && facultiesOnScreen)
+		if (faculties.size < 1)
 			loadFaculties(higherEducationFacilityId);
-	}, [loadFaculties, faculties.size, higherEducationFacilityId, facultiesOnScreen])
+	}, [loadFaculties, faculties.size, higherEducationFacilityId])
 
 	return (
 		<Grid centered stackable stretched>
@@ -26,8 +25,8 @@ export default observer(function FacultyList({ higherEducationFacilityId, facult
 					{facultyLoadingInitial ? <Loader size="medium" active inline /> : faculties.size > 1 ?
 						<Card.Group itemsPerRow={3} stackable style={{ justifyContent: 'center' }}>
 							{
-								Array.from(faculties.values()).map(facultiy => (
-									<FacultyCard key={facultiy.id} faculty={facultiy} />
+								Array.from(faculties.values()).map(faculty => (
+									<FacultyCard key={faculty.id} faculty={faculty} />
 								))
 							}
 						</Card.Group > : <NotFoundComponent content="Факультети не знайдено" />

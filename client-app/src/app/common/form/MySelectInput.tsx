@@ -1,5 +1,4 @@
 import { useField } from "formik";
-import React from "react";
 import { Form, Label, Select } from "semantic-ui-react";
 
 interface Props {
@@ -7,6 +6,7 @@ interface Props {
 	name: string;
 	options: any;
 	label?: string;
+	readOnly?: boolean;
 }
 
 export default function MySelectInput(props: Props) {
@@ -15,10 +15,14 @@ export default function MySelectInput(props: Props) {
 		<Form.Field error={meta.touched && !!meta.error}>
 			<label>{props.label}</label>
 			<Select
-				clearable
+				disabled={props.readOnly}
+				clearable={!props.readOnly}
+				style={{ marginRight: "100%", width: 220 }}
 				options={props.options}
 				value={field.value || null}
-				onChange={(e, d) => helpers.setValue(d.value)}
+				onChange={(e, d) => {
+					helpers.setValue(d.value)
+				}}
 				onBlur={() => helpers.setTouched(true)}
 				placeholder={props.placeholder}
 			/>

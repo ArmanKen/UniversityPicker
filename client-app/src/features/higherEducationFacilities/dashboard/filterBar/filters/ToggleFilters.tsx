@@ -4,12 +4,10 @@ import { useStore } from "../../../../../app/stores/store";
 import { action } from "mobx";
 
 export default observer(function ToggleFilters() {
-	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams },
-		uiStore: { uiLoadingInitial } } = useStore()
+	const { higherEducationFacilityStore: { higherEducationFacilityQueryParams } } = useStore()
 
 	return (
 		<Segment
-			disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
 			size="small"
 			style={{ paddingLeft: 36, paddingRight: 42 }}>
 			<Grid>
@@ -18,13 +16,16 @@ export default observer(function ToggleFilters() {
 						width={12}
 						style={{ paddingRight: 0, paddingLeft: 0 }}
 						floated='left'>
-						<Popup content="Щоб використати ці фільтри потрібно обрати спеціальність" trigger={
-							<Header
-								style={{ marginTop: 2 }}
-								size='small'
-								disabled={uiLoadingInitial || !higherEducationFacilityQueryParams.specialtyBasesId.length}
-								content='З бюджетними місцями'
-							/>}
+						<Popup
+							disabled={!!higherEducationFacilityQueryParams.specialtyBasesId.length}
+							content="Щоб використати ці фільтри потрібно обрати спеціальність"
+							trigger={
+								<Header
+									style={{ marginTop: 2 }}
+									size='small'
+									disabled={!higherEducationFacilityQueryParams.specialtyBasesId.length}
+									content='З бюджетними місцями'
+								/>}
 						/>
 					</Grid.Column>
 					<Grid.Column
@@ -45,7 +46,6 @@ export default observer(function ToggleFilters() {
 						style={{ paddingRight: 0, paddingLeft: 0 }}
 						floated='left'>
 						<Header
-							disabled={uiLoadingInitial}
 							style={{ marginTop: 2 }}
 							size='small'
 							content='У Топ-200 ВНЗ України'

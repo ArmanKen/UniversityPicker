@@ -9,7 +9,7 @@ namespace API.Controllers
 	{
 		[AllowAnonymous]
 		[HttpGet("list/{higherEducationFacilityId}")]
-		public async Task<IActionResult> GetReviews([FromQuery] ReviewParams param, Guid higherEducationFacilityId)
+		public async Task<IActionResult> GetReviews(Guid higherEducationFacilityId, [FromQuery] ReviewParams param )
 		{
 			return HandlePagedResult(await Mediator.Send(new List.Query
 			{ HigherEducationFacilityId = higherEducationFacilityId, Params = param }));
@@ -31,9 +31,9 @@ namespace API.Controllers
 			{ HigherEducationFacilityId = higherEducationFacilityId }));
 		}
 
-		[Authorize(Policy = "IsLocalAdmin")]
+		[Authorize]
 		[HttpPost("create/{higherEducationFacilityId}")]
-		public async Task<IActionResult> CreateReview(ReviewDto Review, Guid higherEducationFacilityId)
+		public async Task<IActionResult> CreateReview(ReviewFormValues Review, Guid higherEducationFacilityId)
 		{
 			return HandleResult(await Mediator.Send(new Create.Command
 			{ Review = Review, UniversirtyId = higherEducationFacilityId }));
@@ -41,7 +41,7 @@ namespace API.Controllers
 
 		[Authorize]
 		[HttpPut("{higherEducationFacilityId}/{reviewId}")]
-		public async Task<IActionResult> EditReview(ReviewDto Review, Guid reviewId)
+		public async Task<IActionResult> EditReview(ReviewFormValues Review, Guid reviewId)
 		{
 			Review.Id = reviewId;
 			return HandleResult(await Mediator.Send(new Edit.Command

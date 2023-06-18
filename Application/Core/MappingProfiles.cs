@@ -31,11 +31,11 @@ namespace Application.Core
 			CreateMap<Review, ReviewDto>()
 				.ForMember(x => x.UserName, o => o.MapFrom(x => x.Author.UserName))
 				.ForMember(x => x.FullName, o => o.MapFrom(x => x.Author.FullName))
-				.ForMember(x => x.Image, o => o.MapFrom(x => x.Author.Photo));
+				.ForMember(x => x.Image, o => o.MapFrom(x => x.Author.Photo != default ? x.Author.Photo.Url : ""));
 			CreateMap<FavoriteList, HigherEducationFacilityDto>()
 				.ForMember(x => x.Address, o => o.MapFrom(x => x.HigherEducationFacility.Address))
-				.ForMember(x => x.Region, o => o.MapFrom(x => x.HigherEducationFacility.Region != null ? x.HigherEducationFacility.Region.Name : null))
-				.ForMember(x => x.City, o => o.MapFrom(x => x.HigherEducationFacility.City != null ? x.HigherEducationFacility.City.Name : null))
+				.ForMember(x => x.Region, o => o.MapFrom(x => x.HigherEducationFacility.Region))
+				.ForMember(x => x.City, o => o.MapFrom(x => x.HigherEducationFacility.City))
 				.ForMember(x => x.Id, o => o.MapFrom(x => x.HigherEducationFacility.Id))
 				.ForMember(x => x.Info, o => o.MapFrom(x => x.HigherEducationFacility.Info))
 				.ForMember(x => x.Name, o => o.MapFrom(x => x.HigherEducationFacility.Name))

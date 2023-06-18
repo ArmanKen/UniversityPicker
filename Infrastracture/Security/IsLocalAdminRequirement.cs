@@ -29,7 +29,7 @@ namespace Infrastracture.Security
 			var globalAdministrator = _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId).Result;
 			var higherEducationFacilityId = Guid.Parse(_httpContentAccessor.HttpContext?.Request.RouteValues
 				.SingleOrDefault(x => x.Key == "higherEducationFacilityId").Value?.ToString());
-			var localAdministrator = _dbContext.HigherEducationFacilitesAdmins.AsNoTracking()
+			var localAdministrator = _dbContext.HigherEducationFacilitiesAdmins.AsNoTracking()
 				.SingleOrDefaultAsync(x => x.AppUserId == userId && x.HigherEducationFacilityId == higherEducationFacilityId).Result;
 			if (localAdministrator != null || globalAdministrator.IsGlobalAdmin) context.Succeed(requirement);
 			return Task.CompletedTask;

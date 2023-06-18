@@ -30,7 +30,8 @@ namespace Application.Photos
 					.FirstOrDefaultAsync(x => x.Id == request.HigherEducationFacilityId);
 				if (higherEducationFacility == null) return null;
 				return Result<PagedList<Photo>>.Success(
-					PagedList<Photo>.Create(higherEducationFacility.Photos.AsQueryable(), request.Params.PageNumber, request.Params.PageSize));
+					PagedList<Photo>.Create(higherEducationFacility.Photos.AsQueryable(),
+						request.Params.PageNumber, request.Params.PageSize));
 			}
 		}
 	}

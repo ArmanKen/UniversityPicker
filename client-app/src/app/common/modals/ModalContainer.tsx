@@ -4,7 +4,7 @@ import { useStore } from '../../stores/store';
 
 export default observer(function ModalContainer() {
 	const { modalStore: { size, open, body,
-		closeModal, header, action } } = useStore();
+		closeModal, header } } = useStore();
 
 	return (
 		<Transition.Group animation='fade'
@@ -16,9 +16,6 @@ export default observer(function ModalContainer() {
 				</Modal.Header>
 				<Modal.Content>
 					{body}
-				</Modal.Content>
-				<Modal.Content>
-					{action}
 				</Modal.Content>
 			</Modal >}
 		</Transition.Group >

@@ -8,12 +8,12 @@ using Persistence;
 
 namespace Application.Photos
 {
-	public class AddHigherEducationFacilityPhoto
+	public class AddFacultyPhoto
 	{
 		public class Command : IRequest<Result<Photo>>
 		{
 			public IFormFile File { get; set; }
-			public Guid HigherEducationFacilityId { get; set; }
+			public Guid FacultyId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Photo>>
@@ -31,16 +31,18 @@ namespace Application.Photos
 
 			public async Task<Result<Photo>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var higherEducationFacility = await _context.HigherEducationFacilities.Include(p => p.Photos)
-					.FirstOrDefaultAsync(x => x.Id == request.HigherEducationFacilityId);
-				if (higherEducationFacility == null) return null;
+				var faculty = await _context.Faculties.Include(p => p.FacultyPhoto)
+					.FirstOrDefaultAsync(x => x.Id == request.FacultyId);
+				if (faculty == null) return null;
 				var photoUploadResult = await _photoAccessor.AddPhoto(request.File);
 				var photo = new Photo
 				{
 					Url = photoUploadResult.Url,
 					Id = photoUploadResult.PublicId
 				};
-				higherEducationFacility.Photos.Add(photo);
+				if (faculty.FacultyPhoto != null && !string.IsNullOrEmpty(faculty.FacultyPhoto.Id))
+					await _photoAccessor.DeletePhoto(faculty.FacultyPhoto.Id);
+				faculty.FacultyPhoto = photo;
 				var result = await _context.SaveChangesAsync() > 0;
 				if (result) return Result<Photo>.Success(photo);
 				return Result<Photo>.Failure("Problem when adding photo");

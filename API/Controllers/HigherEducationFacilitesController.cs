@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-	public class HigherEducationFacilitesController : BaseApiController
+	public class HigherEducationFacilitiesController : BaseApiController
 	{
 		[AllowAnonymous]
 		[HttpGet("list")]
-		public async Task<IActionResult> GetHigherEducationFacilites([FromQuery] HigherEducationFacilityParams param)
+		public async Task<IActionResult> GetHigherEducationFacilities([FromQuery] HigherEducationFacilityParams param)
 		{
 			return HandlePagedResult(await Mediator.Send(new List.Query
 			{ Params = param }));
@@ -25,7 +25,7 @@ namespace API.Controllers
 
 		[Authorize(Policy = "IsGlobalAdmin")]
 		[HttpPost("create")]
-		public async Task<IActionResult> CreateHigherEducationFacility(HigherEducationFacilityDto higherEducationFacility)
+		public async Task<IActionResult> CreateHigherEducationFacility(HigherEducationFacilityFormValues higherEducationFacility)
 		{
 			return HandleResult(await Mediator.Send(new Create.Command
 			{ HigherEducationFacility = higherEducationFacility }));
@@ -33,7 +33,8 @@ namespace API.Controllers
 
 		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpPut("{higherEducationFacilityId}")]
-		public async Task<IActionResult> ChangeHigherEducationFacility(Guid higherEducationFacilityId, HigherEducationFacilityDto higherEducationFacility)
+		public async Task<IActionResult> ChangeHigherEducationFacility(Guid higherEducationFacilityId,
+			HigherEducationFacilityFormValues higherEducationFacility)
 		{
 			higherEducationFacility.Id = higherEducationFacilityId;
 			return HandleResult(await Mediator.Send(new Edit.Command

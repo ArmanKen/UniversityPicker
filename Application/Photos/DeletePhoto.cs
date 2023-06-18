@@ -1,15 +1,16 @@
 using Application.Core;
 using Application.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Photos
 {
-	public class DeleteHigherEducationFacilityTitlePhoto
+	public class DeletePhoto
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public Guid HigherEducationFacilityId { get; set; }
+			public string PhotoId { get; set; }
 		}
 
 		public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -25,12 +26,10 @@ namespace Application.Photos
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var higherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.HigherEducationFacilityId);
-				if (higherEducationFacility == null) return null;
-				var photo = higherEducationFacility.Photos.FirstOrDefault(x => x.Url == higherEducationFacility.TitlePhoto);
+				var photo = await _context.Photos.FindAsync(request.PhotoId);
 				if (photo == null) return null;
-				higherEducationFacility.TitlePhoto = "";
 				var result = await _photoAccessor.DeletePhoto(photo.Id);
+				_context.Photos.Remove(photo);
 				if (result == null) return Result<Unit>.Failure("Problem deleting photo from Cloudinary");
 				var success = await _context.SaveChangesAsync() > 0;
 				if (success) return Result<Unit>.Success(Unit.Value);

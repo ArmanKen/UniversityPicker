@@ -30,7 +30,7 @@ namespace Application.FavoriteLists
 					x.UserName == _userAccessor.GetUsername());
 				var higherEducationFacility = await _context.HigherEducationFacilities.FirstOrDefaultAsync(x => x.Id == request.HigherEducationFacilityId);
 				if (higherEducationFacility == null) return null;
-				var selected = await _context.FavoriteLists.FindAsync(observer!.Id);
+				var selected = await _context.FavoriteLists.FindAsync(observer!.Id,request.HigherEducationFacilityId);
 				if (selected == null)
 					_context.FavoriteLists.Add(new FavoriteList
 					{

@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import { Card, Image, Transition } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { Faculty } from "../../../app/models/faculty";
+import { Link } from "react-router-dom";
 
 interface Props {
 	faculty: Faculty
@@ -15,7 +16,8 @@ export default observer(function FacultyCard({ faculty }: Props) {
 		<Transition animation="fade" duration={300}
 			unmountOnHide={true} transitionOnMount={true}>
 			<Card fluid raised
-				style={{ minWidth: 200, maxWidth: 350 }}
+				as={Link} to={`/faculty/${faculty.id}`}
+				style={{ minWidth: 150, maxWidth: 250 }}
 				onClick={() => setFaculty(faculty)}	>
 				<Image fluid src={(faculty.facultyPhoto && faculty.facultyPhoto.url)
 					|| '../facultyLogo.png'} />
@@ -26,7 +28,7 @@ export default observer(function FacultyCard({ faculty }: Props) {
 						{'Області знань факультету: '}
 						{faculty.knowledgeBranches.length > 0 ?
 							faculty.knowledgeBranches.map(knowledgeBranch =>
-								<div style={{ whiteSpace: 'pre-line' }}>
+								<div style={{ whiteSpace: 'pre-line' }} key={knowledgeBranch.id}>
 									{knowledgeBranch.name + '\n'}
 								</div>) : 'Області знань не зазначені'}
 					</Card.Description>

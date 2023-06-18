@@ -1,64 +1,55 @@
 import { observer } from "mobx-react-lite";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Divider, Grid, Ref } from "semantic-ui-react";
+import { Divider, Grid } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import HigherEducationFacilityMainInfo from "./HigherEducationFacilityMainInfo";
-import useOnScreen from "../../../app/common/hooks/useOnScreen";
 import LoadingComponent from "../../../app/common/components/LoadingComponent";
 import FacultyCardList from "../../faculties/facultyCard/FacultyCardList";
+import HigherEducationFacilityGallery from "../higherEducationFacilityGallery/HigherEducationFacilityGallery";
+import HigherEducationFacilityContacts from "./HigherEducationFacilityContacts";
+import HigherEducationFacilityReviews from "./HigherEducationFacilityReviews";
 
 export default observer(function HigherEducationFacilityPage() {
 	const { higherEducationFacilityStore: { loadHigherEducationFacility, clearHigherEducationFacility,
-		selectedHigherEducationFacility, higherEducationFacilityLoadingInitial } } = useStore();
+		selectedHigherEducationFacility, higherEducationFacilityLoadingInitial }, photoStore: { clearGallery },
+		reviewStore: { clearReviews } } = useStore();
 	const { id } = useParams<{ id: string }>();
-	const facultiesRef = useRef(null);
-	const facultiesOnScreen = useOnScreen(facultiesRef, higherEducationFacilityLoadingInitial);
-	const galleryRef = useRef(null);
-	const galleryOnScreen = useOnScreen(galleryRef, higherEducationFacilityLoadingInitial);
-	// const reviewsRef = useRef(null);
-	// const reviewsOnScreen = useOnScreen(reviewsRef, higherEducationFacilityLoadingInitial);
+
 
 	useEffect(() => {
 		if (id) loadHigherEducationFacility(id);
-		return () => clearHigherEducationFacility();
-	}, [clearHigherEducationFacility, id, loadHigherEducationFacility])
+		return () => {
+			clearHigherEducationFacility();
+			clearGallery();
+			clearReviews();
+		}
+	}, [clearHigherEducationFacility, id, loadHigherEducationFacility, clearGallery, clearReviews])
 
 	if (higherEducationFacilityLoadingInitial || !selectedHigherEducationFacility)
-		return <LoadingComponent content="Завантаження даних про університет" />
+		return <LoadingComponent content="Завантаження даних ЗВО" />
+
 	return (
 		<Grid>
 			<Grid.Row>
 				<HigherEducationFacilityMainInfo higherEducationFacility={selectedHigherEducationFacility} />
 			</Grid.Row>
-			<Ref innerRef={facultiesRef}>
-				<Divider hidden style={{ padding: 0, margin: 0 }} />
-			</Ref>
-			<Grid.Row centered>
-				<FacultyCardList facultiesOnScreen={facultiesOnScreen}
-					higherEducationFacilityId={selectedHigherEducationFacility.id} />
+			<Divider hidden style={{ padding: 0, margin: 0 }} />
+			<Grid.Row>
+				<FacultyCardList higherEducationFacilityId={selectedHigherEducationFacility.id} />
 			</Grid.Row>
-			<Ref innerRef={galleryRef}>
-				<Divider hidden style={{ padding: 0, margin: 0 }} />
-			</Ref>
+			<Divider hidden style={{ padding: 0, margin: 0 }} />
+			<Grid.Row>
+				<HigherEducationFacilityGallery higherEducationFacilityId={selectedHigherEducationFacility.id} />
+			</Grid.Row>
+			<Divider hidden style={{ padding: 0, margin: 0 }} />
+			<Grid.Row >
+				<HigherEducationFacilityContacts higherEducationFacility={selectedHigherEducationFacility} />
+			</Grid.Row>
+			<Divider hidden style={{ padding: 0, margin: 0 }} />
+			<Grid.Row>
+				<HigherEducationFacilityReviews higherEducationFacilityId={selectedHigherEducationFacility.id} />
+			</Grid.Row>
 		</Grid>
 	)
 })
-
-/* <Tab menu={{
-						secondary: true, pointing: true, size: 'huge', style: {
-							justifyContent: "center"
-						}, stackable: true
-					}}
-						renderActiveOnly
-						defaultActiveIndex={0}
-						onTabChange={() => ''} panes={panes}>
-					</Tab> */
-
-// const panes = [
-// 	{ menuItem: 'Про університет' },
-// 	{ menuItem: 'Факультети' },
-// 	{ menuItem: 'Галерея' },
-// 	{ menuItem: 'Відгуки' },
-// 	{ menuItem: 'Контакти' }
-// ];

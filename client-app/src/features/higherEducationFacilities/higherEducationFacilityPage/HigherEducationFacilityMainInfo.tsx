@@ -1,16 +1,28 @@
 import { observer } from "mobx-react-lite";
-import { Divider, Grid, Header, Icon, Image, Segment } from "semantic-ui-react";
+import { Button, Divider, Grid, Header, Icon, Image, Segment } from "semantic-ui-react";
 import { HigherEducationFacility } from "../../../app/models/higherEducationFacility";
+import { useStore } from "../../../app/stores/store";
+import { Link } from "react-router-dom";
 
 export interface Props {
 	higherEducationFacility: HigherEducationFacility;
 }
 
 export default observer(function HigherEducationFacilityMainInfo({ higherEducationFacility }: Props) {
+	const { userStore: { getIsGlobalAdmin, getIsLocalAdmin, isGlobalAdmin, isLocalAdmin } } = useStore();
+
+	getIsGlobalAdmin();
+	getIsLocalAdmin(higherEducationFacility.id);
 
 	return (
 		<Grid centered stackable stretched>
-			<Header content={higherEducationFacility.name} textAlign="center" style={{ marginTop: 20 }} />
+			<Header content={higherEducationFacility.name} textAlign="center"
+				style={{ marginTop: 20 }} />
+			{(isGlobalAdmin || isLocalAdmin) && <Button icon circular as={Link}
+				style={{ position: 'absolute', top: 25, right: 50 }}
+				to={`/settings/higherEducationFacility/${higherEducationFacility.id}`}>
+				<Icon name='setting' size='large' />
+			</Button>}
 			<Divider />
 			<Grid.Row>
 				<Grid.Column width={6}>

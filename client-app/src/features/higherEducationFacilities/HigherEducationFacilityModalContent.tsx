@@ -1,17 +1,21 @@
 import { observer } from "mobx-react-lite";
-import { Grid, Header, Icon, Image, Segment, Table } from "semantic-ui-react";
-import { useStore } from "../../../app/stores/store";
+import { Button, Grid, Header, Icon, Image, Label, Segment, Table } from "semantic-ui-react";
+import { useStore } from "../../app/stores/store";
+import { Link } from "react-router-dom";
 
-export default observer(function HigherEducationFacilityShortInfoContent() {
-	const { higherEducationFacilityStore: { selectedHigherEducationFacility } } = useStore();
+export default observer(function HigherEducationFacilityModalContent() {
+	const { higherEducationFacilityStore: { selectedHigherEducationFacility }, modalStore: { closeModal }, profileStore: { toggleFavoriteList } } = useStore();
 
 	return (
 		<>
 			<Header textAlign="center" size="large"
 				content={selectedHigherEducationFacility?.name} />
+			<Label ribbon color={selectedHigherEducationFacility?.inFavoriteList ? 'red' : 'grey'}
+				style={{ marginLeft: 15, position: 'absolute', zIndex: 800 }} size='big' onClick={x => toggleFavoriteList(selectedHigherEducationFacility!.id)}
+				content={selectedHigherEducationFacility?.inFavoriteList ? 'У закладках' : 'Не у закладках'} />
 			<div style={{ position: "relative", display: "flex" }}>
 				<Image verticalAlign="top" fluid
-					src={selectedHigherEducationFacility?.titlePhoto || 'defaultLogo.png'} />
+					src={selectedHigherEducationFacility?.titlePhoto || '../defaultLogo.png'} />
 				<div className="bigSquare" style={{ position: 'absolute', bottom: 0 }}>
 					<Icon name='star' size='big'
 						style={{ color: 'white', marginTop: 9, marginLeft: 5 }}	>
@@ -31,8 +35,8 @@ export default observer(function HigherEducationFacilityShortInfoContent() {
 									Адреса:
 								</Table.Cell>
 								<Table.Cell width={12}>
-									{selectedHigherEducationFacility?.region.name + ', ' +
-										selectedHigherEducationFacility?.city.name + ', ' +
+									{selectedHigherEducationFacility?.region?.name + ', ' +
+										selectedHigherEducationFacility?.city?.name + ', ' +
 										selectedHigherEducationFacility?.address}
 								</Table.Cell>
 							</Table.Row>
@@ -82,8 +86,8 @@ export default observer(function HigherEducationFacilityShortInfoContent() {
 									Адреса:
 								</Table.Cell>
 								<Table.Cell>
-									{selectedHigherEducationFacility?.region.name + ', ' +
-										selectedHigherEducationFacility?.city.name + ', ' +
+									{selectedHigherEducationFacility?.region?.name + ', ' +
+										selectedHigherEducationFacility?.city?.name + ', ' +
 										selectedHigherEducationFacility?.address}
 								</Table.Cell>
 							</Table.Row>
@@ -124,6 +128,11 @@ export default observer(function HigherEducationFacilityShortInfoContent() {
 					</Table>
 				</Grid.Row>
 			</Grid>
+			<Button color="black" fluid size="big"
+				as={Link} to={`higherEducationFacility/${selectedHigherEducationFacility?.id}`}
+				onClick={closeModal}>
+				Детальніше про університет
+			</Button>
 		</>
 	)
 })

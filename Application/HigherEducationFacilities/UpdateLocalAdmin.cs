@@ -32,7 +32,7 @@ namespace Application.HigherEducationFacilities
 				if (higherEducationFacility == null) return null;
 				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == request.Username);
 				if (user == null) return null;
-				var localAdmin = await _context.HigherEducationFacilitesAdmins.FindAsync(higherEducationFacility.Id, user.Id);
+				var localAdmin = await _context.HigherEducationFacilitiesAdmins.FindAsync(higherEducationFacility.Id, user.Id);
 				if (localAdmin == null)
 					higherEducationFacility.HigherEducationFacilityAdmins.Add(new HigherEducationFacilityAdmin
 					{
@@ -41,7 +41,7 @@ namespace Application.HigherEducationFacilities
 						HigherEducationFacilityId = higherEducationFacility.Id,
 						HigherEducationFacility = higherEducationFacility
 					});
-				else _context.HigherEducationFacilitesAdmins.Remove(localAdmin);
+				else _context.HigherEducationFacilitiesAdmins.Remove(localAdmin);
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to update the local admin");
 				return Result<Unit>.Success(Unit.Value);

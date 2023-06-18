@@ -36,7 +36,6 @@ namespace Application.HigherEducationFacilities
 				var resultMax = int.TryParse(request.Params.MaxPrice, out var max);
 
 				var query = _context.HigherEducationFacilities
-					.AsQueryable()
 					.Where(x =>
 						(string.IsNullOrEmpty(request.Params.Name)
 							|| x.Name.ToLower().Contains(request.Params.Name.ToLower()))

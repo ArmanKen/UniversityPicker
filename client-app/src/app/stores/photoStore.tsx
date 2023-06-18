@@ -7,7 +7,7 @@ import { store } from "./store";
 export class PhotoStore {
 	gallery = new Map<string, Photo>();
 	selectedPhoto: Photo | undefined = undefined;
-	photoLoadingInitial = true;
+	photoLoadingInitial = false;
 	pagination: Pagination | undefined = undefined;
 	pagingParams = new PagingParams();
 
@@ -22,6 +22,8 @@ export class PhotoStore {
 	setPhotoLoadingInitial = (state: boolean) => this.photoLoadingInitial = state;
 
 	setSelectedPhoto = (photo: Photo) => this.selectedPhoto = photo;
+
+	clearGallery = () => this.gallery.clear();
 
 	get axiosParams() {
 		const params = new URLSearchParams();
@@ -54,7 +56,8 @@ export class PhotoStore {
 		try {
 			const result = await agent.Photos.addUserPhoto(file);
 			runInAction(() => {
-				store.userStore.setImage(result.data.url)
+				store.userStore.setImage(result.data.url);
+				store.profileStore.setProfilePhoto(result.data);
 			});
 			this.setPhotoLoadingInitial(false);
 		} catch (error) {
@@ -65,13 +68,15 @@ export class PhotoStore {
 		}
 	}
 
-	addHigherEducationFacilityGalleryPhoto = async (higherEducationFacilityId: string, file: Blob) => {
+	addHigherEducationFacilityGalleryPhoto = async (file: Blob) => {
 		this.setPhotoLoadingInitial(true);
 		try {
-			const result = await agent.Photos.addHigherEducationFacilityGalleryPhoto(file, higherEducationFacilityId);
-			runInAction(() => {
-				this.gallery.set(result.data.id, result.data);
-			});
+			if (store.higherEducationFacilityStore.selectedHigherEducationFacility) {
+				const result = await agent.Photos.addHigherEducationFacilityGalleryPhoto(file, store.higherEducationFacilityStore.selectedHigherEducationFacility.id);
+				runInAction(() => {
+					this.gallery.set(result.data.id, result.data);
+				});
+			}
 			this.setPhotoLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {
@@ -81,18 +86,40 @@ export class PhotoStore {
 		}
 	}
 
-	addHigherEducationFacilityTitlePhoto = async (higherEducationFacilityId: string, file: Blob) => {
+	addHigherEducationFacilityTitlePhoto = async (file: Blob) => {
 		this.setPhotoLoadingInitial(true);
 		try {
-			const result = await agent.Photos.addHigherEducationFacilityTitlePhoto(file, higherEducationFacilityId);
+			if (store.higherEducationFacilityStore.selectedHigherEducationFacility) {
+				const result = await agent.Photos.addHigherEducationFacilityTitlePhoto(file, store.higherEducationFacilityStore.selectedHigherEducationFacility.id);
+				runInAction(() => {
+					const { selectedHigherEducationFacility, higherEducationFacilities } = store.higherEducationFacilityStore;
+					if (store.higherEducationFacilityStore.selectedHigherEducationFacility) {
+						const higherEducationFacility = higherEducationFacilities.get(store.higherEducationFacilityStore.selectedHigherEducationFacility.id);
+						if (higherEducationFacility)
+							higherEducationFacility.titlePhoto = result.data.url;
+						if (selectedHigherEducationFacility && selectedHigherEducationFacility === higherEducationFacility) {
+							selectedHigherEducationFacility.titlePhoto = result.data.url;
+						}
+					}
+				});
+			}
+			this.setPhotoLoadingInitial(false);
+		} catch (error) {
 			runInAction(() => {
-				const { selectedHigherEducationFacility, higherEducationFacilities } = store.higherEducationFacilityStore;
-				const higherEducationFacility = higherEducationFacilities.get(higherEducationFacilityId);
-				if (higherEducationFacility)
-					higherEducationFacility.titlePhoto = result.data.url;
-				if (selectedHigherEducationFacility && selectedHigherEducationFacility === higherEducationFacility) {
-					selectedHigherEducationFacility.titlePhoto = result.data.url;
-				}
+				console.log(error);
+			});
+			this.setPhotoLoadingInitial(false);
+		}
+	}
+
+	addFacultyPhoto = async (higherEducationFacilityId: string, file: Blob, facultyId: string) => {
+		this.setPhotoLoadingInitial(true);
+		try {
+			const result = await agent.Photos.addFacultyPhoto(file, higherEducationFacilityId, facultyId);
+			runInAction(() => {
+				const { selectedFaculty } = store.facultyStore;
+				if (selectedFaculty)
+					selectedFaculty.facultyPhoto = result.data;
 			});
 			this.setPhotoLoadingInitial(false);
 		} catch (error) {
@@ -134,12 +161,18 @@ export class PhotoStore {
 		}
 	}
 
-	deleteHigherEducationFacilityPhoto = async (higherEducationFacilityId: string, photoId: string) => {
+	deletePhoto = async (higherEducationFacilityId: string, photoId: string) => {
 		this.setPhotoLoadingInitial(true);
 		try {
-			await agent.Photos.deleteHigherEducationFacilityPhoto(higherEducationFacilityId, photoId);
+			await agent.Photos.deletePhoto(higherEducationFacilityId, photoId);
 			runInAction(() => {
-				this.gallery.delete(photoId);
+				const { selectedFaculty } = store.facultyStore;
+				if (selectedFaculty && selectedFaculty.facultyPhoto.id === photoId) {
+					selectedFaculty.facultyPhoto.url = '';
+					selectedFaculty.facultyPhoto.id = '';
+				}
+				else this.gallery.delete(photoId);
+
 			})
 			this.setPhotoLoadingInitial(false);
 		} catch (error) {

@@ -12,14 +12,15 @@ namespace Application.HigherEducationFacilities
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public HigherEducationFacilityDto HigherEducationFacility { get; set; }
+			public HigherEducationFacilityFormValues HigherEducationFacility { get; set; }
 		}
 
 		public class CommandValidator : AbstractValidator<Command>
 		{
 			public CommandValidator()
 			{
-				RuleFor(x => x.HigherEducationFacility).SetValidator(new HigherEducationFacilityValidator());
+				RuleFor(x => x.HigherEducationFacility.Id);
+				RuleFor(x => x.HigherEducationFacility.Name);
 			}
 		}
 
@@ -36,7 +37,18 @@ namespace Application.HigherEducationFacilities
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				_context.HigherEducationFacilities.Add(_mapper.Map<HigherEducationFacility>(request.HigherEducationFacility));
+				_context.HigherEducationFacilities.Add(new HigherEducationFacility
+				{
+					Name = request.HigherEducationFacility.Name,
+					Address = request.HigherEducationFacility.Address,
+					Website = request.HigherEducationFacility.Website,
+					Info = request.HigherEducationFacility.Info,
+					Telephone = request.HigherEducationFacility.Telephone,
+					UkraineTop = request.HigherEducationFacility.UkraineTop,
+					Accreditation = await _context.Accreditations.FindAsync(request.HigherEducationFacility.Accreditation),
+					Region = await _context.Regions.FindAsync(request.HigherEducationFacility.Region),
+					City = await _context.Cities.FindAsync(request.HigherEducationFacility.City)
+				});
 				var result = await _context.SaveChangesAsync() > 0;
 				if (!result) return Result<Unit>.Failure("Failed to create higherEducationFacility");
 				return Result<Unit>.Success(Unit.Value);

@@ -7,6 +7,8 @@ interface Props {
 	name: string;
 	label?: string;
 	type?: string;
+	readOnly: boolean;
+	width?: number;
 }
 
 export default function MyTextInput(props: Props) {
@@ -14,7 +16,7 @@ export default function MyTextInput(props: Props) {
 	return (
 		<Form.Field error={meta.touched && !!meta.error}>
 			<label>{props.label}</label>
-			<input {...field} {...props} />
+			<input {...field} {...props} readOnly={props.readOnly} style={{ width: props.width }} />
 			{meta.touched && meta.error ? (
 				<Label basic color="red">{meta.error}</Label>
 			) : null}

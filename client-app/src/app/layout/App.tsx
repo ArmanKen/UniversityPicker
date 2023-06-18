@@ -7,10 +7,22 @@ import ScrollToTop from "../common/components/ScrollToTopButton";
 import { useStore } from "../stores/store";
 import NavBar from './NavBar';
 import HigherEducationFacilityDashboard from "../../features/higherEducationFacilities/dashboard/HigherEducationFacilityDashboard";
+import { useEffect } from "react";
+import LoadingComponent from "../common/components/LoadingComponent";
 
 function App() {
-	const { modalStore: { open } } = useStore()
+	const { modalStore: { open }, userStore, commonStore } = useStore()
 	const location = useLocation();
+
+	useEffect(() => {
+		if (commonStore.token) {
+			userStore.getUser().finally(() => commonStore.setAppLoaded());
+		} else {
+			commonStore.setAppLoaded();
+		}
+	}, [commonStore, userStore])
+
+	if (!commonStore.appLoaded) return <LoadingComponent content='Загрузка...' />;
 
 	return (
 		<>

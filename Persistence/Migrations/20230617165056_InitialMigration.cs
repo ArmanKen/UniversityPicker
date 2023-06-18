@@ -114,18 +114,6 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Photos",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Url = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Photos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Regions",
                 columns: table => new
                 {
@@ -276,6 +264,24 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Photos",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Url = table.Column<string>(type: "text", nullable: true),
+                    HigherEducationFacilityId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Photos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Photos_HigherEducationFacilities_HigherEducationFacilityId",
+                        column: x => x.HigherEducationFacilityId,
+                        principalTable: "HigherEducationFacilities",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Faculties",
                 columns: table => new
                 {
@@ -299,30 +305,6 @@ namespace Persistence.Migrations
                         column: x => x.FacultyPhotoId,
                         principalTable: "Photos",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HigherEducationFacilityPhoto",
-                columns: table => new
-                {
-                    HigherEducationFacilitiesId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PhotosId = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HigherEducationFacilityPhoto", x => new { x.HigherEducationFacilitiesId, x.PhotosId });
-                    table.ForeignKey(
-                        name: "FK_HigherEducationFacilityPhoto_HigherEducationFacilities_High~",
-                        column: x => x.HigherEducationFacilitiesId,
-                        principalTable: "HigherEducationFacilities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_HigherEducationFacilityPhoto_Photos_PhotosId",
-                        column: x => x.PhotosId,
-                        principalTable: "Photos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -557,7 +539,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HigherEducationFacilitesAdmins",
+                name: "HigherEducationFacilitiesAdmins",
                 columns: table => new
                 {
                     AppUserId = table.Column<string>(type: "text", nullable: false),
@@ -565,15 +547,15 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HigherEducationFacilitesAdmins", x => new { x.AppUserId, x.HigherEducationFacilityId });
+                    table.PrimaryKey("PK_HigherEducationFacilitiesAdmins", x => new { x.AppUserId, x.HigherEducationFacilityId });
                     table.ForeignKey(
-                        name: "FK_HigherEducationFacilitesAdmins_AspNetUsers_AppUserId",
+                        name: "FK_HigherEducationFacilitiesAdmins_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_HigherEducationFacilitesAdmins_HigherEducationFacilities_Hi~",
+                        name: "FK_HigherEducationFacilitiesAdmins_HigherEducationFacilities_H~",
                         column: x => x.HigherEducationFacilityId,
                         principalTable: "HigherEducationFacilities",
                         principalColumn: "Id",
@@ -775,11 +757,6 @@ namespace Persistence.Migrations
                 column: "HigherEducationFacilityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HigherEducationFacilitesAdmins_HigherEducationFacilityId",
-                table: "HigherEducationFacilitesAdmins",
-                column: "HigherEducationFacilityId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_HigherEducationFacilities_AccreditationId",
                 table: "HigherEducationFacilities",
                 column: "AccreditationId");
@@ -800,9 +777,9 @@ namespace Persistence.Migrations
                 column: "RegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HigherEducationFacilityPhoto_PhotosId",
-                table: "HigherEducationFacilityPhoto",
-                column: "PhotosId");
+                name: "IX_HigherEducationFacilitiesAdmins_HigherEducationFacilityId",
+                table: "HigherEducationFacilitiesAdmins",
+                column: "HigherEducationFacilityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IscedSpecialtyBase_SpecialtyBasesId",
@@ -813,6 +790,11 @@ namespace Persistence.Migrations
                 name: "IX_LanguageSpecialty_SpecialtiesId",
                 table: "LanguageSpecialty",
                 column: "SpecialtiesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Photos_HigherEducationFacilityId",
+                table: "Photos",
+                column: "HigherEducationFacilityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_AuthorId",
@@ -877,10 +859,7 @@ namespace Persistence.Migrations
                 name: "FavoriteLists");
 
             migrationBuilder.DropTable(
-                name: "HigherEducationFacilitesAdmins");
-
-            migrationBuilder.DropTable(
-                name: "HigherEducationFacilityPhoto");
+                name: "HigherEducationFacilitiesAdmins");
 
             migrationBuilder.DropTable(
                 name: "IscedSpecialtyBase");
@@ -925,13 +904,13 @@ namespace Persistence.Migrations
                 name: "SpecialtyBases");
 
             migrationBuilder.DropTable(
-                name: "HigherEducationFacilities");
-
-            migrationBuilder.DropTable(
                 name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "KnowledgeBranches");
+
+            migrationBuilder.DropTable(
+                name: "HigherEducationFacilities");
 
             migrationBuilder.DropTable(
                 name: "Accreditations");

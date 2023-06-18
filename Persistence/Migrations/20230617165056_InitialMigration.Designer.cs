@@ -12,7 +12,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230519110537_InitialMigration")]
+    [Migration("20230617165056_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -335,7 +335,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("HigherEducationFacilityId");
 
-                    b.ToTable("HigherEducationFacilitesAdmins");
+                    b.ToTable("HigherEducationFacilitiesAdmins");
                 });
 
             modelBuilder.Entity("Domain.Isced", b =>
@@ -401,10 +401,15 @@ namespace Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("HigherEducationFacilityId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Url")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HigherEducationFacilityId");
 
                     b.ToTable("Photos");
                 });
@@ -543,21 +548,6 @@ namespace Persistence.Migrations
                     b.HasIndex("KnowledgeBranchesId");
 
                     b.ToTable("FacultyKnowledgeBranch");
-                });
-
-            modelBuilder.Entity("HigherEducationFacilityPhoto", b =>
-                {
-                    b.Property<Guid>("HigherEducationFacilitiesId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("PhotosId")
-                        .HasColumnType("text");
-
-                    b.HasKey("HigherEducationFacilitiesId", "PhotosId");
-
-                    b.HasIndex("PhotosId");
-
-                    b.ToTable("HigherEducationFacilityPhoto");
                 });
 
             modelBuilder.Entity("IscedSpecialtyBase", b =>
@@ -856,7 +846,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.HigherEducationFacilityAdmin", b =>
                 {
                     b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany("HigherEducationFacilitesAdmin")
+                        .WithMany("HigherEducationFacilitiesAdmin")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -870,6 +860,13 @@ namespace Persistence.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("HigherEducationFacility");
+                });
+
+            modelBuilder.Entity("Domain.Photo", b =>
+                {
+                    b.HasOne("Domain.HigherEducationFacility", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("HigherEducationFacilityId");
                 });
 
             modelBuilder.Entity("Domain.Review", b =>
@@ -929,21 +926,6 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.KnowledgeBranch", null)
                         .WithMany()
                         .HasForeignKey("KnowledgeBranchesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("HigherEducationFacilityPhoto", b =>
-                {
-                    b.HasOne("Domain.HigherEducationFacility", null)
-                        .WithMany()
-                        .HasForeignKey("HigherEducationFacilitiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Photo", null)
-                        .WithMany()
-                        .HasForeignKey("PhotosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1048,7 +1030,7 @@ namespace Persistence.Migrations
                 {
                     b.Navigation("FavoriteList");
 
-                    b.Navigation("HigherEducationFacilitesAdmin");
+                    b.Navigation("HigherEducationFacilitiesAdmin");
 
                     b.Navigation("Reviews");
                 });
@@ -1065,6 +1047,8 @@ namespace Persistence.Migrations
                     b.Navigation("FavoriteList");
 
                     b.Navigation("HigherEducationFacilityAdmins");
+
+                    b.Navigation("Photos");
 
                     b.Navigation("Reviews");
                 });

@@ -14,7 +14,7 @@ namespace Domain
 		public Degree Degree { get; set; }
 		public bool IsGlobalAdmin { get; set; }
 		public ICollection<Review> Reviews { get; set; }
-		public ICollection<HigherEducationFacilityAdmin> HigherEducationFacilitesAdmin { get; set; } = new List<HigherEducationFacilityAdmin>();
+		public ICollection<HigherEducationFacilityAdmin> HigherEducationFacilitiesAdmin { get; set; } = new List<HigherEducationFacilityAdmin>();
 		public ICollection<FavoriteList> FavoriteList { get; set; } = new List<FavoriteList>();
 	}
 }

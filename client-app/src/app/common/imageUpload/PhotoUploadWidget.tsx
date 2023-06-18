@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Header } from "semantic-ui-react";
+import { Button, Grid, Label } from "semantic-ui-react";
 import PhotoWidgetCropper from "./PhotoWidgetCropper";
 import PhotoWidgetDropzone from "./PhotoWidgetDropzone";
 
@@ -27,27 +27,17 @@ export default function PhotoUploadWidget({ loading, uploadPhoto }: Props) {
 	return (
 		<Grid>
 			<Grid.Column width={4}>
-				<Header color="teal" content='Step 1 - Add Photo' style={{ fontSize: '1.1em' }} />
-				<PhotoWidgetDropzone setFiles={setFiles} />
-			</Grid.Column>
-			<Grid.Column width={1} />
-			<Grid.Column width={4}>
-				<Header color="teal" content='Step 2 - Resize Photo' style={{ fontSize: '1.1em' }} />
-				{files && files.length > 0 && (
-					<PhotoWidgetCropper setCropper={setCropper} imagePreview={files[0].preview} />
-				)}
-			</Grid.Column>
-			<Grid.Column width={1} />
-			<Grid.Column width={4}>
-				<Header color="teal" content='Step 3 - Review & Upload' style={{ fontSize: '1.1em' }} />
-				{files && files.length > 0 &&
+				<Label basic style={{ marginBottom: 4 }}>Змінити фотографію</Label>
+				{files && files.length > 0 ?
 					<>
-						<div className='img-preview' style={{ minHeight: 200, overflow: 'hidden' }} />
+						<PhotoWidgetCropper setCropper={setCropper} imagePreview={files[0].preview} />
 						<Button.Group widths={2}>
 							<Button loading={loading} onClick={onCrop} positive icon='check' />
 							<Button disabled={loading} onClick={() => setFiles([])} icon='close' />
 						</Button.Group>
-					</>}
+					</>
+					: <PhotoWidgetDropzone setFiles={setFiles} />
+				}
 			</Grid.Column>
 		</Grid>
 	)

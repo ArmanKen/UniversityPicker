@@ -33,6 +33,7 @@ namespace Application.Photos
 				var photo = user.Photo;
 				if (photo == null) return null;
 				var result = await _photoAccessor.DeletePhoto(photo.Id);
+				_context.Photos.Remove(photo);
 				if (result == null) return Result<Unit>.Failure("Problem deleting photo from Cloudinary");
 				user.Photo = new Domain.Photo();
 				var success = await _context.SaveChangesAsync() > 0;

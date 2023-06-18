@@ -9,10 +9,9 @@ namespace API.Controllers
 	{
 		[AllowAnonymous]
 		[HttpGet("list/{facultyId}")]
-		public async Task<IActionResult> GetSpecialties([FromQuery] SpecialtyParams param, Guid facultyId)
+		public async Task<IActionResult> GetSpecialties(Guid facultyId)
 		{
-			return HandlePagedResult(await Mediator.Send(new List.Query
-			{ FacultyId = facultyId, Params = param }));
+			return HandleResult(await Mediator.Send(new List.Query { FacultyId = facultyId }));
 		}
 
 		[AllowAnonymous]

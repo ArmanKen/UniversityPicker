@@ -1,9 +1,8 @@
 import { observer } from "mobx-react-lite";
-import { Card, Icon, Image, Transition } from "semantic-ui-react";
+import { Card, Icon, Image, Label, Transition } from "semantic-ui-react";
 import { HigherEducationFacility } from "../../../app/models/higherEducationFacility";
 import { useStore } from "../../../app/stores/store";
-import HigherEducationFacilityShortInfoAction from "../higherEducationFacilityModal/HigherEducationFacilityShortInfoAction";
-import HigherEducationFacilityShortInfoContent from "../higherEducationFacilityModal/HigherEducationFacilityShortInfoContent";
+import HigherEducationFacilityModalContent from "../HigherEducationFacilityModalContent";
 
 interface Props {
 	higherEducationFacility: HigherEducationFacility
@@ -22,9 +21,11 @@ export default observer(function HigherEducationFacilityCard({ higherEducationFa
 				onClick={() => {
 					setHigherEducationFacility(higherEducationFacility);
 					openModal(<>Про університет</>,
-						<HigherEducationFacilityShortInfoContent />, 'small',
-						<HigherEducationFacilityShortInfoAction />);
+						<HigherEducationFacilityModalContent />, 'small');
 				}}>
+				<Label ribbon color={higherEducationFacility.inFavoriteList ? 'red' : 'grey'}
+					style={{ marginLeft: 15, position: 'absolute', zIndex: 800 }} size='medium'
+					content={higherEducationFacility.inFavoriteList ? 'У закладках' : 'Не у закладках'} />
 				<div style={{ position: "relative", display: "flex" }}>
 					<Image fluid src={higherEducationFacility.titlePhoto
 						|| '../defaultLogo.png'} />

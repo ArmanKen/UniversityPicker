@@ -4,15 +4,17 @@ import { Header, Icon } from 'semantic-ui-react';
 
 interface Props {
 	setFiles: (files: any) => void;
+	style?: any;
+	headerContent?: string;
 }
 
 
-export default function PhotoWidgetDropzone({ setFiles }: Props) {
-	const dzStyles = {
+export default function PhotoWidgetDropzone({ setFiles, style, headerContent }: Props) {
+	const dzStyles = style ? style : {
 		border: 'dashed 3px #eee',
 		borderColor: '#eee',
 		borderRadius: '5px',
-		paddingTop: '30px',
+		paddingTop: '50px',
 		textAlign: 'center' as 'center',
 		height: 200
 	}
@@ -31,8 +33,8 @@ export default function PhotoWidgetDropzone({ setFiles }: Props) {
 	return (
 		<div {...getRootProps()} style={isDragActive ? { ...dzStyles, ...dzActive } : dzStyles}>
 			<input {...getInputProps()} />
-			<Icon name='upload' size='huge'/>
-			<Header content='Drop image here' />
+			<Icon name='plus' size='huge' />
+			<Header content={headerContent || 'Додати фотографію'} style={{ marginTop: 15 }} />
 		</div>
 	)
 }

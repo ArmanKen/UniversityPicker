@@ -5,7 +5,7 @@ import { HigherEducationFacility, HigherEducationFacilityFormValues } from "../m
 import { PaginatedResult } from "../models/pagination";
 import { Specialty, SpecialtyFormValues } from "../models/specialty";
 import { EduComponent, EduComponentFormValues } from "../models/eduComponent";
-import { Profile } from "../models/profile";
+import { Profile, ProfileFormValues } from "../models/profile";
 import { Photo } from "../models/photo";
 import { Faculty, FacultyFormValues } from "../models/faculty";
 import { Review, ReviewFormValues } from "../models/review";
@@ -52,6 +52,8 @@ axios.interceptors.response.use(async response => {
 		case 401:
 			toast.error('unauthorized');
 			break;
+		case 403:
+			break;
 		case 404:
 			router.navigate('/not-found');
 			break;
@@ -95,16 +97,15 @@ const Faculties = {
 		requests.get<Faculty>(`/faculties/${facultyId}`),
 	create: (higherEducationFacilityId: string, faculty: FacultyFormValues) =>
 		requests.post<void>(`/faculties/create/${higherEducationFacilityId}`, faculty),
-	edit: (higherEducationFacilityId: string, faculty: FacultyFormValues, facultyId: string) =>
-		requests.put<void>(`${higherEducationFacilityId}/faculties/${facultyId}`, faculty),
+	edit: (higherEducationFacilityId: string, faculty: FacultyFormValues) =>
+		requests.put<void>(`${higherEducationFacilityId}/faculties/${faculty.id}`, faculty),
 	delete: (higherEducationFacilityId: string, facultyId: string) =>
 		requests.delete<void>(`${higherEducationFacilityId}/faculties/${facultyId}`),
 }
 
 const Specialties = {
-	list: (params: URLSearchParams, facultyId: string) =>
-		axios.get<PaginatedResult<Specialty[]>>(`/specialties/list/${facultyId}`,
-			{ params }).then(responseBody),
+	list: (facultyId: string) =>
+		requests.get<Specialty[]>(`/specialties/list/${facultyId}`),
 	details: (specialtyId: string) =>
 		requests.get<Specialty>(`/specialties/${specialtyId}`),
 	create: (higherEducationFacilityId: string, facultyId: string, specialty: SpecialtyFormValues) =>
@@ -150,18 +151,20 @@ const Reviews = {
 const Account = {
 	current: () => requests.get<User>('/account'),
 	login: (user: UserFormValues) => requests.post<User>('/account/login', user),
-	register: (user: UserFormValues) => requests.post<User>('/account/register', user)
+	register: (user: UserFormValues) => requests.post<User>('/account/register', user),
+	isGlobalAdmin: () => requests.get<boolean>('/account/isGlobalAdmin'),
+	isLocalAdmin: (higherEducationFacilityId: string) => requests.get<boolean>(`/account/isLocalAdmin/${higherEducationFacilityId}`),
 }
 
 const Profiles = {
 	details: (username: string) =>
 		requests.get<Profile>(`/profiles/${username}`),
-	edit: (profile: Partial<Profile>) =>
+	edit: (profile: ProfileFormValues) =>
 		requests.put<void>(`/profiles/update`, profile),
 	favoriteList: () =>
-		requests.get<PaginatedResult<HigherEducationFacility[]>>('/profile/favoriteList'),
+		requests.get<PaginatedResult<HigherEducationFacility[]>>('/profiles/favoriteList'),
 	favoriteToggle: (higherEducationFacilityId: string) =>
-		requests.get<void>(`/profile/favoriteToggle/${higherEducationFacilityId}`),
+		requests.put<void>(`/profiles/favoriteToggle/${higherEducationFacilityId}`, higherEducationFacilityId),
 	toggleGlobalAdmin: (username: string) =>
 		requests.put<void>(`/profiles/admin/${username}`, username)
 }
@@ -170,6 +173,13 @@ const Photos = {
 	listHigherEducationFacilityPhotos: (params: URLSearchParams, higherEducationFacilityId: string) =>
 		axios.get<PaginatedResult<Photo[]>>(`/photos/${higherEducationFacilityId}/gallery`,
 			{ params }).then(responseBody),
+	addFacultyPhoto: (file: Blob, higherEducationFacilityId: string, facultyId: string) => {
+		let formData = new FormData();
+		formData.append('File', file);
+		return axios.post<Photo>(`photos/${higherEducationFacilityId}/${facultyId}`, formData, {
+			headers: { 'Content-Type': 'multipart/form-data' }
+		})
+	},
 	addUserPhoto: (file: Blob) => {
 		let formData = new FormData();
 		formData.append('File', file);
@@ -193,7 +203,7 @@ const Photos = {
 	},
 	deleteUserPhoto: () =>
 		requests.delete<void>(`photos/`),
-	deleteHigherEducationFacilityPhoto: (higherEducationFacilityId: string, photoId: string) =>
+	deletePhoto: (higherEducationFacilityId: string, photoId: string) =>
 		requests.delete<void>(`photos/${higherEducationFacilityId}/${photoId}`),
 	deleteHigherEducationFacilityTitlePhoto: (higherEducationFacilityId: string) =>
 		requests.delete<void>(`photos/${higherEducationFacilityId}`)

@@ -11,7 +11,7 @@ namespace Application.Profiles
 	{
 		public class Command : IRequest<Result<Unit>>
 		{
-			public DTOs.Profile Profile { get; set; }
+			public ProfileFormValues Profile { get; set; }
 		}
 
 		public class CommandValidator : AbstractValidator<Command>
@@ -40,7 +40,6 @@ namespace Application.Profiles
 				user.FullName = request.Profile.FullName;
 				user.Bio = request.Profile.Bio;
 				user.CurrentStatus = await _context.CurrentStatuses.FindAsync(request.Profile.CurrentStatus);
-				user.HigherEducationFacility = await _context.HigherEducationFacilities.FindAsync(request.Profile.HigherEducationFacility.Id);
 				user.SpecialtyBase = await _context.SpecialtyBases.FindAsync(request.Profile.SpecialtyBase);
 				user.Degree = await _context.Degrees.FindAsync(request.Profile.Degree);
 				var result = await _context.SaveChangesAsync() > 0;

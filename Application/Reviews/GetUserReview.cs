@@ -30,9 +30,10 @@ namespace Application.Reviews
 
 			public async Task<Result<ReviewDto>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-				if (user == null) return null;
-				var review = user.Reviews.FirstOrDefault(x => x.HigherEducationFacility.Id == request.HigherEducationFacilityId);
+				var review = await _context.Reviews.Include(x => x.Author)
+					.ThenInclude(x => x.Photo)
+					.FirstOrDefaultAsync(x => x.Author.UserName == _userAccessor.GetUsername()
+					&& x.HigherEducationFacility.Id == request.HigherEducationFacilityId);
 				if (review == null) return null;
 				return Result<ReviewDto>.Success(_mapper.Map<ReviewDto>(review));
 			}

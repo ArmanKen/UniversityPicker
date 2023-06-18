@@ -29,41 +29,20 @@ export interface Location {
 	latitude: number;
 }
 
-export class HigherEducationFacility implements HigherEducationFacility {
-	constructor(init?: HigherEducationFacilityFormValues) {
-		Object.assign(this, init);
-	}
-}
-
-export class HigherEducationFacilityFormValues {
-	id: string = '';
-	name: string = '';
-	accreditation?: Accreditation;
-	region?: RegionDto;
-	city?: City;
-	address: string = '';
-	rating: number = 0;
-	website: string = '';
-	info: string = '';
-	telephone: string = '';
-	ukraineTop: number = 0;
-	studentsCount: number = 0;
-	titlePhoto: string = '';
-	location?: Location;
-
-	constructor(higherEducationFacility?: HigherEducationFacilityFormValues) {
-		if (higherEducationFacility) {
-			this.id = higherEducationFacility.id;
-			this.name = higherEducationFacility.name;
-			this.region = higherEducationFacility.region;
-			this.city = higherEducationFacility.city;
-			this.address = higherEducationFacility.address;
-			this.website = higherEducationFacility.website;
-			this.info = higherEducationFacility.info;
-			this.studentsCount = higherEducationFacility.studentsCount;
-			this.titlePhoto = higherEducationFacility.titlePhoto;
-		}
-	}
+export interface HigherEducationFacilityFormValues {
+	id: string;
+	name: string;
+	accreditation: number;
+	region: number;
+	city: number;
+	address: string;
+	website: string;
+	info: string;
+	telephone: string;
+	ukraineTop: number;
+	titlePhoto: string;
+	locationLat?: number;
+	locationLong?: number;
 }
 
 export interface HigherEducationFacilityQueryParams {

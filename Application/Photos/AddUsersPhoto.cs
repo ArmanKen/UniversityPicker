@@ -34,7 +34,10 @@ namespace Application.Photos
 					.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				if (user == null) return null;
 				if (user.Photo != null && !string.IsNullOrEmpty(user.Photo.Id))
+				{
 					await _photoAccessor.DeletePhoto(user.Photo.Id);
+					_context.Photos.Remove(user.Photo);
+				}
 				var photoUploadResult = await _photoAccessor.AddPhoto(request.File);
 				var photo = new Photo
 				{

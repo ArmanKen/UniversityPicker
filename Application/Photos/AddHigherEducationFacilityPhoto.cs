@@ -8,7 +8,7 @@ using Persistence;
 
 namespace Application.Photos
 {
-	public class AddHigherEducationFacilityTitlePhoto
+	public class AddHigherEducationFacilityPhoto
 	{
 		public class Command : IRequest<Result<Photo>>
 		{
@@ -31,7 +31,7 @@ namespace Application.Photos
 
 			public async Task<Result<Photo>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var higherEducationFacility = await _context.HigherEducationFacilities.Include(p => p.Photos)
+				var higherEducationFacility = await _context.HigherEducationFacilities
 					.FirstOrDefaultAsync(x => x.Id == request.HigherEducationFacilityId);
 				if (higherEducationFacility == null) return null;
 				var photoUploadResult = await _photoAccessor.AddPhoto(request.File);
@@ -40,10 +40,7 @@ namespace Application.Photos
 					Url = photoUploadResult.Url,
 					Id = photoUploadResult.PublicId
 				};
-				if (higherEducationFacility.TitlePhoto != null && !string.IsNullOrEmpty(higherEducationFacility.TitlePhoto))
-					await _photoAccessor.DeletePhoto(higherEducationFacility.TitlePhoto);
 				higherEducationFacility.Photos.Add(photo);
-				higherEducationFacility.TitlePhoto = photo.Url;
 				var result = await _context.SaveChangesAsync() > 0;
 				if (result) return Result<Photo>.Success(photo);
 				return Result<Photo>.Failure("Problem when adding photo");

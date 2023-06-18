@@ -72,10 +72,10 @@ export default class FacultyStore {
 		}
 	}
 
-	editFaculty = async (higherEducationFacilityId: string, faculty: FacultyFormValues, facultyId: string) => {
+	editFaculty = async (higherEducationFacilityId: string, faculty: FacultyFormValues) => {
 		this.setFacultyLoadingInitial(true);
 		try {
-			await agent.Faculties.edit(higherEducationFacilityId, faculty, facultyId);
+			await agent.Faculties.edit(higherEducationFacilityId, faculty);
 			this.setFacultyLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {

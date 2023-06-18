@@ -22,6 +22,8 @@ export default class ReviewStore {
 
 	setUserReview = (review: Review) => this.userReview = review;
 
+	clearReviews = () => this.reviews.clear();
+
 	get axiosParams() {
 		const params = new URLSearchParams();
 		params.append('pageNumber', this.pagingParams.pageNumber.toString());
@@ -35,8 +37,11 @@ export default class ReviewStore {
 			const result = await agent.Reviews.list(this.axiosParams, higherEducationFacilityId);
 			runInAction(() => {
 				result.data.forEach(review => {
+					review.createdAt = new Date(review.createdAt);
 					this.reviews.set(review.id, review);
 				});
+				if (this.userReview && this.reviews.has(this.userReview.id))
+					this.reviews.delete(this.userReview.id);
 			});
 			this.setPagination(result.pagination);
 			this.setReviewsLoadingInitial(false);
@@ -48,10 +53,17 @@ export default class ReviewStore {
 		}
 	}
 
-	loadUserReview = async (username: string) => {
+	loadUserReview = async (higherEducationFacilityId: string) => {
 		this.setReviewsLoadingInitial(true);
 		try {
-			var userReview = await agent.Reviews.userReview(username);
+			var userReview = await agent.Reviews.userReview(higherEducationFacilityId);
+			runInAction(() => {
+				userReview.createdAt = new Date(userReview.createdAt);
+
+				if (this.reviews.has(userReview.id)) {
+					this.reviews.delete(userReview.id);
+				}
+			});
 			this.setUserReview(userReview);
 			this.setReviewsLoadingInitial(false);
 		} catch (error) {
@@ -75,10 +87,10 @@ export default class ReviewStore {
 		}
 	}
 
-	editReview = async (higherEducationFacilityId: string, review: ReviewFormValues, reviewId: string) => {
+	editReview = async (higherEducationFacilityId: string, review: ReviewFormValues) => {
 		this.setReviewsLoadingInitial(true);
 		try {
-			await agent.Reviews.edit(higherEducationFacilityId, review, reviewId);
+			await agent.Reviews.edit(higherEducationFacilityId, review, review.id);
 			this.setReviewsLoadingInitial(false);
 		} catch (error) {
 			runInAction(() => {

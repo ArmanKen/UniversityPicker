@@ -9,6 +9,7 @@ import FacultyStore from "./facultyStore";
 import { PhotoStore } from "./photoStore";
 import UserStore from "./userStore";
 import ProfileStore from "./profileStore";
+import ReviewStore from "./reviewStore";
 
 interface Store {
 	higherEducationFacilityStore: HigherEducationFacilityStore,
@@ -19,6 +20,7 @@ interface Store {
 	modalStore: ModalStore,
 	photoStore: PhotoStore,
 	userStore: UserStore,
+	reviewStore: ReviewStore,
 	profileStore: ProfileStore,
 	uiStore: UIStore
 }
@@ -32,6 +34,7 @@ export const store: Store = {
 	modalStore: new ModalStore(),
 	photoStore: new PhotoStore(),
 	userStore: new UserStore(),
+	reviewStore: new ReviewStore(),
 	profileStore: new ProfileStore(),
 	uiStore: new UIStore()
 }

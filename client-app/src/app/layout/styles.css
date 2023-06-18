@@ -27,3 +27,7 @@ body {
 	width: 80px !important;
 	background-color: #ffae00 !important;
 }
+
+.ui.disabled.selection.dropdown {
+	opacity: 1 !important;
+}

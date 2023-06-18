@@ -60,7 +60,7 @@ namespace Persistence
 					{
 						new CurrentStatus{Status="Вчуся в школі"},
 						new CurrentStatus{Status="Шукаю колледж"},
-						new CurrentStatus{Status="Вчуся в коллджі"},
+						new CurrentStatus{Status="Вчуся в коллeджі"},
 						new CurrentStatus{Status="Шукаю університет"},
 						new CurrentStatus{Status="Вчуся в університет"},
 						new CurrentStatus{Status="Працюю по професії"},
@@ -4579,7 +4579,7 @@ namespace Persistence
 						},
 						new Faculty
 						{
-							Name = "Faculty1",
+							Name = "Faculty3",
 							Info = "Info3",
 							StudentsCount = new Random().Next(5000,20000),
 							KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[10]},

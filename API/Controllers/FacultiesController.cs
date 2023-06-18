@@ -21,7 +21,7 @@ namespace API.Controllers
 			return HandleResult(await Mediator.Send(new Details.Query { FacultyId = facultyId }));
 		}
 
-		[Authorize(Policy = "IsGlobalAdmin")]
+		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpPost("/create/{higherEducationFacilityId}")]
 		public async Task<IActionResult> CreateFaculty(FacultyDto Faculty, Guid higherEducationFacilityId)
 		{
@@ -38,7 +38,7 @@ namespace API.Controllers
 			{ Faculty = Faculty }));
 		}
 
-		[Authorize(Policy = "IsGlobalAdmin")]
+		[Authorize(Policy = "IsLocalAdmin")]
 		[HttpDelete("{higherEducationFacilityId}/{facultyId}")]
 		public async Task<IActionResult> DeleteFaculty(Guid facultyId)
 		{

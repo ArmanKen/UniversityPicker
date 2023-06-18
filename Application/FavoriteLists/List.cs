@@ -31,14 +31,31 @@ namespace Application.FavoriteLists
 
 			public async Task<Result<PagedList<HigherEducationFacilityDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
-				var observer = await _context.Users
-					.Include(x => x.FavoriteList)
-					.ThenInclude(x => x.HigherEducationFacility)
-					.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
+				var favoriteList = _context.FavoriteLists
+					.Include(x => x.HigherEducationFacility)
+					.ThenInclude(x=>x.Region)
+					.Include(x => x.HigherEducationFacility)
+					.ThenInclude(x => x.City)
+					.Include(x => x.HigherEducationFacility)
+					.ThenInclude(x => x.Accreditation)
+					.Include(x => x.HigherEducationFacility)
+					.ThenInclude(x => x.Location)
+					.Include(x => x.HigherEducationFacility)
+					.ThenInclude(x => x.Photos)
+					.Include(x => x.HigherEducationFacility)
+					.ThenInclude(x => x.Faculties)
+					.Include(x => x.HigherEducationFacility)
+					.ThenInclude(x => x.Reviews)
+					.Include(x => x.HigherEducationFacility)
+					.ThenInclude(x => x.HigherEducationFacilityAdmins)
+					.Include(x => x.HigherEducationFacility)
+					.ThenInclude(x => x.FavoriteList)
+					.Where(x => x.AppUser.UserName == _userAccessor.GetUsername()).ProjectTo<HigherEducationFacilityDto>(_mapper.ConfigurationProvider,
+						new { username = _userAccessor.GetUsername() });
+				var list = favoriteList;
 				return Result<PagedList<HigherEducationFacilityDto>>.Success(
 					await PagedList<HigherEducationFacilityDto>.CreateAsync(
-					observer.FavoriteList.AsQueryable()
-						.ProjectTo<HigherEducationFacilityDto>(_mapper.ConfigurationProvider, new { username = _userAccessor.GetUsername() }),
+					list,
 				request.Params.PageNumber, request.Params.PageSize));
 			}
 		}

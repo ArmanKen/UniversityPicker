@@ -10,13 +10,12 @@ import MySelectInput from "../../../app/common/form/MySelectInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import { Link } from "react-router-dom";
 import PhotoUploadWidget from "../../../app/common/imageUpload/PhotoUploadWidget";
-import HigherEducationFacilityGallery from "../higherEducationFacilityGallery/HigherEducationFacilityGallery";
 
 interface Props {
 	higherEducationFacility: HigherEducationFacility;
 }
 
-export default observer(function HigherEducationFacilitySettingsTab({ higherEducationFacility }: Props) {
+export default observer(function FacultySettingsTab({ higherEducationFacility }: Props) {
 	const [active, setActive] = useState(0);
 	const {
 		higherEducationFacilityStore: { deleteHigherEducationFacility,
@@ -32,7 +31,7 @@ export default observer(function HigherEducationFacilitySettingsTab({ higherEduc
 	return (
 		<Segment>
 			<Accordion>
-				<Accordion.Title active={active === 1} onClick={x => toggleActive(1)} content='Змінити інформацію про ЗВО' />
+				<Accordion.Title active={active === 1} onClick={x => toggleActive(1)} content='Змінити інформацію про Факультет' />
 				<Accordion.Content active={active === 1}>
 					<Formik
 						initialValues={{
@@ -47,8 +46,8 @@ export default observer(function HigherEducationFacilitySettingsTab({ higherEduc
 							telephone: higherEducationFacility.telephone,
 							ukraineTop: higherEducationFacility.ukraineTop,
 							titlePhoto: higherEducationFacility.titlePhoto,
-							locationLat: higherEducationFacility.location ? higherEducationFacility.location.latitude : 0,
-							locationLong: higherEducationFacility.location ? higherEducationFacility.location.longitude : 0,
+							locationLat: higherEducationFacility.location ? higherEducationFacility.location.longitude : 0,
+							locationLong: higherEducationFacility.location ? higherEducationFacility.location.latitude : 0,
 						}}
 						onSubmit={values => {
 							editHigherEducationFacility(values);
@@ -129,18 +128,6 @@ export default observer(function HigherEducationFacilitySettingsTab({ higherEduc
 						loading={photoLoadingInitial}
 						onClick={x => deleteHigherEducationFacilityTitlePhoto(higherEducationFacility.id)}>
 						{'Видалити головну фотографію ЗВО  '}
-						<Icon name="check" />
-					</Button>
-				</Accordion.Content>
-				<Accordion.Title active={active === 5} onClick={x => toggleActive(5)} content='Видалити фотографію з галереї ЗВО' />
-				<Accordion.Content active={active === 5}>
-					<HigherEducationFacilityGallery higherEducationFacilityId={higherEducationFacility.id} />
-					<Button icon
-						color="red"
-						disabled={!selectedPhoto}
-						loading={photoLoadingInitial}
-						onClick={x => deletePhoto(higherEducationFacility.id, selectedPhoto ? selectedPhoto.id : "")}>
-						{'Видалити фотографію з галереї ЗВО  '}
 						<Icon name="check" />
 					</Button>
 				</Accordion.Content>

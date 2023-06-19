@@ -21,7 +21,7 @@ export default observer(function NavBar() {
 				<Header
 					textAlign='center'
 					as={Link} to=''>
-					HigherEducationFacility Picker
+					Агрегатор ЗВО
 				</Header>
 			</Menu.Item>
 			{location.pathname === '/' && <Menu.Item>

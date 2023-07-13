@@ -9,7 +9,9 @@ interface Props {
 }
 
 export default observer(function HigherEducationFacilityCard({ higherEducationFacility }: Props) {
-	const { higherEducationFacilityStore: { setHigherEducationFacility }, modalStore: { openModal } } = useStore();
+	const { higherEducationFacilityStore: { setHigherEducationFacility },
+		modalStore: { openModal },
+		userStore: { user } } = useStore();
 
 	return (
 		<Transition animation="fade" duration={300}
@@ -23,9 +25,11 @@ export default observer(function HigherEducationFacilityCard({ higherEducationFa
 					openModal(<>Про університет</>,
 						<HigherEducationFacilityModalContent />, 'small');
 				}}>
-				<Label ribbon color={higherEducationFacility.inFavoriteList ? 'red' : 'grey'}
-					style={{ marginLeft: 15, position: 'absolute', zIndex: 800 }} size='medium'
-					content={higherEducationFacility.inFavoriteList ? 'У закладках' : 'Не у закладках'} />
+				{user &&
+					<Label ribbon color={higherEducationFacility.inFavoriteList ? 'red' : 'grey'}
+						style={{ marginLeft: 15, position: 'absolute', zIndex: 800 }} size='medium'
+						content={higherEducationFacility.inFavoriteList ? 'У закладках' : 'Не у закладках'} />
+				}
 				<div style={{ position: "relative", display: "flex" }}>
 					<Image fluid src={higherEducationFacility.titlePhoto
 						|| '../defaultLogo.png'} />

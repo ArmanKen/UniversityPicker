@@ -12,90 +12,90 @@ namespace Persistence
 			{
 
 				var degrees = new List<Degree>
-					{
-						new Degree{Name="Молодший Бакалавр"},
-						new Degree{Name="Бакалавр"},
-						new Degree{Name="Магістр"}
-					};
+{
+new Degree{Name="Junior Bachelor"},
+new Degree{Name="Bachelor"},
+new Degree{Name="Master"}
+};
 				await context.Degrees.AddRangeAsync(degrees);
 
 				var accreditation = new List<Accreditation>
-					{
-						new Accreditation{AccreditationLevel="I"},
-						new Accreditation{AccreditationLevel="II"},
-						new Accreditation{AccreditationLevel="III"},
-						new Accreditation{AccreditationLevel="IV"},
-					};
+{
+new Accreditation{AccreditationLevel="I"},
+new Accreditation{AccreditationLevel="II"},
+new Accreditation{AccreditationLevel="III"},
+new Accreditation{AccreditationLevel="IV"},
+};
 				await context.Accreditations.AddRangeAsync(accreditation);
 
 				var languages = new List<Language>
-				{
-					new Language
-					{
-						Id = "English",
-						Name = "en"
-					},
-					new Language
-					{
-						Id = "Ukrainian",
-						Name = "uk"
-					},
-					new Language
-					{
-						Id = "French",
-						Name = "fr"
-					}
-				};
+{
+new Language
+{
+Id = "English",
+Name = "en"
+},
+new Language
+{
+Id = "Ukrainian",
+Name = "uk"
+},
+new Language
+{
+Id = "French",
+Name = "fr"
+}
+};
 				await context.Languages.AddRangeAsync(languages);
 
 				var studyForms = new List<StudyForm>
-				{
-					new StudyForm{Form = "Очна"},
-					new StudyForm{Form = "Заочна"},
-					new StudyForm{Form = "Змішана"},
-				};
+{
+new StudyForm{Form = "Full-time"},
+new StudyForm{Form = "Part-time"},
+new StudyForm{Form = "Mixed"},
+};
 				await context.StudyForms.AddRangeAsync(studyForms);
 
 				var currentStatuses = new List<CurrentStatus>
-					{
-						new CurrentStatus{Status="Вчуся в школі"},
-						new CurrentStatus{Status="Шукаю колледж"},
-						new CurrentStatus{Status="Вчуся в коллeджі"},
-						new CurrentStatus{Status="Шукаю університет"},
-						new CurrentStatus{Status="Вчуся в університет"},
-						new CurrentStatus{Status="Працюю по професії"},
-						new CurrentStatus{Status="Працюю не по професії"}
-					};
+{
+new CurrentStatus{Status="Study at school"},
+new CurrentStatus{Status="Looking for college"},
+new CurrentStatus{Status="Study in college"},
+new CurrentStatus{Status="I'm looking for a university"},
+new CurrentStatus{Status="I study at university"},
+new CurrentStatus{Status="I work by profession"},
+new CurrentStatus{Status="I'm not working by profession"}
+};
 				await context.CurrentStatuses.AddRangeAsync(currentStatuses);
 
 				var users = new List<AppUser>
-					{
-						new AppUser
-						{
-							FullName = "GlobalAdmin",
-							UserName = "GlobalAdmin1",
-							Email = "GlobalAdmin@test.com",
-							Bio="GlobalAdmin!",
-							IsGlobalAdmin = true,
-							CurrentStatus = currentStatuses[1],
-						},
-						new AppUser
-						{
-							FullName = "LocalAdmin",
-							UserName = "LocalAdmin1",
-							Email = "LocalAdmin@test.com",
-							Bio="LocalAdmin!",
-							CurrentStatus = currentStatuses[0],
-						},
-						new AppUser
-						{
-							FullName = "User",
-							UserName = "User1",
-							Email = "User@test.com",
-							Bio="User!",
-							CurrentStatus = currentStatuses[2],
-						},
-					};
+{
+new AppUser
+{
+FullName = "GlobalAdmin",
+UserName = "GlobalAdmin1",
+Email = "GlobalAdmin@test.com",
+Bio="GlobalAdmin!",
+IsGlobalAdmin = true,
+CurrentStatus = currentStatuses[1],
+},
+new AppUser
+{
+FullName = "LocalAdmin",
+UserName = "LocalAdmin1",
+Email = "LocalAdmin@test.com",
+Bio="LocalAdmin!",
+CurrentStatus = currentStatuses[0],
+},
+new AppUser
+{
+FullName = "User",
+UserName = "User1",
+Email = "User@test.com",
+Bio="User!",
+CurrentStatus = currentStatuses[2],
+},
+};
 				foreach (var user in users)
 				{
 					await userManager.CreateAsync(user, "Pa$$w0rd");
@@ -2545,1366 +2545,1366 @@ namespace Persistence
 
 
 				var specialtyBases = new List<SpecialtyBase>
-					{
-						new SpecialtyBase
-						{
-							Id="011",
-							Name="Освітні, педагогічні науки",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0111"),
-							}
-						},
-						new SpecialtyBase
-						{
-							Id="012",
-							Name="Дошкільна освіта",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0112"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="013",
-							Name="Початкова освіта",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0113"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="014",
-							Name="Середня освіта (за предметними спеціальностями)",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0114"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="015",
-							Name="Професійна освіта (за спеціалізаціями)",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0114"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="016",
-							Name="Спеціальна освіта",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0113"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="017",
-							Name="Фізична культура і спорт",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1014"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="021",
-							Name="Аудіовізуальне мистецтво та виробництво",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0211"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="022",
-							Name="Дизайн",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0212"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="023",
-							Name="Образотворче мистецтво, декоративне мистецтво, реставрація",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0213"),
-								isceds.FirstOrDefault(x => x.Id == "0214"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="024",
-							Name="Хореографія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0215"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="025",
-							Name="Музичне мистецтво",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0215"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="026",
-							Name="Сценічне мистецтво",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0215"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="027",
-							Name="Музеєзнавство, пам’яткознавство",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0322"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="028",
-							Name="Менеджмент соціокультурної діяльності",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0413"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="029",
-							Name="Інформаційна, бібліотечна та архівна справа",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0322"),
-								isceds.FirstOrDefault(x => x.Id == "0415"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="031",
-							Name="Релігієзнавство",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0221"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="032",
-							Name="Історія та археологія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0222"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="033",
-							Name="Філософія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0223"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="034",
-							Name="Культурологія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0314"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="035",
-							Name="Філологія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0231"),
-								isceds.FirstOrDefault(x => x.Id == "0232"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="041",
-							Name="Богослов’я",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0221"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="051",
-							Name="Економіка",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0311"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="052",
-							Name="Політологія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0312"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="053",
-							Name="Психологія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0313"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="054",
-							Name="Соціологія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0314"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="061",
-							Name="Журналістика",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0321"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="071",
-							Name="Облік і оподаткування",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0411"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="072",
-							Name="Фінанси, банківська справа, страхування та фондовий ринок",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0412"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="073",
-							Name="Менеджмент",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0413"),
-								isceds.FirstOrDefault(x => x.Id == "0415"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="075",
-							Name="Маркетинг",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0414"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="076",
-							Name="Підприємництво та торгівля",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0413"),
-								isceds.FirstOrDefault(x => x.Id == "0416"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="081",
-							Name="Право",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0421"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="091",
-							Name="Біологія та біохімія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0511"),
-								isceds.FirstOrDefault(x => x.Id == "0512"),
-								isceds.FirstOrDefault(x => x.Id == "0522"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="101",
-							Name="Екологія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0521"),
-								isceds.FirstOrDefault(x => x.Id == "0522"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="102",
-							Name="Хімія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0531"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="103",
-							Name="Науки про Землю",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0532"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="104",
-							Name="Фізика та астрономія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0533"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="105",
-							Name="Прикладна фізика та наноматеріали",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0533"),
-								isceds.FirstOrDefault(x => x.Id == "0588"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="106",
-							Name="Географія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0314"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="111",
-							Name="Математика",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0541"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="112",
-							Name="Статистика",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0542"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="113",
-							Name="Прикладна математика",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0541"),
-								isceds.FirstOrDefault(x => x.Id == "0588"),
-								isceds.FirstOrDefault(x => x.Id == "0613"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="121",
-							Name="Інженерія програмного забезпечення",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0613"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="122",
-							Name="Комп’ютерні науки",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0613"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="123",
-							Name="Комп’ютерна інженерія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0612"),
-								isceds.FirstOrDefault(x => x.Id == "0714"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="124",
-							Name="Системний аналіз",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0688"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="125",
-							Name="Кібербезпека та захист інформації",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0612"),
-								isceds.FirstOrDefault(x => x.Id == "0688"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="126",
-							Name="Інформаційні системи та технології",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0611"),
-								isceds.FirstOrDefault(x => x.Id == "0612"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="131",
-							Name="Прикладна механіка",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0715"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="132",
-							Name="Матеріалознавство",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0588"),
-								isceds.FirstOrDefault(x => x.Id == "0715"),
-								isceds.FirstOrDefault(x => x.Id == "0788"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="133",
-							Name="Галузеве машинобудування",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0715"),
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="134",
-							Name="Авіаційна та ракетно-космічна техніка",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="135",
-							Name="Суднобудування",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="136",
-							Name="Металургія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0715"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="141",
-							Name="Електроенергетика, електротехніка та електромеханіка",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0713"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="142",
-							Name="Енергетичне машинобудування",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0713"),
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="143",
-							Name="Атомна енергетика",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0713"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="144",
-							Name="Теплоенергетика",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0713"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="145",
-							Name="Відновлювані джерела енергії та гідроенергетика",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0713"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="161",
-							Name="Хімічні технології та інженерія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0711"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="162",
-							Name="Біотехнології та біоінженерія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0512"),
-								isceds.FirstOrDefault(x => x.Id == "0711"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="163",
-							Name="Біомедична інженерія",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0588"),
-								isceds.FirstOrDefault(x => x.Id == "0788"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="171",
-							Name="Електроніка",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0714"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="172",
-							Name="Електронні комунікації та радіотехніка",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0714"),
-							},
-						},
-						new SpecialtyBase
-						{
-							Id="173",
-							Name="Авіоніка",
-						Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0714"),
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-							},
-						},
-						new SpecialtyBase
-						{
+{
+new SpecialtyBase
+{
+Id="011",
+Name="Educational, pedagogical sciences",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0111"),
+}
+},
+new SpecialtyBase
+{
+Id="012",
+Name="Preschool Education",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0112"),
+},
+},
+new SpecialtyBase
+{
+Id="013",
+Name="Elementary Education",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0113"),
+},
+},
+new SpecialtyBase
+{
+Id="014",
+Name="Secondary education (by subject majors)",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0114"),
+},
+},
+new SpecialtyBase
+{
+Id="015",
+Name="Professional education (by specialization)",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0114"),
+},
+},
+new SpecialtyBase
+{
+Id="016",
+Name="Special Education",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0113"),
+},
+},
+new SpecialtyBase
+{
+Id="017",
+Name="Physical culture and sport",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1014"),
+},
+},
+new SpecialtyBase
+{
+Id="021",
+Name="Audiovisual Arts and Production",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0211"),
+},
+},
+new SpecialtyBase
+{
+Id="022",
+Name="Design",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0212"),
+},
+},
+new SpecialtyBase
+{
+Id="023",
+Name="Fine art, decorative art, restoration",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0213"),
+isceds.FirstOrDefault(x => x.Id == "0214"),
+},
+},
+new SpecialtyBase
+{
+Id="024",
+Name="Choreography",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0215"),
+},
+},
+new SpecialtyBase
+{
+Id="025",
+Name="Music Art",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0215"),
+},
+},
+new SpecialtyBase
+{
+Id="026",
+Name="Performing Arts",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0215"),
+},
+},
+new SpecialtyBase
+{
+Id="027",
+Name="Museum studies, monument studies",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0322"),
+},
+},
+new SpecialtyBase
+{
+Id="028",
+Name="Management of socio-cultural activities",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0413"),
+},
+},
+new SpecialtyBase
+{
+Id="029",
+Name="Information, library and archive business",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0322"),
+isceds.FirstOrDefault(x => x.Id == "0415"),
+},
+},
+new SpecialtyBase
+{
+Id="031",
+Name="Religious Studies",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0221"),
+},
+},
+new SpecialtyBase
+{
+Id="032",
+Name="History and Archaeology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0222"),
+},
+},
+new SpecialtyBase
+{
+Id="033",
+Name="Philosophy",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0223"),
+},
+},
+new SpecialtyBase
+{
+Id="034",
+Name="Culturology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0314"),
+},
+},
+new SpecialtyBase
+{
+Id="035",
+Name="Philology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0231"),
+isceds.FirstOrDefault(x => x.Id == "0232"),
+},
+},
+new SpecialtyBase
+{
+Id="041",
+Name="Theology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0221"),
+},
+},
+new SpecialtyBase
+{
+Id="051",
+Name="Economy",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0311"),
+},
+},
+						new SpecialtyBase
+{
+Id="052",
+Name="Political Science",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0312"),
+},
+},
+new SpecialtyBase
+{
+Id="053",
+Name="Psychology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0313"),
+},
+},
+new SpecialtyBase
+{
+Id="054",
+Name="Sociology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0314"),
+},
+},
+new SpecialtyBase
+{
+Id="061",
+Name="Journalism",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0321"),
+},
+},
+new SpecialtyBase
+{
+Id="071",
+Name="Accounting and taxation",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0411"),
+},
+},
+new SpecialtyBase
+{
+Id="072",
+Name="Finance, Banking, Insurance and Stock Market",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0412"),
+},
+},
+new SpecialtyBase
+{
+Id="073",
+Name="Management",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0413"),
+isceds.FirstOrDefault(x => x.Id == "0415"),
+},
+},
+new SpecialtyBase
+{
+Id="075",
+Name="Marketing",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0414"),
+},
+},
+new SpecialtyBase
+{
+Id="076",
+Name="Entrepreneurship and Trade",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0413"),
+isceds.FirstOrDefault(x => x.Id == "0416"),
+},
+},
+new SpecialtyBase
+{
+Id="081",
+Name="Right",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0421"),
+},
+},
+new SpecialtyBase
+{
+Id="091",
+Name="Biology and Biochemistry",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0511"),
+isceds.FirstOrDefault(x => x.Id == "0512"),
+isceds.FirstOrDefault(x => x.Id == "0522"),
+},
+},
+new SpecialtyBase
+{
+Id="101",
+Name="Ecology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0521"),
+isceds.FirstOrDefault(x => x.Id == "0522"),
+},
+},
+						new SpecialtyBase
+{
+Id="102",
+Name="Chemistry",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0531"),
+},
+},
+new SpecialtyBase
+{
+Id="103",
+Name="Earth Sciences",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0532"),
+},
+},
+new SpecialtyBase
+{
+Id="104",
+Name="Physics and Astronomy",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0533"),
+},
+},
+new SpecialtyBase
+{
+Id="105",
+Name="Applied physics and nanomaterials",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0533"),
+isceds.FirstOrDefault(x => x.Id == "0588"),
+},
+},
+new SpecialtyBase
+{
+Id="106",
+Name="Geography",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0314"),
+},
+},
+new SpecialtyBase
+{
+Id="111",
+Name="Mathematics",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0541"),
+},
+},
+new SpecialtyBase
+{
+Id="112",
+Name="Statistics",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0542"),
+},
+},
+new SpecialtyBase
+{
+Id="113",
+Name="Applied Mathematics",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0541"),
+isceds.FirstOrDefault(x => x.Id == "0588"),
+isceds.FirstOrDefault(x => x.Id == "0613"),
+},
+},
+new SpecialtyBase
+{
+Id="121",
+Name="Software Engineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0613"),
+},
+},
+new SpecialtyBase
+{
+Id="122",
+Name="Computer Science",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0613"),
+},
+},
+new SpecialtyBase
+{
+Id="123",
+Name="Computer Engineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0612"),
+isceds.FirstOrDefault(x => x.Id == "0714"),
+},
+},
+new SpecialtyBase
+{
+Id="124",
+Name="System Analysis",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0688"),
+},
+},
+new SpecialtyBase
+{
+Id="125",
+Name="Cyber security and information protection",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0612"),
+isceds.FirstOrDefault(x => x.Id == "0688"),
+},
+},
+new SpecialtyBase
+{
+Id="126",
+Name="Information systems and technologies",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0611"),
+isceds.FirstOrDefault(x => x.Id == "0612"),
+},
+},
+new SpecialtyBase
+{
+Id="131",
+Name="Applied Mechanics",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0715"),
+},
+},
+new SpecialtyBase
+{
+Id="132",
+Name="Materials Science",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0588"),
+isceds.FirstOrDefault(x => x.Id == "0715"),
+isceds.FirstOrDefault(x => x.Id == "0788"),
+},
+},
+new SpecialtyBase
+{
+Id="133",
+Name="Industrial mechanical engineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0715"),
+isceds.FirstOrDefault(x => x.Id == "0716"),
+},
+},
+new SpecialtyBase
+{
+Id="134",
+Name="Aviation and space rocket technology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0716"),
+},
+},
+						new SpecialtyBase
+{
+Id="135",
+Name="Shipbuilding",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0716"),
+},
+},
+new SpecialtyBase
+{
+Id="136",
+Name="Metallurgy",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0715"),
+},
+},
+new SpecialtyBase
+{
+Id="141",
+Name="Electric power engineering, electrical engineering and electromechanics",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0713"),
+},
+},
+new SpecialtyBase
+{
+Id="142",
+Name="Energy Engineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0713"),
+isceds.FirstOrDefault(x => x.Id == "0716"),
+},
+},
+new SpecialtyBase
+{
+Id="143",
+Name="Atomic power",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0713"),
+},
+},
+new SpecialtyBase
+{
+Id="144",
+Name="Heat power",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0713"),
+},
+},
+new SpecialtyBase
+{
+Id="145",
+Name="Renewable energy sources and hydropower",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0713"),
+},
+},
+new SpecialtyBase
+{
+Id="161",
+Name="Chemical technologies and engineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0711"),
+},
+},
+new SpecialtyBase
+{
+Id="162",
+Name="Biotechnologies and bioengineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0512"),
+isceds.FirstOrDefault(x => x.Id == "0711"),
+},
+},
+new SpecialtyBase
+{
+Id="163",
+Name="Biomedical Engineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0588"),
+isceds.FirstOrDefault(x => x.Id == "0788"),
+},
+},
+new SpecialtyBase
+{
+Id="171",
+Name="Electronics",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0714"),
+},
+},
+new SpecialtyBase
+{
+Id="172",
+Name="Electronic communications and radio engineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0714"),
+},
+},
+new SpecialtyBase
+{
+Id="173",
+Name="Avionics",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0714"),
+isceds.FirstOrDefault(x => x.Id == "0716"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="174",
-							Name="Автоматизація, комп’ютерно-інтегровані технології та робототехніка",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0714"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="174",
+Name="Automation, computer-integrated technologies and robotics",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0714"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="175",
-							Name="Інформаційно-вимірювальні технології",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0714"),
-								isceds.FirstOrDefault(x => x.Id == "0788"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="175",
+Name="Information and measurement technologies",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0714"),
+isceds.FirstOrDefault(x => x.Id == "0788"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="176",
-							Name="Мікро- та наносистемна техніка",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0714"),
-								isceds.FirstOrDefault(x => x.Id == "0788"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="176",
+Name="Micro- and nanosystem engineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0714"),
+isceds.FirstOrDefault(x => x.Id == "0788"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="181",
-							Name="Харчові технології",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0721"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="181",
+Name="Food technology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0721"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="182",
-							Name="Технології легкої промисловості",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0723"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="182",
+Name="Technologies of light industry",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0723"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="183",
-							Name="Технології захисту навколишнього середовища",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0712"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="183",
+Name="Environmental Protection Technologies",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0712"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="184",
-							Name="Гірництво",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0724"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="184",
+Name="Mining",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0724"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="185",
-							Name="Нафтогазова інженерія та технології",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0724"),
-							},
-						},
+Id="185",
+Name="Oil and gas engineering and technologies",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0724"),
+},
+},
 						new SpecialtyBase
-						{
+{
 
-							Id="186",
-							Name="Видавництво та поліграфія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0211"),
-								isceds.FirstOrDefault(x => x.Id == "0611"),
-							},
-						},
+Id="186",
+Name="Publishing and printing",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0211"),
+isceds.FirstOrDefault(x => x.Id == "0611"),
+},
+},
+new SpecialtyBase
+{
+
+Id="187",
+Name="Woodworking and furniture technologies",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0722"),
+},
+},
+new SpecialtyBase
+{
+
+Id="191",
+Name="Architecture and urban planning",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0731"),
+},
+},
+new SpecialtyBase
+{
+
+Id="192",
+Name="Construction and Civil Engineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0732"),
+},
+},
+new SpecialtyBase
+{
+
+Id="193",
+Name="Geodesy and land management",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0532"),
+isceds.FirstOrDefault(x => x.Id == "0731"),
+},
+},
+new SpecialtyBase
+{
+
+Id="194",
+Name="Hydrotechnical construction, water engineering and water technologies",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0732"),
+},
+},
+new SpecialtyBase
+{
+
+Id="201",
+Name="Agronomy",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0811"),
+},
+},
+new SpecialtyBase
+{
+
+Id="202",
+Name="Protection and quarantine of plants",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0811"),
+},
+},
+new SpecialtyBase
+{
+
+Id="203",
+Name="Horticulture, horticulture and viticulture",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0811"),
+isceds.FirstOrDefault(x => x.Id == "0812"),
+},
+},
+new SpecialtyBase
+{
+
+Id="204",
+Name="Technology of production and processing of livestock products",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0811"),
+},
+},
+new SpecialtyBase
+{
+
+Id="206",
+Name="Horticulture",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0812"),
+},
+},
+new SpecialtyBase
+{
+
+Id="207",
+Name="Aquatic bioresources and aquaculture",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0831"),
+},
+},
+new SpecialtyBase
+{
+
+Id="208",
+Name="Agroengineering",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0716"),
+isceds.FirstOrDefault(x => x.Id == "0888"),
+},
+},
+new SpecialtyBase
+{
+
+Id="211",
+Name="Veterinary Medicine",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0841"),
+isceds.FirstOrDefault(x => x.Id == "1022"),
+},
+},
+new SpecialtyBase
+{
+
+Id="221",
+Name="Dentistry",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0911"),
+},
+},
+new SpecialtyBase
+{
+
+Id="222",
+Name="Medicine",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0912"),
+},
+},
+new SpecialtyBase
+{
+
+Id="223",
+Name="Nursing",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0913"),
+},
+},
+new SpecialtyBase
+{
+
+Id="224",
+Name="Technologies of medical diagnostics and treatment",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0914"),
+},
+},
+new SpecialtyBase
+{
+
+Id="225",
+Name="Medical Psychology",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0313"),
+},
+},
+new SpecialtyBase
+{
+
+Id="226",
+Name="Pharmacy, industrial pharmacy",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0588"),
+isceds.FirstOrDefault(x => x.Id == "0711"),
+isceds.FirstOrDefault(x => x.Id == "0916"),
+},
+},
+new SpecialtyBase
+{
+
+Id="227",
+Name="Therapy and rehabilitation",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0915"),
+},
+},
+new SpecialtyBase
+{
+
+Id="228",
+Name="Pediatrics",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0912"),
+},
+},
 						new SpecialtyBase
-						{
+{
 
-							Id="187",
-							Name="Деревообробні та меблеві технології",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0722"),
-							},
-						},
+Id="229",
+Name="Public Health",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0413"),
+isceds.FirstOrDefault(x => x.Id == "0988"),
+isceds.FirstOrDefault(x => x.Id == "1021"),
+isceds.FirstOrDefault(x => x.Id == "1022"),
+},
+},
+new SpecialtyBase
+{
+
+Id="231",
+Name="Social Work",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0921"),
+isceds.FirstOrDefault(x => x.Id == "0922"),
+isceds.FirstOrDefault(x => x.Id == "0923"),
+},
+},
+new SpecialtyBase
+{
+
+Id="232",
+Name="Social Security",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0413"),
+isceds.FirstOrDefault(x => x.Id == "0923"),
+},
+},
+new SpecialtyBase
+{
+
+Id="241",
+Name="Hotel and restaurant business",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1013"),
+},
+},
+new SpecialtyBase
+{
+
+Id="242",
+Name="Tourism and recreation",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1015"),
+},
+},
+new SpecialtyBase
+{
+
+Id="251",
+Name="State Security",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1031"),
+},
+},
+new SpecialtyBase
+{
+
+Id="252",
+Name="State border security",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1031"),
+},
+},
+new SpecialtyBase
+{
+
+Id="253",
+Name="Military administration (by types of armed forces)",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1031"),
+},
+},
+new SpecialtyBase
+{
+
+Id="254",
+Name="Provision of troops (forces)",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1031"),
+},
+},
+new SpecialtyBase
+{
+
+Id="255",
+Name="Weapons and military equipment",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1031"),
+},
+},
+new SpecialtyBase
+{
+
+Id="256",
+Name="National security (by separate areas of support and types of activities)***",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1031"),
+},
+},
+new SpecialtyBase
+{
+
+Id="257",
+Name="Information Security Management",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1031"),
+},
+},
+new SpecialtyBase
+{
+
+Id="261",
+Name="Fire Safety",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1032"),
+},
+},
+new SpecialtyBase
+{
+
+Id="262",
+Name="Law enforcement",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1032"),
+},
+},
+new SpecialtyBase
+{
+
+Id="263",
+Name="Civil Security",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1022"),
+isceds.FirstOrDefault(x => x.Id == "1032"),
+},
+},
 						new SpecialtyBase
-						{
+{
 
-							Id="191",
-							Name="Архітектура та містобудування",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0731"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="271",
+Name="Sea and inland water transport****",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0716"),
+isceds.FirstOrDefault(x => x.Id == "1041"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="192",
-							Name="Будівництво та цивільна інженерія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0732"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="272",
+Name="Air transport",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0716"),
+isceds.FirstOrDefault(x => x.Id == "1041"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="193",
-							Name="Геодезія та землеустрій",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0532"),
-								isceds.FirstOrDefault(x => x.Id == "0731"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="273",
+Name="Rail transport",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0716"),
+isceds.FirstOrDefault(x => x.Id == "0732"),
+isceds.FirstOrDefault(x => x.Id == "1041"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="194",
-							Name="Гідротехнічне будівництво, водна інженерія та водні технології",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0732"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="274",
+Name="Motor transport",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0716"),
+isceds.FirstOrDefault(x => x.Id == "1041"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="201",
-							Name="Агрономія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0811"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="275",
+Name="Transport technologies (by types)",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "1041"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="202",
-							Name="Захист і карантин рослин",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0811"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="281",
+Name="Public management and administration",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0413"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="203",
-							Name="Садівництво, плодоовочівництво та виноградарство",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0811"),
-								isceds.FirstOrDefault(x => x.Id == "0812"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="291",
+Name="International Relations, Public Communications and Regional Studies",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0312"),
+isceds.FirstOrDefault(x => x.Id == "0314"),
+isceds.FirstOrDefault(x => x.Id == "0388"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="204",
-							Name="Технологія виробництва і переробки продукції тваринництва",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0811"),
-							},
-						},
-						new SpecialtyBase
-						{
+Id="292",
+Name="International economic relations",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0311"),
+isceds.FirstOrDefault(x => x.Id == "0312"),
+},
+},
+new SpecialtyBase
+{
 
-							Id="206",
-							Name="Садово-паркове господарство",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0812"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="207",
-							Name="Водні біоресурси та аквакультура",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0831"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="208",
-							Name="Агроінженерія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-								isceds.FirstOrDefault(x => x.Id == "0888"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="211",
-							Name="Ветеринарна медицина",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0841"),
-								isceds.FirstOrDefault(x => x.Id == "1022"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="221",
-							Name="Стоматологія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0911"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="222",
-							Name="Медицина",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0912"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="223",
-							Name="Медсестринство",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0913"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="224",
-							Name="Технології медичної діагностики та лікування",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0914"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="225",
-							Name="Медична психологія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0313"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="226",
-							Name="Фармація, промислова фармація",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0588"),
-								isceds.FirstOrDefault(x => x.Id == "0711"),
-								isceds.FirstOrDefault(x => x.Id == "0916"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="227",
-							Name="Терапія та реабілітація",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0915"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="228",
-							Name="Педіатрія",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0912"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="229",
-							Name="Громадське здоров’я",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0413"),
-								isceds.FirstOrDefault(x => x.Id == "0988"),
-								isceds.FirstOrDefault(x => x.Id == "1021"),
-								isceds.FirstOrDefault(x => x.Id == "1022"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="231",
-							Name="Соціальна робота",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0921"),
-								isceds.FirstOrDefault(x => x.Id == "0922"),
-								isceds.FirstOrDefault(x => x.Id == "0923"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="232",
-							Name="Соціальне забезпечення",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0413"),
-								isceds.FirstOrDefault(x => x.Id == "0923"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="241",
-							Name="Готельно-ресторанна справа",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1013"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="242",
-							Name="Туризм і рекреація",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1015"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="251",
-							Name="Державна безпека",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1031"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="252",
-							Name="Безпека державного кордону",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1031"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="253",
-							Name="Військове управління (за видами збройних сил)",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1031"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="254",
-							Name="Забезпечення військ (сил)",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1031"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="255",
-							Name="Озброєння та військова техніка",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1031"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="256",
-							Name="Національна безпека (за окремими сферами забезпечення і видами діяльності)***",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1031"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="257",
-							Name="Управління інформаційною безпекою",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1031"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="261",
-							Name="Пожежна безпека",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1032"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="262",
-							Name="Правоохоронна діяльність",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1032"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="263",
-							Name="Цивільна безпека",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1022"),
-								isceds.FirstOrDefault(x => x.Id == "1032"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="271",
-							Name="Морський та внутрішній водний транспорт****",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-								isceds.FirstOrDefault(x => x.Id == "1041"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="272",
-							Name="Авіаційний транспорт",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-								isceds.FirstOrDefault(x => x.Id == "1041"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="273",
-							Name="Залізничний транспорт",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-								isceds.FirstOrDefault(x => x.Id == "0732"),
-								isceds.FirstOrDefault(x => x.Id == "1041"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="274",
-							Name="Автомобільний транспорт",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0716"),
-								isceds.FirstOrDefault(x => x.Id == "1041"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="275",
-							Name="Транспортні технології (за видами)",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "1041"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="281",
-							Name="Публічне управління та адміністрування",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0413"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="291",
-							Name="Міжнародні відносини, суспільні комунікації та регіональні студії",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0312"),
-								isceds.FirstOrDefault(x => x.Id == "0314"),
-								isceds.FirstOrDefault(x => x.Id == "0388"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="292",
-							Name="Міжнародні економічні відносини",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0311"),
-								isceds.FirstOrDefault(x => x.Id == "0312"),
-							},
-						},
-						new SpecialtyBase
-						{
-
-							Id="293",
-							Name="Міжнародне право",
-							Isceds = new List<Isced>
-							{
-								isceds.FirstOrDefault(x => x.Id == "0421"),
-							},
-						},
-					};
+Id="293",
+Name="International Law",
+Isceds = new List<Isced>
+{
+isceds.FirstOrDefault(x => x.Id == "0421"),
+},
+},
+};
 				await context.SpecialtyBases.AddRangeAsync(specialtyBases);
 
 				var knowledgeBranches = new List<KnowledgeBranch>
 				{
 					new KnowledgeBranch
-					{
-						Id = "01",
-						Name = "Освіта",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "01").ToList()
-					},
+{
+Id = "01",
+Name = "Education",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "01").ToList()
+},
+new KnowledgeBranch
+{
+Id = "02",
+Name = "Culture and Art",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "02").ToList()
+},
+new KnowledgeBranch
+{
+Id = "03",
+Name = "Humanities",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "03").ToList()
+},
+new KnowledgeBranch
+{
+Id = "04",
+Name = "Theology",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "04").ToList()
+},
+new KnowledgeBranch
+{
+Id = "05",
+Name = "Social and Behavioral Sciences",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "05").ToList()
+},
+new KnowledgeBranch
+{
+Id = "06",
+Name = "Journalism",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "06").ToList()
+},
+new KnowledgeBranch
+{
+Id = "07",
+Name = "Management and Administration",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "07").ToList()
+},
+new KnowledgeBranch
+{
+Id = "08",
+Name = "Right",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "08").ToList()
+},
+new KnowledgeBranch
+{
+Id = "09",
+Name = "Biology",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "09").ToList()
+},
+new KnowledgeBranch
+{
+Id = "10",
+Name = "Natural Sciences",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "10").ToList()
+},
+new KnowledgeBranch
+{
+Id = "11",
+Name = "Mathematics and Statistics",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "11").ToList()
+},
+new KnowledgeBranch
+{
+Id = "12",
+Name = "Information Technology",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "12").ToList()
+},
+new KnowledgeBranch
+{
+Id = "13",
+Name = "Mechanical Engineering",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "13").ToList()
+},
+new KnowledgeBranch
+{
+Id = "14",
+Name = "Electrical Engineering",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "14").ToList()
+},
+new KnowledgeBranch
+{
+Id = "15",
+Name = "Automation and instrumentation",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "15").ToList()
+},
+new KnowledgeBranch
+{
+Id = "16",
+Name = "Chemical and Bioengineering",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "16").ToList()
+},
 					new KnowledgeBranch
-					{
-						Id = "02",
-						Name = "Культура і мистецтво",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "02").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "03",
-						Name = "Гуманітарні науки",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "03").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "04",
-						Name = "Богослов’я",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "04").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "05",
-						Name = "Соціальні та поведінкові науки",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "05").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "06",
-						Name = "Журналістика",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "06").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "07",
-						Name = "Управління та адміністрування",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "07").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "08",
-						Name = "Право",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "08").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "09",
-						Name = "Біологія",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "09").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "10",
-						Name = "Природничі науки",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "10").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "11",
-						Name = "Математика та статистика",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "11").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "12",
-						Name = "Інформаційні технології",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "12").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "13",
-						Name = "Механічна інженерія",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "13").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "14",
-						Name = "Електрична інженерія",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "14").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "15",
-						Name = "Автоматизація та приладобудування",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "15").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "16",
-						Name = "Хімічна та біоінженерія",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "16").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "17",
-						Name = "Електроніка та телекомунікації",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "17").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "18",
-						Name = "Виробництво та технології",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "18").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "19",
-						Name = "Архітектура та будівництво",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "19").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "20",
-						Name = "Аграрні науки та продовольство",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "20").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "21",
-						Name = "Ветеринарна медицина",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "21").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "22",
-						Name = "Охорона здоров’я",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "22").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "23",
-						Name = "Соціальна робота",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "23").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "24",
-						Name = "Сфера обслуговування",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "24").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "25",
-						Name = "Воєнні науки, національна безпека, безпека державного кордону",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "25").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "26",
-						Name = "Цивільна безпека",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "26").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "27",
-						Name = "Транспорт",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "27").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "28",
-						Name = "Публічне управління та адміністрування",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "28").ToList()
-					},
-					new KnowledgeBranch
-					{
-						Id = "29",
-						Name = "Міжнародні відносини",
-						SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "29").ToList()
-					}
-				};
+{
+Id = "17",
+Name = "Electronics and Telecommunications",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "17").ToList()
+},
+new KnowledgeBranch
+{
+Id = "18",
+Name = "Production and Technology",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "18").ToList()
+},
+new KnowledgeBranch
+{
+Id = "19",
+Name = "Architecture and Construction",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "19").ToList()
+},
+new KnowledgeBranch
+{
+Id = "20",
+Name = "Agrarian sciences and food",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "20").ToList()
+},
+new KnowledgeBranch
+{
+Id = "21",
+Name = "Veterinary Medicine",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "21").ToList()
+},
+new KnowledgeBranch
+{
+Id = "22",
+Name = "Health Care",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "22").ToList()
+},
+new KnowledgeBranch
+{
+Id = "23",
+Name = "Social Work",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "23").ToList()
+},
+new KnowledgeBranch
+{
+Id = "24",
+Name = "Service Area",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "24").ToList()
+},
+new KnowledgeBranch
+{
+Id = "25",
+Name = "Military science, national security, state border security",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "25").ToList()
+},
+new KnowledgeBranch
+{
+Id = "26",
+Name = "Civil Security",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "26").ToList()
+},
+new KnowledgeBranch
+{
+Id = "27",
+Name = "Transport",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "27").ToList()
+},
+new KnowledgeBranch
+{
+Id = "28",
+Name = "Public management and administration",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "28").ToList()
+},
+new KnowledgeBranch
+{
+Id = "29",
+Name = "International Relations",
+SpecialtyBases = specialtyBases.Where(x=>x.Id.Substring(0,2) == "29").ToList()
+}
+};
 				await context.KnowledgeBranches.AddRangeAsync(knowledgeBranches);
 
 				await context.SaveChangesAsync();
@@ -3915,8 +3915,8 @@ namespace Persistence
 					{
 						new HigherEducationFacility
 						{
-							Name = "Львівський національний медичний університет імені Данила Галицького",
-							Info = "Львівський національний медичний університет імені Данила Галицького (ЛНМУ; лат. Universitatis Medicinalis Leopoliensis) — один з найбільших та найстаріших медичних навчальних закладів України. Готує спеціалістів за напрямами: медицина, медико-профілактична справа, стоматологія та фармація. За даними міжнародної бази Scopus університет посідає перше місце серед медичних вишів України",
+							Name = "Lviv National Medical University named after Danylo Halytsky",
+							Info = "Lviv National Medical University named after Danylo Halytskyi (LNMU; lat. Universitatis Medicinalis Leopoliensis) is one of the largest and oldest medical educational institutions in Ukraine. It prepares specialists in the fields of: medicine, preventive medicine, dentistry and pharmacy. According to the international database Scopus University ranks first among medical universities of Ukraine.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Львівська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Львів"),
 							Accreditation = accreditation[3],
@@ -3927,8 +3927,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Київський національний університет імені Тараса Шевченка",
-							Info = "державний заклад вищої освіти України, розташований у місті Києві. За рейтингами ВНЗ, на 2020 рік посідав 1 місце і є найбільшим університетом за кількістю студентів і спеціальностей. З 2009 до 2014 року мав статус автономного дослідницького університету",
+							Name = "Taras Shevchenko Kyiv National University",
+Info = "a state institution of higher education of Ukraine, located in the city of Kyiv. According to the rankings of higher education institutions, for 2020 it took 1st place and is the largest university in terms of the number of students and majors. From 2009 to 2014, it had the status of an autonomous research university",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 							Accreditation = accreditation[3],
@@ -3939,8 +3939,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Буковинський державний медичний університет",
-							Info = "один із найбільших закладів вищої освіти м. Чернівці. Це сучасний багатопрофільний заклад вищої медичної освіти, включений до загального реєстру Всесвітньої організації охорони здоров'я, Великої Хартії університетів, Європейської асоціації університету, що здійснює підготовку здобувачів вищої освіти за ступеневою системою освіти. ",
+							Name = "Bukovyn State Medical University",
+Info = "one of the largest institutions of higher education in the city of Chernivtsi. It is a modern multidisciplinary institution of higher medical education, included in the general register of the World Health Organization, the Great Charter of Universities, the European Association of Universities, which trains students of higher education according to the degree system of education .",
 							Region = regions.FirstOrDefault(x=>x.Name == "Чернівецька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Чернівці"),
 							Accreditation = accreditation[3],
@@ -3951,8 +3951,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Тернопільський національний медичний університет",
-							Info = "державний заклад вищої освіти України, розташований у місті Києві. За рейтингами ВНЗ, на 2020 рік посідав 1 місце і є найбільшим університетом за кількістю студентів і спеціальностей. З 2009 до 2014 року мав статус автономного дослідницького університету",
+							Name = "Ternopil National Medical University",
+Info = "a state institution of higher education of Ukraine, located in the city of Kyiv. According to the rankings of higher education institutions, for 2020 it took 1st place and is the largest university in terms of the number of students and majors. From 2009 to 2014, it had the status of an autonomous research university",
 							Region = regions.FirstOrDefault(x=>x.Name == "Тернопільська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Тернопіль"),
 							Accreditation = accreditation[3],
@@ -3963,8 +3963,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Львівський національний університет імені Івана Франка",
-							Info = "один із найстаріших університетів України й Східної Європи та найпрестижніших в Україні. Є спадкоємцем колегіуму (1608—1661) та академії (1661—1773) єзуїтів, Йосифинського університету (1784—1805), Львівського ліцею (1805—1817), Університету Франца I (1817—1918), Львівського університету Яна-Казимира (1919—1939), Львівського державного університету імені Івана Франка (1939—1999).",
+							Name = "Lviv Ivan Franko National University",
+Info = "one of the oldest universities in Ukraine and Eastern Europe and the most prestigious in Ukraine. It is the heir of the collegium (1608—1661) and the academy (1661—1773) of the Jesuits, the Josephine University (1784—1805), the Lviv Lyceum (1805—1817), the University Franz I (1817—1918), Yan-Kazimir Lviv University (1919—1939), Ivan Franko Lviv State University (1939—1999)",
 							Region = regions.FirstOrDefault(x=>x.Name == "Львівська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Львів"),
 							Accreditation = accreditation[3],
@@ -3975,8 +3975,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Національний університет «Києво-Могилянська академія»",
-							Info = "Національний університет «Києво-Могилянська академія» це заклад вищої освіти в Україні. Заснований 1615 року. Розміщується в корпусах історичної Києво-Могилянської академії, від якої отримав свою назву. Університетське містечко розташоване на Подолі в Києві, між Контрактовою площею та набережною Дніпра. ",
+							Name = "Kyiv-Mohyla Academy National University",
+Info = "The National University Kyiv-Mohyla Academy is an institution of higher education in Ukraine. It was founded in 1615. It is located in the buildings of the historical Kyiv-Mohyla Academy, from which it got its name. The university campus is located on Podil in Kyiv, between Contract Square and the embankment Dnipro.",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 							Accreditation = accreditation[3],
@@ -3987,8 +3987,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Державний торговельно-економічний університет",
-							Info = "вищий навчальний заклад Міністерства освіти і науки України в Києві, Україна. Заснований як Київський філіал Всесоюзного заочного інституту радянської торгівлі в 1946 році. Знаходиться у Деснянському районі на території Лісового масиву між вулицями Кіото і Мілютенка.",
+							Name = "State University of Trade and Economics",
+Info = "a higher educational institution of the Ministry of Education and Science of Ukraine in Kyiv, Ukraine. Founded as the Kyiv branch of the All-Union Correspondence Institute of Soviet Trade in 1946. It is located in the Desnyan district on the territory of the Forest Massif between Kyoto and Milyutenko streets.",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 							Accreditation = accreditation[3],
@@ -3999,8 +3999,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Прикарпатський національний університет імені Василя Стефаника",
-							Info = "Прикарпатський національний університет імені Василя Стефаника є одним з найстаріших вищих навчальних закладів Івано-Франківської області. Згідно з указом Президента України від 26 серпня 1992 р. його створено на базі педагогічного інституту, заснованого 1940 р. ",
+							Name = "Vasyl Stefanyk Precarpathian National University",
+Info = "Vasyl Stefanyk Pre-Carpathian National University is one of the oldest higher educational institutions of the Ivano-Frankivsk region. According to the decree of the President of Ukraine dated August 26, 1992, it was created on the basis of the pedagogical institute founded in 1940.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Івано-Франківська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Івано-Франківськ"),
 							Accreditation = accreditation[3],
@@ -4011,8 +4011,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Національний технічний університет «Дніпровська політехніка»",
-							Info = "Національний технічний університет «Дніпро́вська політе́хніка» — державний заклад вищої освіти, багатогалузевий технічний університет, найстаріший заклад вищої освіти в м. Дніпро, перший заклад вищої гірничої освіти України. Має статус національного.",
+							Name = "National Technical University Dniprov Polytechnic",
+Info = "Dnipro Polytechnic National Technical University is a state institution of higher education, a multi-disciplinary technical university, the oldest institution of higher education in the city of Dnipro, the first institution of higher mining education in Ukraine. It has national status.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Дніпропетровська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Дніпро"),
 							Accreditation = accreditation[3],
@@ -4023,8 +4023,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Київський національний університет технологій та дизайну",
-							Info = "Ки́ївський націона́льний університе́т техноло́гій та диза́йну — вищий навчальний заклад в Україні IV рівня акредитації, заснований 1930 року. В університеті навчається більше 10 тис. Київський національний університет технологій та дизайну увійшов у рейтинг «ТОР-100 кращих дизайнерських шкіл світу» і посів 71 місце.",
+							Name = "Kyiv National University of Technology and Design",
+Info = "Kyiv National University of Technology and Design is a higher educational institution in Ukraine of the IV accreditation level, founded in 1930. More than 10,000 students study at the university. Kyiv National University of Technology and Design entered the rating of TOP-100 best design schools in the world and ranked 71 place.",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 							Accreditation = accreditation[3],
@@ -4035,8 +4035,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Волинський національний університет імені Лесі Українки",
-							Info = "державний вищий навчальний заклад IV рівня акредитації у місті Луцьк, Україна. Заснований у 1940 році, впродовж історії змінював назви: Луцький державний учительський інститут, Луцький державний педагогічний інститут; у статусі університету мав назви Волинського державного, Волинського національного і Східноєвропейського національного. З 2020 року повернув назву Волинський національний університет. Названий на честь письменниці Лесі Українки.",
+							Name = "Lesia Ukrainka Volyn National University",
+Info = "a state higher educational institution of the IV accreditation level in the city of Lutsk, Ukraine. Founded in 1940, throughout history it changed names: Lutsk State Teachers' Institute, Lutsk State Pedagogical Institute; in the status of a university, it had the names of Volyn State, Volyn National and East European National. Since 2020, it has returned its name to Volyn National University. Named in honor of the writer Lesya Ukrainka.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Волинська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Луцьк"),
 							Accreditation = accreditation[3],
@@ -4047,8 +4047,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Національний університет «Полтавська політехніка імені Юрія Кондратюка»",
-							Info = "Університет володіє сучасними матеріально-технічними ресурсами. 9 навчальних корпусів із загальною площею 87 000 м², безпечні сприятливі умови для високоякісного навчання. Бібліотека налічує приблизно 500 тисяч одиниць літератури, 5 читальних залів з 400 місцями, 55 навчальних лабораторій та 10 науково-дослідницьких, споряджених стаціонарним обладнанням, 26 комп'ютерних класів у розпорядженні студентів і викладачів. ",
+							Name = "National University Poltava Polytechnic named after Yury Kondratyuk",
+Info = "The university has modern material and technical resources. 9 educational buildings with a total area of 87,000 m², safe and favorable conditions for high-quality education. The library has approximately 500,000 items of literature, 5 reading rooms with 400 seats, 55 educational laboratories and 10 scientific research facilities equipped with stationary equipment, 26 computer classrooms at the disposal of students and teachers.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Полтавська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Полтава"),
 							Accreditation = accreditation[3],
@@ -4059,8 +4059,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Дніпропетровський державний університет внутрішніх справ",
-							Info = "Університет заснований 16 березня 1966, як Дніпропетровська спеціальна середня школа міліції МВС СРСР. В 1992 вона була реорганізована в Дніпропетровське училище міліції МВС України. 1 вересня 1997 училище міліції було перетворено у вищий навчальний заклад — Дніпропетровський юридичний інститут МВС України. 1998 р. заклад з вул. Артема, 147 переїхав до приміщень колишнього Дніпропетровського військового зенітно-ракетного училища за адресою просп. Гагарина, 26. ",
+							Name = "Dnipropetrovsk State University of Internal Affairs",
+Info = "The university was founded on March 16, 1966, as the Dnipropetrovsk Special High School of the Militia of the Ministry of Internal Affairs of the USSR. In 1992, it was reorganized into the Dnipropetrovsk School of Militia of the Ministry of Internal Affairs of Ukraine. On September 1, 1997, the police school was transformed into a higher educational institution - the Dnipropetrovsk Legal Institute of the Ministry of Internal Affairs of Ukraine. 1998 The institution moved from 147 Artem St. to the premises of the former Dnipropetrovsk Military Anti-Aircraft Missile School at 26 Gagarin Ave.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Дніпропетровська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Дніпро"),
 							Accreditation = accreditation[3],
@@ -4071,8 +4071,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Запорізький державний медичний університет",
-							Info = "Запорізький державний медичний університет — заклад вищої освіти в Україні. Запорізький державний медичний університет — це сучасний навчальний центр, що має вищий (IV) ступінь акредитації. Університет — один з найстаріших вищих медичних навчальних закладів України.",
+							Name = "Zaporizhia State Medical University",
+Info = "Zaporizhsky State Medical University is a higher education institution in Ukraine. Zaporizhia State Medical University is a modern educational center with the highest (IV) degree of accreditation. The university is one of the oldest higher medical educational institutions in Ukraine.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Запорізька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Запоріжжя"),
 							Accreditation = accreditation[3],
@@ -4083,8 +4083,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Чернівецький національний університет імені Юрія Федьковича",
-							Info = "Чернівецький національний університет імені Юрія Федьковича — державний вищий заклад освіти 4-го рівня акредитації у місті Чернівці.",
+							Name = "Yuriy Fedkovich Chernivtsi National University",
+Info = "Yuriy Fedkovich Chernivtsi National University is a state higher education institution of the 4th level of accreditation in the city of Chernivtsi.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Чернівецька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Чернівці"),
 							Accreditation = accreditation[3],
@@ -4095,8 +4095,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Національний університет біоресурсів і природокористування України",
-							Info = "Націона́льний університе́т біоресу́рсів і природокористува́ння Украї́ни, є провідним вищим аграрним закладом освіти України. З 2009 до 2014 року мав статус автономного дослідницького університету. Розташований у місті Києві. ",
+							Name = "National University of Bioresources and Nature Management of Ukraine",
+Info = "The National University of Bioresources and Nature Management of Ukraine is a leading higher agricultural educational institution of Ukraine. From 2009 to 2014, it had the status of an autonomous research university. Located in the city of Kyiv.",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 							Accreditation = accreditation[3],
@@ -4107,8 +4107,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Західноукраїнський національний універиситет",
-							Info = "Західноукраїнський національний університет — вищий навчальний заклад України IV-го рівня акредитації в м. Тернополі. Університет здійснює підготовку майже 25 тисяч студентів на всіх рівнях вищої освіти. ЗУНУ є підписантом Великої хартії університетів та членом Асоціації європейських університетів.",
+							Name = "Western Ukrainian National University",
+Info = "Western Ukrainian National University is a higher educational institution of Ukraine of the IV accreditation level in Ternopil. The university trains almost 25,000 students at all levels of higher education. WUNU is a signatory of the Great Charter of Universities and a member of the Association of European Universities.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Тернопільська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Тернопіль"),
 							Accreditation = accreditation[3],
@@ -4119,8 +4119,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Національний педагогічний університет імені М. П. Драгоманова",
-							Info = "З осені 1989 року колектив вишу став активно домагатися повернення інститутові несправедливо відібраного в середині 20-х років імені Михайла Петровича Драгоманова. Це питання постійно стало порушуватися на зборах викладачів і студентів, засіданнях ради інституту і рад філологічного, історичного, педагогічного та інших факультетів й у статтях в періодичній пресі. Усі ці вимоги й акції завершилися перемогою справедливості: в 1993 році інститутові було повернуто ім'я видатного українського вченого-енциклопедиста, борця за вільну українську школу М. П. Драгоманова. ",
+							Name = "M. P. Drahomanov National Pedagogical University",
+Info = "Since the fall of 1989, the staff of the higher education institution began to actively seek the return to the institute of the name of Mykhailo Petrovich Drahomanov, unfairly selected in the mid-20s. This issue was constantly raised at meetings of teachers and students, meetings of the institute's council and philological, historical, pedagogical and other councils ",
 							Region = regions.FirstOrDefault(x=>x.Name == "м.Київ"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Київ"),
 							Accreditation = accreditation[3],
@@ -4131,8 +4131,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Хмельницький національний університет",
-							Info = "вищий навчальний заклад на Поділлі, який готує спеціалістів із багатьох галузей знань і проводить навчальну, методичну, наукову та виховну роботу. Університет засновано 1962 року. Пройшов шлях від загальнотехнічного факультету Українського поліграфічного інституту до Хмельницького національного університету, який має найвищий IV рівень акредитації. ",
+							Name = "Khmelnytskyi National University",
+Info = "higher educational institution in Podil, which trains specialists in many fields of knowledge and conducts educational, methodical, scientific and educational work. The university was founded in 1962. It went from the general technical faculty of the Ukrainian Polygraphic Institute to the Khmelnytskyi National University, which has the highest IV level accreditation.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Хмельницька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Хмельницький"),
 							Accreditation = accreditation[3],
@@ -4143,8 +4143,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Вінницький національний технічний університет",
-							Info = "український заклад вищої освіти четвертого рівня акредитації, який здійснює підготовку фахівців інженерно-технічного профілю. Заклад є центром освіти, науки та культури Подільського регіону. ",
+							Name = "Vinnytsia National Technical University",
+Info = "Ukrainian institution of higher education of the fourth level of accreditation, which trains specialists in the engineering and technical profile. The institution is a center of education, science and culture of the Podilsk region.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Вінницька область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Вінниця"),
 							Accreditation = accreditation[3],
@@ -4155,8 +4155,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Житомирський державний університет імені Івана Франка",
-							Info = "найстаріший вищий навчальний заклад Житомирщини. Заснований у 1919 році як «Волинський педагогічний інститут».",
+							Name = "Zhytomyr Ivan Franko State University",
+Info = "the oldest higher educational institution of the Zhytomyr region. Founded in 1919 as the Volyn Pedagogical Institute.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Житомирська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Житомир"),
 							Accreditation = accreditation[3],
@@ -4167,8 +4167,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Харківський політехнічний інститут",
-							Info = "Національний технічний університет «Харківський політехнічний інститут», до 1929 Харківський технологічний інститут, з 1975 Харківський ордена Леніна політехнічний інститут імені В. І. Леніна — заснований в 1885 році в Харкові. Другий технологічний інститут в Російській імперії після санкт-петербурзького.",
+							Name = "Kharkiv Polytechnic Institute",
+Info = "National Technical University Kharkiv Polytechnic Institute, until 1929 Kharkiv Institute of Technology, since 1975 Order of Lenin Kharkiv Polytechnic Institute named after V. I. Lenin — founded in 1885 in Kharkiv. The second technological institute in the Russian Empire after St. Petersburg. ",
 							Region = regions.FirstOrDefault(x=>x.Name == "Харківська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Харків"),
 							Accreditation = accreditation[3],
@@ -4179,8 +4179,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Харківський національний медичний університет",
-							Info = "Ха́рківський націона́льний меди́чний університе́т, раніше Харківський державний медичний інститут. Вищий навчальний заклад, метою якого є підготовка медичних фахівців та підвищення кваліфікації, формування на базі університету науково-виробничого кластеру.",
+							Name = "Kharkiv National Medical University",
+Info = "Kharkiv National Medical University, formerly Kharkiv State Medical Institute. A higher educational institution, the purpose of which is the training of medical specialists and advanced training, the formation of a scientific and industrial cluster on the basis of the university.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Харківська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Харків"),
 							Accreditation = accreditation[3],
@@ -4191,8 +4191,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Ужгородський національний університет",
-							Info = "Ужгородський національний університет є членом Асоціації університетів Карпатського регіону (ACRU), яка входить до Асоціації європейських університетів (EUA) та є асоційованим членом Міжнародної асоціації університетів (IAU). Виш співпрацює зі 125 партнерами з різних країн, зокрема з такими, як Карлів університет, Технічний університет у м. Прага (Чехія), Університет Корвіна, Університет держави і права ім. Л.Кошута (Угорщина), Кошицький університет ім. П. Й. Шафарика, Університет ім. Я. А. Коменського (Словаччина), Університет м. Орадеа, Клузький університет м. Бабеш-Бояї (Румунія), Інститут германістики Університету м. Ландау, Університет Регенсбургу (Німеччина), Асоціація гомеопатичної медицини м. Рим (Італія), Загребський університет (Хорватія), Словацьким медичним університетом (Братислава) та іншими. У 2020 році укладено 7 нових міжнародних білатеральних угод, 7 угод з реалізації міжнародних проєктів та 8 угод з метою супроводу академічної мобільності Erasmus+.",
+							Name = "Uzhhorod National University",
+Info = "Uzhgorod National University is a member of the Association of Universities of the Carpathian Region (ACRU), which is part of the European University Association (EUA) and is an associate member of the International Association of Universities (IAU). The university cooperates with 125 partners from different countries, including Charles University, Technical University in Prague (Czech Republic), Corwin University, L. Košut University of State and Law (Hungary), P. J. Shafarik University of Košice, J. A. Comenius University (Slovakia) , the University of Oradea, the University of Cluj, Babes-Boai (Romania), the Institute of German Studies at the University of Landau, the University of Regensburg (Germany), the Association of Homeopathic Medicine in Rome (Italy), the University of Zagreb (Croatia), the Slovak Medical University ( Bratislava) and others. In 2020, 7 new international bilateral agreements, 7 agreements on the implementation of international projects and 8 agreements to support Erasmus+ academic mobility were concluded.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Закарпатська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Ужгород"),
 							Accreditation = accreditation[3],
@@ -4203,8 +4203,8 @@ namespace Persistence
 						},
 						new HigherEducationFacility
 						{
-							Name = "Національний університет «Львівська Політехніка»",
-							Info = "найстаріший технічний заклад вищої освіти України та Східної Європи, заснований у 1816 році як Реальна школа з дозволу австрійського імператора Франца І.",
+							Name = "Lviv Polytechnic National University",
+Info = "the oldest technical institution of higher education in Ukraine and Eastern Europe, founded in 1816 as the Real School with the permission of the Austrian Emperor Franz I.",
 							Region = regions.FirstOrDefault(x=>x.Name == "Львівська область"),
 							City = citiesList.FirstOrDefault(x => x.Name == "Львів"),
 							Accreditation = accreditation[3],
@@ -4220,389 +4220,387 @@ namespace Persistence
 					var eduComponents = new List<EduComponent>
 					{
 						new EduComponent
-						{
-							Name="Цивільне право",
-						},
+{
+Name="Civil Law",
+},
+new EduComponent
+{
+Name="Legal Opinions of the Supreme Court",
+},
+new EduComponent
+{
+Name="Alternative Dispute Resolution",
+},
+new EduComponent
+{
+Name="Notarial process",
+},
+new EduComponent
+{
+Name="Comparative Civil Law and Procedure",
+},
+new EduComponent
+{
+Name="School of Applied Jurisprudence",
+},
+new EduComponent
+{
+Name="Practical training",
+},
+new EduComponent
+{
+Name="Discrete Mathematics",
+},
+new EduComponent
+{
+Name="Mathematical analysis",
+},
+new EduComponent
+{
+Name="Physics",
+},
+new EduComponent
+{
+Name="Introduction to Computer Science",
+},
+new EduComponent
+{
+Name="Foreign language",
+},
+new EduComponent
+{
+Name="Probability theory and mathematical statistics",
+},
+new EduComponent
+{
+Name="Computer technologies of data processing and visualization",
+},
+new EduComponent
+{
+Name="Algorithmization and programming",
+},
+new EduComponent
+{
+Name="Optimization methods and models",
+},
+new EduComponent
+{
+Name="Artificial Intelligence",
+},
+new EduComponent
+{
+Name="Management of IT projects",
+},
+new EduComponent
+{
+Name="Java Technology",
+},
+new EduComponent
+{
+Name="Administration of server systems",
+},
+new EduComponent
+{
+Name="Web Technologies",
+},
+new EduComponent
+{
+Name="Engineering and computer graphics",
+},
+new EduComponent
+{
+Name="Technologies of data analysis",
+},
+new EduComponent
+{
+Name="Technologies for creating software products",
+},
+new EduComponent
+{
+Name="Jurisprudence",
+},
+new EduComponent
+{
+Name="Psychology",
+},
+new EduComponent
+{
+Name="Oratory",
+},
+new EduComponent
+{
+Name="Life Safety",
+},
+new EduComponent
+{
+Name="History of Ukrainian culture",
+},
+new EduComponent
+{
+Name="Oratory",
+},
+new EduComponent
+{
+Name="Management",
+},
 						new EduComponent
-						{
-							Name="Правові висновки Верховного Cуду",
-						},
-						new EduComponent
-						{
-							Name="Альтернативні способи вирішення суперечок",
-						},
-						new EduComponent
-						{
-							Name="Нотаріальний процес",
-						},
-						new EduComponent
-						{
-							Name="Порівняльне цивільне право і процес",
-						},
-						new EduComponent
-						{
-							Name="Школа прикладної юриспруденції",
-						},
-						new EduComponent
-						{
-							Name="Практична підготовка",
-						},
-						new EduComponent
-						{
-							Name="Дискретна математика",
-						},
-						new EduComponent
-						{
-							Name="Математичний аналіз",
-						},
-						new EduComponent
-						{
-							Name="Фізика",
-						},
-						new EduComponent
-						{
-							Name="Вступ до комп'ютерних наук",
-						},
-						new EduComponent
-						{
-							Name="Іноземна мова",
-						},
-						new EduComponent
-						{
-							Name="Теорія ймовірностей та математична статистика",
-						},
-						new EduComponent
-						{
-							Name="Комп'ютерні технології обробки та візуалізації даних",
-						},
-						new EduComponent
-						{
-							Name="Алгоритмізація та програмування",
-						},
-						new EduComponent
-						{
-							Name="Оптимізаційні методи та моделі",
-						},
-						new EduComponent
-						{
-							Name="Штучний інтелект",
-						},
-						new EduComponent
-						{
-							Name="Управління ІТ-проектами",
-						},
-						new EduComponent
-						{
-							Name="Технологія Java",
-						},
-						new EduComponent
-						{
-							Name="Адміністрування серверних систем",
-						},
-						new EduComponent
-						{
-							Name="Web-технології",
-						},
-						new EduComponent
-						{
-							Name="Інженерна та комп'ютерна графіка",
-						},
-						new EduComponent
-						{
-							Name="Технології аналізу даних",
-						},
-						new EduComponent
-						{
-							Name="Технології створення програмних продуктів",
-						},
-						new EduComponent
-						{
-							Name="Правознавство",
-						},
-						new EduComponent
-						{
-							Name="Психологія",
-						},
-						new EduComponent
-						{
-							Name="Ораторське мистецтво",
-						},
-						new EduComponent
-						{
-							Name="Безпека життя",
-						},
-						new EduComponent
-						{
-							Name="Історія української культури",
-						},
-						new EduComponent
-						{
-							Name="Ораторське мистецтво",
-						},
-						new EduComponent
-						{
-							Name="Менеджмент",
-						},
-						new EduComponent
-						{
-							Name="Філософія",
-						},
-						new EduComponent
-						{
-							Name="Соціологія",
-						},
-						new EduComponent
-						{
-							Name="Логіка",
-						},
-						new EduComponent
-						{
-							Name="Бухгалтерський облік",
-						},
-						new EduComponent
-						{
-							Name="Організація баз даних та знань",
-						},
-						new EduComponent
-						{
-							Name="Архітектура обчислювальних систем",
-						},
-						new EduComponent
-						{
-							Name="Теорія управління в інформаційних системах",
-						}
-					};
+{
+Name="Philosophy",
+},
+new EduComponent
+{
+Name="Sociology",
+},
+new EduComponent
+{
+Name="Logic",
+},
+new EduComponent
+{
+Name="Accounting",
+},
+new EduComponent
+{
+Name="Organization of databases and knowledge",
+},
+new EduComponent
+{
+Name="Architecture of computer systems",
+},
+new EduComponent
+{
+Name="Theory of management in information systems",
+}
+};
 
 					var specialties = new List<Specialty>
-						{
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "122"),
-								Description = "Загальна освіта в галузі інформаційних технологій, спеціалізація «Комп’ютерні науки».Ключові слова: програмування, алгоритмізація, моделювання,комп’ютерна обробка даних, обчислювальні системи та технології,нечіткі моделі, Machine Learning, Big Data Processing, програмування на C#, C++, Python, Java, комп’ютерні мережі, розподілені серверні системи, розподілені та паралельні обчислення, нечіткі моделі та мережі, методи обчислювального інтелекту.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
+{
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "122"),
+Description = "General education in the field of information technologies, specialization Computer science. Keywords: programming, algorithmization, modeling, computer data processing, computing systems and technologies, fuzzy models, Machine Learning, Big Data Processing, programming on C#, C++, Python, Java, computer networks, distributed server systems, distributed and parallel computing, fuzzy models and networks, methods of computational intelligence.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
 
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
-								Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
+Description = "Training of a new generation of lawyers capable of carrying out professional activities in the field of contract, family and inheritance law, protecting the personal property and non-property rights of their clients in the conditions of ever-growing competition on the legal services market.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
 
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = false,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
+Description = "Training of a new generation of lawyers capable of carrying out professional activities in the field of contract, family and inheritance law, protecting the personal property and non-property rights of their clients in the conditions of ever-growing competition on the legal services market.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
 								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = false,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "081"),
-								Description = "Підготовка нового покоління юристів, здатних здійснювати професійну діяльність у сфері  договірного, сімейного і спадкового права, захищати особисті майнові та немайнові права своїх клієнтів в умовах постійно зростаючої конкуренції на ринку юридичних послуг.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
+},
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "125"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = false,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "121"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "123"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
 
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "125"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = false,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "121"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "123"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = false,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "124"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "112"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
 
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
+},
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "111"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+},
 							new Specialty
-							{
-								BudgetAllowed = false,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "124"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "112"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+{
+BudgetAllowed = false,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "076"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "073"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "141"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = false,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "142"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "143"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
+},
+new Specialty
+{
+BudgetAllowed = true,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "144"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
 
-							},
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "111"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = false,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "076"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "073"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Take(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "141"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = false,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "142"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "143"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
-							},
-							new Specialty
-							{
-								BudgetAllowed = true,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "144"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30))),
-
-							},
-							new Specialty
-							{
-								BudgetAllowed = false,
-								Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
-								StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
-								SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "145"),
-								Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
-								Degree = degrees[new Random().Next(0,3)],
-								PriceUAH = new Random().Next(50000,80000),
-								EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30)))
-							},
-						};
+},
+new Specialty
+{
+BudgetAllowed = false,
+Languages = new List<Language>(languages.Take(new Random().Next(0, 3))),
+StudyForms = new List<StudyForm>(studyForms.Take(new Random().Next(0,3))),
+SpecialtyBase = specialtyBases.FirstOrDefault(x => x.Id == "145"),
+Description = "Specialty test description specifying main field of study, career perspective, roadmap, study environment, collective.",
+Degree = degrees[new Random().Next(0,3)],
+PriceUAH = new Random().Next(50000,80000),
+EduComponents = new List<EduComponent>(eduComponents.Skip(new Random().Next(10,30)))
+},
+};
 
 					var faculties = new List<Faculty>
-					{
-						new Faculty
-						{
-							Name = "Faculty1",
-							Info = "Info1",
-							StudentsCount = new Random().Next(5000,20000),
-							KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[7]},
-							Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "08"))
-						},
-						new Faculty
-						{
-							Name = "Faculty2",
-							Info = "Info2",
-							StudentsCount = new Random().Next(5000,20000),
-							KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[11]},
-							Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "12"))
-						},
-						new Faculty
-						{
-							Name = "Faculty3",
-							Info = "Info3",
-							StudentsCount = new Random().Next(5000,20000),
-							KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[10]},
-							Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "11"))
-						},
-						new Faculty
-						{
-							Name = "Faculty4",
-							Info = "Info4",
-							StudentsCount = new Random().Next(5000,20000),
-							KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[13]},
-							Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "14"))
-						},
-						new Faculty
-						{
-							Name = "Faculty5",
-							Info = "Info5",
-							StudentsCount = new Random().Next(5000,20000),
-							KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[6]},
-							Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "07"))
-						},
-					};
-
+{
+new Faculty
+{
+Name = "Faculty1",
+Info = "Info1",
+StudentsCount = new Random().Next(5000,20000),
+KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[7]},
+Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "08"))
+},
+new Faculty
+{
+Name = "Faculty2",
+Info = "Info2",
+StudentsCount = new Random().Next(5000,20000),
+KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[11]},
+Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "12"))
+},
+new Faculty
+{
+Name = "Faculty3",
+Info = "Info3",
+StudentsCount = new Random().Next(5000,20000),
+KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[10]},
+Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "11"))
+},
+new Faculty
+{
+Name = "Faculty4",
+Info = "Info4",
+StudentsCount = new Random().Next(5000,20000),
+KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[13]},
+Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "14"))
+},
+new Faculty
+{
+Name = "Faculty5",
+Info = "Info5",
+StudentsCount = new Random().Next(5000,20000),
+KnowledgeBranches = new List<KnowledgeBranch>{knowledgeBranches[6]},
+Specialties = new List<Specialty>(specialties.Where(x=>x.SpecialtyBase.Id.Substring(0,2) == "07"))
+},
+};
 					var reviews = new List<Review>
 					{
 						new Review

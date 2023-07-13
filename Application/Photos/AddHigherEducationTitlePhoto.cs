@@ -43,8 +43,11 @@ namespace Application.Photos
 				if (!string.IsNullOrEmpty(higherEducationFacility.TitlePhoto))
 				{
 					var oldPhoto = higherEducationFacility.Photos.FirstOrDefault(x => x.Url == higherEducationFacility.TitlePhoto);
-					await _photoAccessor.DeletePhoto(oldPhoto.Id);
-					higherEducationFacility.Photos.Remove(oldPhoto);
+					if (oldPhoto != null)
+					{
+						await _photoAccessor.DeletePhoto(oldPhoto.Id);
+						higherEducationFacility.Photos.Remove(oldPhoto);
+					}
 				}
 				higherEducationFacility.Photos.Add(photo);
 				higherEducationFacility.TitlePhoto = photo.Url;

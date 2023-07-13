@@ -31,7 +31,7 @@ namespace Application.Reviews
 
 			public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
 			{
-				var user = _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
+				var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 				if (user == null) return null;
 				var review = await _context.Reviews.FindAsync(request.Review.Id);
 				if (review == null) return Result<Unit>.Failure("Failed to update the review");

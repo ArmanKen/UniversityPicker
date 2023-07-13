@@ -3,7 +3,6 @@ import { Button, Form, Header, Icon, Image, Rating, Segment } from "semantic-ui-
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useStore } from "../../../app/stores/store";
-import * as Yup from 'yup';
 import MyTextArea from "../../../app/common/form/MyTextArea";
 import { Review } from "../../../app/models/review";
 
@@ -28,20 +27,13 @@ export default observer(function HigherEducationFacilityReviewFormItem({
 					body: review.body
 				}}
 				onSubmit={values => {
-					console.log('lol');
 					editReview(higherEducationFacilityId, values).then(() => {
 						setEditMode(false);
 					})
 				}}
-				validationSchema={
-					Yup.object({
-						id: Yup.string().required(),
-						body: Yup.string().required()
-					})
-				}
 			>
-				{({ isSubmitting, isValid, dirty, resetForm, setFieldValue, values }) => (
-					<Form className='ui form'>
+				{({ isSubmitting, dirty, handleSubmit, resetForm, setFieldValue, values }) => (
+					<Form className='ui form' onSubmit={handleSubmit}>
 						{editMode ?
 							<>
 								<Button icon size="tiny" basic floated="right"
@@ -57,7 +49,7 @@ export default observer(function HigherEducationFacilityReviewFormItem({
 									type="submit" compact circular
 									color="green"
 									loading={isSubmitting}
-									disabled={!isValid || !dirty}>
+									disabled={!dirty}>
 									<Icon name="check" color="green" />
 								</Button>
 							</>

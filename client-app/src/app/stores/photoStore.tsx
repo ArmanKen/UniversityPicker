@@ -171,8 +171,10 @@ export class PhotoStore {
 					selectedFaculty.facultyPhoto.url = '';
 					selectedFaculty.facultyPhoto.id = '';
 				}
-				else this.gallery.delete(photoId);
-
+				else {
+					this.gallery.delete(photoId);
+					this.selectedPhoto = undefined;
+				}
 			})
 			this.setPhotoLoadingInitial(false);
 		} catch (error) {

@@ -127,6 +127,7 @@ export default observer(function HigherEducationFacilitySettingsTab({ higherEduc
 					<Button icon
 						color="red"
 						loading={photoLoadingInitial}
+						disabled={!higherEducationFacility.titlePhoto}
 						onClick={x => deleteHigherEducationFacilityTitlePhoto(higherEducationFacility.id)}>
 						{'Видалити головну фотографію ЗВО  '}
 						<Icon name="check" />
